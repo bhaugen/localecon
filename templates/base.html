@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+
+	<style>	
+		body
+		{
+			font-family: Myriad,Arial,Helvetica,clean,sans-serif; 
+			margin: 10px;
+		}
+
+		.ga-event-table
+		{
+			font-size: 80%; 
+			border-collapse: collapse; 
+			border-style: solid; 
+			border-width: 1px; 
+			border-color: gray;	
+		}
+
+		.ga-event-table th
+		{
+			border-style: solid; 
+			border-width: 1px; 
+			border-color: gray;
+			background-color: #D0D0D0;
+			padding-left: 4px;
+			padding-right: 4px;
+		}
+
+		.ga-event-table td
+		{
+			border-style: solid; 
+			border-width: 1px; 
+			border-color: gray;
+			padding-left: 4px;
+			padding-right: 4px;
+		}
+
+		.read-only-td
+		{
+			background-color: #E9E9E9; !important;
+		}
+
+		.read-only-input
+		{
+			background-color: #E9E9E9; !important;
+			border-style: solid; 
+			border-width: 1px; 
+			border-color: #E9E9E9; 
+		}
+
+
+		@media print
+		{
+			.do-not-print
+			{
+				display: none !important; 
+			}
+		}
+    </style>
+
+	{% block extra_head %}
+    {% endblock %}
+	
+
+</head>
+<body>
+	
+	{% comment %}
+	todo: make fadeout work using dojo, move to under tabs, add style
+	{% if messages %}
+		<div style="width: 800px;">
+		<ul id="messages">
+			{% for message in messages %}
+			<li id="message_{{ forloop.counter }}"><a href="#" onclick="$('#message_{{ forloop.counter }}').fadeOut(); return false;"><small>clear</small></a> {{ message }}</li>
+			{% endfor %}
+		</ul>
+		</div>
+	{% endif %}
+	{% endcomment %}
+	
+    {% block header %}{% endblock %}
+    {% block content %}{% endblock %}
+    {% block footer %}{% endblock %}
+</body>
+</html>

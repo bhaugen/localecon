@@ -1,0 +1,7 @@
+*.pyc
+local_settings.py
+*.sqlite
+*.py~
+*.*~
+.project
+.pydevproject

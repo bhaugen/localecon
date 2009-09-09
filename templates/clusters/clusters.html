@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+     Clusters
+{% endblock %}
+
+
+{% block content %}
+
+	<h3>Communities and Clusters</h3>
+
+		<ul>
+			{% for community in communities  %}
+				<li>{{ community }} Community</li>
+				{% if community.clusters.all %}
+					<ul>
+						{% for cluster in community.clusters.all %}
+							<li><a href="{{ cluster.get_absolute_url }}">{{ cluster.name }}</a> Cluster</li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			{% endfor %}
+		</ul>
+ 
+{% endblock %} 
