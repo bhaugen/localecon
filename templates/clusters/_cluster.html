@@ -54,6 +54,7 @@ function addEvent(obj, type, fn) {
     else obj.attachEvent('on' + type, fn);
 };
 
+var functionAgents = {};
 	
 function init(){
     var infovis = document.getElementById('infovis');
@@ -118,12 +119,16 @@ function init(){
 			}, 
 		{% endfor %}
 	]
-	
-	var functionAgents = {}
-	{% for key, value in agents %}
-		functionAgents[key] = value;
+
+
+	{% for item in function_agents.items %}
+		var parent = "{{item.0}}";
+		functionAgents[parent] = [];
+		{% for agent in item.1 %}
+			functionAgents[parent].push("{{agent}}");
+        {% endfor %}
 	{% endfor %}
-		
+
     //end
 	
 	
@@ -209,6 +214,18 @@ function init(){
                 html += "<li>" + adj.data["label"] + "</li>";
             });
             html += "</ul>";
+			var agents = functionAgents[node.id];
+			if(agents)
+			{
+				html += "<p><b>Agents:</b></p>";
+            	html += "<ul>";
+				for(i=0;i<agents.length;i++)
+				{
+					html += "<li>" + agents[i] + "</li>";
+				}
+            	html += "</ul>";
+			}
+
             document.getElementById('inner-details').innerHTML = html;
         },
         

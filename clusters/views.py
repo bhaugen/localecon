@@ -36,13 +36,21 @@ def cluster_params(cluster):
     agents = {}
     for ef in efs:
         for agent in ef.agents.all():
-            agents.setdefault(ef.slug, []).append(agent.agent.name)
-                
+            agents.setdefault(ef.node_id(), []).append(agent.agent.name)
+
+    #agent_list = []
+    #for key in agents:
+    #    this_agents = []
+    #    for agent in agents[key]:
+    #        this_agents.append(agent)
+    #    agent_element = [key, this_agents]
+    #    agent_list.append(agent_element)
+            
     template_params =  {
         "cluster": cluster,
         "functions": efs,
         "resources": resources,
-        "agents": agents,
+        "function_agents": agents,
     }
     return template_params
     
@@ -64,7 +72,6 @@ def cluster(request, cluster_id):
     
 def featured_cluster(request):
     cluster_id = 1
-    cluster = get_object_or_404(Cluster, pk=cluster_id)
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     template_params = cluster_params(cluster)
     
