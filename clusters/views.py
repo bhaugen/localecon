@@ -36,15 +36,8 @@ def cluster_params(cluster):
     agents = {}
     for ef in efs:
         for agent in ef.agents.all():
-            agents.setdefault(ef.node_id(), []).append(agent.agent.name)
-
-    #agent_list = []
-    #for key in agents:
-    #    this_agents = []
-    #    for agent in agents[key]:
-    #        this_agents.append(agent)
-    #    agent_element = [key, this_agents]
-    #    agent_list.append(agent_element)
+            #agents.setdefault(ef.node_id(), []).append(agent.agent.name)
+            agents.setdefault(ef, []).append(agent.agent)
             
     template_params =  {
         "cluster": cluster,

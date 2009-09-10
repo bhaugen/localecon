@@ -121,11 +121,11 @@ function init(){
 	]
 
 
-	{% for item in function_agents.items %}
-		var parent = "{{item.0}}";
+	{% for key, value in function_agents %}
+		var parent = "{{key.node_id}}";
 		functionAgents[parent] = [];
-		{% for agent in item.1 %}
-			functionAgents[parent].push("{{agent}}");
+		{% for agent in value %}
+			functionAgents[parent].push("{{agent.name}}");
         {% endfor %}
 	{% endfor %}
 
