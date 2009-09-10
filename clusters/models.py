@@ -246,9 +246,9 @@ class AgentFunction(models.Model):
         if not self.pk:
             community = self.function.cluster.community
             try:
-                ca = CommunityAgent.objects.get(community=community, agent=self)
+                ca = CommunityAgent.objects.get(community=community, agent=self.agent)
             except CommunityAgent.DoesNotExist:
-                ca = CommunityAgent(community=community, agent=self).save()
+                ca = CommunityAgent(community=community, agent=self.agent).save()
         super(AgentFunction, self).save(force_insert, force_update)
 
 

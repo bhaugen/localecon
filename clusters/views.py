@@ -30,10 +30,16 @@ def cluster_params(cluster):
             for output in outputs:
                 resources.append(output.resource_type)
                 
+    efs = list(set(linked_efs))
+    resources = list(set(resources))
+    
+    agents = {}
+    
+                
     template_params =  {
         "cluster": cluster,
-        "functions": list(set(linked_efs)),
-        "resources": list(set(resources)),
+        "functions": efs,
+        "resources": resources,
     }
     return template_params
     
