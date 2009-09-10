@@ -212,7 +212,18 @@ function init(){
             Graph.Util.eachAdjacency(node, function(adj){
                 var child = adj.nodeTo;
                 html += "<li>" + adj.data["label"] + "</li>";
-            });
+				var agents = functionAgents[adj.id];
+				if(agents)
+				{
+					html += "<p><b>Agents:</b></p>";
+					html += "<ul>";
+					for(i=0;i<agents.length;i++)
+					{
+						html += "<li>" + agents[i] + "</li>";
+					}
+					html += "</ul>";
+				}
+				});
             html += "</ul>";
 			var agents = functionAgents[node.id];
 			if(agents)
