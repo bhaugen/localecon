@@ -39,6 +39,8 @@ def cluster_params(cluster):
             #agents.setdefault(ef.node_id(), []).append(agent.agent.name)
             agents.setdefault(ef, []).append(agent.agent)
             
+    print "agents:". agents
+            
     template_params =  {
         "cluster": cluster,
         "functions": efs,
