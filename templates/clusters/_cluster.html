@@ -212,7 +212,14 @@ function init(){
             Graph.Util.eachAdjacency(node, function(adj){
                 var child = adj.nodeTo;
                 html += "<li>" + adj.data["label"] + "</li>";
-				var agents = functionAgents[adj.id];
+				if (adj.nodeFrom == node)
+				{
+					var agents = functionAgents[adj.nodeTo.id];
+				}
+				else
+				{
+					var agents = functionAgents[adj.nodeFrom.id];	
+				}
 				if(agents)
 				{
 					html += "<p><b>Agents:</b></p>";
