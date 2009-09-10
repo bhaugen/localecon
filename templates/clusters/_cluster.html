@@ -118,7 +118,14 @@ function init(){
 			}, 
 		{% endfor %}
 	]
+	
+	var functionAgents = {}
+	{% for key, value in agents %}
+		functionAgents[key] = value;
+	{% endfor %}
+		
     //end
+	
 	
     //init canvas
     //Create a new canvas instance.
