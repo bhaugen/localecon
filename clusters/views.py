@@ -47,14 +47,15 @@ def cluster_params(cluster):
     }
     return template_params
     
-
+@login_required
 def clusters(request):
     communities = Community.objects.all()
     
     return render_to_response("clusters/clusters.html", {
         "communities": communities,
     }, context_instance=RequestContext(request))
-    
+
+@login_required    
 def cluster(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     template_params = cluster_params(cluster)
@@ -72,6 +73,7 @@ def featured_cluster(request):
         template_params,
         context_instance=RequestContext(request))
 
+@login_required
 def iotable(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     iotable = input_output_table(cluster)
