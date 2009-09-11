@@ -93,14 +93,14 @@ class InputOutputCell(object):
          self.resource = resource
     
 
-def input_output_table():
+def input_output_cells():
     cells = []
     for ef in EconomicFunction.objects.all():
         outputs = ef.outputs()
         if outputs:
             for output in ef.outputs():
                 for fn in output.resource_type.functions.filter(role="consumes"):
-                    cells[fn].append(InputOutputCell(ef, fn, output))
+                    cells.append(InputOutputCell(ef, fn, output))
     return cells
 
 
