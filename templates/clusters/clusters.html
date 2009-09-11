@@ -15,7 +15,11 @@
 				{% if community.clusters.all %}
 					<ul>
 						{% for cluster in community.clusters.all %}
-							<li><a href="{{ cluster.get_absolute_url }}">{{ cluster.name }}</a> Cluster</li>
+							<li>
+								{{ cluster.name }} Cluster: 
+								<a href="{{ cluster.get_absolute_url }}">Radial Graph</a> 
+								<a href="{% url iotable cluster_id=cluster.id %}">Input-Output Table</a>
+							</li>
 						{% endfor %}
 					</ul>
 				{% endif %}
