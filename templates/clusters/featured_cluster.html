@@ -122,6 +122,15 @@ a {
 
 {% block content %}
 
+<div style="float: right; width: 10%;">
+	{% if user.is_authenticated %}
+		<a href="{% url clusters %}">Clusters</a>
+	{% else %}
+		Log in
+	{% endif %}
+</div>
+
+<div style: float: left; width: 90%;" >
 <h2>Local Economic Development</h2>
 <h3>Communities, Clusters, Networks and Resources: Analysis, Planning, Formation, Administration and Accounting</h3>
 <p style="font-size: 1em;">
@@ -129,7 +138,9 @@ a {
 	If you would like to participate, please <a href="http://food-accounting.com/sendgaemail/" target="_blank">send us an email</a>.
 </p>
 <h3>Featured Cluster: {{ cluster }}</h3>
+</div>
 
+<div style="clear: both;" >
 {% include "clusters/_cluster.html" %}
- 
+ </div>
 {% endblock %} 

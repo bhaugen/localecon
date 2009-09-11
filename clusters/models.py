@@ -112,6 +112,7 @@ def input_output_cells(cluster):
 # to the same consuming EconomicFunction?
 
 def input_output_table(cluster):
+    # todo: rows and columns shd be sorted the same
     cells = input_output_cells(cluster)
     rows = {}
     columns = []
