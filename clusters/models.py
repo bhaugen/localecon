@@ -100,7 +100,7 @@ def input_output_cells():
         if outputs:
             for output in ef.outputs():
                 for fn in output.resource_type.functions.filter(role="consumes"):
-                    cells.append(InputOutputCell(ef, fn, output))
+                    cells.append(InputOutputCell(ef, fn, output.resource_type))
     return cells
 
 
