@@ -92,6 +92,11 @@ class InputOutputCell(object):
          self.consumer = consumer
          self.resource = resource
     
+class InputOutputTable(object):
+    def __init__(self, columns, rows):
+         self.columns = columns
+         self.rows = rows
+
 
 def input_output_cells():
     cells = []
@@ -103,6 +108,22 @@ def input_output_cells():
                     cells.append(InputOutputCell(ef, fn_rt.function, output.resource_type))
     return cells
 
+def input_output_table():
+    cells = input_output_cells()
+    rows = {}
+    columns = []
+    for cell in cells:
+        columns.append(cell.consumer)
+    col_count = len(columns)
+    for cell in cells:
+        rows[cell.producer] = []
+        for x in range(col_count):
+            rows[cell.producer].append(' ')
+    for cell in cells:
+        row_cell = columns.index(cell.consumer)
+        rows[cell.producer][row_cell] = cell.resource
+    return InputOutputTable(columns, rows)
+    
 
 class Community(models.Model):
     name = models.CharField(max_length=128)
