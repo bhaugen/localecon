@@ -108,6 +108,9 @@ def input_output_cells(cluster):
                     cells.append(InputOutputCell(ef, fn_rt.function, output.resource_type))
     return cells
 
+# todo: what if one EconomicFunction provides more than one input
+# to the same consuming EconomicFunction?
+
 def input_output_table(cluster):
     cells = input_output_cells(cluster)
     rows = {}
