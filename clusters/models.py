@@ -73,8 +73,8 @@ def nested_nodes(node, all_nodes):
 def pair_list():
     pairlist = []
     for ef in EconomicFunction.objects.all():
-        for input in ef.inputs():
-            pairlist.append((input.resource_type, ef))
+        for inp in ef.inputs():
+            pairlist.append((inp.resource_type, ef))
         for output in ef.outputs():
             pairlist.append((ef, output.resource_type))
     return pairlist
@@ -85,6 +85,19 @@ def parents_and_kids():
     for parent, child in pairlist:
         children.setdefault(parent, []).append(child)
     return children
+
+def input_output_table():
+    for ef in EconomicFunction.objects.all():
+        print ef
+        for inp in ef.inputs():
+            print "+++Input:", inp
+            for fn in inp.resource_type.functions.filter(role="producer"):
+                print "......Provider:", fn.function
+        for output in ef.outputs():
+            print "---Output:", output
+            for fn in output.resource_type.functions.filter(role="consumer"):
+                print "......Consumer:", fn.function
+
 
 
 class Community(models.Model):
