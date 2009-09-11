@@ -114,6 +114,7 @@ def input_output_table(cluster):
     columns = []
     for cell in cells:
         columns.append(cell.consumer)
+    columns = list(set(columns))
     col_count = len(columns)
     for cell in cells:
         rows[cell.producer] = []
