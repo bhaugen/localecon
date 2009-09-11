@@ -86,18 +86,23 @@ def parents_and_kids():
         children.setdefault(parent, []).append(child)
     return children
 
-def input_output_table():
-    for ef in EconomicFunction.objects.all():
-        print ef
-        for inp in ef.inputs():
-            print "+++Input:", inp
-            for fn in inp.resource_type.functions.filter(role="produces"):
-                print "......Provider:", fn.function
-        for output in ef.outputs():
-            print "---Output:", output
-            for fn in output.resource_type.functions.filter(role="consumes"):
-                print "......Consumer:", fn.function
+class InputOutputCell(object):
+    def __init__(self, producer, consumer, resource):
+         self.producer = producer
+         self.consumer = consumer
+         self.resource = resource
+    
 
+def input_output_table():
+    cells = []
+    for ef in EconomicFunction.objects.all():
+        outputs = ef.outputs()
+        if outputs:
+            for output in ef.outputs():
+                cells[ef].append(output)
+                for fn in output.resource_type.functions.filter(role="consumes"):
+                    cells[fn].append(InputOutputCell(ef, fn, output))
+    return cells
 
 
 class Community(models.Model):
