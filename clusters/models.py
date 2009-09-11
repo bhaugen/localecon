@@ -99,8 +99,8 @@ def input_output_cells():
         outputs = ef.outputs()
         if outputs:
             for output in ef.outputs():
-                for fn in output.resource_type.functions.filter(role="consumes"):
-                    cells.append(InputOutputCell(ef, fn, output.resource_type))
+                for fn_rt in output.resource_type.functions.filter(role="consumes"):
+                    cells.append(InputOutputCell(ef, fn_rt.function, output.resource_type))
     return cells
 
 
