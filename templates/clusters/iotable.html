@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+     Input-Output Table for {{ cluster }}
+{% endblock %}
+
+
+{% block content %}
+
+	<h3>Input-Output Table for {{ cluster }}</h3>
+
+	<table>
+		<tr>
+			{% for column in iotable.columns %}
+				<th>{{ column.name }}</th>
+			{% endfor %}
+		</tr>
+		{% for heading, cells in iotable.rows.items %}
+			<tr>
+				<td>{{ heading.name }}</td>
+				{% for cell in cells %}
+					{% if cell %}
+						<td>{{ cell.name }}</td>
+					{% else %}
+						<td>&nbsp;</td>
+					{% endif %}
+				{% endfor %}			
+			</tr>
+		{% endfor %}
+
+	</table>
+ 
+{% endblock %} 

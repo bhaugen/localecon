@@ -98,9 +98,9 @@ class InputOutputTable(object):
          self.rows = rows
 
 
-def input_output_cells():
+def input_output_cells(cluster):
     cells = []
-    for ef in EconomicFunction.objects.all():
+    for ef in EconomicFunction.objects.filter(cluster=cluster):
         outputs = ef.outputs()
         if outputs:
             for output in ef.outputs():
@@ -108,8 +108,8 @@ def input_output_cells():
                     cells.append(InputOutputCell(ef, fn_rt.function, output.resource_type))
     return cells
 
-def input_output_table():
-    cells = input_output_cells()
+def input_output_table(cluster):
+    cells = input_output_cells(cluster)
     rows = {}
     columns = []
     for cell in cells:

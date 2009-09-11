@@ -72,4 +72,11 @@ def featured_cluster(request):
         template_params,
         context_instance=RequestContext(request))
 
+def iotable(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    iotable = input_output_table(cluster)
     
+    return render_to_response("clusters/iotable.html", 
+        "cluster": cluster,
+        "iotable": iotable,
+        context_instance=RequestContext(request))
