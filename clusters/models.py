@@ -91,11 +91,11 @@ def input_output_table():
         print ef
         for inp in ef.inputs():
             print "+++Input:", inp
-            for fn in inp.resource_type.functions.filter(role="producer"):
+            for fn in inp.resource_type.functions.filter(role="produces"):
                 print "......Provider:", fn.function
         for output in ef.outputs():
             print "---Output:", output
-            for fn in output.resource_type.functions.filter(role="consumer"):
+            for fn in output.resource_type.functions.filter(role="consumes"):
                 print "......Consumer:", fn.function
 
 
