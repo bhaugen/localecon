@@ -155,7 +155,7 @@ class Cluster(models.Model):
         return ('cluster', (), {"cluster_id": self.id})
     
     def __unicode__(self):
-        return " ".join([self.cluster.name, self.name])
+        return " ".join([self.community.name, self.name])
       
 
 class EconomicFunction(models.Model):
