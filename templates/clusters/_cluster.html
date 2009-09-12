@@ -285,7 +285,7 @@ function init(){
     rgraph.controller.onAfterCompute();
 
 	{% if root %}
-		rgraph.onClick('root.node_id');
+		rgraph.onClick('{{ root.node_id }}');
 	{% endif %}
 }
 
