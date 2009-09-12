@@ -144,20 +144,20 @@ class Community(models.Model):
 class Cluster(models.Model):
     community = models.ForeignKey(Community, related_name='clusters')
     name = models.CharField(max_length=128)
+    root_function = models.ForeignKey("EconomicFunction", blank=True, null=True,
+        related_name="cluster_root", 
+        limit_choices_to={"cluster": self},
+        help_text="root can be either function or resource but not both")
+    root_resource = models.ForeignKey("EconomicResourceType", blank=True, null=True,
+        related_name="cluster_root", 
+        help_text="root can be either function or resource but not both")    
     
-    class Meta:
-        ordering = ('community', 'name',)
-    
-    def __unicode__(self):
-        return " ".join([self.community.name, self.name])
-    
-    @models.permalink
     def get_absolute_url(self):
         return ('cluster', (), {"cluster_id": self.id})
       
 
 class EconomicFunction(models.Model):
-    cluster = models.ForeignKey(Cluster)
+    cluster = models.ForeignKey(Cluster, related_name="functions")
     name = models.CharField(max_length=128)
     slug = models.SlugField("Page name", editable=False)
     
