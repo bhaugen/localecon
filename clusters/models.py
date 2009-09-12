@@ -158,10 +158,10 @@ class Cluster(models.Model):
         return " ".join([self.community.name, self.name])
     
     def root(self):
-        if root_function:
-            return root_function
-        elif root_resource:
-            return root_resource
+        if self.root_function:
+            return self.root_function
+        elif self.root_resource:
+            return self.root_resource
         else:
             return None
       
