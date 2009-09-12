@@ -146,10 +146,10 @@ class Cluster(models.Model):
     name = models.CharField(max_length=128)
     root_function = models.ForeignKey("EconomicFunction", blank=True, null=True,
         related_name="cluster_root", 
-        help_text="root can be either function or resource but not both")
+        help_text="Graph root is optional - can be either function or resource but not both")
     root_resource = models.ForeignKey("EconomicResourceType", blank=True, null=True,
         related_name="cluster_root", 
-        help_text="root can be either function or resource but not both")    
+        help_text="Graph root is optional - can be either function or resource but not both")    
     
     def get_absolute_url(self):
         return ('cluster', (), {"cluster_id": self.id})
