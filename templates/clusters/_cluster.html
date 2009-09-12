@@ -284,7 +284,9 @@ function init(){
     rgraph.controller.onBeforeCompute(rgraph.graph.getNode(rgraph.root));
     rgraph.controller.onAfterCompute();
 
-	//rgraph.onClick('Food');
+	{% if root %}
+		rgraph.onClick('root.node_id');
+	{% endif %}
 }
 
 dojo.addOnLoad(function()

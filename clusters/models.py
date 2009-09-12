@@ -156,6 +156,14 @@ class Cluster(models.Model):
     
     def __unicode__(self):
         return " ".join([self.community.name, self.name])
+    
+    def root(self):
+        if root_function:
+            return root_function
+        elif root_resource:
+            return root_resource
+        else:
+            return None
       
 
 class EconomicFunction(models.Model):

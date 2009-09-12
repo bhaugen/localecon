@@ -38,12 +38,15 @@ def cluster_params(cluster):
         for agent in ef.agents.all():
             #agents.setdefault(ef.node_id(), []).append(agent.agent.name)
             agents.setdefault(ef, []).append(agent.agent)
+            
+    root = cluster.root()
                        
     template_params =  {
         "cluster": cluster,
         "functions": efs,
         "resources": resources,
         "function_agents": agents,
+        "root": root,
     }
     return template_params
     
