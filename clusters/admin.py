@@ -4,6 +4,11 @@ from clusters.models import *
 admin.site.register(Community)
 admin.site.register(Cluster)
 
+class ClusterAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    
+admin.site.register(Cluster, ClusterAdmin)
+
 class FunctionResourceInline(admin.TabularInline):
     model = FunctionResourceType
 

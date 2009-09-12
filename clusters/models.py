@@ -153,6 +153,9 @@ class Cluster(models.Model):
     
     def get_absolute_url(self):
         return ('cluster', (), {"cluster_id": self.id})
+    
+    def __unicode__(self):
+        return " ".join([self.cluster.name, self.name])
       
 
 class EconomicFunction(models.Model):
