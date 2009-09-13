@@ -157,7 +157,7 @@ def function_resource_table(cluster):
         mult = 1
         if fr.role == "consumes":
             mult = -1
-        row_cell = resources.index(fr.resource_type)
+        row_cell = resources.index(fr.resource_type) + 1
         functions[fr.function][row_cell] = fr.amount * mult
     rows = functions.values()
     rows.sort()
