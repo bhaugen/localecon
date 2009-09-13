@@ -17,8 +17,8 @@
 						{% for cluster in community.clusters.all %}
 							<li>
 								{{ cluster.name }} Cluster: 
-								<a href="{{ cluster.get_absolute_url }}">Radial Graph</a> 
-								<a href="{% url iotable cluster_id=cluster.id %}">Input-Output Table</a>
+								<a href="{{ cluster.get_absolute_url }}">Diagram</a> 
+								<a href="{% url frtable cluster_id=cluster.id %}">Function-Resource Table</a>
 							</li>
 						{% endfor %}
 					</ul>
