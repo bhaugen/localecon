@@ -164,6 +164,7 @@ def function_resource_table(cluster):
     rows = functions.values()
     rows.sort()
     col_totals = ["Totals",]
+    print "col_count:", col_count
     for i in range(1, col_count+ 1):
         col_totals.append(0)
     for row in rows:
