@@ -163,7 +163,7 @@ def function_resource_table(cluster):
     rows.sort()
     columns = []
     for r in resources:
-        columns.append[r.name]
+        columns.append(r.name)
     return FunctionResourceTable(columns, rows)
     
 class Community(models.Model):
