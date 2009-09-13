@@ -96,7 +96,11 @@ class InputOutputTable(object):
     def __init__(self, columns, rows):
          self.columns = columns
          self.rows = rows
-
+         
+class InputOutputHeader(object):
+    def __init__(self, function, resources):
+         self.function = function
+         self.resources = resources     
 
 def input_output_cells(cluster):
     cells = []
@@ -237,6 +241,7 @@ class FunctionResourceType(models.Model):
     function = models.ForeignKey(EconomicFunction, related_name='resources')
     resource_type = models.ForeignKey(EconomicResourceType, related_name='functions')
     role = models.CharField(max_length=12, choices=ROLE_CHOICES)
+    amount = models.IntegerField(default=0)
     
     class Meta:
         ordering = ('function', 'role', 'resource_type',)
