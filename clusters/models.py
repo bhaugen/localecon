@@ -163,6 +163,14 @@ def function_resource_table(cluster):
         functions[fr.function][col_count + 1] += fr.amount * mult
     rows = functions.values()
     rows.sort()
+    col_totals = ["Totals",]
+    for i in range(1, col_count+ 1):
+        col_totals.append(0)
+    for row in rows:
+        for i in range(1, col_count + 1):
+            if row[i]:
+                col_totals[i] += row[i]
+    rows.append(col_totals)
     columns = []
     for r in resources:
         columns.append(r.name)
