@@ -168,13 +168,15 @@ def function_resource_table(cluster):
         col_totals.append(0)
     for row in rows:
         for i in range(1, col_count + 1):
+            print "row[", i, "]:", row[i], type(row[i])
             if row[i]:
+                print "col_totals[", i, "]:", col_totals[i], type(col_totals[i])
                 col_totals[i] += row[i]
     rows.append(col_totals)
     columns = []
     for r in resources:
         columns.append(r.name)
-    columns.append('Totals')
+    columns.append("Totals")
     return FunctionResourceTable(columns, rows)
     
 class Community(models.Model):
