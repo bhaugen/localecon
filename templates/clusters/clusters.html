@@ -18,6 +18,7 @@
 							<li>
 								{{ cluster.name }} Cluster: 
 								<a href="{% url cluster cluster_id=cluster.id %}">Diagram</a> 
+								<a href="{% url iotable cluster_id=cluster.id %}">Input-Output Table</a>
 								<a href="{% url fr_table cluster_id=cluster.id %}">Function-Resource Table</a>
 							</li>
 						{% endfor %}
