@@ -19,10 +19,14 @@
 		{% for row in frtable.rows %}
 			<tr>
 				{% for cell in row %}
-					{% if cell %}
-						<td>{{ cell }}</td>
+					{% if forloop.first %}
+						<th>{{ cell }}</th>
 					{% else %}
-						<td>&nbsp;</td>
+						{% if cell %}
+							<td>{{ cell }}</td>
+						{% else %}
+							<td>&nbsp;</td>
+						{% endif %}
 					{% endif %}
 				{% endfor %}			
 			</tr>
