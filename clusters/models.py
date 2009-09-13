@@ -167,9 +167,7 @@ def function_resource_table(cluster):
     for i in range(1, col_count + 2):
         col_totals.append(0)
     for row in rows:
-        print row[0]
         for i in range(1, col_count + 2):
-            print "i:", i
             col_totals[i] += row[i] or 0
     rows.append(col_totals)
     columns = []
