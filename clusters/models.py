@@ -151,16 +151,16 @@ def function_resource_table(cluster):
         function = fr.function
         if not function in functions:
             functions[function] = [function.name,]
-            for x in range(col_count + 2):
+            for x in range(col_count + 1):
                 functions[function].append(' ')
-            functions[function][col_count + 2] = 0
+            functions[function][col_count + 1] = 0
     for fr in frs: 
         mult = 1
         if fr.role == "consumes":
             mult = -1
         row_cell = resources.index(fr.resource_type) + 1
         functions[fr.function][row_cell] = fr.amount * mult
-        functions[fr.function][col_count + 2] += fr.amount * mult
+        functions[fr.function][col_count + 1] += fr.amount * mult
     rows = functions.values()
     rows.sort()
     columns = []
