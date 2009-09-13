@@ -132,8 +132,40 @@ def input_output_table(cluster):
         row_cell = columns.index(cell.consumer)
         rows[cell.producer][row_cell] = cell.resource
     return InputOutputTable(columns, rows)
-    
 
+class FunctionResourceTable(object):
+    def __init__(self, columns, rows):
+         self.columns = columns
+         self.rows = rows
+
+def function_resource_table(cluster):
+    frs = FunctionResourceType.objects.filter(function__cluster=cluster)
+    functions = {}
+    resources = []
+    for fr in frs:
+        resources.append(fr.resource_type)
+    resources = list(set(resources))
+    resources.sort(lambda x, y: cmp(x.name, y.name))
+    col_count = len(resources)
+    for fr in frs:
+        function = fr.function
+        if not function in functions:
+            functions[function] = [function.name,]
+        for x in range(col_count):
+            functions[function].append(' ')
+    for fr in frs:
+        mult = 1
+        if fr.role == "consumes":
+            mult = -1
+        row_cell = resources.index(fr.resource_type)
+        functions[fr.function][row_cell] = fr.amount * mult
+    rows = functions.values()
+    rows.sort()
+    columns = []
+    for r in resources:
+        columns.append[r.name]
+    return FunctionResourceTable(columns, rows)
+    
 class Community(models.Model):
     name = models.CharField(max_length=128)
     

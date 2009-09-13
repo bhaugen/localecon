@@ -85,3 +85,13 @@ def iotable(request, cluster_id):
         "cluster": cluster,
         "iotable": iotable,
     }, context_instance=RequestContext(request))
+    
+@login_required
+def fr_table(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    frtable = function_resource_table(cluster)
+    
+    return render_to_response("clusters/fr_table.html",{ 
+        "cluster": cluster,
+        "frtable": frtable,
+    }, context_instance=RequestContext(request))
