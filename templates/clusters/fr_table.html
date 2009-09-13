@@ -20,13 +20,16 @@
 			<tr>
 				{% for cell in row %}
 					{% if forloop.first %}
-						<th>{{ cell }}</th>
+						<th style="text-align: left;" >{{ cell }}</th>
 					{% else %}
+						<td>{{ cell }}</td>
+						{% comment %}
 						{% if cell %}
 							<td>{{ cell }}</td>
 						{% else %}
 							<td>&nbsp;</td>
 						{% endif %}
+						{% comment %}
 					{% endif %}
 				{% endfor %}			
 			</tr>
