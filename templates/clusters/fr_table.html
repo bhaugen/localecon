@@ -22,14 +22,7 @@
 					{% if forloop.first %}
 						<th style="text-align: left;" >{{ cell }}</th>
 					{% else %}
-						<td>{{ cell }}</td>
-						{% comment %}
-						{% if cell %}
-							<td>{{ cell }}</td>
-						{% else %}
-							<td>&nbsp;</td>
-						{% endif %}
-						{% endcomment %}
+						<td style="text-align: right;" >{{ cell }}</td>
 					{% endif %}
 				{% endfor %}			
 			</tr>
