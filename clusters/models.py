@@ -151,7 +151,7 @@ def function_resource_table(cluster):
         function = fr.function
         if not function in functions:
             functions[function] = [function.name,]
-            for x in range(col_count + 1):
+            for x in range(col_count + 2):
                 functions[function].append(' ')
             functions[function][col_count + 2] = 0
     for fr in frs: 
