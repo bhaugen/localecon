@@ -9,7 +9,9 @@
 
 	<h3>Function-Resource Table for {{ cluster }}</h3>
 	<p><i>Positive numbers = production, negative numbers = consumption</i></p>
-
+	{% if cluster.number_description %}
+		<p>{{ cluster.number_description|urlize|linebreaks }}</p>
+	{% endif %}
 	<table class="ga-event-table" >
 		<tr>
 			<th>Function\Resource</th>
