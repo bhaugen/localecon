@@ -11,7 +11,7 @@ from django.forms.formsets import formset_factory
 from datetime import datetime, timedelta
 
 from clusters.models import *
-#from clusters.forms import *
+from clusters.forms import *
 
 def cluster_params(cluster):
     template_params = {}
