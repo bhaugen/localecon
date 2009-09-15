@@ -125,9 +125,10 @@ a {
 <div style="float: right; width: 10%;">
 	{% if user.is_authenticated %}
 		<a href="/admin">Admin</a><br />
-		<a href="{% url clusters %}">Clusters</a>
+		<a href="{% url clusters %}">All Clusters</a>
 	{% else %}
 		<a href="/admin">Log in</a>
+		<a href="{% url clusters %}">All Clusters</a>
 	{% endif %}
 </div>
 
