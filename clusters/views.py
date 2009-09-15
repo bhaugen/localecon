@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.db.models import Q
 from django.forms.formsets import formset_factory
+from django.core.mail import send_mail
 
 from datetime import datetime, timedelta
 
