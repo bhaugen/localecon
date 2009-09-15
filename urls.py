@@ -20,6 +20,10 @@ urlpatterns = patterns('',
     url(r'^sendemail/$', 'clusters.views.send_email', name="send_email"),
     url(r'^email_sent/$', direct_to_template, 
         {"template": "clusters/email_sent.html"}, name="email_sent"),
+        
+    # about
+    url(r'^about/$', direct_to_template, 
+        {"template": "about.html"}, name="about"),
 
 )
 
