@@ -9,7 +9,7 @@
 		<i>Click on a node to center it and show its details.</i>
 	</p>
 	{% if cluster.description %}
-		<p>{{ cluster.description|urlize|linebreaks }}</p>
+		<p>{{ cluster.description|urlizetrunc:15|linebreaks }}</p>
 	{% endif %}
 
 </div>
