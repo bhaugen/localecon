@@ -15,6 +15,12 @@ urlpatterns = patterns('',
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^accounts/login/$', 'django.contrib.auth.views.login'),
+    
+    # emails
+    url(r'^sendemail/$', 'clusters.views.send_email', name="send_email"),
+    url(r'^email_sent/$', direct_to_template, 
+        {"template": "clusters/email_sent.html"}, name="email_sent"),
+
 )
 
 if settings.DEBUG:
