@@ -4,7 +4,7 @@ from clusters.models import *
 admin.site.register(Community)
 
 class ClusterAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'community')
     
 admin.site.register(Cluster, ClusterAdmin)
 
