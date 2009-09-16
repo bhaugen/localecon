@@ -102,10 +102,10 @@ function init(){
 								"weight": 1,
 								"label": "{{ input }}"
 							}
-						{% if forloop.last %}
-						}
+						{% if node.outputs %}
+						},
 						{% else %}
-						}, 	
+						}
 						{% endif %}
 					{% endfor %}
 					{% for output in node.outputs %}
