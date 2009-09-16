@@ -78,7 +78,11 @@ function init(){
 				},
 				"adjacencies": 
 				[]
+			{% if forloop.last %}
+			}
+			{% else %}
 			}, 	
+			{% endif %}
 		{% endfor %}
 		{% for node in functions %}
 			{
@@ -102,7 +106,11 @@ function init(){
 								"weight": 1,
 								"label": "{{ input }}"
 							}
-						},
+						{% if forloop.last %}
+						}
+						{% else %}
+						}, 	
+						{% endif %}
 					{% endfor %}
 					{% for output in node.outputs %}
 						{
@@ -116,10 +124,19 @@ function init(){
 								"weight": 1,
 								"label": "{{ output }} "
 							}
-						},
+						{% if forloop.last %}
+						}
+						{% else %}
+						}, 	
+						{% endif %}
 					{% endfor %}
 				]
-			}, 
+			{% if forloop.last %}
+			}
+			{% else %}
+			}, 	
+			{% endif %}
+ 
 		{% endfor %}
 	]
 
