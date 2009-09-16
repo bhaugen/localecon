@@ -145,7 +145,32 @@ a {
 	If you would like to participate, please <a href="{% url send_email %}" target="_blank">send us an email</a>.
 </p>
 <h3>Featured Cluster: {{ cluster }}</h3>
-
+<div style="float:left;">
 {% include "clusters/_cluster.html" %}
+</div>
+<div style="float:right;">
+<table class="ga-event-table" >
+		<tr>
+			<th>Function\Resource</th>
+			{% for column in frtable.columns %}
+				<th>{{ column }}</th>
+			{% endfor %}
+		</tr>
+		{% for row in frtable.rows %}
+			<tr>
+				{% for cell in row %}
+					{% if forloop.first %}
+						<th style="text-align: left;" >{{ cell }}</th>
+					{% else %}
+						<td style="text-align: right;" >{{ cell }}</td>
+					{% endif %}
+				{% endfor %}			
+			</tr>
+		{% endfor %}
+
+	</table>
+	
+</div>	
+	
  </div>
 {% endblock %} 

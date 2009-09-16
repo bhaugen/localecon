@@ -41,6 +41,8 @@ def cluster_params(cluster):
             agents.setdefault(ef, []).append(agent.agent)
             
     root = cluster.root()
+    
+    frtable = function_resource_table(cluster)
                        
     template_params =  {
         "cluster": cluster,
@@ -48,6 +50,7 @@ def cluster_params(cluster):
         "resources": resources,
         "function_agents": agents,
         "root": root,
+        "frtable": frtable,
     }
     return template_params
     
