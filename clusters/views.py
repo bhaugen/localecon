@@ -71,7 +71,7 @@ def cluster(request, cluster_id):
         context_instance=RequestContext(request))
     
 def featured_cluster(request):
-    cluster_id = 1
+    cluster_id = 3
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     template_params = cluster_params(cluster)
     
