@@ -359,6 +359,7 @@ class AgentResourceType(models.Model):
     agent = models.ForeignKey(EconomicAgent, related_name='resources')
     resource_type = models.ForeignKey(EconomicResourceType, related_name='agents')
     role = models.CharField(max_length=12, choices=ROLE_CHOICES)
+    amount = models.IntegerField(default=0)
     
     class Meta:
         ordering = ('agent', 'role', 'resource_type',)

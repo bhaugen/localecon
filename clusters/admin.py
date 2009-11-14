@@ -20,10 +20,21 @@ class EconomicFunctionAdmin(admin.ModelAdmin):
     
 admin.site.register(EconomicFunction, EconomicFunctionAdmin)
 
+class AgentFunctionInline(admin.TabularInline):
+    model = AgentFunction
+
+class AgentResourceInline(admin.TabularInline):
+    model = AgentResourceType
+
+class EconomicAgentAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    list_filter = ['name',]
+    search_fields = ['name',]
+    inlines = [ AgentFunctionInline, AgentResourceInline]
+    
+admin.site.register(EconomicAgent, EconomicAgentAdmin)
+
 admin.site.register(EconomicResourceType)
-admin.site.register(EconomicAgent)
-admin.site.register(AgentFunction)
-admin.site.register(AgentResourceType)
 admin.site.register(CommunityResourceType)
 admin.site.register(CommunityAgent)
 
