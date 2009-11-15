@@ -307,6 +307,7 @@ class FunctionResourceType(models.Model):
     
 class EconomicAgent(models.Model):
     name = models.CharField(max_length=128)
+    address = models.CharField(max_length=255, blank=True)
     slug = models.SlugField("Page name", editable=False)
     
     class Meta:
