@@ -104,9 +104,10 @@ def economic_function(request, function_id):
     
 def new_function(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    
+    form = EconomicFunctionForm()
     return render_to_response("clusters/new_function.html",{ 
         "cluster": cluster,
+        "form": form,
     }, context_instance=RequestContext(request))
     
 def fr_table(request, cluster_id):
