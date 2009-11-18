@@ -88,6 +88,27 @@ def iotable(request, cluster_id):
         "iotable": iotable,
     }, context_instance=RequestContext(request))
     
+def economic_functions(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    
+    return render_to_response("clusters/economic_functions.html",{ 
+        "cluster": cluster,
+    }, context_instance=RequestContext(request))
+    
+def economic_function(request, function_id):
+    ef = get_object_or_404(EconomicFunction, pk=function_id)
+    
+    return render_to_response("clusters/economic_functions.html",{ 
+        "economic_function": ef,
+    }, context_instance=RequestContext(request))
+    
+def new_function(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    
+    return render_to_response("clusters/new_function.html",{ 
+        "cluster": cluster,
+    }, context_instance=RequestContext(request))
+    
 def fr_table(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     frtable = function_resource_table(cluster)
@@ -103,7 +124,7 @@ def send_email(request):
         if email_form.is_valid():
             data = email_form.cleaned_data
             from_email = data["email_address"]
-            subject = data["subject"]
+            subject = " ".join(["[locecon]", data["subject"]])
             message = data["message"]
             send_mail(subject, message, from_email, ["bob.haugen@gmail.com",])      
             return HttpResponseRedirect(reverse("email_sent"))
