@@ -16,8 +16,17 @@
 	</form>
 
 	<form method="POST" action="">
-		<table>
-			{{ resource_formset }}
+		{{ resource_formset.management_form }}
+		<table class="ga-event-table" >
+			<tr>
+				<th>Resource</th>
+				<th>Role</th>
+				<th>Amount</th>
+			</tr>
+			{% for resource_form in resource_formset.forms %}
+				<td> {{ resource_form.resource_type }} </td>
+				<td> {{ resource_form.role }} </td>
+				<td> {{ resource_form.amount }} </td>
 		</table>
 	</form>
 
