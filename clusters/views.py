@@ -104,10 +104,18 @@ def economic_function(request, function_id):
     
 def new_function(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    form = EconomicFunctionForm()
+    function_form = EconomicFunctionForm()
+    
+    ResourceFormSet = formset_factory(FunctionResourceTypeForm, extra=5)
+    resource_formset = ResourceFormSet()
+    rtypes = CommunityResourceType.objects.filter(community=cluster.community)
+    for form in resource_formset.forms:
+        form.fields['resource_type'].queryset = rtypes
+        
     return render_to_response("clusters/new_function.html",{ 
         "cluster": cluster,
-        "form": form,
+        "function_form": function_form,
+        "resource_formset": resource_formset,
     }, context_instance=RequestContext(request))
     
 def fr_table(request, cluster_id):

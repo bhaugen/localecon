@@ -10,9 +10,17 @@
 	<h3>New Economic Function for {{ cluster }}</h3>
 
 	<form action="" method="POST">
-            <table>
-                {{ form }}
-            </table>
-        </form>
+		<table>
+			{{ function_form }}
+		</table>
+	</form>
+
+	<form method="POST" action="">
+		<table>
+			{{ resource_formset }}
+		</table>
+	</form>
+
+
 
 {% endblock %}
