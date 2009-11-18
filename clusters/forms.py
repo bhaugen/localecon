@@ -1,6 +1,7 @@
 from django import forms
 
 from clusters.models import *
+from clusters.fields import *
 
 class EconomicFunctionForm(forms.ModelForm):
     
@@ -10,6 +11,8 @@ class EconomicFunctionForm(forms.ModelForm):
         
         
 class FunctionResourceTypeForm(forms.ModelForm):
+    resource_type = ResourceChoiceField()
+    
 #    def __init__(self, community, *args, **kwargs):
 #        super(FunctionResourceTypeForm, self).__init__(*args, **kwargs)
 #        rtypes = CommunityResourceType.objects.filter(community=community)
