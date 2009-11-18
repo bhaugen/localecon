@@ -11,7 +11,7 @@ class EconomicFunctionForm(forms.ModelForm):
         
         
 class FunctionResourceTypeForm(forms.ModelForm):
-    resource_type = ResourceChoiceField()
+    resource_type = ResourceChoiceField(EconomicResourceType.objects.all())
     
 #    def __init__(self, community, *args, **kwargs):
 #        super(FunctionResourceTypeForm, self).__init__(*args, **kwargs)
