@@ -24,9 +24,12 @@
 				<th>Amount</th>
 			</tr>
 			{% for resource_form in resource_formset.forms %}
-				<td> {{ resource_form.resource_type }} </td>
-				<td> {{ resource_form.role }} </td>
-				<td> {{ resource_form.amount }} </td>
+				<tr>
+					<td> {{ resource_form.resource_type }} </td>
+					<td> {{ resource_form.role }} </td>
+					<td> {{ resource_form.amount }} </td>
+				</tr>
+			{% endfor %}
 		</table>
 	</form>
 
