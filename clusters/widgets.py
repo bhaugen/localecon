@@ -7,9 +7,9 @@ class ResourceSelectWidget(forms.MultiWidget):
     #all_choices = EconomicResourceType.objects.all()
     
     def __init__(self, attrs=None):
-
-        widgets = (forms.widgets.Select(attrs=attrs, choices=EconomicResourceType.objects.none()),
-                   forms.widgets.Select(attrs=attrs, choices=EconomicResourceType.objects.all()))
+        all_resources = list(EconomicResourceType.objects.all())
+        widgets = (forms.widgets.Select(attrs=attrs, choices=()),
+                   forms.widgets.Select(attrs=attrs, choices=all_resources))
         super(ResourceSelectWidget, self).__init__(widgets, attrs)
 
     def decompress(self, value):
