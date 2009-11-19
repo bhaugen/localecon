@@ -3,7 +3,7 @@ from django import forms
 from clusters.models import *
 
 class ResourceSelectWidget(forms.MultiWidget):
-    choices = EconomicResourceType.objects.none()
+    choices = ()
     #all_choices = EconomicResourceType.objects.all()
     
     def __init__(self, attrs=None):
