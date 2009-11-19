@@ -3,13 +3,12 @@ from django import forms
 from clusters.models import *
 
 class ResourceSelectWidget(forms.MultiWidget):
-    choices = ()
-    local_choices = EconomicResourceType.objects.none()
+    choices = EconomicResourceType.objects.none()
     all_choices = EconomicResourceType.objects.all()
     
     def __init__(self, attrs=None):
 
-        widgets = (forms.widgets.Select(attrs=attrs, choices=self.local_choices),
+        widgets = (forms.widgets.Select(attrs=attrs, choices=self.choices),
                    forms.widgets.Select(attrs=attrs, choices=self.all_choices))
         super(ResourceSelectWidget, self).__init__(widgets, attrs)
 
@@ -18,9 +17,5 @@ class ResourceSelectWidget(forms.MultiWidget):
             return [value, value]
         return [None, None]
     
-    def set_local_choices(self, choices):
-        self.local_choices = choices
-        widgets[0].choices = choices
-        return True
         
     

@@ -110,8 +110,8 @@ def new_function(request, cluster_id):
     resource_formset = ResourceFormSet()
     rtypes = CommunityResourceType.objects.filter(community=cluster.community)
     for form in resource_formset.forms:
-        #form.fields['resource_type'].choices = [('', '----------')] + [(rt.resource_type.id, rt.resource_type.name) for rt in rtypes]
-        form.fields['resource_type'].widget.set_local_choices([('', '----------')] + [(rt.resource_type.id, rt.resource_type.name) for rt in rtypes])
+        form.fields['resource_type'].choices = [('', '----------')] + [(rt.resource_type.id, rt.resource_type.name) for rt in rtypes]
+        #form.fields['resource_type'].widget.set_local_choices([('', '----------')] + [(rt.resource_type.id, rt.resource_type.name) for rt in rtypes])
         
     AgentFormSet = formset_factory(FunctionAgentForm, extra=5)
     agent_formset = AgentFormSet()
