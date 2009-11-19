@@ -1,5 +1,7 @@
 from django import forms
 
+from clusters.models import *
+
 class ResourceSelectWidget(forms.MultiWidget):
     choices = EconomicResourceType.objects.none()
     
