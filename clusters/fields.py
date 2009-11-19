@@ -4,6 +4,9 @@ from django.contrib import admin
 from clusters.models import *
 from clusters.widgets import *
 
+#class ChoicesWrapper(admin.widgets.RelatedFieldWidgetWrapper):
+    
+
 class FunctionResourceChoiceField(forms.ModelChoiceField):
 
     def __init__(self, *args, **kwargs):

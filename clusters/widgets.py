@@ -4,12 +4,12 @@ from clusters.models import *
 
 class ResourceSelectWidget(forms.MultiWidget):
     choices = EconomicResourceType.objects.none()
-    all_choices = EconomicResourceType.objects.all()
+    #all_choices = EconomicResourceType.objects.all()
     
     def __init__(self, attrs=None):
 
-        widgets = (forms.widgets.Select(attrs=attrs, choices=self.choices),
-                   forms.widgets.Select(attrs=attrs, choices=self.all_choices))
+        widgets = (forms.widgets.Select(attrs=attrs, choices=EconomicResourceType.objects.none()),
+                   forms.widgets.Select(attrs=attrs, choices=EconomicResourceType.objects.all()))
         super(ResourceSelectWidget, self).__init__(widgets, attrs)
 
     def decompress(self, value):
@@ -18,4 +18,6 @@ class ResourceSelectWidget(forms.MultiWidget):
         return [None, None]
     
         
-    
+    def set_local_choices(self, choices):
+        self.widgets[0].choices = choices
+        return True
