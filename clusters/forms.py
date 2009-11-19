@@ -18,7 +18,12 @@ class FunctionResourceTypeForm(forms.ModelForm):
         fields = ('resource_type', 'role', 'amount')
 
 
-
+class FunctionAgentForm(forms.ModelForm):
+    agent = FunctionAgentChoiceField(EconomicAgent.objects.none())
+        
+    class Meta:
+        model = AgentFunction
+        fields = ('agent',)
         
 class EmailForm(forms.Form):
     email_address = forms.EmailField()
