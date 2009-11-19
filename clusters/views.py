@@ -110,14 +110,15 @@ def new_function(request, cluster_id):
     resource_formset = ResourceFormSet()
     rtypes = CommunityResourceType.objects.filter(community=cluster.community)
     for form in resource_formset.forms:
-        form.fields['resource_type'].choices = [('', '----------')] + [(rt.resource_type.id, rt.resource_type.name) for rt in rtypes]
+        #form.fields['resource_type'].choices = [('', '----------')] + [(rt.resource_type.id, rt.resource_type.name) for rt in rtypes]
+        form.fields['resource_type'].set_local_choices([('', '----------')] + [(rt.resource_type.id, rt.resource_type.name) for rt in rtypes])
         
     AgentFormSet = formset_factory(FunctionAgentForm, extra=5)
     agent_formset = AgentFormSet()
     agents = CommunityAgent.objects.filter(community=cluster.community)
     for form in agent_formset.forms:
-        #form.fields['agent'].choices = [('', '----------')] + [(agt.agent.id, agt.agent.name) for agt in agents]
-        form.fields['agent'].widget.set_local_choices([('', '----------')] + [(agt.agent.id, agt.agent.name) for agt in agents])
+        form.fields['agent'].choices = [('', '----------')] + [(agt.agent.id, agt.agent.name) for agt in agents]
+        #form.fields['agent'].widget.set_local_choices([('', '----------')] + [(agt.agent.id, agt.agent.name) for agt in agents])
         
     return render_to_response("clusters/new_function.html",{ 
         "cluster": cluster,
