@@ -11,24 +11,13 @@ class EconomicFunctionForm(forms.ModelForm):
         
         
 class FunctionResourceTypeForm(forms.ModelForm):
-    resource_type = ResourceChoiceField(EconomicResourceType.objects.all())
-    
-#    def __init__(self, community, *args, **kwargs):
-#        super(FunctionResourceTypeForm, self).__init__(*args, **kwargs)
-#        rtypes = CommunityResourceType.objects.filter(community=community)
-#        self.fields["resource_type"].choices = [('', '----------')] + [(rt.resource_type.id, rt.resource_type.name) for rt in rtypes]
-    
+    resource_type = FunctionResourceChoiceField(EconomicResourceType.objects.none())
+        
     class Meta:
         model = FunctionResourceType
         fields = ('resource_type', 'role', 'amount')
 
 
-#from pbc.views:
-#    product_choices = [(prod.id, prod.long_name) for prod in product_list]
-#    product_choices = [(prod.id, prod.long_name) for prod in product_list]
-#    for form in formset.forms:
-#        form.fields['product'].choices = product_choices
-        
 
         
 class EmailForm(forms.Form):
