@@ -1,7 +1,8 @@
 from django import forms
 
 class ResourceSelectWidget(forms.MultiWidget):
-
+    choices = EconomicResourceType.objects.none()
+    
     def __init__(self, attrs=None):
 
         widgets = (forms.widgets.Select(attrs=attrs),
