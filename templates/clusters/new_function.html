@@ -34,8 +34,13 @@
 		
 		<h3>Agents:</h3>
 		
-		<table>
-			{{ agent_formset }}
+		{{ agent_formset.management_form }}		
+		<table class="ga-event-table" >
+			{% for agent_form in agent_formset.forms %}
+				<tr>
+					<td> {{ agent_form.agent }}add new</td>
+				</tr>
+			{% endfor %}
 		</table>
 	</form>
 
