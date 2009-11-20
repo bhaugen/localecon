@@ -331,7 +331,7 @@ class EconomicAgent(models.Model):
 
 
 class CommunityAgent(models.Model):
-    community = models.ForeignKey(Community)
+    community = models.ForeignKey(Community, related_name="agents")
     agent = models.ForeignKey(EconomicAgent, related_name='communities')
 
     class Meta:

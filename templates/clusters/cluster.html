@@ -13,20 +13,30 @@
 
 {% block content %}
 
-<script>
-var Log = {
-    elem: false,
-    write: function(text){
-        if (!this.elem) 
-            this.elem = document.getElementById('log');
-        this.elem.innerHTML = text;
-        this.elem.style.left = (500 - this.elem.offsetWidth / 2) + 'px';
-    }
-};
-</script>
+
 
 <h3>Cluster: {{ cluster }}</h3>
 
-{% include "clusters/_cluster.html" %}
- 
+<div style="float:left;" >
+	<table>
+		{% for fun in cluster.functions.all %}
+			<tr><td>{{ fun }}</td></tr>
+			{% for resource in fun.resources.all %}
+				<tr><td>{{ resource }}</td></tr>		
+			{% endfor %}
+		{% endfor %}
+	</table>
+</div>
+
+<div style="float:left;" >
+	<table>
+		{% for fun in cluster.functions.all %}
+			<tr><td>{{ fun }}</td></tr>
+			{% for resource in fun.resources.all %}
+				<tr><td>{{ resource }}</td></tr>		
+			{% endfor %}
+		{% endfor %}
+	</table>
+</div>
+<div style="clear: both;" ></div> 
 {% endblock %}
