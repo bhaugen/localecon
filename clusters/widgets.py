@@ -22,7 +22,10 @@ class ResourceSelectWidget(forms.MultiWidget):
             return [value, value]
         return [None, None]
     
-        
+    def format_output(self, rendered_widgets):
+        return mark_safe(u'<p class="resource">%s %s<br />%s %s</p>' % \
+            ('Community:', rendered_widgets[0], 'Any:', rendered_widgets[1]))
+          
     def set_local_choices(self, choices):
         #all_resources = EconomicResourceType.objects.all()
         self.widgets[0].choices = choices

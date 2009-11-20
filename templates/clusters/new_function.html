@@ -19,13 +19,13 @@
 		{{ resource_formset.management_form }}
 		<table class="ga-event-table" >
 			<tr>
-				<th>Resource</th>
+				<th>Resource (select one)</th>
 				<th>Role</th>
 				<th>Amount</th>
 			</tr>
 			{% for resource_form in resource_formset.forms %}
 				<tr>
-					<td> {{ resource_form.resource_type }}add new</td>
+					<td> {{ resource_form.resource_type }}&nbsp;add new</td>
 					<td> {{ resource_form.role }} </td>
 					<td> {{ resource_form.amount }} </td>
 				</tr>
