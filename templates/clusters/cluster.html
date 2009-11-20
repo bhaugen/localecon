@@ -29,7 +29,7 @@
 <div style="float:left;" >
 	<table>
 		{% for res in cluster.resources %}
-			<tr><th style="text-align:left" >{{ fun }}</th></tr>
+			<tr><th style="text-align:left" >{{ res }}</th></tr>
 			{% for fun in res.functions.all %}
 				<tr><td>{{ fun }}</td></tr>		
 			{% endfor %}
