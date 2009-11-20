@@ -22,9 +22,10 @@ class FunctionResourceChoiceField(forms.MultiValueField):
     widget = ResourceSelectWidget
 
     def __init__(self, *args, **kwargs):
+        all_resources = [('', '----------')] + [(rsc.id, rsc.name) for rsc in EconomicResourceType.objects.all()]
         fields = (
             forms.ChoiceField(),
-            forms.ChoiceField(),
+            forms.ChoiceField(choices=all_resources),
         )
         super(FunctionResourceChoiceField, self).__init__(fields, *args, **kwargs)
 

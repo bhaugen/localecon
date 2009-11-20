@@ -23,7 +23,7 @@ class ResourceSelectWidget(forms.MultiWidget):
     
         
     def set_local_choices(self, choices):
-        all_resources = EconomicResourceType.objects.all()
+        #all_resources = EconomicResourceType.objects.all()
         self.widgets[0].choices = choices
-        self.widgets[1].widget.choices = [('', '----------')] + [(rsc.id, rsc.name) for rsc in all_resources]
+        #self.widgets[1].widget.choices = [('', '----------')] + [(rsc.id, rsc.name) for rsc in all_resources]
         return True
