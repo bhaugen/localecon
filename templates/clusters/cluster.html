@@ -22,17 +22,17 @@
 			<tr><th style="text-align:left" >{{ fun.name }}</th></tr>
 			{% if fun.inputs %}
 				<tr>
-					<th>Consumes:</th>
+					<th style="vertical-align: top;" >Consumes:</th>
 					<td>
 					{% for resource in fun.inputs %}
-						{{ resource.resource_type }}	
+						{{ resource.resource_type }}<br />	
 					{% endfor %}
 					</td>
 				</tr>
 			{% endif %}
 			{% if fun.outputs %}
 				<tr>
-					<th>Produces:</th>
+					<th style="vertical-align: top;" >Produces:</th>
 					<td>
 					{% for resource in fun.outputs %}
 						{{ resource.resource_type }}<br />	
@@ -51,7 +51,7 @@
 			<tr><th style="text-align:left" >{{ res }}</th></tr>
 			{% if res.producers %}
 				<tr>
-					<th>Producers:</th>
+					<th style="vertical-align: top;" >Producers:</th>
 					<td>
 					{% for fun in res.producers %}
 						{{ fun.function.name }}<br />
@@ -61,10 +61,10 @@
 			{% endif %}
 			{% if res.consumers %}
 				<tr>
-					<th>Consumers:</th>
+					<th style="vertical-align: top;" >Consumers:</th>
 					<td>
 					{% for fun in res.consumers %}
-						{{ fun.function.name }}	
+						{{ fun.function.name }}<br />	
 					{% endfor %}
 					</td>
 				</tr>
