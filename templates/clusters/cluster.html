@@ -20,9 +20,26 @@
 		<tr><th style="text-align: center;" >Functions:</th></tr>
 		{% for fun in cluster.functions.all %}
 			<tr><th style="text-align:left" >{{ fun.name }}</th></tr>
-			{% for resource in fun.resources.all %}
-				<tr><td>{{ resource }}</td></tr>		
-			{% endfor %}
+			{% if fun.inputs %}
+				<tr>
+					<th>Consumes:</th>
+					<td>
+					{% for resource in fun.inputs %}
+						{{ resource }}	
+					{% endfor %}
+					</td>
+				</tr>
+			{% endif %}
+			{% if fun.outputs %}
+				<tr>
+					<th>Produces:</th>
+					<td>
+					{% for resource in fun.outputs %}
+						{{ resource }}	
+					{% endfor %}
+					</td>
+				</tr>
+			{% endif %}
 		{% endfor %}
 	</table>
 </div>
