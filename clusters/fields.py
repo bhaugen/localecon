@@ -7,7 +7,7 @@ from clusters.widgets import *
 #class ChoicesWrapper(admin.widgets.RelatedFieldWidgetWrapper):
     
 
-class FunctionResourceChoiceField(forms.ModelChoiceField):
+class FunctionResourceChoiceFieldX(forms.ModelChoiceField):
 
     def __init__(self, *args, **kwargs):
         super(FunctionResourceChoiceField, self).__init__(*args, **kwargs)
@@ -18,6 +18,21 @@ class FunctionResourceChoiceField(forms.ModelChoiceField):
             admin.site,
         ) 
         
+class FunctionResourceChoiceField(forms.MultiValueField):
+    widget = ResourceSelectWidget
+
+    def __init__(self, *args, **kwargs):
+        fields = (
+            forms.ChoiceField(),
+            forms.ChoiceField(),
+        )
+        super(FunctionResourceChoiceField, self).__init__(fields, *args, **kwargs)
+
+    def compress(self, data_list):
+        if data_list:
+            return data_list
+        return None
+
 
 class FunctionAgentChoiceField(forms.ModelChoiceField):
 
