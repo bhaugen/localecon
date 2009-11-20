@@ -25,7 +25,7 @@
 					<th>Consumes:</th>
 					<td>
 					{% for resource in fun.inputs %}
-						{{ resource }}	
+						{{ resource.resource_type }}	
 					{% endfor %}
 					</td>
 				</tr>
@@ -35,7 +35,7 @@
 					<th>Produces:</th>
 					<td>
 					{% for resource in fun.outputs %}
-						{{ resource }}	
+						{{ resource.resource_type }}	
 					{% endfor %}
 					</td>
 				</tr>
