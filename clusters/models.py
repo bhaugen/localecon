@@ -216,6 +216,13 @@ class Cluster(models.Model):
             return self.root_resource
         else:
             return None
+        
+    def resources(self):
+        answer = []
+        for fun in self.functions.all():
+            for r in fun.resources.all():
+                answer.append(r)
+        return answer
       
 
 class EconomicFunction(models.Model):

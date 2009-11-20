@@ -6,8 +6,6 @@
 
 {% block header %}
 
-<link type="text/css" href="/site_media/css/base.css" rel="stylesheet" />
-<link type="text/css" href="/site_media/css/RGraph.css" rel="stylesheet" />
 
 {% endblock %}
 
@@ -20,7 +18,7 @@
 <div style="float:left;" >
 	<table>
 		{% for fun in cluster.functions.all %}
-			<tr><td>{{ fun }}</td></tr>
+			<tr><th style="text-align:left" >{{ fun }}</th></tr>
 			{% for resource in fun.resources.all %}
 				<tr><td>{{ resource }}</td></tr>		
 			{% endfor %}
@@ -30,10 +28,10 @@
 
 <div style="float:left;" >
 	<table>
-		{% for fun in cluster.functions.all %}
-			<tr><td>{{ fun }}</td></tr>
-			{% for resource in fun.resources.all %}
-				<tr><td>{{ resource }}</td></tr>		
+		{% for res in cluster.resources %}
+			<tr><th style="text-align:left" >{{ fun }}</th></tr>
+			{% for fun in res.functions.all %}
+				<tr><td>{{ fun }}</td></tr>		
 			{% endfor %}
 		{% endfor %}
 	</table>
