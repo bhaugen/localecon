@@ -221,7 +221,7 @@ class Cluster(models.Model):
         answer = []
         for fun in self.functions.all():
             for r in fun.resources.all():
-                answer.append(r)
+                answer.append(r.resource_type)
         return answer
       
 
