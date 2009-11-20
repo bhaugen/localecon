@@ -18,7 +18,7 @@
 <div style="float:left;" >
 	<table>
 		{% for fun in cluster.functions.all %}
-			<tr><th style="text-align:left" >{{ fun }}</th></tr>
+			<tr><th style="text-align:left" >{{ fun.name }}</th></tr>
 			{% for resource in fun.resources.all %}
 				<tr><td>{{ resource }}</td></tr>		
 			{% endfor %}
