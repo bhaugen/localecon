@@ -35,7 +35,7 @@
 					<th>Produces:</th>
 					<td>
 					{% for resource in fun.outputs %}
-						{{ resource.resource_type }}	
+						{{ resource.resource_type }}<br />	
 					{% endfor %}
 					</td>
 				</tr>
@@ -51,10 +51,10 @@
 			<tr><th style="text-align:left" >{{ res }}</th></tr>
 			{% if res.producers %}
 				<tr>
-					<th>Producers</th>
+					<th>Producers:</th>
 					<td>
 					{% for fun in res.producers %}
-						{{ fun.function.name }}	
+						{{ fun.function.name }}<br />
 					{% endfor %}
 					</td>
 				</tr>
