@@ -222,7 +222,7 @@ class Cluster(models.Model):
         for fun in self.functions.all():
             for r in fun.resources.all():
                 answer.append(r.resource_type)
-        return answer
+        return list(set(answer))
       
 
 class EconomicFunction(models.Model):
