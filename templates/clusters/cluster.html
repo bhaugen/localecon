@@ -17,9 +17,9 @@
 
 <div style="float:left;" >
 	<table>
-		<tr><th style="text-align: center;" colspan="2" >Functions:</th></tr>
+		<tr><th style="text-align: center; font-size: 120%; " colspan="2" >Functions:</th></tr>
 		{% for fun in cluster.functions.all %}
-			<tr><th style="text-align: left; font-size: 120%; " colspan="2" >{{ fun.name }}</th></tr>
+			<tr><th style="text-align: left; font-size: 110%; " colspan="2" >{{ fun.name }}</th></tr>
 			{% if fun.inputs %}
 				<tr>
 					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumes:</th>
@@ -46,9 +46,9 @@
 
 <div style="float:left;" >
 	<table>
-		<tr><th style="text-align: center;" colspan="2" >Resources:</th></tr>
+		<tr><th style="text-align: center; font-size: 120%; " colspan="2" >Resources:</th></tr>
 		{% for res in cluster.resources %}
-			<tr><th style="text-align: left; font-size: 120%; " colspan="2" >{{ res }}</th></tr>
+			<tr><th style="text-align: left; font-size: 110%; " colspan="2" >{{ res }}</th></tr>
 			{% if res.producers %}
 				<tr>
 					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Producers:</th>
