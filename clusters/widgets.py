@@ -7,8 +7,9 @@ class ResourceSelectWidget(forms.MultiWidget):
     choices = ()
     
     def __init__(self, attrs=None):
+        all_resources = [('', '----------')] + [(rsc.id, rsc.name) for rsc in EconomicResourceType.objects.all()]
         wrapped_widget = admin.widgets.RelatedFieldWidgetWrapper(
-            forms.widgets.Select(attrs=attrs),
+            forms.widgets.Select(attrs=attrs, choices=all_resources),
             FunctionResourceType._meta.get_field('resource_type').rel,
             admin.site,
         ) 
