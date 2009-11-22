@@ -30,7 +30,6 @@
 					</td>
 				</tr>
 			{% endif %}
-			<tr>{{ fun.form }}</tr>
 			{% if fun.outputs %}
 				<tr>
 					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produces:</th>
@@ -41,6 +40,11 @@
 					</td>
 				</tr>
 			{% endif %}
+			<tr>
+				<td>{{ fun.form.resource_type }}</td>
+				<td>{{ fun.form.role }}</td>
+				<td>{{ fun.form.amount }}</td>
+			</tr>
 		{% endfor %}
 	</table>
 </div>
