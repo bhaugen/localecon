@@ -64,11 +64,16 @@ def clusters(request):
   
 def cluster(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    template_params = cluster_params(cluster)
+    #template_params = cluster_params(cluster)
     
-    return render_to_response("clusters/cluster.html", 
-        template_params,
-        context_instance=RequestContext(request))
+    functions = cluster.functions.all()
+    for fun in functions:
+        fun.form = FunctionResourceForm()
+    
+    return render_to_response("clusters/cluster.html", {
+        "functions": functions,
+        #template_params,
+        }, context_instance=RequestContext(request))
     
 def featured_cluster(request):
     cluster_id = 3

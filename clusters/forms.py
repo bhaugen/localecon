@@ -10,8 +10,14 @@ class EconomicFunctionForm(forms.ModelForm):
         fields = ('name',)
         
         
-class FunctionResourceTypeForm(forms.ModelForm):
+class FunctionResourceTypeFormX(forms.ModelForm):
     resource_type = FunctionResourceChoiceField(EconomicResourceType.objects.none())
+        
+    class Meta:
+        model = FunctionResourceType
+        fields = ('resource_type', 'role', 'amount')
+        
+class FunctionResourceTypeForm(forms.ModelForm):
         
     class Meta:
         model = FunctionResourceType
