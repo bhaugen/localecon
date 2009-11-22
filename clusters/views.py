@@ -71,6 +71,7 @@ def cluster(request, cluster_id):
         fun.form = FunctionResourceTypeForm()
     
     return render_to_response("clusters/cluster.html", {
+        "cluster": cluster,
         "functions": functions,
         #template_params,
         }, context_instance=RequestContext(request))

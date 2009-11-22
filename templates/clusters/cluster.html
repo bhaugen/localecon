@@ -18,7 +18,7 @@
 <div style="float:left;" >
 	<table>
 		<tr><th style="text-align: center; font-size: 120%; " colspan="2" >Functions:</th></tr>
-		{% for fun in cluster.functions.all %}
+		{% for fun in functions %}
 			<tr><th style="text-align: left; font-size: 110%; " colspan="2" >{{ fun.name }}</th></tr>
 			{% if fun.inputs %}
 				<tr>
