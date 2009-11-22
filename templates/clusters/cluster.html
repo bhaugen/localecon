@@ -43,17 +43,31 @@
 							</tr>
 						{% endif %}
 					{% endfor %}
-					</td>
 				</tr>
 			{% endif %}
 			{% if fun.outputs %}
 				<tr>
 					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produces:</th>
-					<td colspan="3">
 					{% for resource in fun.outputs %}
-						{{ resource.resource_type }} <b>Amount:</b> {{ resource.amount }}<br />	
+						{% if forloop.first %}
+							<td>
+								{{ resource.resource_type }}
+							</td>
+							<td colspan="2">
+								<b>Amt:</b> {{ resource.amount }}<br />	
+							</td>
+						{% else %}
+							<tr>
+								<td>&nbsp;</td>
+								<td>
+									{{ resource.resource_type }}
+								</td>
+								<td colspan="2">
+									<b>Amt:</b> {{ resource.amount }}<br />	
+								</td>
+							</tr>
+						{% endif %}
 					{% endfor %}
-					</td>
 				</tr>
 			{% endif %}
 			<form>
