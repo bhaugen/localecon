@@ -23,7 +23,7 @@
 			{% if fun.inputs %}
 				<tr>
 					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumes:</th>
-					<td>
+					<td colspan="3">
 					{% for resource in fun.inputs %}
 						{{ resource.resource_type }} <b>Amount:</b> {{ resource.amount }}<br />	
 					{% endfor %}
@@ -33,7 +33,7 @@
 			{% if fun.outputs %}
 				<tr>
 					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produces:</th>
-					<td>
+					<td colspan="3">
 					{% for resource in fun.outputs %}
 						{{ resource.resource_type }} <b>Amount:</b> {{ resource.amount }}<br />	
 					{% endfor %}
