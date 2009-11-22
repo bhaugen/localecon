@@ -68,7 +68,7 @@ def cluster(request, cluster_id):
     
     functions = cluster.functions.all()
     for fun in functions:
-        fun.form = FunctionResourceForm()
+        fun.form = FunctionResourceTypeForm()
     
     return render_to_response("clusters/cluster.html", {
         "functions": functions,
