@@ -288,8 +288,8 @@ class CommunityResourceType(models.Model):
 
 
 ROLE_CHOICES = (
-    ('produces', 'produces'),
     ('consumes', 'consumes'),
+    ('produces', 'produces'),
 )
     
 class FunctionResourceType(models.Model):
