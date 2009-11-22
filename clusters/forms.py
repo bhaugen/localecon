@@ -18,7 +18,8 @@ class FunctionResourceTypeFormX(forms.ModelForm):
         fields = ('resource_type', 'role', 'amount')
         
 class FunctionResourceTypeForm(forms.ModelForm):
-    amount = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6'}))
+    amount = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', value: "0"}))
+    role = forms.ChoiceField(choices=ROLE_CHOICES)
         
     class Meta:
         model = FunctionResourceType
