@@ -20,8 +20,10 @@
 		<tr><th style="text-align: center; font-size: 120%; " colspan="4" >Functions:</th></tr>
 		<form action="{% url inline_new_function cluster_id=cluster.id %}" method="POST">
 			<tr>
+				<td>&nbsp;</td>
 				<td>{{ new_function_form.name }}</td>
 				<td><input type="submit" name="submit" value="New Function" /></td>
+				<td>&nbsp;</td>
 			</tr>
 		</form>
 		{% for fun in functions %}
