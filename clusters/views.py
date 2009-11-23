@@ -145,7 +145,7 @@ def new_function_resource(request, function_id):
             fr.function = fun
             fr.save()
     return HttpResponseRedirect('/%s/%s/'
-        % ('cluster', fun.cluster.id))
+        % ('clusters/cluster', fun.cluster.id))
         
     
 def fr_table(request, cluster_id):
