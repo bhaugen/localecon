@@ -176,6 +176,7 @@ def function_resource_table(cluster):
     columns.append("Totals")
     return FunctionResourceTable(columns, rows)
     
+    
 class Community(models.Model):
     name = models.CharField(max_length=128)
     map_center = models.CharField(max_length=255, blank=True)
@@ -379,4 +380,17 @@ class AgentResourceType(models.Model):
     
     def __unicode__(self):
         return " ".join([self.agent.name, self.role, self.resource_type.name])
+    
+
+class SiteSettings(models.Model):
+    featured_cluster = models.ForeignKey(Cluster, related_name="featured")
+
+   
+def featured_cluster():
+    try:
+        ss = SiteSettings.objects.get(pk=1)
+        return ss.featured_cluster
+    except SiteSettings.DoesNotExist:
+        return None
+    
     

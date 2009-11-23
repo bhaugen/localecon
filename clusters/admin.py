@@ -35,6 +35,7 @@ class EconomicAgentAdmin(admin.ModelAdmin):
 admin.site.register(EconomicAgent, EconomicAgentAdmin)
 
 admin.site.register(EconomicResourceType)
+dmin.site.register(SiteSettings)
 admin.site.register(CommunityResourceType)
 admin.site.register(CommunityAgent)
 

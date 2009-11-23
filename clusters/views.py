@@ -82,9 +82,10 @@ def cluster(request, cluster_id):
         }, context_instance=RequestContext(request))
     
 def featured_cluster(request):
-    cluster_id = 3
-    cluster = get_object_or_404(Cluster, pk=cluster_id)
-    template_params = cluster_params(cluster)
+    cluster = featured_cluster()
+    template_params = {}
+    if cluster:
+        template_params = cluster_params(cluster)
     
     return render_to_response("clusters/featured_cluster.html", 
         template_params,
