@@ -135,9 +135,18 @@ def new_function(request, cluster_id):
         "agent_formset": agent_formset,
     }, context_instance=RequestContext(request))
     
-def new_function_resource(request, function_id):
-    fun = get_object_or_404(EconomicFunction, pk=function_id)
+def inline_new_function(request, cluster_id):
     if request.method == "POST":
+        cluster = get_object_or_404(Cluster, pk=cluster_id)
+        form = EconomicFunctionForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return HttpResponseRedirect('/%s/%s/'
+        % ('clusters/cluster', cluster.id))
+    
+def new_function_resource(request, function_id):
+    if request.method == "POST":
+        fun = get_object_or_404(EconomicFunction, pk=function_id)
         form = FunctionResourceTypeForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
