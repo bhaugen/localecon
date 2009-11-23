@@ -142,8 +142,8 @@ def inline_new_function(request, cluster_id):
     if request.method == "POST":
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = EconomicFunctionForm(request.POST)
-        if form.is_valid(commit=False):
-            fun = form.save()
+        if form.is_valid():
+            fun = form.save(commit=False)
             fun.cluster = cluster
             fun.save()
     return HttpResponseRedirect('/%s/%s/'
