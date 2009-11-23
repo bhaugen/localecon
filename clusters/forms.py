@@ -9,7 +9,22 @@ class EconomicFunctionForm(forms.ModelForm):
         model = EconomicFunction
         fields = ('name',)
         
+
+class EconomicResourceTypeForm(forms.ModelForm):
+    
+    class Meta:
+        model = EconomicResourceType
+        fields = ('name',)
         
+
+class EconomicAgentForm(forms.ModelForm):
+    address = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '80',}))
+    
+    class Meta:
+        model = EconomicAgent
+        fields = ('name', 'address')
+        
+
 class FunctionResourceTypeFormX(forms.ModelForm):
     resource_type = FunctionResourceChoiceField(EconomicResourceType.objects.none())
         

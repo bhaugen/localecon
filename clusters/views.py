@@ -67,6 +67,7 @@ def cluster(request, cluster_id):
     #template_params = cluster_params(cluster)
     
     new_function_form = EconomicFunctionForm()
+    new_resource_form = EconomicResourceTypeForm()
     
     functions = cluster.functions.all()
     for fun in functions:
@@ -76,6 +77,7 @@ def cluster(request, cluster_id):
         "cluster": cluster,
         "functions": functions,
         "new_function_form": new_function_form,
+        "new_resource_form": new_resource_form,
         #template_params,
         }, context_instance=RequestContext(request))
     
@@ -146,6 +148,15 @@ def inline_new_function(request, cluster_id):
             fun = form.save(commit=False)
             fun.cluster = cluster
             fun.save()
+    return HttpResponseRedirect('/%s/%s/'
+        % ('clusters/cluster', cluster_id))
+    
+def inline_new_resource(request, cluster_id):
+    if request.method == "POST":
+        cluster = get_object_or_404(Cluster, pk=cluster_id)
+        form = EconomicResourceTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
     return HttpResponseRedirect('/%s/%s/'
         % ('clusters/cluster', cluster_id))
     
