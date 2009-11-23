@@ -73,8 +73,22 @@
 			<form action="{% url new_function_resource function_id=fun.id %}" method="POST">
 				<tr>
 					<td>{{ fun.form.role }}</td>
-					<td>{{ fun.form.resource_type }}</td>		
-					<td>{{ fun.form.amount }}</td>
+					<td>
+						{{ fun.form.resource_type }}
+						{% if fun.form.resource_type.errors %}
+							<span style="color: red; " >
+								{{ fun.form.resource_type.errors }}
+							</span>
+						{% endif %}
+					</td>		
+					<td>
+						{{ fun.form.amount }}
+						{% if fun.form.amount.errors %}
+							<span style="color: red; " >
+								{{ fun.form.amount.errors }}
+							</span>
+						{% endif %}
+					</td>
 					<td><input type="submit" name="submit" value="Add" /></td>
 				</tr>
 			</form>
