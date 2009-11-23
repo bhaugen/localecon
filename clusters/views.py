@@ -66,6 +66,8 @@ def cluster(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     #template_params = cluster_params(cluster)
     
+    new_function_form = EconomicFunctionForm()
+    
     functions = cluster.functions.all()
     for fun in functions:
         fun.form = FunctionResourceTypeForm()
@@ -73,6 +75,7 @@ def cluster(request, cluster_id):
     return render_to_response("clusters/cluster.html", {
         "cluster": cluster,
         "functions": functions,
+        "new_function_form": new_function_form,
         #template_params,
         }, context_instance=RequestContext(request))
     
