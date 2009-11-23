@@ -142,10 +142,12 @@ def inline_new_function(request, cluster_id):
     if request.method == "POST":
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = EconomicFunctionForm(request.POST)
-        if form.is_valid():
-            form.save()
+        if form.is_valid(commit=False):
+            fun = form.save()
+            fun.cluster = cluster
+            fun.save()
     return HttpResponseRedirect('/%s/%s/'
-        % ('clusters/cluster', cluster.id))
+        % ('clusters/cluster', cluster_id))
     
 def new_function_resource(request, function_id):
     if request.method == "POST":
