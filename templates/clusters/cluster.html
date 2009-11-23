@@ -70,13 +70,13 @@
 					{% endfor %}
 				</tr>
 			{% endif %}
-			<form>
-			<tr>
-				<td>{{ fun.form.role }}</td>
-				<td>{{ fun.form.resource_type }}</td>		
-				<td>{{ fun.form.amount }}</td>
-				<td><input type="submit" name="submit" value="Add" /></td>
-			</tr>
+			<form action="{% url new_function_resource function_id=fun.id %}" method="POST">
+				<tr>
+					<td>{{ fun.form.role }}</td>
+					<td>{{ fun.form.resource_type }}</td>		
+					<td>{{ fun.form.amount }}</td>
+					<td><input type="submit" name="submit" value="Add" /></td>
+				</tr>
 			</form>
 		{% endfor %}
 	</table>
