@@ -82,7 +82,7 @@ def cluster(request, cluster_id):
         }, context_instance=RequestContext(request))
     
 def featured_cluster(request):
-    cluster = featured_cluster()
+    cluster = get_featured_cluster()
     template_params = {}
     if cluster:
         template_params = cluster_params(cluster)

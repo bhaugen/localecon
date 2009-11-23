@@ -386,7 +386,7 @@ class SiteSettings(models.Model):
     featured_cluster = models.ForeignKey(Cluster, related_name="featured")
 
    
-def featured_cluster():
+def get_featured_cluster():
     try:
         ss = SiteSettings.objects.get(pk=1)
         return ss.featured_cluster
