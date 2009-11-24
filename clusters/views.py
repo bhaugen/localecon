@@ -81,6 +81,25 @@ def cluster(request, cluster_id):
         #template_params,
         }, context_instance=RequestContext(request))
     
+
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    #template_params = cluster_params(cluster)
+    
+    new_function_form = EconomicFunctionForm()
+    new_resource_form = EconomicResourceTypeForm()
+    
+    functions = cluster.functions.all()
+    for fun in functions:
+        fun.form = FunctionResourceTypeForm()
+    
+    return render_to_response("clusters/cluster.html", {
+        "cluster": cluster,
+        "functions": functions,
+        "new_function_form": new_function_form,
+        "new_resource_form": new_resource_form,
+        #template_params,
+        }, context_instance=RequestContext(request))
+    
 def featured_cluster(request):
     cluster = get_featured_cluster()
     template_params = {}
