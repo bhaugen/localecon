@@ -180,8 +180,8 @@ def function_resource_table(cluster):
 class Community(models.Model):
     name = models.CharField(max_length=128)
     map_center = models.CharField(max_length=255, blank=True)
-    latitude = models.FloatField(default=0.0, editable=False)
-    longitude = models.FloatField(default=0.0, editable=False)
+    latitude = models.FloatField(default=0.0, blank=True, null=True, editable=False)
+    longitude = models.FloatField(default=0.0, blank=True, null=True, editable=False)
     
     class Meta:
         verbose_name_plural = "communities"
@@ -319,8 +319,8 @@ class FunctionResourceType(models.Model):
 class EconomicAgent(models.Model):
     name = models.CharField(max_length=128)
     address = models.CharField(max_length=255, blank=True)
-    latitude = models.FloatField(default=0.0, editable=False)
-    longitude = models.FloatField(default=0.0, editable=False)
+    latitude = models.FloatField(default=0.0, blank=True, null=True, editable=False)
+    longitude = models.FloatField(default=0.0, blank=True, null=True, editable=False)
     slug = models.SlugField("Page name", editable=False)
     
     class Meta:
