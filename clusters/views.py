@@ -82,6 +82,7 @@ def cluster(request, cluster_id):
         }, context_instance=RequestContext(request))
     
 
+def edit_cluster(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     #template_params = cluster_params(cluster)
     
