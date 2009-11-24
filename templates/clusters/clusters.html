@@ -18,7 +18,7 @@
 							<li>
 								{{ cluster.name }} Cluster: 
 								<a href="{% url radial_graph cluster_id=cluster.id %}">Diagram</a>&nbsp;&nbsp;
-								<a href="{% url cluster cluster_id=cluster.id %}">Edit</a>&nbsp;&nbsp;
+								<a href="{% url edit_cluster cluster_id=cluster.id %}">Edit</a>&nbsp;&nbsp;
 								{% comment %}
 								<a href="{% url iotable cluster_id=cluster.id %}">Input-Output Table</a>
 								{% endcomment %}
