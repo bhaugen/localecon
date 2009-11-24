@@ -4,12 +4,7 @@
      Cluster: {{ cluster }}
 {% endblock %}
 
-{% block header %}
-
-
-{% endblock %}
-
-{% block content %}
+{% block extra_head %}
 
 <style>
 
@@ -19,6 +14,12 @@ h2 {font-size:1.6875em}
 p {font-size:0.7875em}
 	
 </style>
+
+{% endblock %}
+
+{% block content %}
+
+
 
 <h3>Cluster: {{ cluster }}</h3>
 
