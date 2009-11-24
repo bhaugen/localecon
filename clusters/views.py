@@ -93,7 +93,7 @@ def edit_cluster(request, cluster_id):
     for fun in functions:
         fun.form = FunctionResourceTypeForm()
     
-    return render_to_response("clusters/cluster.html", {
+    return render_to_response("clusters/edit_cluster.html", {
         "cluster": cluster,
         "functions": functions,
         "new_function_form": new_function_form,
