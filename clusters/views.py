@@ -81,7 +81,7 @@ def cluster(request, cluster_id):
         #template_params,
         }, context_instance=RequestContext(request))
     
-
+@login_required
 def edit_cluster(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     #template_params = cluster_params(cluster)
