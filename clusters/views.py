@@ -93,6 +93,7 @@ def edit_cluster(request, cluster_id):
     return render_to_response("clusters/edit_cluster.html", {
         "cluster": cluster,
         "functions": functions,
+        "resources": resources,
         "new_function_form": new_function_form,
         "new_resource_form": new_resource_form,
         #template_params,
