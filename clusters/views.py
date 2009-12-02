@@ -172,7 +172,7 @@ def inline_new_function(request, cluster_id):
             fun.cluster = cluster
             fun.save()
     return HttpResponseRedirect('/%s/%s/'
-        % ('clusters/edit_cluster', cluster_id))
+        % ('clusters/editcluster', cluster_id))
 
 @login_required    
 def inline_new_resource(request, cluster_id):
@@ -182,7 +182,7 @@ def inline_new_resource(request, cluster_id):
         if form.is_valid():
             form.save()
     return HttpResponseRedirect('/%s/%s/'
-        % ('clusters/edit_cluster', cluster_id))
+        % ('clusters/editcluster', cluster_id))
 
 @login_required    
 def new_function_resource(request, function_id):
@@ -195,7 +195,7 @@ def new_function_resource(request, function_id):
             fr.function = fun
             fr.save()
     return HttpResponseRedirect('/%s/%s/'
-        % ('clusters/edit_cluster', fun.cluster.id))
+        % ('clusters/editcluster', fun.cluster.id))
         
     
 def fr_table(request, cluster_id):
