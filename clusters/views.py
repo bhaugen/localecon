@@ -87,8 +87,8 @@ def edit_cluster(request, cluster_id):
         
     resources = cluster.resources()
     for res in resources:
-        res.my_consumers = res.consumers(cluster)
-        res.my_producers = res.producers(cluster)
+        res.my_consumers = res.cluster_consumers(cluster)
+        res.my_producers = res.cluster_producers(cluster)
     
     return render_to_response("clusters/edit_cluster.html", {
         "cluster": cluster,
