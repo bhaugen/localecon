@@ -13,10 +13,12 @@
 
 <h3>Cluster: {{ cluster }}</h3>
 
+<p>{{ cluster.description }}</p>
+
 {% if map_url %}
 
 
-<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
+<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="1" marginwidth="1" 
 	src="{{ map_url|safe }}"></iframe>
 
 
