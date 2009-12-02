@@ -66,18 +66,10 @@ def cluster(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     #template_params = cluster_params(cluster)
     
-    new_function_form = EconomicFunctionForm()
-    new_resource_form = EconomicResourceTypeForm()
-    
-    functions = cluster.functions.all()
-    for fun in functions:
-        fun.form = FunctionResourceTypeForm()
     
     return render_to_response("clusters/cluster.html", {
         "cluster": cluster,
-        "functions": functions,
-        "new_function_form": new_function_form,
-        "new_resource_form": new_resource_form,
+        "map_url": cluster.map_url,
         #template_params,
         }, context_instance=RequestContext(request))
     
@@ -141,7 +133,8 @@ def economic_function(request, function_id):
     return render_to_response("clusters/economic_functions.html",{ 
         "economic_function": ef,
     }, context_instance=RequestContext(request))
-    
+
+@login_required    
 def new_function(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     function_form = EconomicFunctionForm()
@@ -168,7 +161,8 @@ def new_function(request, cluster_id):
         "resource_formset": resource_formset,
         "agent_formset": agent_formset,
     }, context_instance=RequestContext(request))
-    
+   
+@login_required 
 def inline_new_function(request, cluster_id):
     if request.method == "POST":
         cluster = get_object_or_404(Cluster, pk=cluster_id)
@@ -179,7 +173,8 @@ def inline_new_function(request, cluster_id):
             fun.save()
     return HttpResponseRedirect('/%s/%s/'
         % ('clusters/cluster', cluster_id))
-    
+
+@login_required    
 def inline_new_resource(request, cluster_id):
     if request.method == "POST":
         cluster = get_object_or_404(Cluster, pk=cluster_id)
@@ -188,7 +183,8 @@ def inline_new_resource(request, cluster_id):
             form.save()
     return HttpResponseRedirect('/%s/%s/'
         % ('clusters/cluster', cluster_id))
-    
+
+@login_required    
 def new_function_resource(request, function_id):
     if request.method == "POST":
         fun = get_object_or_404(EconomicFunction, pk=function_id)

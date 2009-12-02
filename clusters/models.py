@@ -195,6 +195,7 @@ class Cluster(models.Model):
     community = models.ForeignKey(Community, related_name='clusters')
     name = models.CharField(max_length=128)
     description = models.TextField( blank=True, null=True)
+    map_url = models.CharField(max_length=255, blank=True)
     number_description = models.TextField( blank=True, null=True,
         help_text="This description will appear on tables with numbers, to tell what the numbers mean.")
     root_function = models.ForeignKey("EconomicFunction", blank=True, null=True,
