@@ -114,21 +114,21 @@ p {font-size:0.7875em}
 		</form>
 		{% for res in cluster.resources %}
 			<tr><th style="text-align: left; font-size: 110%; " colspan="3" >{{ res }}</th></tr>
-			{% if res.producers %}
+			{% if res.my_producers %}
 				<tr>
 					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produced By:</th>
 					<td colspan="2" >
-					{% for fun in res.producers %}
+					{% for fun in res.my_producers %}
 						{{ fun.function.name }}<br />
 					{% endfor %}
 					</td>
 				</tr>
 			{% endif %}
-			{% if res.consumers %}
+			{% if res.my_consumers %}
 				<tr>
 					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumed By:</th>
 					<td colspan="2" >
-					{% for fun in res.consumers %}
+					{% for fun in res.my_consumers %}
 						{{ fun.function.name }}<br />	
 					{% endfor %}
 					</td>

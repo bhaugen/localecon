@@ -276,6 +276,12 @@ class EconomicResourceType(models.Model):
     
     def producers(self):
         return self.functions.filter(role="produces")
+    
+    def cluster_consumers(self, cluster):
+        return self.functions.filter(role="consumes", cluster=cluster)
+    
+    def cluster_producers(self, cluster):
+        return self.functions.filter(role="produces", cluster=cluster)
 
     
 class CommunityResourceType(models.Model):
