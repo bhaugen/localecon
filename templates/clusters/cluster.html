@@ -13,8 +13,10 @@
 
 <h3>Cluster: {{ cluster }}</h3>
 
-<p>{{ cluster.description }}</p>
-<p><a href="{% url edit_cluster cluster_id=cluster.id %}">Edit</a></p>
+<p>
+	{{ cluster.description }}&nbsp;&nbsp;
+	<a href="{% url edit_cluster cluster_id=cluster.id %}">Edit</a>
+</p>
 
 {% if map_url %}
 
