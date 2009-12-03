@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-     Cluster: {{ cluster }}
+     Edit Cluster: {{ cluster }}
 {% endblock %}
 
 {% block extra_head %}
@@ -21,7 +21,9 @@ p {font-size:0.7875em}
 
 
 
-<h3>Cluster: {{ cluster }}</h3>
+<h3>Edit Cluster: {{ cluster }}</h3>
+<br />
+{% include "clusters/_cluster_nav.html" %}
 
 <div style="float:left;" >
 	<table>
