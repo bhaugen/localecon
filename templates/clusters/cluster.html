@@ -15,9 +15,7 @@
 
 <p>
 	{{ cluster.description }}<br />
-	<a href="{% url edit_cluster cluster_id=cluster.id %}">Edit</a>&nbsp;&nbsp;
-	<a href="{% url radial_graph cluster_id=cluster.id %}">Diagram</a>&nbsp;&nbsp;
-	<a href="{% url fr_table cluster_id=cluster.id %}">Function-Resource Table</a>
+	{% include "clusters/_cluster_nav.html" %}
 </p>
 
 {% if map_url %}
