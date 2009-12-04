@@ -39,7 +39,7 @@ class FunctionResourceTypeForm(forms.ModelForm):
     def __init__(self, community, *args, **kwargs):
         super(FunctionResourceTypeForm, self).__init__(*args, **kwargs)
         self.fields["resource_type"].choices = [('', '----------')] + [
-            (res.id, res.name) for res in community.resources()
+            (cr.resource_type.id, cr.resource_type.name) for cr in community.resources.all()
         ]
         
     class Meta:
