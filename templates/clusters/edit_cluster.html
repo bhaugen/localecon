@@ -109,11 +109,14 @@ p {font-size:0.7875em}
 		<tr><th style="text-align: center; font-size: 120%; " colspan="3" >Resources:</th></tr>
 		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">
 			<tr>
-				<th style="text-align: right;" >New:</th>
+				<th style="text-align: right;" >New Community Resource:</th>
 				<td>{{ new_resource_form.name }}</td>
 				<td><input type="submit" name="submit" value="Add" /></td>
 			</tr>
 		</form>
+		<tr>
+			<th style="text-align: left; font-size: 110%; " colspan="3" >Resources used in this Cluster:</th>
+		</tr>
 		{% for res in resources %}
 			<tr><th style="text-align: left; font-size: 110%; " colspan="3" >{{ res }}</th></tr>
 			{% if res.my_producers %}
