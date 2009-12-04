@@ -89,6 +89,10 @@ def edit_cluster(request, cluster_id):
     for res in resources:
         res.my_consumers = res.cluster_consumers(cluster)
         res.my_producers = res.cluster_producers(cluster)
+        
+    
+    #resource_names = = ''.join([u'%s|%s\n' % (f.__unicode__(), f.pk) for f in qs])
+    resource_names = ' '.join([res.name for res in EconomicResourceType.objects.all()])
     
     return render_to_response("clusters/edit_cluster.html", {
         "cluster": cluster,
@@ -96,6 +100,7 @@ def edit_cluster(request, cluster_id):
         "resources": resources,
         "new_function_form": new_function_form,
         "new_resource_form": new_resource_form,
+        "resource_names": resource_names,
         #template_params,
         }, context_instance=RequestContext(request))
     
