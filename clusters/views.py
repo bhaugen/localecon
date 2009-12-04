@@ -189,8 +189,8 @@ def inline_new_resource(request, cluster_id):
             data = form.cleaned_data
             name = data['name']
             try:
-                resource = EconomicResource.objects.get(name=name)
-            except EconomicResource.DoesNotExist:
+                resource = EconomicResourceType.objects.get(name=name)
+            except EconomicResourceType.DoesNotExist:
                 resource = form.save()
             crt, created = CommunityResourceType.objects.get_or_create(community=cluster.community, resource=resource)
     return HttpResponseRedirect('/%s/%s/'
