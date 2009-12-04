@@ -144,4 +144,24 @@ p {font-size:0.7875em}
 </div>
 <div style="clear: both;" ></div> 
 
+<script src="http://www.google.com/jsapi"></script>
+<script>
+	
+	google.load("jquery", "1.3.2");
+</script>
+  <link rel="stylesheet" href="/site_media/css/jquery.autocomplete.css" type="text/css" />
+  <script type="text/javascript" src="/site_media/scripts/jquery.bgiframe.min.js"></script>
+  //<script type="text/javascript" src="/site_media/scripts/jquery.dimensions.js"></script>
+  <script type="text/javascript" src="/site_media/scripts/jquery.autocomplete.js"></script>
+
+
+<script>
+  $(document).ready(function(){
+    var data = "Core Selectors Attributes Traversing Manipulation CSS Events Effects Ajax Utilities".split(" ");
+$("#id_resource_name").autocomplete(data);
+  });
+  </script>
+
+
+
 {% endblock %}

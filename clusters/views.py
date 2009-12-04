@@ -78,8 +78,8 @@ def edit_cluster(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     #template_params = cluster_params(cluster)
     
-    new_function_form = EconomicFunctionForm()
-    new_resource_form = EconomicResourceTypeForm()
+    new_function_form = EconomicFunctionForm(prefix="function")
+    new_resource_form = EconomicResourceTypeForm(prefix="resource")
     
     functions = cluster.functions.all()
     for fun in functions:
