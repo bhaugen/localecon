@@ -285,7 +285,7 @@ class EconomicResourceType(models.Model):
 
     
 class CommunityResourceType(models.Model):
-    community = models.ForeignKey(Community)
+    community = models.ForeignKey(Community, related_name='resources')
     resource_type = models.ForeignKey(EconomicResourceType, related_name='communities')
 
     class Meta:

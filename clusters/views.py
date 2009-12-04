@@ -83,7 +83,7 @@ def edit_cluster(request, cluster_id):
     
     functions = cluster.functions.all()
     for fun in functions:
-        fun.form = FunctionResourceTypeForm()
+        fun.form = FunctionResourceTypeForm(community=cluster.community)
         
     resources = cluster.resources()
     for res in resources:

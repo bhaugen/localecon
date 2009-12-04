@@ -35,6 +35,10 @@ class FunctionResourceTypeFormX(forms.ModelForm):
 class FunctionResourceTypeForm(forms.ModelForm):
     amount = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
     role = forms.ChoiceField(choices=ROLE_CHOICES)
+    
+    def __init__(self, community, *args, **kwargs):
+        super(FunctionResourceTypeForm, self).__init__(*args, **kwargs)
+        self.fields["resource_type"].queryset = community.resources.all()
         
     class Meta:
         model = FunctionResourceType
