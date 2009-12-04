@@ -92,7 +92,7 @@ def edit_cluster(request, cluster_id):
         
     
     #resource_names = = ''.join([u'%s|%s\n' % (f.__unicode__(), f.pk) for f in qs])
-    resource_names = ''.join([u'%s\n' % (res.name) for res in EconomicResourceType.objects.all()])
+    resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
     
     return render_to_response("clusters/edit_cluster.html", {
         "cluster": cluster,
