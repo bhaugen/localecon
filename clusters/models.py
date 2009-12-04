@@ -190,6 +190,12 @@ class Community(models.Model):
     def __unicode__(self):
         return self.name
     
+    def resources(self):
+        answer = []
+        for cr in self.resources.all():
+            answer.append(cr.resource_type)
+        return list(set(answer))
+    
 
 class Cluster(models.Model):
     community = models.ForeignKey(Community, related_name='clusters')

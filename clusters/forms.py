@@ -38,7 +38,9 @@ class FunctionResourceTypeForm(forms.ModelForm):
     
     def __init__(self, community, *args, **kwargs):
         super(FunctionResourceTypeForm, self).__init__(*args, **kwargs)
-        self.fields["resource_type"].queryset = community.resources.all()
+        self.fields["resource_type"].choices = [('', '----------')] + [
+            (res.id, res.name) for res in community.resources()
+        ]
         
     class Meta:
         model = FunctionResourceType
