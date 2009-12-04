@@ -289,7 +289,7 @@ class CommunityResourceType(models.Model):
     resource_type = models.ForeignKey(EconomicResourceType, related_name='communities')
 
     class Meta:
-        ordering = ('resource_type',)
+        ordering = ('community', 'resource_type')
     
     def __unicode__(self):
         return " ".join([self.community.name, self.resource_type.name])
@@ -350,7 +350,7 @@ class CommunityAgent(models.Model):
     agent = models.ForeignKey(EconomicAgent, related_name='communities')
 
     class Meta:
-        ordering = ('agent',)
+        ordering = ('community', 'agent')
     
     def __unicode__(self):
         return " ".join([self.community.name, self.agent.name])

@@ -186,7 +186,12 @@ def inline_new_resource(request, cluster_id):
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = EconomicResourceTypeForm(request.POST)
         if form.is_valid():
-            form.save()
+            data = form.cleaned_data
+            name = data['name']
+            try:
+                resource = EconomicResource.objects.get(name=name)
+            except EconomicResource.DoesNotExist:
+                form.save()
     return HttpResponseRedirect('/%s/%s/'
         % ('clusters/editcluster', cluster_id))
 
