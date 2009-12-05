@@ -28,12 +28,17 @@ p {font-size:0.7875em}
 <table>
 	{% for agent in agents %}
 		<tr>
-			<th>{{ agent.name }}</th>
+			<th style="text-align: left; font-size: 110%; >{{ agent.name }}</th>
 		</tr>
 		{% for fun in agent.cluster_functions %}
 			<tr>
-				<td>{{ fun.function }}</td>
+				<td>{{ fun.function.name }}</td>
 			</tr>
+			{% for res in fun.function.resources.all %}
+				<tr>
+					<td>{{ res }}</td>
+				</tr>
+			{% endfor %}
 		{% endfor %}
 	{% endfor %}
 </table>
