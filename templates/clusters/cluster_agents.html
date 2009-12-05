@@ -37,7 +37,7 @@ p {font-size:0.7875em}
 			{% for res in fun.function.resources.all %}
 				<tr>
 					<td>&nbsp;</td>
-					<td>{{ res.resource }} {{ res.role }}</td>
+					<td> {{ res.role }} {{ res.resource_type }}</td>
 				</tr>
 			{% endfor %}
 		{% endfor %}
