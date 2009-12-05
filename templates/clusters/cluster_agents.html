@@ -48,9 +48,11 @@ p {font-size:0.7875em}
 				</tr>
 				{% for agent_res in res.agent_resources %}
 					<tr>
+						<td>&nbsp;</td>
 						<th>Agent Resource:</th>
-						<td> {{ agent_res.role }} {{ agent_res.resource_type }}</td>
-						<td>{{ agent_res.amount }}</td>
+						<td>
+							 {{ agent_res.role }} {{ agent_res.resource_type }} Amt: {{ agent_res.amount }}
+						</td>
 					</tr>
 				{% endfor %}
 			{% endfor %}
