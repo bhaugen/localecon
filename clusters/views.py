@@ -80,7 +80,7 @@ def cluster_agents(request, cluster_id):
     for agent in agents:
         agent.cluster_functions = agent.functions.filter(function__cluster=cluster)
         for cf in agent.cluster_functions:
-            cf.resources = cf.resources.all()
+            cf.resources = cf.function.resources.all()
     
     return render_to_response("clusters/cluster_agents.html", {
         "cluster": cluster,
