@@ -28,7 +28,7 @@ p {font-size:0.7875em}
 <table>
 	{% for agent in agents %}
 		<tr>
-			<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" >{{ agent.name }}</th>
+			<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}</th>
 		</tr>
 		{% for fun in agent.cluster_functions %}
 			<tr>

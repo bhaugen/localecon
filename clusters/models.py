@@ -291,6 +291,15 @@ class EconomicResourceType(models.Model):
     
     def cluster_producers(self, cluster):
         return self.functions.filter(role="produces", function__cluster=cluster)
+    
+    def is_child_of(self, resource_type):
+        if self.parent.id == resource_type.id:
+            return True
+        res = self.parent
+        while not res.parent is None:
+            if res.parent.id == resource_type.id:
+                return True
+        return False
 
     
 class CommunityResourceType(models.Model):
@@ -330,6 +339,17 @@ class FunctionResourceType(models.Model):
             except CommunityResourceType.DoesNotExist:
                 crt = CommunityResourceType(community=community, resource_type=rt).save()
         super(FunctionResourceType, self).save(force_insert, force_update)
+        
+    def agent_resources(self):
+        answer = []
+        function_agents = self.function.agents.all()
+        for fa in function_agents:
+            for ar in fa.agent.resources.all():
+                if ar.resource_type.id == self.resource_type.id:
+                    answer.append(ar)
+                elif ar.resource_type.is_child_of(self.resource_type):
+                    answer.append(ar)
+        return answer
 
     
 class EconomicAgent(models.Model):
