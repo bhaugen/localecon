@@ -226,6 +226,13 @@ class Cluster(models.Model):
                 answer.append(r.resource_type)
         return list(set(answer))
       
+      
+    def agents(self):
+        answer = []
+        for fun in self.functions.all():
+            for a in fun.agents.all():
+                answer.append(a.agent)
+        return list(set(answer))
 
 class EconomicFunction(models.Model):
     cluster = models.ForeignKey(Cluster, related_name="functions")
