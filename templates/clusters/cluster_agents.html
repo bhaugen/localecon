@@ -1,7 +1,7 @@
-% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
-     Edit Cluster: {{ cluster }}
+     Agents performing Functions in Cluster {{ cluster }}
 {% endblock %}
 
 {% block extra_head %}
@@ -21,7 +21,7 @@ p {font-size:0.7875em}
 
 
 
-<h3>Agents performing Functions in Cluster: {{ cluster }}</h3>
+<h3>Agents performing Functions in Cluster {{ cluster }}</h3>
 
 {% include "clusters/_cluster_nav.html" %}
 
