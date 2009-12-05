@@ -32,7 +32,8 @@ p {font-size:0.7875em}
 		</tr>
 		{% for fun in agent.cluster_functions %}
 			<tr>
-				<td colspan="2" >{{ fun.function.name }}</td>
+				<td>{{ fun.function.name }}</td>
+				<td>&nbsp;</td>
 			</tr>
 			{% for res in fun.function.resources.all %}
 				<tr>
