@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}
+     Edit Cluster: {{ cluster }}
+{% endblock %}
+
+{% block extra_head %}
+
+<style>
+
+body {font-size:90%}
+h1 {font-size:2.25em}
+h2 {font-size:1.6875em}
+p {font-size:0.7875em}
+	
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<h3>Edit Cluster: {{ cluster }}</h3>
+
+{% include "clusters/_cluster_nav.html" %}
+
+<div style="float:left;" >
+	<table>
+		<tr><th style="text-align: center; font-size: 120%; " colspan="4" >Functions:</th></tr>
+		<form action="{% url inline_new_function cluster_id=cluster.id %}" method="POST">
+			<tr>
+				<th style="text-align: right;" >New:</th>
+				<td>{{ new_function_form.name }}</td>
+				<td><input type="submit" name="submit" value="Add" /></td>
+				<td>&nbsp;</td>
+			</tr>
+		</form>
+		{% for fun in functions %}
+			<tr><th style="text-align: left; font-size: 110%; " colspan="4" >{{ fun.name }}</th></tr>
+			{% if fun.inputs %}
+				<tr>
+					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumes:</th>
+					{% for resource in fun.inputs %}
+						{% if forloop.first %}
+							<td>
+								{{ resource.resource_type }}
+							</td>
+							<td colspan="2">
+								<b>Amt:</b> {{ resource.amount }}<br />	
+							</td>
+						{% else %}
+							<tr>
+								<td>&nbsp;</td>
+								<td>
+									{{ resource.resource_type }}
+								</td>
+								<td colspan="2">
+									<b>Amt:</b> {{ resource.amount }}<br />	
+								</td>
+							</tr>
+						{% endif %}
+					{% endfor %}
+				</tr>
+			{% endif %}
+			{% if fun.outputs %}
+				<tr>
+					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produces:</th>
+					{% for resource in fun.outputs %}
+						{% if forloop.first %}
+							<td>
+								{{ resource.resource_type }}
+							</td>
+							<td colspan="2">
+								<b>Amt:</b> {{ resource.amount }}<br />	
+							</td>
+						{% else %}
+							<tr>
+								<td>&nbsp;</td>
+								<td>
+									{{ resource.resource_type }}
+								</td>
+								<td colspan="2">
+									<b>Amt:</b> {{ resource.amount }}<br />	
+								</td>
+							</tr>
+						{% endif %}
+					{% endfor %}
+				</tr>
+			{% endif %}
+			<form action="{% url new_function_resource function_id=fun.id %}" method="POST">
+				<tr>
+					<td>{{ fun.form.role }}</td>
+					<td>
+						{{ fun.form.resource_type }}
+					</td>		
+					<td>
+						{{ fun.form.amount }}
+					</td>
+					<td><input type="submit" name="submit" value="Add" /></td>
+				</tr>
+			</form>
+		{% endfor %}
+	</table>
+</div>
+
+<div style="float:left; margin-left: 2em;" >
+	<table>
+		<tr><th style="text-align: center; font-size: 120%; " colspan="3" >Resources:</th></tr>
+		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">
+			<tr>
+				<th style="text-align: right;" >New:</th>
+				<td>{{ new_resource_form.name }}</td>
+				<td><input type="submit" name="submit" value="Add" /></td>
+			</tr>
+		</form>
+		<tr>
+			<th style="text-align: center; font-size: 110%; " colspan="3" >Resources used in this Cluster:</th>
+		</tr>
+		{% for res in resources %}
+			<tr><th style="text-align: left; font-size: 110%; " colspan="3" >{{ res }}</th></tr>
+			{% if res.my_producers %}
+				<tr>
+					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produced By:</th>
+					<td colspan="2" >
+					{% for fun in res.my_producers %}
+						{{ fun.function.name }}<br />
+					{% endfor %}
+					</td>
+				</tr>
+			{% endif %}
+			{% if res.my_consumers %}
+				<tr>
+					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumed By:</th>
+					<td colspan="2" >
+					{% for fun in res.my_consumers %}
+						{{ fun.function.name }}<br />	
+					{% endfor %}
+					</td>
+				</tr>
+			{% endif %}
+		{% endfor %}
+	</table>
+</div>
+<div style="clear: both;" ></div> 
+
+<script src="http://www.google.com/jsapi"></script>
+<script>
+	
+	google.load("jquery", "1.3.2");
+</script>
+  <link rel="stylesheet" href="/site_media/css/jquery.autocomplete.css" type="text/css" />
+  <script type="text/javascript" src="/site_media/scripts/jquery.bgiframe.min.js"></script>
+  //<script type="text/javascript" src="/site_media/scripts/jquery.dimensions.js"></script>
+  <script type="text/javascript" src="/site_media/scripts/jquery.autocomplete.js"></script>
+
+
+<script>
+  $(document).ready(function(){
+    var data = "{{ resource_names }}".split(";");
+$("#id_resource-name").autocomplete(data, {matchContains: true});
+  });
+  </script>
+
+
+
+{% endblock %}

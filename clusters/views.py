@@ -90,7 +90,7 @@ def cluster_agents(request, cluster_id):
     
     
 @login_required
-def edit_cluster(request, cluster_id):
+def edit_cluster_functions(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     #template_params = cluster_params(cluster)
     
@@ -108,7 +108,7 @@ def edit_cluster(request, cluster_id):
         
     resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
     
-    return render_to_response("clusters/edit_cluster.html", {
+    return render_to_response("clusters/edit_cluster_functions.html", {
         "cluster": cluster,
         "functions": functions,
         "resources": resources,
