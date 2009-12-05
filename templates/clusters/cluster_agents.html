@@ -44,7 +44,7 @@ p {font-size:0.7875em}
 				<tr>
 					<td>&nbsp;</td>
 					<td> {{ res.role }} {{ res.resource_type }}</td>
-					<td>{{ res.amount }}</td>
+					<td style="text-align: right;" >{{ res.amount }}</td>
 				</tr>
 				{% for agent_res in res.agent_resources %}
 					<tr>
