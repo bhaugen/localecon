@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-     Agents performing Functions in Cluster {{ cluster }}
+     Agents in Cluster {{ cluster }}
 {% endblock %}
 
 {% block extra_head %}
@@ -40,7 +40,7 @@ p {font-size:0.7875em}
 				<th>Resource</th>
 				<th>Amount</th>
 			</tr>
-			{% for res in fun.function.resources.all %}
+			{% for res in fun.resources %}
 				<tr>
 					<td>&nbsp;</td>
 					<td> {{ res.role }} {{ res.resource_type }}</td>
