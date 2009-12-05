@@ -299,6 +299,7 @@ class EconomicResourceType(models.Model):
         while not res.parent is None:
             if res.parent.id == resource_type.id:
                 return True
+            res = res.parent
         return False
 
     
