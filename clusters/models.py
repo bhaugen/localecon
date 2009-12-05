@@ -232,7 +232,9 @@ class Cluster(models.Model):
         for fun in self.functions.all():
             for a in fun.agents.all():
                 answer.append(a.agent)
-        return list(set(answer)).sort(lambda x, y: cmp(x.name, y.name))
+        answer = list(set(answer))
+        answer.sort(lambda x, y: cmp(x.name, y.name))
+        return answer
 
 class EconomicFunction(models.Model):
     cluster = models.ForeignKey(Cluster, related_name="functions")
