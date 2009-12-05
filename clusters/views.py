@@ -73,6 +73,20 @@ def cluster(request, cluster_id):
         #template_params,
         }, context_instance=RequestContext(request))
     
+def cluster_agents(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    
+    agents = c.agents()
+    for agent in agents:
+        agent.cluster_functions = agent.functions.filter(function__cluster=cluster)  
+    
+    return render_to_response("clusters/cluster_agents.html", {
+        "cluster": cluster,
+        "agents": agents,
+        "map_url": cluster.map_url,
+        }, context_instance=RequestContext(request))
+    
+    
 @login_required
 def edit_cluster(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
@@ -90,8 +104,6 @@ def edit_cluster(request, cluster_id):
         res.my_consumers = res.cluster_consumers(cluster)
         res.my_producers = res.cluster_producers(cluster)
         
-    
-    #resource_names = = ''.join([u'%s|%s\n' % (f.__unicode__(), f.pk) for f in qs])
     resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
     
     return render_to_response("clusters/edit_cluster.html", {

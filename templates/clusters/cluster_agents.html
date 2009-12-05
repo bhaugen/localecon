@@ -1,0 +1,42 @@
+% extends "base.html" %}
+
+{% block title %}
+     Edit Cluster: {{ cluster }}
+{% endblock %}
+
+{% block extra_head %}
+
+<style>
+
+body {font-size:90%}
+h1 {font-size:2.25em}
+h2 {font-size:1.6875em}
+p {font-size:0.7875em}
+	
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<h3>Agents performing Functions in Cluster: {{ cluster }}</h3>
+
+{% include "clusters/_cluster_nav.html" %}
+
+<table>
+	{% for agent in agents %}
+		<tr>
+			<th>{{ agent.name }}</th>
+		</tr>
+		{% for fun in agent.functions %}
+			<tr>
+				<td>{{ fun }}</td>
+			</tr>
+		{% endfor %}
+	{% endfor %}
+</table>
+
+
+{% endblock %}

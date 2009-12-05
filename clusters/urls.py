@@ -9,6 +9,9 @@ urlpatterns = patterns('',
     url(r'^iotable/(?P<cluster_id>\d+)/$', 'clusters.views.iotable', name="iotable"),
     url(r'^frtable/(?P<cluster_id>\d+)/$', 'clusters.views.fr_table', name="fr_table"),
     
+    # agents
+    url(r'^clusteragents/(?P<cluster_id>\d+)/$', 'clusters.views.cluster_agents', name="cluster_agents"),
+    
     # functions
     url(r'^functions/(?P<cluster_id>\d+)/$', 'clusters.views.economic_functions', name="economic_functions"),
     url(r'^function/(?P<function_id>\d+)/$', 'clusters.views.economic_function', name="economic_function"),
