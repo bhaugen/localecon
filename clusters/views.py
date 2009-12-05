@@ -150,7 +150,7 @@ def new_function(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     function_form = EconomicFunctionForm()
     
-    ResourceFormSet = formset_factory(FunctionResourceTypeForm, extra=5)
+    ResourceFormSet = formset_factory(FunctionResourceTypeFormX, extra=5)
     resource_formset = ResourceFormSet()
     rtypes = CommunityResourceType.objects.filter(community=cluster.community)
     for form in resource_formset.forms:
