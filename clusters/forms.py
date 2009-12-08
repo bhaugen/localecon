@@ -29,12 +29,14 @@ class EconomicResourceTypeFormX(forms.ModelForm):
         name = cleaned_data["name"]
         instance = self.instance
         
-        import pdb; pdb.set_trace()
-        
         try:
             resource = EconomicResourceType.objects.get(name=name)
+            cleaned_data["pk"] = resource.pk
         except EconomicResourceType.DoesNotExist:
             pass
+        
+        import pdb; pdb.set_trace()
+        
         return cleaned_data
 
 
