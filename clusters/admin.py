@@ -1,5 +1,6 @@
 from django.contrib import admin
 from clusters.models import *
+from clusters.forms import EconomicResourceTypeFormX
 
 admin.site.register(Community)
 
@@ -34,7 +35,14 @@ class EconomicAgentAdmin(admin.ModelAdmin):
     
 admin.site.register(EconomicAgent, EconomicAgentAdmin)
 
-admin.site.register(EconomicResourceType)
+class EconomicResourceTypeAdmin(admin.ModelAdmin):
+    form = EconomicResourceTypeFormX
+    list_display = ('name',)
+    list_filter = ['name',]
+    search_fields = ['name',]
+    
+admin.site.register(EconomicResourceType, EconomicResourceTypeAdmin)
+
 admin.site.register(SiteSettings)
 admin.site.register(CommunityResourceType)
 admin.site.register(CommunityAgent)
