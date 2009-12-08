@@ -17,6 +17,7 @@
 						{% for cluster in community.clusters.all %}
 							<li>
 								{{ cluster.name }}</a> Cluster:&nbsp;&nbsp;
+								{% include "clusters/_cluster_nav.html" %}
 								{% comment %}
 								<a href="{% url cluster cluster_id=cluster.id %}">View</a>&nbsp;&nbsp;
 								<a href="{% url radial_graph cluster_id=cluster.id %}">Diagram</a>&nbsp;&nbsp;
