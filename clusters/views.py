@@ -189,6 +189,7 @@ def new_function(request, cluster_id):
    
 @login_required 
 def inline_new_function(request, cluster_id):
+    form = EconomicResourceTypeFormX(request.POST or None)
     if request.method == "POST":
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = EconomicFunctionForm(request.POST)
@@ -196,6 +197,24 @@ def inline_new_function(request, cluster_id):
             fun = form.save(commit=False)
             fun.cluster = cluster
             fun.save()
+            
+    return render_to_response("clusters/new_resource.html",{ 
+        "form": form,
+    }, context_instance=RequestContext(request))
+    
+@login_required    
+def new_resource(request, cluster_id):
+    if request.method == "POST":
+        cluster = get_object_or_404(Cluster, pk=cluster_id)
+        form = EconomicResourceTypeForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            name = data['name']
+            try:
+                resource = EconomicResourceType.objects.get(name=name)
+            except EconomicResourceType.DoesNotExist:
+                resource = form.save()
+            crt, created = CommunityResourceType.objects.get_or_create(community=cluster.community, resource_type=resource)
     return HttpResponseRedirect('/%s/%s/'
         % ('clusters/editcluster', cluster_id))
 

@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     
     # resources
     url(r'^inlinenewresource/(?P<cluster_id>\d+)/$', 'clusters.views.inline_new_resource', name="inline_new_resource"),
+    url(r'^newresource/(?P<cluster_id>\d+)/$', 'clusters.views.new_resource', name="new_resource"),
     
     #function resources
     url(r'^newfunctionresource/(?P<function_id>\d+)/$', 'clusters.views.new_function_resource', name="new_function_resource"),

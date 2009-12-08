@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+     New Resource
+{% endblock %}
+
+{% block content %}
+	<h1>New Resource</h1>
+	<form action="." method="POST" >
+		<table>
+			{{ resource_form }}
+		</table>
+		<input type="submit" value="Submit" />
+	</form>
+{% endblock %}

@@ -17,6 +17,27 @@ class EconomicResourceTypeForm(forms.ModelForm):
         fields = ('name',)
         
 
+class EconomicResourceTypeFormX(forms.ModelForm):
+    
+    class Meta:
+        model = EconomicResourceType
+        fields = ('name',)
+        
+        
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        name = cleaned_data["name"]
+        instance = self.instance
+        
+        import pdb; pdb.set_trace()
+        
+        try:
+            resource = EconomicResourceType.objects.get(name=name)
+        except EconomicResourceType.DoesNotExist:
+            pass
+        return cleaned_data
+
+
 class EconomicAgentForm(forms.ModelForm):
     address = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '80',}))
     
@@ -53,6 +74,7 @@ class FunctionAgentForm(forms.ModelForm):
     class Meta:
         model = AgentFunction
         fields = ('agent',)
+
         
 class EmailForm(forms.Form):
     email_address = forms.EmailField()
