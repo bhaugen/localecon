@@ -189,7 +189,6 @@ def new_function(request, cluster_id):
    
 @login_required 
 def inline_new_function(request, cluster_id):
-    form = EconomicResourceTypeFormX(request.POST or None)
     if request.method == "POST":
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = EconomicFunctionForm(request.POST)
@@ -205,7 +204,7 @@ def inline_new_function(request, cluster_id):
 @login_required    
 def new_resource(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    form = EconomicResourceTypeForm(request.POST)
+    form = EconomicResourceTypeFormX(data=request.POST or None)
     if request.method == "POST":
         if form.is_valid():
             data = form.cleaned_data
