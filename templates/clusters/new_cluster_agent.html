@@ -44,10 +44,24 @@ p {font-size:0.7875em}
 
 
 <script>
-  $(document).ready(function(){
-    var data = "{{ agent_names }}".split("~");
-$("#id_name").autocomplete(data, {matchContains: true});
-  });
+	
+$(document).ready(function(){
+	var data = "{{ agent_names }}".split("~");
+	("#id_name").autocomplete(data, {matchContains: true});
+	
+	$("#id_name").blur(getAddress);
+});
+	
+
+function getAddress(event)
+{
+	var jsonUrl = "/jsonagentaddress/" + event.target.value + "/";
+	$.get(jsonUrl,
+		function(data){
+			alert("Data Loaded: " + data);
+		});
+});
+	
  </script>
 
 

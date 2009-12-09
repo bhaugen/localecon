@@ -240,6 +240,11 @@ def new_cluster_agent(request, cluster_id):
         "agent_names": agent_names,
     }, context_instance=RequestContext(request))
     
+def json_agent_address(request, agent_name):
+    # Note: serializer requires an iterable, not a single object. Thus filter rather than get.
+    data = serializers.serialize("json", EconomicAgent.objects.filter(name=agent_name))
+    return HttpResponse(data, mimetype="text/json-comment-filtered")
+    
 @login_required    
 def inline_new_resource(request, cluster_id):
     if request.method == "POST":
