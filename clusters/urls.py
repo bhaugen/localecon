@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     # agents
     url(r'^clusteragents/(?P<cluster_id>\d+)/$', 'clusters.views.cluster_agents', name="cluster_agents"),
     url(r'^newclusteragent/(?P<cluster_id>\d+)/$', 'clusters.views.new_cluster_agent', name="new_cluster_agent"),
-    url(r'^jsonagentaddress/(?P<agent_name>\.+)/$', 'clusters.views.json_agent_address', name="json_agent_address"),
+    url(r'^jsonagentaddress/(?P<agent_name>.+)/$', 'clusters.views.json_agent_address', name="json_agent_address"),
     
     
     # functions
