@@ -46,7 +46,7 @@ p {font-size:0.7875em}
 <script>
 	
 $(document).ready(function(){
-	$("#id_name").blur(getAddress);
+	$("#id_name").change(getAddress);
 	var data = "{{ agent_names }}".split("~");
 	$("#id_name").autocomplete(data, {matchContains: true});
 });
