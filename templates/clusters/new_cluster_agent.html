@@ -59,6 +59,7 @@ function getAddress(event)
 	var name = event.target.value;
 	for(i=1;i<agentNames.length;i++)
 	{
+		var thisName = agentNames[i];
 		if(agentNames[i]==name)
 		{
 			var jsonUrl = encodeURI("/clusters/jsonagentaddress/" + name + "/");
