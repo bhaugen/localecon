@@ -32,5 +32,23 @@ p {font-size:0.7875em}
 		<input type="submit" value="Submit" />
 	</form>
 
+<script src="http://www.google.com/jsapi"></script>
+<script>
+	
+	google.load("jquery", "1.3.2");
+</script>
+  <link rel="stylesheet" href="/site_media/css/jquery.autocomplete.css" type="text/css" />
+  <script type="text/javascript" src="/site_media/scripts/jquery.bgiframe.min.js"></script>
+  //<script type="text/javascript" src="/site_media/scripts/jquery.dimensions.js"></script>
+  <script type="text/javascript" src="/site_media/scripts/jquery.autocomplete.js"></script>
+
+
+<script>
+  $(document).ready(function(){
+    var data = "{{ agent_names }}".split(";");
+$("#id_name").autocomplete(data, {matchContains: true});
+  });
+  </script>
+
 
 {% endblock %}
