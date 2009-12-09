@@ -45,22 +45,27 @@ p {font-size:0.7875em}
 
 <script>
 	
+var agentNameString = "{{ agent_names }}";
+	
 $(document).ready(function(){
-	$("#id_name").select(getAddress);
-	var data = "{{ agent_names }}".split("~");
-	$("#id_name").autocomplete(data, {matchContains: true});
+	var agentNames = agentNameString.split("~");
+	$("#id_name").blur(getAddress);
+	$("#id_name").autocomplete(agentNames, {matchContains: true});
 });
 	
 
 function getAddress(event)
 {
 	var name = event.target.value;
-	var jsonUrl = encodeURI("/clusters/jsonagentaddress/" + name + "/");
-	$.get(jsonUrl,
-		function(data){
-			address = data.fields.address;
-			alert("Data Loaded: " + data + ", address:" + address);
-		});
+	if(agentNameString.indexOf(name)>-1)
+	{
+		var jsonUrl = encodeURI("/clusters/jsonagentaddress/" + name + "/");
+		$.get(jsonUrl,
+			function(data){
+				address = data.fields.address;
+				alert("Data Loaded: " + data + ", address:" + address);
+			});
+	}
 }
 	
  </script>
