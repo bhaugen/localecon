@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}
+     Edit Agent {{ agent }}
+{% endblock %}
+
+{% block extra_head %}
+
+<style>
+
+body {font-size:90%}
+h1 {font-size:2.25em}
+h2 {font-size:1.6875em}
+p {font-size:0.7875em}
+	
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<h3>Edit Agent {{ agent }} in Cluster {{ cluster }}</h3>
+
+{% include "clusters/_cluster_nav.html" %}
+<br />
+<table>
+	{% for agent in agents %}
+		<tr>
+			<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}</th>
+		</tr>
+		{% for fun in agent.cluster_functions %}
+			<tr>
+				<td style="padding-top: .5em; text-align: left;" colspan="3" > <b>Function:</b> {{ fun.function.name }}</td>
+
+			</tr>
+			<tr>
+				<th>Function Resources:</th>
+				<th>Resource</th>
+				<th>Amount</th>
+			</tr>
+			{% for res in fun.resources %}
+				<tr>
+					<td>&nbsp;</td>
+					<td> {{ res.role }} {{ res.resource_type }}</td>
+					<td style="text-align: right;" >{{ res.amount }}</td>
+				</tr>
+				{% for agent_res in res.agent_resources %}
+					<tr>
+						<td>&nbsp;</td>
+						<td><b>Agent Resource:</b>  {{ agent_res.role }} {{ agent_res.resource_type }} </td>
+						<td style="text-align: right;" >
+							{{ agent_res.amount }}
+						</td>
+					</tr>
+				{% endfor %}
+			{% endfor %}
+		{% endfor %}
+	{% endfor %}
+</table>
+
+
+{% endblock %}

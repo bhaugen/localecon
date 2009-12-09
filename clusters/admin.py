@@ -1,6 +1,5 @@
 from django.contrib import admin
 from clusters.models import *
-from clusters.forms import EconomicResourceTypeFormX
 
 admin.site.register(Community)
 
@@ -28,18 +27,17 @@ class AgentResourceInline(admin.TabularInline):
     model = AgentResourceType
 
 class EconomicAgentAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    list_filter = ['name',]
-    search_fields = ['name',]
+    list_display = ('name', 'address')
+    list_filter = ['name']
+    search_fields = ['name', 'address']
     inlines = [ AgentFunctionInline, AgentResourceInline]
     
 admin.site.register(EconomicAgent, EconomicAgentAdmin)
 
 class EconomicResourceTypeAdmin(admin.ModelAdmin):
-    form = EconomicResourceTypeFormX
-    list_display = ('name',)
-    list_filter = ['name',]
-    search_fields = ['name',]
+    list_display = ('name', 'parent')
+    list_filter = ['name', 'parent']
+    search_fields = ['name', 'parent']
     
 admin.site.register(EconomicResourceType, EconomicResourceTypeAdmin)
 

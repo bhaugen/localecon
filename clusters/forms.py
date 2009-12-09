@@ -77,6 +77,22 @@ class FunctionAgentForm(forms.ModelForm):
         model = AgentFunction
         fields = ('agent',)
 
+   
+class AgentFunctionForm(forms.ModelForm):
+        
+    class Meta:
+        model = AgentFunction
+        fields = ('function',)
+          
+
+class AgentResourceForm(forms.ModelForm):
+    name = forms.CharField()
+    parent = forms.CharField()
+    
+    class Meta:
+        model = EconomicResourceType
+        fields = ('name', 'parent')
+
         
 class EmailForm(forms.Form):
     email_address = forms.EmailField()
