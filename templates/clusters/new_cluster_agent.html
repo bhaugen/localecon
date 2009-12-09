@@ -55,7 +55,7 @@ $(document).ready(function(){
 function getAddress(event)
 {
 	var name = event.target.value;
-	var jsonUrl = encodeURI("/jsonagentaddress/" + name + "/");
+	var jsonUrl = encodeURI("/clusters/jsonagentaddress/" + name + "/");
 	$.get(jsonUrl,
 		function(data){
 			alert("Data Loaded: " + data);
