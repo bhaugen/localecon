@@ -247,7 +247,7 @@ def json_agent_address(request, agent_name):
     
     import pdb; pdb.set_trace()
     
-    data = serializers.serialize("json", EconomicAgent.objects.filter(name=agent_name))
+    data = serializers.serialize("json", EconomicAgent.objects.filter(name=agent_name).values("address"))
     return HttpResponse(data, mimetype="text/json-comment-filtered")
     
 @login_required    
