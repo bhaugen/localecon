@@ -35,7 +35,7 @@ class EconomicResourceTypeFormX(forms.ModelForm):
         except EconomicResourceType.DoesNotExist:
             pass
         
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         
         return cleaned_data
 
