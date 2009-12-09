@@ -45,7 +45,7 @@ p {font-size:0.7875em}
 
 <script>
   $(document).ready(function(){
-    var data = "{{ agent_names }}".split("\n");
+    var data = "{{ agent_names }}".split("~");
 $("#id_name").autocomplete(data, {matchContains: true});
   });
  </script>

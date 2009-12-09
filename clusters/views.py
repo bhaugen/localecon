@@ -223,7 +223,7 @@ def new_resource(request, cluster_id):
 def new_cluster_agent(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     form = EconomicAgentForm(data=request.POST or None)
-    agent_names = '\n'.join([agt.name for agt in EconomicAgent.objects.all()])
+    agent_names = '~'.join([agt.name for agt in EconomicAgent.objects.all()])
     if request.method == "POST":
         if form.is_valid():
             data = form.cleaned_data
