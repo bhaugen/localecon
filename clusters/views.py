@@ -233,7 +233,7 @@ def new_cluster_agent(request, cluster_id):
                 pass
                 #agent = form.save()
             #crt, created = CommunityAgent.objects.get_or_create(community=cluster.community, agent=agent)
-    return render_to_response("clusters/new_resource.html",{ 
+    return render_to_response("clusters/new_cluster_agent.html",{ 
         "form": form,
     }, context_instance=RequestContext(request))
     
