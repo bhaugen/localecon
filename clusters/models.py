@@ -267,6 +267,13 @@ def nested_objects(node, all_nodes):
          if subnode.parent and subnode.parent.id == node.id:
              to_return.extend([nested_objects(subnode, all_nodes),])
      return to_return
+ 
+def flattened_children(node, all_nodes, to_return):
+     to_return.append(node)
+     for subnode in all_nodes:
+         if subnode.parent and subnode.parent.id == node.id:
+             flattened_children(subnode, all_nodes, to_return)
+     return to_return
 
 
 class EconomicResourceType(models.Model):
@@ -317,7 +324,7 @@ class EconomicResourceType(models.Model):
                 root = root.parent
         else:
             root = self
-        return nested_objects(root, EconomicResourceType.objects.all())
+        return flattened_children(root, EconomicResourceType.objects.all())
         
 
     
