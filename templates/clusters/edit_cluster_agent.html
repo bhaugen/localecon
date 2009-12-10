@@ -54,6 +54,9 @@ p {font-size:0.7875em}
 					<td style="text-align: right;" >{{ fun.function.name }}</td>
 					<td> {{ res.role }} {{ res.resource_type }}</td>
 					<td style="text-align: right;" >{{ res.amount }}</td>
+					<td><b>New Function Resource:</b></td>
+					<td>{{ res.new_resource_form.name }}</td>
+					<td><b>Parent:</b>{{ res.new_resource_form.parent }}</td>
 				</tr>
 				{% for agent_res in res.agent_resources %}
 					<tr>
