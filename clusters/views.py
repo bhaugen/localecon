@@ -213,6 +213,8 @@ def inline_new_agent_function(request, cluster_id, agent_id):
             fun = form.save(commit=False)
             fun.agent = agent
             fun.save()
+        else:
+            print "invalid form:", form
             
     return HttpResponseRedirect('/%s/%s/%s/'
         % ('clusters/editclusteragent', cluster_id, agent_id))
