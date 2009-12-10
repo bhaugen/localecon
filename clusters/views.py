@@ -250,7 +250,7 @@ def new_cluster_agent(request, cluster_id):
             name = data['name']
             try:
                 agent = EconomicAgent.objects.get(name=name)
-            except EconomicResourceType.DoesNotExist:
+            except EconomicAgent.DoesNotExist:
                 agent = form.save()
             crt, created = CommunityAgent.objects.get_or_create(community=cluster.community, agent=agent)
             return HttpResponseRedirect('/%s/%s/%s/'
