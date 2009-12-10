@@ -260,6 +260,14 @@ class EconomicFunction(models.Model):
     def outputs(self):
         return self.resources.filter(role="produces")
 
+# based on dfs from threaded_comments
+def nested_objects(node, all_nodes):
+     to_return = [node,]
+     for subnode in all_nodes:
+         if subnode.parent and subnode.parent.id == node.id:
+             to_return.extend([nested_objects(subnode, all_nodes),])
+     return to_return
+
 
 class EconomicResourceType(models.Model):
     name = models.CharField(max_length=128)    
@@ -301,6 +309,16 @@ class EconomicResourceType(models.Model):
                 return True
             res = res.parent
         return False
+    
+    def all_relatives(self):
+        if self.parent:
+            root = self.parent
+            while not root.parent is None:
+                root = root.parent
+        else:
+            root = self
+        return nested_objects(root, EconomicResourceType.objects.all())
+        
 
     
 class CommunityResourceType(models.Model):

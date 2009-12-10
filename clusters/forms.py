@@ -82,11 +82,11 @@ class FunctionAgentForm(forms.ModelForm):
    
 class AgentFunctionForm(forms.ModelForm):
     
-    def __init__(self, cluster, agent, *args, **kwargs):
+    def __init__(self, resource_type, *args, **kwargs):
         super(AgentFunctionForm, self).__init__(*args, **kwargs)
-        used = [(af.function.id) for af in agent.functions.all()]
+        
         self.fields["function"].choices = [
-            (fun.id, fun.name) for fun in EconomicFunction.objects.filter(cluster=cluster).exclude(id__in=used)
+            (res.id, res.name) for res in placeholder
         ]
         
     class Meta:
@@ -97,6 +97,12 @@ class AgentFunctionForm(forms.ModelForm):
 class AgentResourceForm(forms.ModelForm):
     name = forms.CharField()
     parent = forms.CharField()
+    
+    def __init__(self, cluster, agent, *args, **kwargs):
+        super(AgentResourceForm, self).__init__(*args, **kwargs)
+        self.fields["parent"].choices = [('', '----------')] + [
+            (fun.id, fun.name) for fun in EconomicFunction.objects.filter(cluster=cluster).exclude(id__in=used)
+        ]
     
     class Meta:
         model = EconomicResourceType
