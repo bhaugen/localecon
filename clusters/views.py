@@ -253,7 +253,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     
     #import pdb; pdb.set_trace()
         
-    new_function_form = AgentFunctionForm(cluster)
+    new_function_form = AgentFunctionForm()
     #new_function_form = AgentFunctionForm(cluster, prefix="function")
     #new_resource_form = EconomicResourceTypeForm(prefix="resource")
     print "back to view after AgentFunctionForm"
