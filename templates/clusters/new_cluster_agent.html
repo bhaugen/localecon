@@ -36,7 +36,7 @@ p {font-size:0.7875em}
 				<td>{{ form.address }}</td>
 			</tr>
 		</table>
-		<input type="submit" value="Submit" />
+		<input id="submit" type="submit" value="Submit" />
 	</form>
 
 <script src="http://www.google.com/jsapi"></script>
@@ -75,6 +75,7 @@ function getAddress(event)
 	$("#id_address").attr("value", "");
 	$("#id_address").attr("disabled", "");
 	$("#name-comment").html("");
+	$("#submit").attr("value", "Submit");
 	
 	var name = event.target.value;
 	for(i=0;i<agentNames.length;i++)
@@ -88,6 +89,7 @@ function getAddress(event)
 					$("#id_address").attr("value", address);
 					$("#id_address").attr("disabled", "disabled");
 					$("#name-comment").html("Existing Agent which you may re-use");
+					$("#submit").attr("value", "Select");
 				});
 			break;
 		}
