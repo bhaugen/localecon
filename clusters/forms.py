@@ -95,7 +95,7 @@ class AgentFunctionForm(forms.ModelForm):
           
 
 class AgentResourceForm(forms.ModelForm):
-    role = forms.ChoiceField(widget=forms.Select(attrs={'size': '6', 'readonly': 'readonly'}))
+    #role = forms.ChoiceField(widget=forms.Select(attrs={'size': '6', 'readonly': 'readonly'}))
 
     
     def __init__(self, function_resource, *args, **kwargs):
