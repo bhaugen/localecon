@@ -41,6 +41,7 @@ class EconomicResourceTypeFormX(forms.ModelForm):
 
 
 class EconomicAgentForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput(attrs={'size': '40',}))
     address = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '80',}))
     
     class Meta:
