@@ -45,7 +45,8 @@ p {font-size:0.7875em}
 
 <script>
 	
-var cleanAgentNames = unescape("{{ agent_names }}")
+var names = "{{ agent_names }}";
+var cleanAgentNames = unescape(names);
 var agentNames = cleanAgentNames.split("~");
 	
 $(document).ready(function(){
