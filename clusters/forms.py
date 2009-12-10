@@ -53,7 +53,7 @@ class AgentFunctionForm(forms.ModelForm):
     def __init__(self, cluster, *args, **kwargs):
         super(AgentFunctionForm, self).__init__(*args, **kwargs)
         self.fields["function"].choices = [('', '----------')] + [
-            (fun.id, fun.name) for fun in cluster.functions.all()
+            (fun.id, fun.name) for fun in EconomicFunction.objects.filter(cluster=cluster)
         ]
     
     class Meta:
