@@ -46,7 +46,7 @@ p {font-size:0.7875em}
 <script>
 	
 var names = "{{ agent_names }}";
-var cleanAgentNames = unescape(names);
+var cleanAgentNames = decodeURI(names);
 var agentNames = cleanAgentNames.split("~");
 	
 $(document).ready(function(){
