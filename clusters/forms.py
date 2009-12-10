@@ -20,7 +20,7 @@ class EconomicResourceTypeForm(forms.ModelForm):
 class ParentedResourceTypeForm(forms.ModelForm):
     
     def __init__(self, function_resource, *args, **kwargs):
-        super(AgentResourceForm, self).__init__(*args, **kwargs)
+        super(ParentedResourceTypeForm, self).__init__(*args, **kwargs)
         self.fields["parent"].choices = [('', '----------')] + [
             (res.id, res.name) for res in function_resource.resource_type.all_relatives()
         ]
