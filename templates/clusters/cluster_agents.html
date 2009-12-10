@@ -30,7 +30,8 @@ p {font-size:0.7875em}
 <table>
 	{% for agent in agents %}
 		<tr>
-			<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}</th>
+			<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="2" ><b>Agent:</b> {{ agent.name }}</th>
+			<td><a href="{% url edit_cluster_agent cluster_id=cluster.id agent_id=agent.id %}">Edit</a></td>
 		</tr>
 		{% for fun in agent.cluster_functions %}
 			<tr>
