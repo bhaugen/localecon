@@ -48,6 +48,12 @@ class EconomicAgentForm(forms.ModelForm):
         model = EconomicAgent
         fields = ('name', 'address')
         
+class AgentFunctionForm(forms.ModelForm):
+    
+    class Meta:
+        model = AgentFunction
+        fields = ('function',)
+        
 
 class FunctionResourceTypeFormX(forms.ModelForm):
     resource_type = FunctionResourceChoiceField(EconomicResourceType.objects.none())

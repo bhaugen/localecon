@@ -29,12 +29,21 @@ p {font-size:0.7875em}
 	<tr>
 		<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}</th>
 	</tr>
+	<form action="." method="POST">
+	<tr>
+		<th style="text-align: right;" >New Function:</th>
+		<td>{{ new_function_form.function }}</td>
+		<td><input type="submit" name="submit" value="Add" /></td>
+		<td>&nbsp;</td>
+	</tr>
 	{% if agent.cluster_functions %}	
 		{% for fun in agent.cluster_functions %}
 			<tr>
 				<td style="padding-top: .5em; text-align: left;" colspan="3" > <b>Function:</b> {{ fun.function.name }}</td>
 
 			</tr>
+
+		</form>
 			<tr>
 				<th>Function Resources:</th>
 				<th>Resource</th>

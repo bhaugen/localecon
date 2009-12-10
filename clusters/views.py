@@ -250,10 +250,14 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     agent.cluster_functions = agent.functions.filter(function__cluster=cluster)
     for cf in agent.cluster_functions:
         cf.resources = cf.function.resources.all()
+        
+    new_function_form = AgentFunctionForm(prefix="function")
+    #new_resource_form = EconomicResourceTypeForm(prefix="resource")
     
     return render_to_response("clusters/edit_cluster_agent.html",{ 
         "cluster": cluster,
         "agent": agent,
+        "new_function_form": new_function_form,
     }, context_instance=RequestContext(request))
     
     
