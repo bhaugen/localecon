@@ -324,7 +324,7 @@ class EconomicResourceType(models.Model):
                 root = root.parent
         else:
             root = self
-        return flattened_children(root, EconomicResourceType.objects.all())
+        return flattened_children(root, EconomicResourceType.objects.all(), [])
         
 
     
