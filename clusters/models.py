@@ -346,9 +346,9 @@ class FunctionResourceType(models.Model):
         function_agents = self.function.agents.all()
         for fa in function_agents:
             for ar in fa.agent.resources.all():
-                if ar.resource_type.id == self.resource_type.id:
+                if ar.resource_type.id == self.resource_type.id and ar.role == self.role:
                     answer.append(ar)
-                elif ar.resource_type.is_child_of(self.resource_type):
+                elif ar.resource_type.is_child_of(self.resource_type) and ar.role == self.role:
                     answer.append(ar)
         return answer
 
