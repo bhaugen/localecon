@@ -82,13 +82,12 @@ class FunctionAgentForm(forms.ModelForm):
    
 class AgentFunctionForm(forms.ModelForm):
     
-    def __init__(self, cluster=None, agent=None, *args, **kwargs):
+    def __init__(self, cluster, agent, *args, **kwargs):
         super(AgentFunctionForm, self).__init__(*args, **kwargs)
-        if cluster and agent:
-            used = [(af.function.id) for af in agent.functions.all()]
-            self.fields["function"].choices = [
-                (fun.id, fun.name) for fun in EconomicFunction.objects.filter(cluster=cluster).exclude(id__in=used)
-            ]
+        used = [(af.function.id) for af in agent.functions.all()]
+        self.fields["function"].choices = [('', '----------')] + [
+            (fun.id, fun.name) for fun in EconomicFunction.objects.filter(cluster=cluster).exclude(id__in=used)
+        ]
         
     class Meta:
         model = AgentFunction
