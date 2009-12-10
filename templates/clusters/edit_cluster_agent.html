@@ -26,7 +26,6 @@ p {font-size:0.7875em}
 {% include "clusters/_cluster_nav.html" %}
 <br />
 <table>
-	{% for agent in agents %}
 		<tr>
 			<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}</th>
 		</tr>
@@ -57,7 +56,7 @@ p {font-size:0.7875em}
 				{% endfor %}
 			{% endfor %}
 		{% endfor %}
-	{% endfor %}
+
 </table>
 
 

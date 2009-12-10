@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
@@ -8,7 +8,6 @@ from django.conf import settings
 from django.db.models import Q
 from django.forms.formsets import formset_factory
 from django.core.mail import send_mail
-from django.http import HttpResponse
 from django.core import serializers
 
 from datetime import datetime, timedelta
@@ -233,22 +232,37 @@ def new_cluster_agent(request, cluster_id):
             try:
                 agent = EconomicAgent.objects.get(name=name)
             except EconomicResourceType.DoesNotExist:
-                pass
-                #agent = form.save()
-            #crt, created = CommunityAgent.objects.get_or_create(community=cluster.community, agent=agent)
+                agent = form.save()
+            crt, created = CommunityAgent.objects.get_or_create(community=cluster.community, agent=agent)
+            return HttpResponseRedirect('/%s/%s/%s/'
+               % ('editclusteragent', cluster_id, agent.id))
     return render_to_response("clusters/new_cluster_agent.html",{ 
         "cluster": cluster,
         "form": form,
         "agent_names": agent_names,
     }, context_instance=RequestContext(request))
+  
+
+@login_required    
+def edit_cluster_agent(request, cluster_id, agent_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    agent = get_object_or_404(EconomicAgent, pk=agent_id)
+    agent.cluster_functions = agent.functions.filter(function__cluster=cluster)
+    for cf in agent.cluster_functions:
+        cf.resources = cf.function.resources.all()
+    
+    return render_to_response("clusters/edit_cluster_agent.html",{ 
+        "cluster": cluster,
+        "agent": agent,
+    }, context_instance=RequestContext(request))
+    
     
 def json_agent_address(request, agent_name):
     # Note: serializer requires an iterable, not a single object. Thus filter rather than get.
     
     #import pdb; pdb.set_trace()
     
-    data = serializers.serialize("json", EconomicAgent.objects.filter(name=agent_name), fields=('address',))
-    
+    data = serializers.serialize("json", EconomicAgent.objects.filter(name=agent_name), fields=('address',))    
     return HttpResponse(data, mimetype="text/json-comment-filtered")
     
 @login_required    
