@@ -12,7 +12,6 @@ body {font-size:90%}
 h1 {font-size:2.25em}
 h2 {font-size:1.6875em}
 p {font-size:0.7875em}
-a {font-size:130%}
 	
 </style>
 
@@ -26,7 +25,7 @@ a {font-size:130%}
 
 {% include "clusters/_cluster_nav.html" %}
 <p>
-<a href="{% url new_cluster_agent cluster_id=cluster.id %}">Add new Cluster Agent</a>
+<a style="font-size:130%;" href="{% url new_cluster_agent cluster_id=cluster.id %}">Add new Cluster Agent</a>
 </p>
 <table>
 	{% for agent in agents %}
