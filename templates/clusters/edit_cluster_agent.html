@@ -58,14 +58,14 @@ p {font-size:0.7875em}
 				{% for agent_res in res.agent_resources %}
 					<tr>
 						<td>&nbsp;</td>
-						<td><b>{{ agent_res.agent.name }}</b>  {{ agent_res.role }} {{ agent_res.resource_type }} </td>
+						<td><b>{{ agent.name }}</b>  {{ agent_res.role }} {{ agent_res.resource_type }} </td>
 						<td style="text-align: right;" >
 							{{ agent_res.amount }}
 						</td>
 					</tr>
 				{% endfor %}
 				<tr>
-					<th style="text-align: right;" >{{ agent_res.agent.name }}</th>
+					<th style="text-align: right;" >{{ agent.name }}</th>
 					<form>
 						<td>
 							{{ res.agent_resource_form.role }}&nbsp;
