@@ -57,7 +57,8 @@ function html_unescape(text) {
 	
 //var names = "{{ agent_names }}";
 //var cleanAgentNames = decodeURI(names);
-var agentNames = "{{ agent_names }}".split("~");
+var agentNames = html_unescape("{{ agent_names }}").split("~");
+/*
 for(i=0;i<agentNames.length;i++)
 {
 	var index = i;
@@ -65,7 +66,8 @@ for(i=0;i<agentNames.length;i++)
 	var thisName = html_unescape(thisName);
 	agentNames[i] = html_unescape(agentNames[i]);
 }
-	
+*/
+
 $(document).ready(function(){
 	$("#id_name").blur(getAddress);
 	$("#id_name").autocomplete(agentNames, {matchContains: true});
