@@ -95,18 +95,19 @@ class AgentFunctionForm(forms.ModelForm):
           
 
 class AgentResourceForm(forms.ModelForm):
-    name = forms.CharField()
-    parent = forms.CharField(required=False)
+    role = forms.ChoiceField(widget=forms.Select(attrs={'size': '6', 'readonly': 'readonly'}))
+
     
-    def __init__(self, resource, *args, **kwargs):
+    def __init__(self, function_resource, *args, **kwargs):
         super(AgentResourceForm, self).__init__(*args, **kwargs)
-        self.fields["parent"].choices = [('', '----------')] + [
-            (res.id, res.name) for res in resource.all_relatives()
+        self.fields["resource_type"].choices = [('', '----------')] + [
+            (res.id, res.name) for res in function_resource.resource_type.all_relatives()
         ]
+        self.fields["role"].choices = [function_resource.role, function_resource.role]
     
     class Meta:
-        model = EconomicResourceType
-        fields = ('name', 'parent')
+        model = AgentResourceType
+        fields = ('resource_type', 'role', 'amount')
 
         
 class EmailForm(forms.Form):
