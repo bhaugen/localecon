@@ -45,8 +45,8 @@ p {font-size:0.7875em}
 
 <script>
 	
-
-var agentNames = unescape("{{ agent_names }}").split("~");
+var cleanAgentNames = unescape("{{ agent_names }}")
+var agentNames = cleanAgentNames.split("~");
 	
 $(document).ready(function(){
 	$("#id_name").blur(getAddress);
@@ -57,9 +57,10 @@ $(document).ready(function(){
 function getAddress(event)
 {
 	var name = event.target.value;
+	var cleanNames = cleanAgentNames;
+	var theNames = agentNames;
 	for(i=1;i<agentNames.length;i++)
 	{
-		var theNames = agentNames;
 		var thisName = agentNames[i];
 		if(agentNames[i]==name)
 		{
