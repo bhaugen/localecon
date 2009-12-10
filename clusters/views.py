@@ -93,7 +93,6 @@ def cluster_agents(request, cluster_id):
 @login_required
 def edit_cluster_functions(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    #template_params = cluster_params(cluster)
     
     new_function_form = EconomicFunctionForm(prefix="function")
     new_resource_form = EconomicResourceTypeForm(prefix="resource")
@@ -148,10 +147,20 @@ def iotable(request, cluster_id):
     
 def economic_functions(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+       
+    functions = cluster.functions.all()
+        
+    resources = cluster.resources()
+    for res in resources:
+        res.my_consumers = res.cluster_consumers(cluster)
+        res.my_producers = res.cluster_producers(cluster)
     
-    return render_to_response("clusters/economic_functions.html",{ 
+    return render_to_response("clusters/economic_functions.html", {
         "cluster": cluster,
-    }, context_instance=RequestContext(request))
+        "functions": functions,
+        "resources": resources,
+        }, context_instance=RequestContext(request))
+    
     
 def economic_function(request, function_id):
     ef = get_object_or_404(EconomicFunction, pk=function_id)

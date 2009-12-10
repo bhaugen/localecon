@@ -1,12 +1,126 @@
 {% extends "base.html" %}
 
 {% block title %}
-     Economic Functions for {{ cluster }}
+     Economic Functions for Cluster: {{ cluster }}
 {% endblock %}
 
+{% block extra_head %}
+
+<style>
+
+body {font-size:90%}
+h1 {font-size:2.25em}
+h2 {font-size:1.6875em}
+p {font-size:0.7875em}
+	
+</style>
+
+{% endblock %}
 
 {% block content %}
 
-	<h3>Economic Functions for {{ cluster }}</h3>
 
-{% endblock %} 
+
+<h3>Economic Functions for Cluster: {{ cluster }}</h3>
+
+{% include "clusters/_cluster_nav.html" %}
+
+<div style="float:left;" >
+	<table>
+		<tr><th style="text-align: center; font-size: 120%; " colspan="4" >Functions:</th></tr>
+
+		{% for fun in functions %}
+			<tr><th style="text-align: left; font-size: 110%; " colspan="4" >{{ fun.name }}</th></tr>
+			{% if fun.inputs %}
+				<tr>
+					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumes:</th>
+					{% for resource in fun.inputs %}
+						{% if forloop.first %}
+							<td>
+								{{ resource.resource_type }}
+							</td>
+							<td colspan="2">
+								<b>Amt:</b> {{ resource.amount }}<br />	
+							</td>
+						{% else %}
+							<tr>
+								<td>&nbsp;</td>
+								<td>
+									{{ resource.resource_type }}
+								</td>
+								<td colspan="2">
+									<b>Amt:</b> {{ resource.amount }}<br />	
+								</td>
+							</tr>
+						{% endif %}
+					{% endfor %}
+				</tr>
+			{% endif %}
+			{% if fun.outputs %}
+				<tr>
+					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produces:</th>
+					{% for resource in fun.outputs %}
+						{% if forloop.first %}
+							<td>
+								{{ resource.resource_type }}
+							</td>
+							<td colspan="2">
+								<b>Amt:</b> {{ resource.amount }}<br />	
+							</td>
+						{% else %}
+							<tr>
+								<td>&nbsp;</td>
+								<td>
+									{{ resource.resource_type }}
+								</td>
+								<td colspan="2">
+									<b>Amt:</b> {{ resource.amount }}<br />	
+								</td>
+							</tr>
+						{% endif %}
+					{% endfor %}
+				</tr>
+			{% endif %}
+
+		{% endfor %}
+	</table>
+</div>
+
+<div style="float:left; margin-left: 2em;" >
+	<table>
+		<tr><th style="text-align: center; font-size: 120%; " colspan="3" >Resources:</th></tr>
+
+		<tr>
+			<th style="text-align: center; font-size: 110%; " colspan="3" >Resources used in this Cluster:</th>
+		</tr>
+		{% for res in resources %}
+			<tr><th style="text-align: left; font-size: 110%; " colspan="3" >{{ res }}</th></tr>
+			{% if res.my_producers %}
+				<tr>
+					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produced By:</th>
+					<td colspan="2" >
+					{% for fun in res.my_producers %}
+						{{ fun.function.name }}<br />
+					{% endfor %}
+					</td>
+				</tr>
+			{% endif %}
+			{% if res.my_consumers %}
+				<tr>
+					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumed By:</th>
+					<td colspan="2" >
+					{% for fun in res.my_consumers %}
+						{{ fun.function.name }}<br />	
+					{% endfor %}
+					</td>
+				</tr>
+			{% endif %}
+		{% endfor %}
+	</table>
+</div>
+<div style="clear: both;" ></div> 
+
+
+
+
+{% endblock %}
