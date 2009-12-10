@@ -65,10 +65,10 @@ function getAddress(event)
 			var jsonUrl = encodeURI("/clusters/jsonagentaddress/" + name + "/");
 			$.get(jsonUrl,
 				function(data){
-					//address = data.fields.address;
-					//alert("Data Loaded: " + data + ", address:" + address);
 					var evalData = eval(data);
-					alert("Data Loaded: " + data);
+					address = evalData.fields.address;
+					alert("Data Loaded: " + evalData + ", address:" + address);
+					//alert("Data Loaded: " + data);
 				});
 			break;
 		}
