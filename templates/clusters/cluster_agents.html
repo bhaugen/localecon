@@ -24,7 +24,9 @@ p {font-size:0.7875em}
 <h3>Agents performing Functions in Cluster {{ cluster }}</h3>
 
 {% include "clusters/_cluster_nav.html" %}
-<br />
+<p>
+<a href="{% url new_cluster_agent cluster_id=cluster.id %}">Add new Cluster Agent</a>
+</p>
 <table>
 	{% for agent in agents %}
 		<tr>
