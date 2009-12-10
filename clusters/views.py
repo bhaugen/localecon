@@ -245,7 +245,7 @@ def new_cluster_agent(request, cluster_id):
 def json_agent_address(request, agent_name):
     # Note: serializer requires an iterable, not a single object. Thus filter rather than get.
     
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     
     data = serializers.serialize("json", EconomicAgent.objects.filter(name=agent_name), fields=('address',))
     
