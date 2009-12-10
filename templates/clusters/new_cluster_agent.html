@@ -27,6 +27,14 @@ p {font-size:0.7875em}
 <br />
 	<form action="." method="POST" >
 		<table>
+			<tr>
+				<th style="text-align: right; " >Name:</th>
+				<td>{{ form.name }} <span id="name-comment"></span></td>
+			</tr>
+			<tr>
+				<th style="text-align: right; " >Address:</th>
+				<td>{{ form.address }}</td>
+			</tr>
 			{{ form }}
 		</table>
 		<input type="submit" value="Submit" />
@@ -65,6 +73,7 @@ $(document).ready(function(){
 
 function getAddress(event)
 {
+	$("#name-comment").html("");
 	var name = event.target.value;
 	for(i=0;i<agentNames.length;i++)
 	{
@@ -73,9 +82,9 @@ function getAddress(event)
 			var jsonUrl = encodeURI("/clusters/jsonagentaddress/" + name + "/");
 			$.get(jsonUrl,
 				function(data){
-					//var evalData = eval(data);
 					var address = eval(data)[0].fields.address;
 					$("#id_address").attr("value", address);
+					$("#name-comment").html("Existing Agent which you may re-use");
 				});
 			break;
 		}
