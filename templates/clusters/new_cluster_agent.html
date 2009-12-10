@@ -66,7 +66,7 @@ function getAddress(event)
 			$.get(jsonUrl,
 				function(data){
 					var evalData = eval(data);
-					address = evalData.fields.address;
+					address = evalData[0].fields.address;
 					alert("Data Loaded: " + evalData + ", address:" + address);
 					//alert("Data Loaded: " + data);
 				});
