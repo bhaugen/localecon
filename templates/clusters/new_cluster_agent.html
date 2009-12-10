@@ -46,7 +46,7 @@ p {font-size:0.7875em}
 <script>
 	
 
-var agentNames = "{{ agent_names }}".split("~");
+var agentNames = unescape("{{ agent_names }}").split("~");
 	
 $(document).ready(function(){
 	$("#id_name").blur(getAddress);
@@ -59,6 +59,7 @@ function getAddress(event)
 	var name = event.target.value;
 	for(i=1;i<agentNames.length;i++)
 	{
+		var theNames = agentNames;
 		var thisName = agentNames[i];
 		if(agentNames[i]==name)
 		{
@@ -67,7 +68,7 @@ function getAddress(event)
 				function(data){
 					var evalData = eval(data);
 					var address = evalData[0].fields.address;
-					alert("Data Loaded: " + evalData + ", address:" + address);
+					//alert("Data Loaded: " + evalData + ", address:" + address);
 					$("#id_address").attr("value", address);
 				});
 			break;
