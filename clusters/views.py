@@ -256,6 +256,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     new_function_form = AgentFunctionForm(cluster)
     #new_function_form = AgentFunctionForm(cluster, prefix="function")
     #new_resource_form = EconomicResourceTypeForm(prefix="resource")
+    print "back to view after AgentFunctionForm"
     
     return render_to_response("clusters/edit_cluster_agent.html",{ 
         "cluster": cluster,

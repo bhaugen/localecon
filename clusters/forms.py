@@ -52,7 +52,7 @@ class AgentFunctionForm(forms.ModelForm):
     
     def __init__(self, cluster, *args, **kwargs):
         super(AgentFunctionForm, self).__init__(*args, **kwargs)
-        import pdb; pdb.set_trace()
+        print "init AgentFunctionForm"
         self.fields["function"].choices = [('', '----------')] + [
             (fun.id, fun.name) for fun in EconomicFunction.objects.filter(cluster=cluster)
         ]
