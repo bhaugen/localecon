@@ -95,8 +95,7 @@ class AgentFunctionForm(forms.ModelForm):
           
 
 class AgentResourceForm(forms.ModelForm):
-    #role = forms.ChoiceField(widget=forms.Select(attrs={'size': '6', 'readonly': 'readonly'}))
-
+    amount = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
     
     def __init__(self, function_resource, *args, **kwargs):
         super(AgentResourceForm, self).__init__(*args, **kwargs)
