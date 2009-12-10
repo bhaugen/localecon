@@ -281,7 +281,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
         for res in cf.resources:
             res.agent_resource_form = AgentResourceForm(res.resource_type)
     
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
         
     new_function_form = AgentFunctionForm(cluster, agent, prefix="function")
     
