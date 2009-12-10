@@ -103,7 +103,7 @@ class AgentResourceForm(forms.ModelForm):
         self.fields["resource_type"].choices = [('', '----------')] + [
             (res.id, res.name) for res in function_resource.resource_type.all_relatives()
         ]
-        self.fields["role"].choices = [function_resource.role, function_resource.role]
+        self.fields["role"].choices = [(function_resource.role, function_resource.role)]
     
     class Meta:
         model = AgentResourceType
