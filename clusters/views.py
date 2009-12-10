@@ -207,6 +207,7 @@ def inline_new_agent_function(request, cluster_id, agent_id):
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         agent = get_object_or_404(EconomicAgent, pk=agent_id)
         form = AgentFunctionForm(cluster, agent, data=request.POST)
+        import pdb; pdb.set_trace()
         print "b4 form validity check"
         if form.is_valid():
             print "after form validity check"
