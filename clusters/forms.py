@@ -53,7 +53,7 @@ class AgentFunctionForm(forms.ModelForm):
     def __init__(self, cluster, *args, **kwargs):
         super(AgentFunctionForm, self).__init__(*args, **kwargs)
         self.fields["function"].choices = [('', '----------')] + [
-            (cf.function.id, cf.function.name) for cr in cluster.functions.all()
+            (cf.function.id, cf.function.name) for cf in cluster.functions.all()
         ]
     
     class Meta:
