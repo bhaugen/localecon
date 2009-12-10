@@ -29,7 +29,7 @@ p {font-size:0.7875em}
 	<tr>
 		<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}</th>
 	</tr>
-	<form action="." method="POST">
+	<form action="{% url inline_new_agent_function cluster_id=cluster.id agent_id=agent.id %}" method="POST">
 	<tr>
 		<th style="text-align: right;" >New Function:</th>
 		<td>{{ new_function_form.function }}</td>
