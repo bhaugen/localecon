@@ -201,6 +201,20 @@ def inline_new_function(request, cluster_id):
     return HttpResponseRedirect('/%s/%s/'
         % ('clusters/editcluster', cluster_id))
     
+@login_required 
+def inline_new_agent_function(request, cluster_id, agent_id):
+    if request.method == "POST":
+        cluster = get_object_or_404(Cluster, pk=cluster_id)
+        agent = get_object_or_404(EconomicAgent, pk=agent_id)
+        form = AgentFunctionForm(cluster, agent, request.POST)
+        if form.is_valid():
+            fun = form.save(commit=False)
+            fun.agent = agent
+            fun.save()
+            
+    return HttpResponseRedirect('/%s/%s/%s/'
+        % ('clusters/editclusteragent', cluster_id, agent_id))
+    
     
 @login_required    
 def new_resource(request, cluster_id):
