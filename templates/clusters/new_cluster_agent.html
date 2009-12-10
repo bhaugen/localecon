@@ -48,7 +48,7 @@ p {font-size:0.7875em}
 //var names = "{{ agent_names }}";
 //var cleanAgentNames = decodeURI(names);
 var agentNames = "{{ agent_names }}".split("~");
-for(i=0;i<agentNames.length;i++;)
+for(i=0;i<agentNames.length;i++)
 {
 	var index = i;
 	var thisName = agentNames[index];
@@ -67,7 +67,7 @@ function getAddress(event)
 	var name = event.target.value;
 	//var cleanNames = cleanAgentNames;
 	var theNames = agentNames;
-	for(i=1;i<agentNames.length;i++;)
+	for(i=0;i<agentNames.length;i++)
 	{
 		var thisName = agentNames[i];
 		if(agentNames[i]==name)
