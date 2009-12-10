@@ -278,6 +278,8 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     agent.cluster_functions = agent.functions.filter(function__cluster=cluster)
     for cf in agent.cluster_functions:
         cf.resources = cf.function.resources.all()
+        for res in cf.resources:
+            res.agent_resource_form = AgentResourceForm(res)
     
     #import pdb; pdb.set_trace()
         
@@ -297,7 +299,7 @@ def json_agent_address(request, agent_name):
     
     data = serializers.serialize("json", EconomicAgent.objects.filter(name=agent_name), fields=('address',))    
     return HttpResponse(data, mimetype="text/json-comment-filtered")
-    
+
 @login_required    
 def inline_new_resource(request, cluster_id):
     if request.method == "POST":
@@ -313,6 +315,26 @@ def inline_new_resource(request, cluster_id):
             crt, created = CommunityResourceType.objects.get_or_create(community=cluster.community, resource_type=resource)
     return HttpResponseRedirect('/%s/%s/'
         % ('clusters/editcluster', cluster_id))
+
+
+@login_required    
+def inline_agent_resource(request, agent_id, parent_id):
+    if request.method == "POST":
+        agent = get_object_or_404(EconomicAgent, pk=agent_id)
+        parent = get_object_or_404(EconomicResourceType, pk=parent_id)
+        form = AgentResourceForm(parent, request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            name = data['name']
+            try:
+                resource = EconomicResourceType.objects.get(name=name)
+            except EconomicResourceType.DoesNotExist:
+                resource = form.save()
+            crt, created = CommunityResourceType.objects.get_or_create(community=cluster.community, resource_type=resource)
+    return HttpResponseRedirect('/%s/%s/'
+        % ('clusters/editcluster', cluster_id))
+
+
 
 @login_required    
 def new_function_resource(request, function_id):

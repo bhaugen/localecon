@@ -64,6 +64,14 @@ p {font-size:0.7875em}
 						</td>
 					</tr>
 				{% endfor %}
+				<tr>
+					<th>New Agent Resource:</th>
+					<td>
+						<form>
+							{{ agent_res.agent_resource_form }}
+						</form>
+					</td>
+				</tr>
 			{% endfor %}
 		{% endfor %}
 	{% else %}
