@@ -68,7 +68,7 @@ function getAddress(event)
 					var evalData = eval(data);
 					var address = evalData[0].fields.address;
 					alert("Data Loaded: " + evalData + ", address:" + address);
-					$("#id_address").attr("value") = address;
+					$("#id_address").attr("value", address);
 				});
 			break;
 		}
