@@ -45,9 +45,13 @@ p {font-size:0.7875em}
 
 <script>
 	
-var names = "{{ agent_names }}";
-var cleanAgentNames = decodeURI(names);
-var agentNames = cleanAgentNames.split("~");
+//var names = ;
+//var cleanAgentNames = decodeURI(names);
+var agentNames = "{{ agent_names }}".split("~");
+for(i=0;i<agentNames.length;i++)
+{
+	agentNames[i] = decodeURI(agentNames[i]);
+}
 	
 $(document).ready(function(){
 	$("#id_name").blur(getAddress);
@@ -58,7 +62,7 @@ $(document).ready(function(){
 function getAddress(event)
 {
 	var name = event.target.value;
-	var cleanNames = cleanAgentNames;
+	//var cleanNames = cleanAgentNames;
 	var theNames = agentNames;
 	for(i=1;i<agentNames.length;i++)
 	{
