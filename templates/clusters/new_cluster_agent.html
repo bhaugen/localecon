@@ -45,6 +45,16 @@ p {font-size:0.7875em}
 
 <script>
 	
+function html_unescape(text) {
+    // Unescape a string that was escaped using django.utils.html.escape.
+    text = text.replace(/&lt;/g, '<');
+    text = text.replace(/&gt;/g, '>');
+    text = text.replace(/&quot;/g, '"');
+    text = text.replace(/&#39;/g, "'");
+    text = text.replace(/&amp;/g, '&');
+    return text;
+}
+	
 //var names = "{{ agent_names }}";
 //var cleanAgentNames = decodeURI(names);
 var agentNames = "{{ agent_names }}".split("~");
@@ -52,8 +62,8 @@ for(i=0;i<agentNames.length;i++)
 {
 	var index = i;
 	var thisName = agentNames[index];
-	var thisName = decodeURI(thisName);
-	agentNames[i] = decodeURI(agentNames[i]);
+	var thisName = html_unescape(thisName);
+	agentNames[i] = html_unescape(agentNames[i]);
 }
 	
 $(document).ready(function(){
