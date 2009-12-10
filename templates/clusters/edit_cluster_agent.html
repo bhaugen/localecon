@@ -66,11 +66,10 @@ p {font-size:0.7875em}
 				{% endfor %}
 				<tr>
 					<th>New Agent Resource:</th>
-					<td>
-						<form>
-							{{ agent_res.agent_resource_form }}
-						</form>
-					</td>
+					<form>
+						<td>{{ agent_res.agent_resource_form.name }}</td>
+						<td>{{ agent_res.agent_resource_form.parent }}</td>
+					</form>
 				</tr>
 			{% endfor %}
 		{% endfor %}
