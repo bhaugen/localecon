@@ -207,7 +207,9 @@ def inline_new_agent_function(request, cluster_id, agent_id):
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         agent = get_object_or_404(EconomicAgent, pk=agent_id)
         form = AgentFunctionForm(cluster, agent, request.POST)
+        print "b4 form validity check"
         if form.is_valid():
+            print "after form validity check"
             fun = form.save(commit=False)
             fun.agent = agent
             fun.save()
@@ -270,7 +272,6 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     #new_function_form = AgentFunctionForm()
     new_function_form = AgentFunctionForm(cluster, agent, prefix="function")
     #new_resource_form = EconomicResourceTypeForm(prefix="resource")
-    print "back to view after AgentFunctionForm"
     
     return render_to_response("clusters/edit_cluster_agent.html",{ 
         "cluster": cluster,
