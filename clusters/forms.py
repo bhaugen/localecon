@@ -49,7 +49,7 @@ class EconomicAgentForm(forms.ModelForm):
         fields = ('name', 'address')
         
 class AgentFunctionForm(forms.ModelForm):
-    def __init__(self, org, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(AgentFunctionForm, self).__init__(*args, **kwargs)
         print "init AgentFunctionForm"
     
