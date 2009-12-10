@@ -254,7 +254,7 @@ def new_cluster_agent(request, cluster_id):
                 agent = form.save()
             crt, created = CommunityAgent.objects.get_or_create(community=cluster.community, agent=agent)
             return HttpResponseRedirect('/%s/%s/%s/'
-               % ('editclusteragent', cluster_id, agent.id))
+               % ('clusters/editclusteragent', cluster_id, agent.id))
     return render_to_response("clusters/new_cluster_agent.html",{ 
         "cluster": cluster,
         "form": form,
