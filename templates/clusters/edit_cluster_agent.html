@@ -26,9 +26,10 @@ p {font-size:0.7875em}
 {% include "clusters/_cluster_nav.html" %}
 <br />
 <table>
-		<tr>
-			<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}</th>
-		</tr>
+	<tr>
+		<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}</th>
+	</tr>
+	{% if agent.cluster_functions %}	
 		{% for fun in agent.cluster_functions %}
 			<tr>
 				<td style="padding-top: .5em; text-align: left;" colspan="3" > <b>Function:</b> {{ fun.function.name }}</td>
@@ -56,6 +57,13 @@ p {font-size:0.7875em}
 				{% endfor %}
 			{% endfor %}
 		{% endfor %}
+	{% else %}
+		<tr>
+			<td>
+				To participate in a Cluster, an Agent must perform at least one Cluster Function.
+			</td>
+		</tr>
+	{% endif %}
 
 </table>
 
