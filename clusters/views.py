@@ -279,7 +279,8 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     for cf in agent.cluster_functions:
         cf.resources = cf.function.resources.all()
         for res in cf.resources:
-            res.agent_resource_form = AgentResourceForm(res, initial={ "function_resource_id": res.id, })
+            res.agent_resource_form = AgentResourceForm(res)
+            #res.agent_resource_form = AgentResourceForm(res, initial={ "function_resource_id": res.id, })
     
     #import pdb; pdb.set_trace()
         
@@ -333,7 +334,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             data = form.cleaned_data
             name = data['name']
             role = data['role']
-            role = data['role']
+            #role = data['role']
             new_resource = True
             try:
                 resource = EconomicResourceType.objects.get(name=name)
