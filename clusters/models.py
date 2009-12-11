@@ -376,6 +376,15 @@ class FunctionResourceType(models.Model):
                 elif ar.resource_type.is_child_of(self.resource_type) and ar.role == self.role:
                     answer.append(ar)
         return answer
+    
+    def resources_for_agent(self, agent):
+        answer = []
+        for ar in agent.resources.all():
+            if ar.resource_type.id == self.resource_type.id and ar.role == self.role:
+                answer.append(ar)
+            elif ar.resource_type.is_child_of(self.resource_type) and ar.role == self.role:
+                answer.append(ar)
+        return answer
 
     
 class EconomicAgent(models.Model):
