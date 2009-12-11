@@ -112,7 +112,7 @@ function html_unescape(text) {
 var resourceNames = html_unescape("{{ resource_names }}").split("~");
 
 $(document).ready(function(){
-	$(".resource-name").autocomplete(resourceNames, {matchContains: true});
+	$("#id_name").autocomplete(resourceNames, {matchContains: true});
 });
 
 {% endblock %}
