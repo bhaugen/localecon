@@ -325,7 +325,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
     if request.method == "POST":
         agent = get_object_or_404(EconomicAgent, pk=agent_id)
         parent = get_object_or_404(EconomicResourceType, pk=parent_id)
-        form = AgentResourceForm(request.POST)
+        form = AgentResourceForm(function_resource=None, data=request.POST)
         
         import pdb; pdb.set_trace()
         
