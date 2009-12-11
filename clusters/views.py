@@ -321,22 +321,31 @@ def inline_new_resource(request, cluster_id):
 
 
 @login_required    
-def inline_agent_resource(request, agent_id, parent_id):
+def inline_agent_resource(request, cluster_id, agent_id, parent_id):
     if request.method == "POST":
         agent = get_object_or_404(EconomicAgent, pk=agent_id)
         parent = get_object_or_404(EconomicResourceType, pk=parent_id)
         form = AgentResourceForm(parent, request.POST)
+        
+        import pdb; pdb.set_trace()
+        
         if form.is_valid():
             data = form.cleaned_data
             name = data['name']
+            role = data['role']
+            role = data['role']
+            new_resource = True
             try:
                 resource = EconomicResourceType.objects.get(name=name)
+                if resource.parent.id == parent.id or resource.is_child_of(parent):
+                    new_resource = False                    
             except EconomicResourceType.DoesNotExist:
-                resource = form.save()
-            crt, created = CommunityResourceType.objects.get_or_create(community=cluster.community, resource_type=resource)
-    return HttpResponseRedirect('/%s/%s/'
-        % ('clusters/editcluster', cluster_id))
-
+                pass
+            if new_resource:
+                resource = EconomicResourceType(name=name, parent=parent).save()
+            AgentResourceType(resource_type=resource, agent=agent, role=role, amount=amount).save()
+    return HttpResponseRedirect('/%s/%s/%s/'
+       % ('clusters/editclusteragent', cluster_id, agent.id))
 
 
 @login_required    
