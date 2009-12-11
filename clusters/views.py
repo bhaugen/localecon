@@ -82,6 +82,8 @@ def cluster_agents(request, cluster_id):
         agent.cluster_functions = agent.functions.filter(function__cluster=cluster)
         for cf in agent.cluster_functions:
             cf.resources = cf.function.resources.all()
+            for res in cf.resources:
+                res.agent_resource_list = res.resources_for_agent(agent)
     
     return render_to_response("clusters/cluster_agents.html", {
         "cluster": cluster,
