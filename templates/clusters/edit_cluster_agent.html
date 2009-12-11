@@ -66,7 +66,7 @@ p {font-size:0.7875em}
 				{% endfor %}
 				<tr>
 					<th style="text-align: right;" >{{ agent.name }}</th>
-					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=res.id %}" method="POST">
+					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=res.resource_type.id %}" method="POST">
 						<td>
 							{{ res.agent_resource_form.role }}&nbsp;
 							{{ res.agent_resource_form.name }}
