@@ -285,10 +285,13 @@ def edit_cluster_agent(request, cluster_id, agent_id):
         
     new_function_form = AgentFunctionForm(cluster, agent, prefix="function")
     
+    resource_names = '~'.join([res.name for res in EconomicResourceType.objects.all()])
+    
     return render_to_response("clusters/edit_cluster_agent.html",{ 
         "cluster": cluster,
         "agent": agent,
         "new_function_form": new_function_form,
+        "resource_names": resource_names,
     }, context_instance=RequestContext(request))
     
     
