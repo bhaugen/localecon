@@ -280,10 +280,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
         cf.resources = cf.function.resources.all()
         for res in cf.resources:
             res.agent_resource_form = AgentResourceForm(res)
-            #res.agent_resource_form = AgentResourceForm(res, initial={ "function_resource_id": res.id, })
-    
-    #import pdb; pdb.set_trace()
-        
+           
     new_function_form = AgentFunctionForm(cluster, agent, prefix="function")
     
     resource_names = '~'.join([res.name for res in EconomicResourceType.objects.all()])
@@ -297,10 +294,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     
     
 def json_agent_address(request, agent_name):
-    # Note: serializer requires an iterable, not a single object. Thus filter rather than get.
-    
-    #import pdb; pdb.set_trace()
-    
+    # Note: serializer requires an iterable, not a single object. Thus filter rather than get.  
     data = serializers.serialize("json", EconomicAgent.objects.filter(name=agent_name), fields=('address',))    
     return HttpResponse(data, mimetype="text/json-comment-filtered")
 
