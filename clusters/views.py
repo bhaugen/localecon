@@ -279,7 +279,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     for cf in agent.cluster_functions:
         cf.resources = cf.function.resources.all()
         for res in cf.resources:
-            res.agent_resource_form = AgentResourceForm(res)
+            res.agent_resource_form = AgentResourceForm(res, initial={ "function_resource_id": res.id, })
     
     #import pdb; pdb.set_trace()
         
@@ -325,7 +325,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
     if request.method == "POST":
         agent = get_object_or_404(EconomicAgent, pk=agent_id)
         parent = get_object_or_404(EconomicResourceType, pk=parent_id)
-        form = AgentResourceForm(parent, request.POST)
+        form = AgentResourceForm(request.POST)
         
         import pdb; pdb.set_trace()
         

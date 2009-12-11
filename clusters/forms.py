@@ -108,16 +108,17 @@ class AgentFunctionForm(forms.ModelForm):
           
 
 class AgentResourceForm(forms.ModelForm):
-    #name = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '16', 'class': ''class': 'resource-name ac_input'}))
     name = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '16', 'class': 'resource-name'}))
     amount = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+    function_resource_id = forms.CharField(widget=forms.HiddenInput)
     
-    def __init__(self, function_resource, *args, **kwargs):
+    def __init__(self, function_resource=None, *args, **kwargs):
         super(AgentResourceForm, self).__init__(*args, **kwargs)
         #self.fields["resource_type"].choices = [('', '----------')] + [
         #    (res.id, res.name) for res in function_resource.resource_type.all_relatives()
         #]
-        self.fields["role"].choices = [(function_resource.role, function_resource.role)]
+        if function_resource:
+            self.fields["role"].choices = [(function_resource.role, function_resource.role)]
     
     class Meta:
         model = AgentResourceType
