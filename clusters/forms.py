@@ -108,6 +108,7 @@ class AgentFunctionForm(forms.ModelForm):
           
 
 class AgentResourceForm(forms.ModelForm):
+    name = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '16', 'class': 'resource-name'}))
     amount = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
     
     def __init__(self, function_resource, *args, **kwargs):
@@ -119,7 +120,7 @@ class AgentResourceForm(forms.ModelForm):
     
     class Meta:
         model = AgentResourceType
-        fields = ('resource_type', 'role', 'amount')
+        fields = ('role', 'amount')
 
         
 class EmailForm(forms.Form):
