@@ -306,7 +306,7 @@ def json_agent_address(request, agent_name):
 def inline_new_resource(request, cluster_id):
     if request.method == "POST":
         cluster = get_object_or_404(Cluster, pk=cluster_id)
-        form = EconomicResourceTypeForm(request.POST)
+        form = EconomicResourceTypeForm(request.POST, prefix="resource")
         if form.is_valid():
             data = form.cleaned_data
             name = data['name']
