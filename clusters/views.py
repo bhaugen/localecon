@@ -210,7 +210,7 @@ def inline_new_function(request, cluster_id):
             fun.save()
             
     return HttpResponseRedirect('/%s/%s/'
-        % ('clusters/editcluster', cluster_id))
+        % ('clusters/editclusterfunctions', cluster_id))
     
 @login_required 
 def inline_new_agent_function(request, cluster_id, agent_id):
@@ -315,7 +315,7 @@ def inline_new_resource(request, cluster_id):
                 resource = form.save()
             crt, created = CommunityResourceType.objects.get_or_create(community=cluster.community, resource_type=resource)
     return HttpResponseRedirect('/%s/%s/'
-        % ('clusters/editcluster', cluster_id))
+        % ('clusters/editclusterfunctions', cluster_id))
 
 
 @login_required    
@@ -357,7 +357,7 @@ def new_function_resource(request, function_id):
             fr.function = fun
             fr.save()
     return HttpResponseRedirect('/%s/%s/'
-        % ('clusters/editcluster', fun.cluster.id))
+        % ('clusters/editclusterfunctions', fun.cluster.id))
         
     
 def fr_table(request, cluster_id):
