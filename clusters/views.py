@@ -351,7 +351,8 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
 def new_function_resource(request, function_id):
     if request.method == "POST":
         fun = get_object_or_404(EconomicFunction, pk=function_id)
-        form = FunctionResourceTypeForm(request.POST)
+        community = fun.cluster.community
+        form = FunctionResourceTypeForm(community=community, data=request.POST)
         if form.is_valid():
             data = form.cleaned_data
             fr = form.save(commit=False)
