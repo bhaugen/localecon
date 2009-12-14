@@ -75,8 +75,9 @@ p {font-size:0.7875em}
 							<td>
 								{{ resource.resource_type }}
 							</td>
-							<td colspan="2">
-								<b>Amt:</b> {{ resource.amount }}<br />	
+							<th>Amount</th>
+							<td style="text-align: right; ">
+								{{ resource.amount|intcomma }}
 							</td>
 						{% else %}
 							<tr>
@@ -84,8 +85,9 @@ p {font-size:0.7875em}
 								<td>
 									{{ resource.resource_type }}
 								</td>
-								<td colspan="2">
-									<b>Amt:</b> {{ resource.amount }}<br />	
+								<th>Amount</th>
+								<td style="text-align: right; ">
+									{{ resource.amount|intcomma }}
 								</td>
 							</tr>
 						{% endif %}
