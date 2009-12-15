@@ -278,6 +278,18 @@ class Cluster(models.Model):
                 if not res.amount:
                     missing.append(res)
         return missing
+    
+    def function_production_without_consumption(self):
+        funs = self.functions.all()
+        missing = []
+        for fun in funs:
+            for out in fun.outputs():
+                consumption = 0
+                for consumer in out.resource_type.cluster_consumers(self.cluster):
+                    consumption += consumer.amount
+                if consumption < out.amount:
+                    missing.append({"function_resource": out, "amount_missing": out.amount - consumption })
+        return missing
 
 
 class EconomicFunction(models.Model):
@@ -452,6 +464,13 @@ class EconomicAgent(models.Model):
         
     def node_id(self):
         return "".join([ type(self).__name__, "-", self.slug])
+    
+    def inputs(self):
+        return self.resources.filter(role="consumes")
+    
+    def outputs(self):
+        return self.resources.filter(role="produces")
+
     
 
 
