@@ -291,6 +291,17 @@ class Cluster(models.Model):
                     missing.append({"function_resource": out, "amount_missing": consumption - out.amount })
         return missing
 
+    def function_consumption_without_production(self):
+        funs = self.functions.all()
+        missing = []
+        for fun in funs:
+            for inp in fun.inputs():
+                production = 0
+                for producer in out.resource_type.cluster_producers(self):
+                    production += producer.amount
+                if production < inp.amount:
+                    missing.append({"function_resource": out, "amount_missing": production - inp.amount })
+        return missing
 
 class EconomicFunction(models.Model):
     cluster = models.ForeignKey(Cluster, related_name="functions")

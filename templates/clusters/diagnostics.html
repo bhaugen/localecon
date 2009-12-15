@@ -58,12 +58,23 @@ p {font-size:0.7875em}
 	</ul>
 {% endif %}
 
-
-
 {% if function_production_without_consumption %}
-	<h3>Function production lacking consumption:</h3>
+	<h3>Function production lacking consumption in cluster:</h3>
 	<table>
 		{% for miss in function_production_without_consumption %}
+			<tr>
+				<td>{{ miss.function_resource }}</td>
+				<td style="text-align: right; " >{{ miss.amount_missing|intcomma }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+{% endif %}
+
+
+{% if function_consumption_without_production %}
+	<h3>Function consumption lacking  production in cluster:</h3>
+	<table>
+		{% for miss in function_consumption_without_production %}
 			<tr>
 				<td>{{ miss.function_resource }}</td>
 				<td style="text-align: right; " >{{ miss.amount_missing|intcomma }}</td>

@@ -156,6 +156,7 @@ def diagnostics(request, cluster_id):
     missing_function_numbers = cluster.missing_function_numbers()
     missing_agent_numbers = cluster.missing_agent_numbers()
     function_production_without_consumption = cluster.function_production_without_consumption()
+    function_consumption_without_production = cluster.function_consumption_without_production()
     
     return render_to_response("clusters/diagnostics.html",{ 
         "cluster": cluster,
@@ -163,6 +164,7 @@ def diagnostics(request, cluster_id):
         "missing_function_numbers": missing_function_numbers,
         "missing_agent_numbers": missing_agent_numbers,
         "function_production_without_consumption": function_production_without_consumption,
+        "function_consumption_without_production": function_consumption_without_production,
     }, context_instance=RequestContext(request))
     
 def economic_functions(request, cluster_id):
