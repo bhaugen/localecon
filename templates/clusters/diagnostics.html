@@ -30,6 +30,9 @@ p {font-size:0.7875em}
 {% if disjoint %}
 	<h3>The following functions are disconnected.</h3>
 	<h4><i>That means either they will not appear in the cluster diagram, or the diagram will be broken</i></h4>
+	<p>
+		Either these functions do not belong in this cluster or their connections to other cluster functions through resources are missing.
+	</p>
 	<ul>
 		{% for dis in disjoint %}
 			<li>{{ dis.name }}</li>
