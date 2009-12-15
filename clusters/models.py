@@ -300,7 +300,7 @@ class Cluster(models.Model):
                 for producer in inp.resource_type.cluster_producers(self):
                     production += producer.amount
                 if production < inp.amount:
-                    missing.append({"function_resource": out, "amount_missing": production - inp.amount })
+                    missing.append({"function_resource": inp, "amount_missing": production - inp.amount })
         return missing
 
 class EconomicFunction(models.Model):
