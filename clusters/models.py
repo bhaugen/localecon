@@ -235,6 +235,17 @@ class Cluster(models.Model):
         answer = list(set(answer))
         answer.sort(lambda x, y: cmp(x.name, y.name))
         return answer
+    
+def connected_functions(node, all_nodes, to_return):
+     to_return.append(node)
+     for subnode in all_nodes:
+         if subnode.outputs():
+             for out in subnode.outputs():
+                 for consumer in out.resource_type.cluster_consumers(subnode.cluster):
+                      if not consumer in to_return:
+                          all_functions(consumer, all_nodes, to_return)
+     return to_return
+
 
 class EconomicFunction(models.Model):
     cluster = models.ForeignKey(Cluster, related_name="functions")
