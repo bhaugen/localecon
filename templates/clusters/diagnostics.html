@@ -58,4 +58,15 @@ p {font-size:0.7875em}
 	</ul>
 {% endif %}
 
+
+
+{% if function_production_without_consumption %}
+	<h3>Function production lacking consumption:</h3>
+	<ul>
+		{% for miss in function_production_without_consumption %}
+			<li>{{ miss.function_resource }} {{ miss.amount_missing }}</li>
+		{% endfor %}
+	</ul>
+{% endif %}
+
 {% endblock %}
