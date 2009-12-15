@@ -261,16 +261,22 @@ class Cluster(models.Model):
                 disjoint.append(fun)
         return disjoint
     
-    def missing_numbers(self):
+    def missing_function_numbers(self):
         funs = self.functions.all()
         missing = []
         for fun in funs:
-            for out in fun.outputs():
-                if not out.amount:
-                    missing.append(out)
-            for inp in fun.inputs():
-                if not inp.amount:
-                    missing.append(inp)
+            for res in fun.resources.all():
+                if not res.amount:
+                    missing.append(res)
+        return missing
+    
+    def missing_agent_numbers(self):
+        agents = self.agents()
+        missing = []
+        for agent in agents:
+            for res in agent.resources.all():
+                if not res.amount:
+                    missing.append(res)
         return missing
 
 

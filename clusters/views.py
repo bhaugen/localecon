@@ -153,12 +153,15 @@ def diagnostics(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     
     disjoints = cluster.disjoints()
-    missing_numbers = cluster.missing_numbers()
+    missing_function_numbers = cluster.missing_function_numbers()
+    missing_agent_numbers = cluster.missing_agent_numbers()
+    
     
     return render_to_response("clusters/diagnostics.html",{ 
         "cluster": cluster,
         "disjoints": disjoints,
-        "missing_numbers": missing_numbers,
+        "missing_function_numbers": missing_function_numbers,
+        "missing_agent_numbers": missing_agent_numbers,
     }, context_instance=RequestContext(request))
     
 def economic_functions(request, cluster_id):

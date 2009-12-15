@@ -28,7 +28,7 @@ p {font-size:0.7875em}
 {% include "clusters/_cluster_nav.html" %}
 
 {% if disjoints %}
-	<h3>The following functions are disconnected.</h3>
+	<h3>Disconnected functions:</h3>
 	<h4><i>Either they will not appear in the cluster diagram, or the diagram will be broken</i></h4>
 	<p>
 		Either these functions do not belong in this cluster, or they lack connections to other cluster functions through resources.
@@ -40,10 +40,19 @@ p {font-size:0.7875em}
 	</ul>
 {% endif %}
 
-{% if missing_numbers %}
-	<h3>The following function resources have no amounts.</h3>
+{% if missing_function_numbers %}
+	<h3>Function resources with zero amounts:</h3>
 	<ul>
-		{% for miss in missing_numbers %}
+		{% for miss in missing_function_numbers %}
+			<li>{{ miss }}</li>
+		{% endfor %}
+	</ul>
+{% endif %}
+
+{% if missing_agent_numbers %}
+	<h3>Agent resources with zero amounts:</h3>
+	<ul>
+		{% for miss in missing_agent_numbers %}
 			<li>{{ miss }}</li>
 		{% endfor %}
 	</ul>
