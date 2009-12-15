@@ -160,7 +160,7 @@ def diagnostics(request, cluster_id):
     disjoint = []
     for fun in funs:
         if not fun in funs:
-            disjoint.append[fun]
+            disjoint.append(fun)
     
     return render_to_response("clusters/diagnostics.html",{ 
         "cluster": cluster,
