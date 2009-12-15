@@ -23,13 +23,13 @@ p {font-size:0.7875em}
 
 
 
-<h3>Diagnostics for Cluster: {{ cluster }}</h3>
+<h2>Diagnostics for Cluster: {{ cluster }}</h2>
 
 {% include "clusters/_cluster_nav.html" %}
 
 {% if disjoint %}
-	<h3>The following functions are disconnected.</h3>
-	<p>That means either they will not appear in the cluster diagram, or the diagram will be broken</p>
+	<h2>The following functions are disconnected.</h2>
+	<h3><i>That means either they will not appear in the cluster diagram, or the diagram will be broken</i></h3>
 	<ul>
 		{% for dis in disjoint %}
 			<li>{{ dis.name }}</li>
