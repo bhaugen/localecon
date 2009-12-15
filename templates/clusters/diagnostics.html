@@ -66,7 +66,7 @@ p {font-size:0.7875em}
 		{% for miss in function_production_without_consumption %}
 			<tr>
 				<td>{{ miss.function_resource }}</td>
-				<td>{{ miss.amount_missing|intcomma }}</td>
+				<td style="text-align: right; " >{{ miss.amount_missing|intcomma }}</td>
 			</tr>
 		{% endfor %}
 	</table>
