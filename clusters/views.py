@@ -152,8 +152,19 @@ def iotable(request, cluster_id):
 def diagnostics(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     
+    funs = cluster.functions.all().order_by("id")
+    root = cluster.root_function
+    if not root:
+        root = funs[0]
+    connected = connected_functions(root, funs, [])
+    disjoint = []
+    for fun in funs:
+        if not fun in funs:
+            disjoint.append[fun]
+    
     return render_to_response("clusters/diagnostics.html",{ 
         "cluster": cluster,
+        "disjoint": disjoint,
     }, context_instance=RequestContext(request))
     
 def economic_functions(request, cluster_id):

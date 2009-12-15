@@ -27,6 +27,10 @@ p {font-size:0.7875em}
 
 {% include "clusters/_cluster_nav.html" %}
 
-
+{% for dis in disjoint %}
+<p>
+	{{ dis }}
+</p>
+{% endfor %}
 
 {% endblock %}
