@@ -260,6 +260,18 @@ class Cluster(models.Model):
             if not fun in connected:
                 disjoint.append(fun)
         return disjoint
+    
+    def missing_numbers(self):
+        funs = self.functions.all()
+        missing = []
+        for fun in funs:
+            for out in fun.outputs():
+                if not out.amount:
+                    missing.append(out)
+            for inp in fun.inputs():
+                if not inp.amount:
+                    missing.append(inp)
+        return missing
 
 
 class EconomicFunction(models.Model):
