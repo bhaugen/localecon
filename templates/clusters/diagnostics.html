@@ -83,4 +83,19 @@ p {font-size:0.7875em}
 	</table>
 {% endif %}
 
+
+{% if function_agent_diffs %}
+	<h3>Differences between Function and Agent Amounts:</h3>
+	<table>
+		{% for diff in function_agent_diffs %}
+			<tr>
+				<th  style="text-align: right; " >{{ diff.function_resource }} Amount:</th>
+				<td style="text-align: right; " >{{ diff.function_amount|intcomma }}</td>
+				<th  style="text-align: right; " >Agent Total:</th>
+				<td style="text-align: right; " >{{ diff.agent_total|intcomma }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+{% endif %}
+
 {% endblock %}
