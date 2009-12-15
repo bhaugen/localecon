@@ -243,7 +243,7 @@ def connected_functions(node, all_nodes, to_return):
              for out in subnode.outputs():
                  for consumer in out.resource_type.cluster_consumers(subnode.cluster):
                       if not consumer in to_return:
-                          all_functions(consumer, all_nodes, to_return)
+                          connected_functions(consumer, all_nodes, to_return)
      return to_return
 
 
