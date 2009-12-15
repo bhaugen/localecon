@@ -335,7 +335,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             amount = data['amount']
             new_resource = True
             
-            import pdb; pdb.set_trace()
+            #import pdb; pdb.set_trace()
             
             try:
                 resource = EconomicResourceType.objects.get(name=name)
