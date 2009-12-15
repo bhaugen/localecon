@@ -159,7 +159,7 @@ def diagnostics(request, cluster_id):
     connected = connected_functions(root, funs, [])
     disjoint = []
     for fun in funs:
-        if not fun in funs:
+        if not fun in connected:
             disjoint.append(fun)
     
     return render_to_response("clusters/diagnostics.html",{ 
