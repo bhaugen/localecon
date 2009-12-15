@@ -302,6 +302,23 @@ class Cluster(models.Model):
                 if production < inp.amount:
                     missing.append({"function_resource": inp, "amount_missing": production - inp.amount })
         return missing
+    
+    def function_agent_diffs(self):
+        funs = self.functions.all()
+        diffs = []
+        for fun in funs:
+            agents = fun.agents.all()
+            for res in fun.resources.all():
+                agent_total = 0
+                for agent in agents:
+                    agent_total += sum(
+                        res.amount for res in agent.agent.resources.filter(
+                            resource_type=res.resource_type, role=res.role)
+                        )
+                if agent_total != res.amount:
+                    diffs.append({"function_resource": res, "function_amount": res.amount, "agent_total": agent_total})
+        return diffs
+    
 
 class EconomicFunction(models.Model):
     cluster = models.ForeignKey(Cluster, related_name="functions")
