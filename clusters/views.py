@@ -326,14 +326,15 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
         parent = get_object_or_404(EconomicResourceType, pk=parent_id)
         form = AgentResourceForm(function_resource=None, data=request.POST)
         
-        #import pdb; pdb.set_trace()
-        
         if form.is_valid():
             data = form.cleaned_data
             name = data['name']
             role = data['role']
             amount = data['amount']
             new_resource = True
+            
+            import pdb; pdb.set_trace()
+            
             try:
                 resource = EconomicResourceType.objects.get(name=name)
                 if resource.id == parent.id:
