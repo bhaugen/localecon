@@ -40,4 +40,13 @@ p {font-size:0.7875em}
 	</ul>
 {% endif %}
 
+{% if missing_numbers %}
+	<h3>The following function resources have no amounts.</h3>
+	<ul>
+		{% for miss in missing_numbers %}
+			<li>{{ miss }}</li>
+		{% endfor %}
+	</ul>
+{% endif %}
+
 {% endblock %}
