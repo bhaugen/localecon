@@ -62,11 +62,14 @@ p {font-size:0.7875em}
 
 {% if function_production_without_consumption %}
 	<h3>Function production lacking consumption:</h3>
-	<ul>
+	<table>
 		{% for miss in function_production_without_consumption %}
-			<li>{{ miss.function_resource }} {{ miss.amount_missing }}</li>
+			<tr>
+				<td>{{ miss.function_resource }}</td>
+				<td>{{ miss.amount_missing|intcomma }}</td>
+			</tr>
 		{% endfor %}
-	</ul>
+	</table>
 {% endif %}
 
 {% endblock %}
