@@ -27,10 +27,14 @@ p {font-size:0.7875em}
 
 {% include "clusters/_cluster_nav.html" %}
 
-{% for dis in disjoint %}
-<p>
-	{{ dis }}
-</p>
-{% endfor %}
+{% if disjoint %}
+	<h3>The following functions are disconnected.</h3>
+	<p>That means either they will not appear in the cluster diagram, or the diagram will be broken</p>
+	<ul>
+		{% for dis in disjoint %}
+			<li>{{ dis.name }}</li>
+		{% endfor %}
+	</ul>
+{% endif %}
 
 {% endblock %}
