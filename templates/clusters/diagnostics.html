@@ -27,14 +27,14 @@ p {font-size:0.7875em}
 
 {% include "clusters/_cluster_nav.html" %}
 
-{% if disjoint %}
+{% if disjoints %}
 	<h3>The following functions are disconnected.</h3>
 	<h4><i>That means either they will not appear in the cluster diagram, or the diagram will be broken</i></h4>
 	<p>
-		Either these functions do not belong in this cluster or their connections to other cluster functions through resources are missing.
+		Either these functions do not belong in this cluster, or they lack connections to other cluster functions through resources.
 	</p>
 	<ul>
-		{% for dis in disjoint %}
+		{% for dis in disjoints %}
 			<li>{{ dis.name }}</li>
 		{% endfor %}
 	</ul>

@@ -175,6 +175,19 @@ def function_resource_table(cluster):
         columns.append(r.name)
     columns.append("Totals")
     return FunctionResourceTable(columns, rows)
+
+def connected_functions(node, all_nodes, to_return):
+    to_return.append(node)
+    for subnode in all_nodes:
+        for out in subnode.outputs():
+            for consumer in out.resource_type.cluster_consumers(subnode.cluster):
+                if not consumer.function in to_return:
+                    connected_functions(consumer.function, all_nodes, to_return)
+        for inp in subnode.inputs():
+            for producer in inp.resource_type.cluster_producers(subnode.cluster):
+                if not producer.function in to_return:
+                    connected_functions(producer.function, all_nodes, to_return)
+    return to_return
     
     
 class Community(models.Model):
@@ -236,18 +249,17 @@ class Cluster(models.Model):
         answer.sort(lambda x, y: cmp(x.name, y.name))
         return answer
     
-def connected_functions(node, all_nodes, to_return):
-    to_return.append(node)
-    for subnode in all_nodes:
-        for out in subnode.outputs():
-            for consumer in out.resource_type.cluster_consumers(subnode.cluster):
-                if not consumer.function in to_return:
-                    connected_functions(consumer.function, all_nodes, to_return)
-        for inp in subnode.inputs():
-            for producer in inp.resource_type.cluster_producers(subnode.cluster):
-                if not producer.function in to_return:
-                    connected_functions(producer.function, all_nodes, to_return)
-    return to_return
+    def disjoints(self):
+        funs = self.functions.all().order_by("id")
+        root = self.root_function
+        if not root:
+            root = funs[0]
+        connected = connected_functions(root, funs, [])
+        disjoint = []
+        for fun in funs:
+            if not fun in connected:
+                disjoint.append(fun)
+        return disjoint
 
 
 class EconomicFunction(models.Model):
