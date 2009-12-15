@@ -288,7 +288,7 @@ class Cluster(models.Model):
                 for consumer in out.resource_type.cluster_consumers(self):
                     consumption += consumer.amount
                 if consumption < out.amount:
-                    missing.append({"function_resource": out, "amount_missing": out.amount - consumption })
+                    missing.append({"function_resource": out, "amount_missing": consumption - out.amount })
         return missing
 
 
