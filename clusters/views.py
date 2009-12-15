@@ -336,8 +336,11 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             new_resource = True
             try:
                 resource = EconomicResourceType.objects.get(name=name)
-                if resource.parent.id == parent.id or resource.is_child_of(parent):
-                    new_resource = False                    
+                if resource.id == parent.id:
+                    new_resource = False
+                elif resource.parent:
+                    if resource.parent.id == parent.id or resource.is_child_of(parent):
+                        new_resource = False               
             except EconomicResourceType.DoesNotExist:
                 pass
             if new_resource:
