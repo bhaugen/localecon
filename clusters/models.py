@@ -237,14 +237,17 @@ class Cluster(models.Model):
         return answer
     
 def connected_functions(node, all_nodes, to_return):
-     to_return.append(node)
-     for subnode in all_nodes:
-         if subnode.outputs():
-             for out in subnode.outputs():
-                 for consumer in out.resource_type.cluster_consumers(subnode.cluster):
-                      if not consumer.function in to_return:
-                          connected_functions(consumer.function, all_nodes, to_return)
-     return to_return
+    to_return.append(node)
+    for subnode in all_nodes:
+        for out in subnode.outputs():
+            for consumer in out.resource_type.cluster_consumers(subnode.cluster):
+                if not consumer.function in to_return:
+                    connected_functions(consumer.function, all_nodes, to_return)
+        for inp in subnode.inputs():
+            for producer in inp.resource_type.cluster_producers(subnode.cluster):
+                if not producer.function in to_return:
+                    connected_functions(producer.function, all_nodes, to_return)
+    return to_return
 
 
 class EconomicFunction(models.Model):
