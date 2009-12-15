@@ -308,6 +308,8 @@ class EconomicResourceType(models.Model):
         return self.functions.filter(role="produces", function__cluster=cluster)
     
     def is_child_of(self, resource_type):
+        if not self.parent:
+            return False
         if self.parent.id == resource_type.id:
             return True
         res = self.parent

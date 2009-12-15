@@ -76,7 +76,9 @@ def cluster(request, cluster_id):
     
 def cluster_agents(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    import pdb; pdb.set_trace()
+    
+    #import pdb; pdb.set_trace()
+    
     agents = cluster.agents()
     for agent in agents:
         agent.cluster_functions = agent.functions.filter(function__cluster=cluster)
