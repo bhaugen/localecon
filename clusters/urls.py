@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     url(r'^rgraph/(?P<cluster_id>\d+)/$', 'clusters.views.radial_graph', name="radial_graph"),
     url(r'^iotable/(?P<cluster_id>\d+)/$', 'clusters.views.iotable', name="iotable"),
     url(r'^frtable/(?P<cluster_id>\d+)/$', 'clusters.views.fr_table', name="fr_table"),
+    url(r'^diagnostics/(?P<cluster_id>\d+)/$', 'clusters.views.diagnostics', name="diagnostics"),
     
     # agents
     url(r'^clusteragents/(?P<cluster_id>\d+)/$', 'clusters.views.cluster_agents', name="cluster_agents"),

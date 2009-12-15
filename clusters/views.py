@@ -149,6 +149,13 @@ def iotable(request, cluster_id):
         "iotable": iotable,
     }, context_instance=RequestContext(request))
     
+def diagnostics(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    
+    return render_to_response("clusters/diagnostics.html",{ 
+        "cluster": cluster,
+    }, context_instance=RequestContext(request))
+    
 def economic_functions(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
        
