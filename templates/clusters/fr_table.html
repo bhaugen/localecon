@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load humanize %}
+
 {% block title %}
      Function-Resource Table for {{ cluster }}
 {% endblock %}
@@ -28,7 +30,7 @@
 					{% if forloop.first %}
 						<th style="text-align: left;" >{{ cell }}</th>
 					{% else %}
-						<td style="text-align: right;" >{{ cell }}</td>
+						<td style="text-align: right;" >{{ cell|intcomma }}</td>
 					{% endif %}
 				{% endfor %}			
 			</tr>

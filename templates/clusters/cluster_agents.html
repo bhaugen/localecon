@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load humanize %}
+
 {% block title %}
      Agents in Cluster {{ cluster }}
 {% endblock %}
@@ -49,14 +51,14 @@ p {font-size:0.7875em}
 				<tr>
 					<td>&nbsp;</td>
 					<td> {{ res.role }} {{ res.resource_type }}</td>
-					<td style="text-align: right;" >{{ res.amount }}</td>
+					<td style="text-align: right;" >{{ res.amount|intcomma }}</td>
 				</tr>
 				{% for agent_res in res.agent_resource_list %}
 					<tr>
 						<td>&nbsp;</td>
 						<td><b>Agent Resource:</b>  {{ agent_res.role }} {{ agent_res.resource_type }} </td>
 						<td style="text-align: right;" >
-							{{ agent_res.amount }}
+							{{ agent_res.amount|intcomma }}
 						</td>
 					</tr>
 				{% endfor %}

@@ -29,13 +29,16 @@ p {font-size:0.7875em}
 
 {% if disjoints %}
 	<h3>Disconnected functions:</h3>
-	<h4><i>Either they will not appear in the cluster diagram, or the diagram will be broken</i></h4>
 	<p>
 		Either these functions do not belong in this cluster, or they lack connections to other cluster functions through resources.
 	</p>
 	<ul>
 		{% for dis in disjoints %}
-			<li>{{ dis.name }}</li>
+			{% if dis.resources.all %}
+				<li>{{ dis.name }} <i>This function will break the cluster diagram</i></li>
+			{% else %}
+				<li>{{ dis.name }} <i>This function will not appear in the cluster diagram</i></li>
+			{% endif %}
 		{% endfor %}
 	</ul>
 {% endif %}

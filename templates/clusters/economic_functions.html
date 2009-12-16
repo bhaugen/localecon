@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load humanize %}
+
 {% block title %}
      Economic Functions for Cluster: {{ cluster }}
 {% endblock %}
@@ -43,7 +45,7 @@ p {font-size:0.7875em}
 								{{ resource.resource_type }}
 							</td>
 							<td colspan="2">
-								<b>Amt:</b> {{ resource.amount }}<br />	
+								<b>Amt:</b> {{ resource.amount|intcomma }}<br />	
 							</td>
 						{% else %}
 							<tr>
@@ -52,7 +54,7 @@ p {font-size:0.7875em}
 									{{ resource.resource_type }}
 								</td>
 								<td colspan="2">
-									<b>Amt:</b> {{ resource.amount }}<br />	
+									<b>Amt:</b> {{ resource.amount|intcomma }}<br />	
 								</td>
 							</tr>
 						{% endif %}
@@ -68,7 +70,7 @@ p {font-size:0.7875em}
 								{{ resource.resource_type }}
 							</td>
 							<td colspan="2">
-								<b>Amt:</b> {{ resource.amount }}<br />	
+								<b>Amt:</b> {{ resource.amount|intcomma }}<br />	
 							</td>
 						{% else %}
 							<tr>
@@ -77,7 +79,7 @@ p {font-size:0.7875em}
 									{{ resource.resource_type }}
 								</td>
 								<td colspan="2">
-									<b>Amt:</b> {{ resource.amount }}<br />	
+									<b>Amt:</b> {{ resource.amount|intcomma }}<br />	
 								</td>
 							</tr>
 						{% endif %}
