@@ -367,7 +367,8 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             except EconomicResourceType.DoesNotExist:
                 pass
             if new_resource:
-                resource = EconomicResourceType(name=name, parent=parent).save()
+                resource = EconomicResourceType(name=name, parent=parent)
+                resource.save()
             AgentResourceType(resource_type=resource, agent=agent, role=role, amount=amount).save()
     return HttpResponseRedirect('/%s/%s/%s/'
        % ('clusters/editclusteragent', cluster_id, agent.id))
