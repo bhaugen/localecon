@@ -312,9 +312,12 @@ class Cluster(models.Model):
                 agent_total = 0
                 for agent in agents:
                     agent_total += sum(
-                        res.amount for res in agent.agent.resources.filter(
+                        ares.amount for ares in agent.agent.resources.filter(
                             resource_type=res.resource_type, role=res.role)
                         )
+                    for ares in agent.agent.resources.filter(role=res.role):
+                        if ares.resource_type.is_child_of(res.resource_type):
+                            agent_total += ares.amount
                 if agent_total != res.amount:
                     diffs.append({"function_resource": res, "function_amount": res.amount, "agent_total": agent_total})
         return diffs
