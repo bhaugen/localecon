@@ -346,6 +346,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
     if request.method == "POST":
         agent = get_object_or_404(EconomicAgent, pk=agent_id)
         parent = get_object_or_404(EconomicResourceType, pk=parent_id)
+        cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = AgentResourceForm(function_resource=None, data=request.POST)
         
         if form.is_valid():
@@ -355,7 +356,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             amount = data['amount']
             new_resource = True
             
-            import pdb; pdb.set_trace()
+            #import pdb; pdb.set_trace()
             
             try:
                 resource = EconomicResourceType.objects.get(name=name)
@@ -370,6 +371,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
                 resource = EconomicResourceType(name=name, parent=parent)
                 resource.save()
             AgentResourceType(resource_type=resource, agent=agent, role=role, amount=amount).save()
+            crt, created = CommunityResourceType.objects.get_or_create(community=cluster.community, resource_type=resource)
     return HttpResponseRedirect('/%s/%s/%s/'
        % ('clusters/editclusteragent', cluster_id, agent.id))
 
