@@ -152,20 +152,28 @@ def iotable(request, cluster_id):
 def diagnostics(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     
+    function_production_without_consumption = cluster.function_production_without_consumption()
+    function_consumption_without_production = cluster.function_consumption_without_production()
+    
+    return render_to_response("clusters/diagnostics.html",{ 
+        "cluster": cluster,
+        "function_production_without_consumption": function_production_without_consumption,
+        "function_consumption_without_production": function_consumption_without_production,
+    }, context_instance=RequestContext(request))
+    
+def model_errors(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    
     disjoints = cluster.disjoints()
     missing_function_numbers = cluster.missing_function_numbers()
     missing_agent_numbers = cluster.missing_agent_numbers()
-    function_production_without_consumption = cluster.function_production_without_consumption()
-    function_consumption_without_production = cluster.function_consumption_without_production()
     function_agent_diffs = cluster.function_agent_diffs()
     
-    return render_to_response("clusters/diagnostics.html",{ 
+    return render_to_response("clusters/model_errors.html",{ 
         "cluster": cluster,
         "disjoints": disjoints,
         "missing_function_numbers": missing_function_numbers,
         "missing_agent_numbers": missing_agent_numbers,
-        "function_production_without_consumption": function_production_without_consumption,
-        "function_consumption_without_production": function_consumption_without_production,
         "function_agent_diffs": function_agent_diffs,
     }, context_instance=RequestContext(request))
     

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block title %}
+     Model Errors for Cluster: {{ cluster }}
+{% endblock %}
+
+{% block extra_head %}
+
+<style>
+
+body {font-size:90%}
+h1 {font-size:2.25em}
+h2 {font-size:1.6875em}
+p {font-size:0.7875em}
+	
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<h3>Model Errors for Cluster: {{ cluster }}</h3>
+
+
+{% include "clusters/_cluster_nav.html" %}
+
+{% if disjoints %}
+	<h3>Disconnected functions:</h3>
+	<p>
+		Either these functions do not belong in this cluster, or they lack connections to other cluster functions through resources.
+	</p>
+	<ul>
+		{% for dis in disjoints %}
+			{% if dis.resources.all %}
+				<li>{{ dis.name }} <i>This function will break the cluster diagram</i></li>
+			{% else %}
+				<li>{{ dis.name }} <i>This function will not appear in the cluster diagram</i></li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+{% endif %}
+
+{% if missing_function_numbers %}
+	<h3>Function resources with zero amounts:</h3>
+	<ul>
+		{% for miss in missing_function_numbers %}
+			<li>{{ miss }}</li>
+		{% endfor %}
+	</ul>
+{% endif %}
+
+{% if missing_agent_numbers %}
+	<h3>Agent resources with zero amounts:</h3>
+	<ul>
+		{% for miss in missing_agent_numbers %}
+			<li>{{ miss }}</li>
+		{% endfor %}
+	</ul>
+{% endif %}
+
+{% if function_agent_diffs %}
+	<h3>Differences between Function and Agent Amounts:</h3>
+	<table>
+		{% for diff in function_agent_diffs %}
+			<tr>
+				<th  style="text-align: right; " >{{ diff.function_resource }} Amount:</th>
+				<td style="text-align: right; " >{{ diff.function_amount|intcomma }}</td>
+				<th  style="text-align: right; " >Agent Total:</th>
+				<td style="text-align: right; " >{{ diff.agent_total|intcomma }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+{% endif %}
+
+{% endblock %}
+
