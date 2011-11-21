@@ -253,7 +253,8 @@ class Cluster(models.Model):
         funs = self.functions.all().order_by("id")
         root = self.root_function
         if not root:
-            root = funs[0]
+            if funs.count():
+                root = funs[0]
         connected = connected_functions(root, funs, [])
         disjoint = []
         for fun in funs:

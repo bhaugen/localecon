@@ -6,7 +6,7 @@
 
 
 {% block content %}
-
+<div style="float: left; ">
 	<h3>Communities and Clusters</h3>
 
 		<ul>
@@ -17,7 +17,7 @@
 						{% for cluster in community.clusters.all %}
 							<li>
 								{{ cluster.name }}</a> Cluster:&nbsp;&nbsp;
-								{% include "clusters/_cluster_nav.html" %}
+								{% include "clusters/_simple_cluster_nav.html" %}
 								{% comment %}
 								<a href="{% url cluster cluster_id=cluster.id %}">View</a>&nbsp;&nbsp;
 								<a href="{% url radial_graph cluster_id=cluster.id %}">Diagram</a>&nbsp;&nbsp;
@@ -33,5 +33,14 @@
 				{% endif %}
 			{% endfor %}
 		</ul>
+</div>
+<div style="float: right; width: 10%;">
+	{% if user.is_authenticated %}
+		<a href="/admin">Admin</a><br />
+	{% else %}
+		<a href="/admin">Log in</a><br />
+	{% endif %}
+</div>
+<div style="clear: both;"></div>
  
 {% endblock %} 
