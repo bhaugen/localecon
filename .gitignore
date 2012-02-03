@@ -3,5 +3,7 @@ local_settings.py
 *.sqlite
 *.py~
 *.*~
+*.html~
+*~
 .project
 .pydevproject

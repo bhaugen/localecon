@@ -347,6 +347,14 @@ class EconomicFunction(models.Model):
     
     def outputs(self):
         return self.resources.filter(role="produces")
+    
+    def from_nodes(self, cluster):
+        # cluster is here only for duck typing
+        # with EconomicResourceTypes
+        return [v.resource_type for v in self.inputs()]
+    
+    def to_nodes(self, cluster):
+        return [v.resource_type for v in self.outputs()]
 
 # based on dfs from threaded_comments
 def nested_objects(node, all_nodes):
@@ -394,6 +402,12 @@ class EconomicResourceType(models.Model):
     
     def cluster_producers(self, cluster):
         return self.functions.filter(role="produces", function__cluster=cluster)
+    
+    def from_nodes(self, cluster):
+        return [v.function for v in self.cluster_producers(cluster)]
+    
+    def to_nodes(self, cluster):
+        return [v.function for v in self.cluster_consumers(cluster)]
     
     def is_child_of(self, resource_type):
         if not self.parent:
