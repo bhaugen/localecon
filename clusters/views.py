@@ -139,6 +139,14 @@ def radial_graph(request, cluster_id):
     return render_to_response("clusters/radial_graph.html", 
         template_params,
         context_instance=RequestContext(request))
+    
+def network(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    template_params = cluster_params(cluster)
+    
+    return render_to_response("clusters/network.html", 
+        template_params,
+        context_instance=RequestContext(request))
 
 def iotable(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
