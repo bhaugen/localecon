@@ -27,7 +27,8 @@
 
 <h3>Network Diagram: {{ cluster }}</h3>
 {% include "clusters/_cluster_nav.html" %}
-<br />
+<div id="canvas"></div>
+<button id="redraw" onclick="redraw();">redraw</button>
 {% include "clusters/_network_diagram.html" %}
  
 {% endblock %}

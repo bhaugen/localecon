@@ -1,102 +1,126 @@
-        <p>Drag shapes around.</p>
         <div id="holder"></div>
 
 
 <script src="/site_media/scripts/raphael-min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="/site_media/scripts/dracula_graffle.js"></script>
+    <script type="text/javascript" src="/site_media/scripts/dracula_graph.js"></script>
 
 <script type="text/javascript" charset="utf-8">
 	
-Raphael.fn.connection = function (obj1, obj2, line, bg) {
-    if (obj1.line && obj1.from && obj1.to) {
-        line = obj1;
-        obj1 = line.from;
-        obj2 = line.to;
-    }
-    var bb1 = obj1.getBBox(),
-        bb2 = obj2.getBBox(),
-        p = [{x: bb1.x + bb1.width / 2, y: bb1.y - 1},
-        {x: bb1.x + bb1.width / 2, y: bb1.y + bb1.height + 1},
-        {x: bb1.x - 1, y: bb1.y + bb1.height / 2},
-        {x: bb1.x + bb1.width + 1, y: bb1.y + bb1.height / 2},
-        {x: bb2.x + bb2.width / 2, y: bb2.y - 1},
-        {x: bb2.x + bb2.width / 2, y: bb2.y + bb2.height + 1},
-        {x: bb2.x - 1, y: bb2.y + bb2.height / 2},
-        {x: bb2.x + bb2.width + 1, y: bb2.y + bb2.height / 2}],
-        d = {}, dis = [];
-    for (var i = 0; i < 4; i++) {
-        for (var j = 4; j < 8; j++) {
-            var dx = Math.abs(p[i].x - p[j].x),
-                dy = Math.abs(p[i].y - p[j].y);
-            if ((i == j - 4) || (((i != 3 && j != 6) || p[i].x < p[j].x) && ((i != 2 && j != 7) || p[i].x > p[j].x) && ((i != 0 && j != 5) || p[i].y > p[j].y) && ((i != 1 && j != 4) || p[i].y < p[j].y))) {
-                dis.push(dx + dy);
-                d[dis[dis.length - 1]] = [i, j];
+
+var redraw, g, renderer;
+
+/* only do all this when document has finished loading (needed for RaphaelJS) */
+window.onload = function() {
+    
+    var width = $(document).width() - 20;
+    var height = $(document).height() - 60;
+    
+    g = new Graph();
+
+    /* add a simple node */
+    g.addNode("strawberry");
+    g.addNode("cherry");
+
+    /* add a node with a customized label */
+    g.addNode("1", { label : "Tomato" });
+
+	
+    /* add a node with a customized shape 
+       (the Raphael graph drawing implementation can draw this shape, please 
+       consult the RaphaelJS reference for details http://raphaeljs.com/) */
+//    var render = function(r, n) {
+//        var label = r.text(0, 30, n.label).attr({opacity:0});
+        /* the Raphael set is obligatory, containing all you want to display */
+//        var set = r.set().push(
+//            r.rect(-30, -13, 62, 86).attr({"fill": "#fa8", "stroke-width": 2, r : "9px"}))
+//            .push(label);
+        /* make the label show only on hover */
+//        set.hover(function(){ label.animate({opacity:1,"fill-opacity":1}, 500); }, function(){ label.animate({opacity:0},300); });
+
+//        tooltip = r.set()
+//            .push(
+//                r.rect(0, 0, 90, 30).attr({"fill": "#fec", "stroke-width": 1, r : "9px"})
+//            ).push(
+//                r.text(25, 15, "overlay").attr({"fill": "#000000"})
+//            );
+//        for(i in set.items) {
+//            set.items[i].tooltip(tooltip);
+//        };
+//	//            set.tooltip(r.set().push(r.rect(0, 0, 30, 30).attr({"fill": "#fec", "stroke-width": 1, r : "9px"})).hide());
+//        return set;
+//    };
+	
+    g.addNode("id35", {
+        label : "meat\nand\ngreed" //,
+        /* filling the shape with a color makes it easier to be dragged */
+        /* arguments: r = Raphael object, n : node object */
+//        render : render
+    });
+    //    g.addNode("Wheat", {
+    /* filling the shape with a color makes it easier to be dragged */
+    /* arguments: r = Raphael object, n : node object */
+    //        shapes : [ {
+    //                type: "rect",
+    //                x: 10,
+    //                y: 10,
+    //                width: 25,
+    //                height: 25,
+    //                stroke: "#f00"
+    //            }, {
+    //                type: "text",
+    //                x: 30,
+    //                y: 40,
+    //                text: "Dump"
+    //            }],
+    //        overlay : "<b>Hello <a href=\"http://wikipedia.org/\">World!</a></b>"
+    //    });
+
+    st = { directed: true, label : "Label",
+            "label-style" : {
+                "font-size": 20
             }
-        }
-    }
-    if (dis.length == 0) {
-        var res = [0, 4];
-    } else {
-        res = d[Math.min.apply(Math, dis)];
-    }
-    var x1 = p[res[0]].x,
-        y1 = p[res[0]].y,
-        x4 = p[res[1]].x,
-        y4 = p[res[1]].y;
-    dx = Math.max(Math.abs(x1 - x4) / 2, 10);
-    dy = Math.max(Math.abs(y1 - y4) / 2, 10);
-    var x2 = [x1, x1, x1 - dx, x1 + dx][res[0]].toFixed(3),
-        y2 = [y1 - dy, y1 + dy, y1, y1][res[0]].toFixed(3),
-        x3 = [0, 0, 0, 0, x4, x4, x4 - dx, x4 + dx][res[1]].toFixed(3),
-        y3 = [0, 0, 0, 0, y1 + dy, y1 - dy, y4, y4][res[1]].toFixed(3);
-    var path = ["M", x1.toFixed(3), y1.toFixed(3), "C", x2, y2, x3, y3, x4.toFixed(3), y4.toFixed(3)].join(",");
-    if (line && line.line) {
-        line.bg && line.bg.attr({path: path});
-        line.line.attr({path: path});
-    } else {
-		var color = Raphael.color("black");
-        //var color = typeof line == "string" ? line : "#000";
-        return {
-            bg: bg && bg.split && this.path(path).attr({stroke: bg.split("|")[0], fill: "none", "stroke-width": bg.split("|")[1] || 3}),
-            line: this.path(path).attr({stroke: color, fill: "none"}),
-            from: obj1,
-            to: obj2
         };
-    }
+    g.addEdge("kiwi", "penguin", st);
+
+    /* connect nodes with edges */
+    g.addEdge("strawberry", "cherry");
+    g.addEdge("cherry", "apple");
+    g.addEdge("cherry", "apple")
+    g.addEdge("1", "id35");
+    g.addEdge("penguin", "id35");
+    g.addEdge("penguin", "apple");
+    g.addEdge("kiwi", "id35");
+
+    /* a directed connection, using an arrow */
+    g.addEdge("1", "cherry", { directed : true } );
+    
+    /* customize the colors of that edge */
+    g.addEdge("id35", "apple", { stroke : "#bfa" , fill : "#56f", label : "Meat-to-Apple" });
+    
+    /* add an unknown node implicitly by adding an edge */
+    g.addEdge("strawberry", "apple");
+
+    g.removeNode("1");
+
+    /* layout the graph using the Spring layout implementation */
+    var layouter = new Graph.Layout.Spring(g);
+    
+    /* draw the graph using the RaphaelJS draw implementation */
+    renderer = new Graph.Renderer.Raphael('canvas', g, width, height);
+    
+    redraw = function() {
+        layouter.layout();
+        renderer.draw();
+    };
+    hide = function(id) {
+        g.nodes[id].hide();
+    };
+    show = function(id) {
+        g.nodes[id].show();
+    };
+    //    console.log(g.nodes["kiwi"]);
 };
 
-var el;
-window.onload = function () {
-    var dragger = function () {
-        this.ox = this.type == "rect" ? this.attr("x") : this.attr("cx");
-        this.oy = this.type == "rect" ? this.attr("y") : this.attr("cy");
-        this.animate({"fill-opacity": .2}, 500);
-    },
-        move = function (dx, dy) {
-            var att = this.type == "rect" ? {x: this.ox + dx, y: this.oy + dy} : {cx: this.ox + dx, cy: this.oy + dy};
-            this.attr(att);
-            for (var i = connections.length; i--;) {
-                r.connection(connections[i]);
-            }
-            r.safari();
-        },
-        up = function () {
-            this.animate({"fill-opacity": 0}, 500);
-        },
-        r = Raphael("holder", 1280, 800),
-        connections = [],
-        shapes = [  r.ellipse(190, 100, 30, 20),
-                    r.rect(290, 80, 60, 40, 10),
-                    r.rect(290, 180, 60, 40, 2),
-                    r.ellipse(450, 100, 20, 20)
-                ];
-    for (var i = 0, ii = shapes.length; i < ii; i++) {
-        var color = Raphael.getColor();
-        shapes[i].attr({fill: color, stroke: color, "fill-opacity": 0, "stroke-width": 2, cursor: "move"});
-        shapes[i].drag(move, dragger, up);
-    }
-    connections.push(r.connection(shapes[0], shapes[1], "#fff"));
-    connections.push(r.connection(shapes[1], shapes[2], "#fff", "#fff|5"));
-    connections.push(r.connection(shapes[1], shapes[3], "#000", "#fff"));
-};
 	
 </script>
