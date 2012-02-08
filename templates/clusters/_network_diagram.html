@@ -19,15 +19,21 @@ window.onload = function() {
 	/* add a node with a customized shape 
        (the Raphael graph drawing implementation can draw this shape, please 
        consult the RaphaelJS reference for details http://raphaeljs.com/) */
-    var render = function(r, n) {
+//    var render = function(r, n) {
+//            var set = r.set().push(
+//                r.rect(n.point[0]-30, n.point[1]-13, 62, 66).attr({"fill": "#fa8", "stroke-width": 2, r : "9px"})).push(
+//                r.text(n.point[0], n.point[1] + 20, n.label).attr({"font-size":"14px"}));
+//            return set;
+//	};
+
+	   var render = function(r, n) {
             /* the Raphael set is obligatory, containing all you want to display */
             var set = r.set().push(
                 /* custom objects go here */
-                r.rect(n.point[0]-30, n.point[1]-13, 62, 66).attr({"fill": "#fa8", "stroke-width": 2, r : "9px"})).push(
-                r.text(n.point[0], n.point[1] + 20, n.label).attr({"font-size":"14px"}));
+                r.rect(n.point[0]-30, n.point[1]-13, 60, 44).attr({"fill": "#feb", r : "12px", "stroke-width" : n.distance == 0 ? "3px" : "1px" })).push(
+                r.text(n.point[0], n.point[1] + 10, (n.label || n.id)));
             return set;
-	};
-
+        };
     
     g = new Graph();
 	
