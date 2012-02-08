@@ -20,12 +20,12 @@ window.onload = function() {
     g = new Graph();
 
 	{% for node in nodes %}
-		g.addNode( {{ node.node_id}}, {label: {{ node.name }} });
+		g.addNode( "{{ node.node_id }}", {label: "{{ node.name }}" });
 	{% endfor %}
 
 	{% for node in nodes %}
 		{% for edge in node.next %}
-			g.addEdge({{ node.node_id}} , {{ edge.node_id }}, { directed : true } );
+			g.addEdge( "{{ node.node_id}}" , "{{ edge.node_id }}", { directed : true } );
 		{% endfor %}
 	{% endfor %}
  
