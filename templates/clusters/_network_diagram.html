@@ -30,14 +30,6 @@ window.onload = function() {
     
     g = new Graph();
 	
-	/* modify the edge creation to attach random weights */
-    g.edgeFactory.build = function(source, target) {
-		var e = jQuery.extend(true, {}, this.template);
-		e.source = source;
-		e.target = target;
-		e.style.label = e.weight = Math.floor(Math.random() * 10) + 1;
-		return e;
-    }
 
 	{% for node in nodes %}
 		g.addNode( "{{ node.node_id }}", {label: "{{ node.name }}"} );
