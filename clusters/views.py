@@ -142,11 +142,18 @@ def radial_graph(request, cluster_id):
     
 def network(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    template_params = cluster_params(cluster)
-    
-    return render_to_response("clusters/network.html", 
-        template_params,
-        context_instance=RequestContext(request))
+    nodes = list(cluster.functions.all())
+    rtypes = []
+    for fn in nodes:
+        rtypes.extend([v.resource_type for v in fn.inputs()])
+        rtypes.extend([v.resource_type for v in fn.outputs()])
+    nodes.extend(list(set(rtypes)))
+    for node in nodes:
+        u.next = u.to_nodes(cluster) 
+    return render_to_response("clusters/network.html", {
+        'cluster': cluster,
+        'nodes': nodes,
+        },context_instance=RequestContext(request))
 
 def iotable(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
