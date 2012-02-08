@@ -29,6 +29,15 @@ window.onload = function() {
 	};
     
     g = new Graph();
+	
+	/* modify the edge creation to attach random weights */
+    g.edgeFactory.build = function(source, target) {
+		var e = jQuery.extend(true, {}, this.template);
+		e.source = source;
+		e.target = target;
+		e.style.label = e.weight = Math.floor(Math.random() * 10) + 1;
+		return e;
+    }
 
 	{% for node in nodes %}
 		g.addNode( "{{ node.node_id }}", {label: "{{ node.name }}", render:render} );
@@ -36,7 +45,7 @@ window.onload = function() {
 
 	{% for node in nodes %}
 		{% for edge in node.next %}
-			g.addEdge( "{{ node.node_id}}" , "{{ edge.node_id }}" );
+			g.addEdge( "{{ node.node_id}}" , "{{ edge.node_id }}", { stroke : "black" , fill : "black", directed : true } );
 		{% endfor %}
 	{% endfor %}
  
