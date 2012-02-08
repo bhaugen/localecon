@@ -15,19 +15,8 @@ window.onload = function() {
     var width = $(document).width() - 20;
     var height = $(document).height() - 60;
 	
-//	var renderNode = function(r, n) 
-//	{
-//		var set = r.set().push(
-//			r.rect(
-//				n.point[0]-30, n.point[1]-13, 60, 44).attr(
-//					{"fill": "#feb", r : "12px", "stroke-width" : n.distance == 0 ? "3px" : "1px" })
-//				).push(
-//					r.text(n.point[0], n.point[1] + 10, (n.label))
-//				);
-//           return set;
-//	};
 	
-	    /* add a node with a customized shape 
+	/* add a node with a customized shape 
        (the Raphael graph drawing implementation can draw this shape, please 
        consult the RaphaelJS reference for details http://raphaeljs.com/) */
     var render = function(r, n) {
@@ -36,11 +25,8 @@ window.onload = function() {
                 /* custom objects go here */
                 r.rect(n.point[0]-30, n.point[1]-13, 62, 66).attr({"fill": "#fa8", "stroke-width": 2, r : "9px"})).push(
                 r.text(n.point[0], n.point[1] + 20, n.label).attr({"font-size":"14px"}));
-            /* custom tooltip attached to the set */
-            set./*tooltip = Raphael.el.tooltip;*/items.forEach(function(el) {el.tooltip(r.set().push(r.rect(0, 0, 30, 30).attr({"fill": "#fec", "stroke-width": 1, r : "9px"})))});
-//            set.tooltip(r.set().push(r.rect(0, 0, 30, 30).attr({"fill": "#fec", "stroke-width": 1, r : "9px"})).hide());
             return set;
-        };
+	};
 
     
     g = new Graph();
