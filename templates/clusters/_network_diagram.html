@@ -38,7 +38,7 @@ window.onload = function() {
 
 	{% for node in nodes %}
 		{% for edge in node.next %}
-			g.addEdge( "{{ node.node_id}}" , "{{ edge.node_id }}", { directed : true } );
+			g.addEdge( "{{ node.node_id}}" , "{{ edge.node_id }}", { stroke : "#bfa" , fill : "#56f", directed : true } );
 		{% endfor %}
 	{% endfor %}
  
