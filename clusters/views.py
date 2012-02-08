@@ -149,7 +149,7 @@ def network(request, cluster_id):
         rtypes.extend([v.resource_type for v in fn.outputs()])
     nodes.extend(list(set(rtypes)))
     for node in nodes:
-        u.next = u.to_nodes(cluster) 
+        node.next = node.to_nodes(cluster) 
     return render_to_response("clusters/network.html", {
         'cluster': cluster,
         'nodes': nodes,
