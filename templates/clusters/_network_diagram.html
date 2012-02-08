@@ -33,7 +33,7 @@ window.onload = function() {
 	
 
 	{% for node in nodes %}
-		g.addNode( "{{ node.node_id }}", {label: "{{ node.name }}", render:render } );
+		g.addNode( "{{ node.node_id }}", {label: "{{ node.name }}"} );
 	{% endfor %}
 
 	{% for node in nodes %}
