@@ -15,7 +15,7 @@ window.onload = function() {
     var width = $(document).width() - 20;
     var height = $(document).height() - 60;
 	
-	var render = function(r, n) 
+	var renderNode = function(r, n) 
 	{
 		/* the Raphael set is obligatory, containing all you want to display */
 		var set = r.set().push(
@@ -32,7 +32,7 @@ window.onload = function() {
 	
 
 	{% for node in nodes %}
-		g.addNode( "{{ node.node_id }}", {label: "{{ node.name }}"} );
+		g.addNode( "{{ node.node_id }}", {label: "{{ node.name }}", render:renderNode } );
 	{% endfor %}
 
 	{% for node in nodes %}
