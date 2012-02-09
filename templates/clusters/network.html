@@ -38,7 +38,7 @@ window.onload = function() {
 			}
             var set = r.set().push(
                 /* custom objects go here */
-                r.rect(n.point[0]-30, n.point[1]-13, 60, 44, 3)).push(
+                r.rect(n.point[0]-30, n.point[1]-13, 60, 44, 3).attr({"fill": "#fa8", "stroke-width": 3 })).push(
                 r.text(n.point[0], n.point[1] + 10, (n.label || n.id)));
             return set;
         };
@@ -53,7 +53,7 @@ window.onload = function() {
 	{% for node in nodes %}
 		{% for nx in node.next %}
 			g.addEdge( "{{ node.node_id}}" , "{{ nx.node_id }}", 
-				{ directed : true, stroke : "black" , fill : "black" } );
+				{ directed : true, stroke : "gray" , fill : "gray" } );
 		{% endfor %}
 	{% endfor %}
  
