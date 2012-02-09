@@ -141,9 +141,10 @@ def radial_graph(request, cluster_id):
         context_instance=RequestContext(request))
    
 class Edge(object):
-     def __init__(self, from_node, to_node, width=1):
+     def __init__(self, from_node, to_node, function_resource, width=1):
          self.from_node = from_node
          self.to_node = to_node
+         self.function_resource = function_resource
          self.width = width
 
  
@@ -157,11 +158,15 @@ def network(request, cluster_id):
         for v in fn.inputs():
             rtypes.append(v.resource_type)
             total += v.amount
-            edges.append(Edge(v.resource_type, fn))
+            edges.append(Edge(v.resource_type, fn, v))
         for v in fn.outputs():
             rtypes.append(v.resource_type)
             total += v.amount
-            edges.append(Edge(fn, v.resource_type))
+            edges.append(Edge(fn, v.resource_type, v))
+    for edge in edges:
+        width = round((edge.resource_type.amount / total), 2) * 20
+        width = int(width)
+        edge.width = width
     nodes.extend(list(set(rtypes)))
     #for node in nodes:
     #    node.next = node.to_nodes(cluster) 
