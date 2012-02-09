@@ -164,13 +164,13 @@ def network(request, cluster_id):
             total += v.amount
             edges.append(Edge(fn, v.resource_type, v))
     for edge in edges:
-        print "edge.function_resource:", edge.function_resource, edge.function_resource.amount
+        #print "edge.function_resource:", edge.function_resource, edge.function_resource.amount
         width = round((edge.function_resource.amount / total), 2) * 50
-        print "width1:", width
+        #print "width1:", width
         width = int(width)
-        print "width2:", width
+        #print "width2:", width
         edge.width = width
-        print "edge.width:", edge.width
+        #print "edge.width:", edge.width
     nodes.extend(list(set(rtypes)))
     #for node in nodes:
     #    node.next = node.to_nodes(cluster) 
@@ -290,14 +290,14 @@ def inline_new_agent_function(request, cluster_id, agent_id):
         agent = get_object_or_404(EconomicAgent, pk=agent_id)
         form = AgentFunctionForm(cluster, agent, data=request.POST, prefix="function")
         #import pdb; pdb.set_trace()
-        print "b4 form validity check"
+        #print "b4 form validity check"
         if form.is_valid():
-            print "after form validity check"
+            #print "after form validity check"
             fun = form.save(commit=False)
             fun.agent = agent
             fun.save()
-        else:
-            print "invalid form:", form
+        #else:
+        #    print "invalid form:", form
             
     return HttpResponseRedirect('/%s/%s/%s/'
         % ('clusters/editclusteragent', cluster_id, agent_id))
