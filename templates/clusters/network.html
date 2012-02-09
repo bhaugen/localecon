@@ -30,6 +30,12 @@ window.onload = function() {
 	
 	   var render = function(r, n) {
             /* the Raphael set is obligatory, containing all you want to display */
+			if(n.label)
+			{
+				var lbl = n.label;
+				lbl.replace(" ", "\n")
+				n.label = lbl;
+			}
             var set = r.set().push(
                 /* custom objects go here */
                 r.rect(n.point[0]-30, n.point[1]-13, 60, 44, 3)).push(
