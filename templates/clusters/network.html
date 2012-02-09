@@ -52,7 +52,8 @@ window.onload = function() {
 
 	{% for node in nodes %}
 		{% for nx in node.next %}
-			g.addEdge( "{{ node.node_id}}" , "{{ nx.node_id }}", { directed : true } );
+			g.addEdge( "{{ node.node_id}}" , "{{ nx.node_id }}", 
+				{ directed : true, stroke : "black" , fill : "black" } );
 		{% endfor %}
 	{% endfor %}
  
