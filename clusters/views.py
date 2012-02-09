@@ -164,7 +164,7 @@ def network(request, cluster_id):
             total += v.amount
             edges.append(Edge(fn, v.resource_type, v))
     for edge in edges:
-        width = round((edge.resource_type.amount / total), 2) * 20
+        width = round((edge.function_resource.amount / total), 2) * 20
         width = int(width)
         edge.width = width
     nodes.extend(list(set(rtypes)))
