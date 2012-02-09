@@ -141,9 +141,9 @@ def radial_graph(request, cluster_id):
         context_instance=RequestContext(request))
    
 class Edge(object):
-     def __init__(self, from, to, width=1):
-         self.from = from
-         self.to = to
+     def __init__(self, from_node, to_node, width=1):
+         self.from_node = from_node
+         self.to_node = to_node
          self.width = width
 
  

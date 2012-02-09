@@ -68,7 +68,7 @@ window.onload = function() {
 	{% endcomment %}
 	
 	{% for edge in edges %}
-		g.addEdge( "{{ edge.from.node_id}}" , "{{ edge.to.node_id }}", 
+		g.addEdge( "{{ edge.from_node.node_id}}" , "{{ edge.to_node.node_id }}", 
 			{ directed : true, weight: 1, stroke : "gray" , fill : "gray|{{ edge.width }}" } );
 	{% endfor %}
  
