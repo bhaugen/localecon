@@ -31,9 +31,9 @@ window.onload = function() {
 	   var render = function(r, n) {
             /* the Raphael set is obligatory, containing all you want to display */
             var set = r.set().push(
-                /* custom objects go here */
-                r.rect(n.point[0]-30, n.point[1]-13, 60, 44).attr({"fill": "#feb", r : "12px", "stroke-width" : n.distance == 0 ? "3px" : "1px" })).push(
-                r.text(n.point[0], n.point[1] + 10, 60, 44, (n.label || n.id)));
+				r.text(n.point[0], n.point[1] + 10, (n.label || n.id))).push(
+                r.rect(n.point[0]-30, n.point[1]-13, 60, 44).attr(
+					{"fill": "#feb", r : "12px", "stroke-width" : n.distance == 0 ? "3px" : "1px" }));
             return set;
         };
     
