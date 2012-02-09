@@ -139,20 +139,36 @@ def radial_graph(request, cluster_id):
     return render_to_response("clusters/radial_graph.html", 
         template_params,
         context_instance=RequestContext(request))
-    
+   
+class Edge(object):
+     def __init__(self, from, to, width=1):
+         self.from = from
+         self.to = to
+         self.width = width
+
+ 
 def network(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     nodes = list(cluster.functions.all())
+    edges = []
     rtypes = []
+    total = 0.0
     for fn in nodes:
-        rtypes.extend([v.resource_type for v in fn.inputs()])
-        rtypes.extend([v.resource_type for v in fn.outputs()])
+        for v in fn.inputs():
+            rtypes.append(v.resource_type)
+            total += v.amount
+            edges.append(Edge(v.resource_type, fn))
+        for v inn fn.outputs():
+            rtypes.append(v.resource_type)
+            total += v.amount
+            edges.append(Edge(fn, v.resource_type))
     nodes.extend(list(set(rtypes)))
-    for node in nodes:
-        node.next = node.to_nodes(cluster) 
+    #for node in nodes:
+    #    node.next = node.to_nodes(cluster) 
     return render_to_response("clusters/network.html", {
         'cluster': cluster,
         'nodes': nodes,
+        'edges': edges,
         },context_instance=RequestContext(request))
 
 def iotable(request, cluster_id):
