@@ -158,7 +158,7 @@ def network(request, cluster_id):
             rtypes.append(v.resource_type)
             total += v.amount
             edges.append(Edge(v.resource_type, fn))
-        for v inn fn.outputs():
+        for v in fn.outputs():
             rtypes.append(v.resource_type)
             total += v.amount
             edges.append(Edge(fn, v.resource_type))
