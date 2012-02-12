@@ -16,12 +16,14 @@ class IncomingFunctionResourceFlowInline(admin.TabularInline):
     model = FunctionResourceFlow
     fk_name = 'to_function'
     verbose_name = 'incoming flow'
+    verbose_name_plural = 'outgoing flows'
 
 
 class OutgoingFunctionResourceFlowInline(admin.TabularInline):
     model = FunctionResourceFlow
     fk_name = 'from_function'
     verbose_name = 'outgoing flow'
+    verbose_name_plural = 'outgoing flows'
 
 
 class EconomicFunctionAdmin(admin.ModelAdmin):
@@ -42,10 +44,28 @@ class AgentFunctionInline(admin.TabularInline):
 class AgentResourceInline(admin.TabularInline):
     model = AgentResourceType
 
+
+class IncomingAgentResourceFlowInline(admin.TabularInline):
+    model = AgentResourceFlow
+    fk_name = 'to_function'
+    verbose_name = 'incoming flow'
+    verbose_name_plural = 'outgoing flows'
+
+
+class OutgoingAgentResourceFlowInline(admin.TabularInline):
+    model = AgentResourceFlow
+    fk_name = 'from_function'
+    verbose_name = 'outgoing flow'
+    verbose_name_plural = 'outgoing flows'
+
 class EconomicAgentAdmin(admin.ModelAdmin):
     list_display = ('name', 'address')
     search_fields = ['name', 'address']
-    inlines = [ AgentFunctionInline, AgentResourceInline]
+    inlines = [ AgentFunctionInline, 
+               AgentResourceInline,
+               IncomingAgentResourceFlowInline,
+               OutgoingAgentResourceFlowInline,
+               ]
     
 admin.site.register(EconomicAgent, EconomicAgentAdmin)
 
