@@ -68,7 +68,7 @@ class EconomicAgentAdmin(admin.ModelAdmin):
 admin.site.register(EconomicAgent, EconomicAgentAdmin)
 
 
-class AgentFunctionAdmin(admin.TabularInline):
+class AgentFunctionAdmin(admin.ModelAdmin):
     list_display = ('agent', 'function')
     inlines = [IncomingAgentResourceFlowInline,
                OutgoingAgentResourceFlowInline,
