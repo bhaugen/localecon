@@ -63,11 +63,19 @@ class EconomicAgentAdmin(admin.ModelAdmin):
     search_fields = ['name', 'address']
     inlines = [ AgentFunctionInline, 
                AgentResourceInline,
-               IncomingAgentResourceFlowInline,
-               OutgoingAgentResourceFlowInline,
                ]
     
 admin.site.register(EconomicAgent, EconomicAgentAdmin)
+
+
+class AgentFunctionAdmin(admin.TabularInline):
+    list_display = ('agent', 'function')
+    inlines = [IncomingAgentResourceFlowInline,
+               OutgoingAgentResourceFlowInline,
+               ]
+    
+admin.site.register(AgentFunction, AgentFunctionAdmin)
+
 
 class EconomicResourceTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'parent')
