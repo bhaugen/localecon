@@ -6,15 +6,29 @@ var redraw, g, renderer;
 /* only do all this when document has finished loading (needed for RaphaelJS) */
 window.onload = function() {
     
-    var width = $(document).width();
+    var width = $(document).width() - 50;
     var height = $(document).height() - 100;
 	
 	   var render = function(r, n) {
             /* the Raphael set is obligatory, containing all you want to display */
-            var set = r.set().push(
-                /* custom objects go here */
-                r.rect(n.point[0]-30, n.point[1]-13, 60, 44).attr({"fill": "#feb", r : "12px", "stroke-width" : n.distance == 0 ? "3px" : "1px" })).push(
-                r.text(n.point[0], n.point[1] + 10, (n.label || n.id)));
+			if(n.label)
+			{
+				var lbl = n.label;
+				lbl = lbl.split(' ').join('\n');
+				n.label = lbl;
+			}
+			if(n.id.indexOf("EconomicFunction") >= 0)
+			{
+				var set = r.set().push(
+					r.rect(n.point[0]-30, n.point[1]-13, 60, 44, 6).attr({"fill": "#E0FFFF", "stroke-width": 2 })).push(
+					r.text(n.point[0], n.point[1] + 10, (n.label || n.id)));
+			}
+			else
+			{
+				var set = r.set().push(
+					r.ellipse(n.point[0]-30, n.point[1]-13, 40, 25).attr({"fill": "#FFF8DC", "stroke-width": 2 })).push(
+					r.text(n.point[0]-30, n.point[1]-10, (n.label || n.id)));	
+			}
             return set;
         };
     
@@ -25,10 +39,18 @@ window.onload = function() {
 		g.addNode( "{{ node.node_id }}", {label: "{{ node.name }}", render:render } );
 	{% endfor %}
 
+	{% comment %}
 	{% for node in nodes %}
 		{% for nx in node.next %}
-			g.addEdge( "{{ node.node_id}}" , "{{ nx.node_id }}", { directed : true } );
+			g.addEdge( "{{ node.node_id}}" , "{{ nx.node_id }}", 
+				{ directed : true, weight: 1, stroke : "gray" , fill : "gray", "stroke-width": 5 } );
 		{% endfor %}
+	{% endfor %}
+	{% endcomment %}
+	
+	{% for edge in edges %}
+		g.addEdge( "{{ edge.from_node.node_id}}" , "{{ edge.to_node.node_id }}", 
+			{ directed : true, weight: 1, stroke : "#D2691E" , fill : "#D2691E|{{ edge.width }}" } );
 	{% endfor %}
  
     /* layout the graph using the Spring layout implementation */
