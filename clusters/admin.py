@@ -12,11 +12,27 @@ class FunctionResourceInline(admin.TabularInline):
     model = FunctionResourceType
 
 
+class IncomingFunctionResourceFlowInline(admin.TabularInline):
+    model = FunctionResourceFlow
+    fk_name = 'to_function'
+    verbose_name = 'incoming flow'
+
+
+class OutgoingFunctionResourceFlowInline(admin.TabularInline):
+    model = FunctionResourceFlow
+    fk_name = 'from_function'
+    verbose_name = 'outgoing flow'
+
+
 class EconomicFunctionAdmin(admin.ModelAdmin):
     list_display = ('name', 'cluster')
     list_filter = ['cluster',]
     search_fields = ['name', 'cluster']
-    inlines = [ FunctionResourceInline, ]
+    inlines = [ 
+               FunctionResourceInline,
+               IncomingFunctionResourceFlowInline,
+               OutgoingFunctionResourceFlowInline, 
+               ]
     
 admin.site.register(EconomicFunction, EconomicFunctionAdmin)
 

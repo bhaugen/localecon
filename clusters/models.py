@@ -489,6 +489,19 @@ class FunctionResourceType(models.Model):
             elif ar.resource_type.is_child_of(self.resource_type) and ar.role == self.role:
                 answer.append(ar)
         return answer
+    
+    
+class FunctionResourceFlow(models.Model):
+    from_function = models.ForeignKey(EconomicFunction, related_name='outgoing_flows')
+    to_function = models.ForeignKey(EconomicFunction, related_name='incoming_flows')
+    resource_type = models.ForeignKey(EconomicResourceType, related_name='function_flows')
+    amount = models.IntegerField(default=0)
+    
+    class Meta:
+        ordering = ('from_function', 'to_function', 'resource_type',)
+    
+    def __unicode__(self):
+        return " ".join(["from", self.from_function.name, "to", self.to_function.name, str(self.amount), self.resource_type.name])
 
     
 class EconomicAgent(models.Model):
@@ -563,6 +576,19 @@ class AgentResourceType(models.Model):
     def __unicode__(self):
         return " ".join([self.agent.name, self.role, self.resource_type.name])
     
+    
+class AgentResourceFlow(models.Model):
+    from_function = models.ForeignKey(AgentFunction, related_name='outgoing_flows')
+    to_function = models.ForeignKey(AgentFunction, related_name='incoming_flows')
+    resource_type = models.ForeignKey(EconomicResourceType, related_name='agent_flows')
+    amount = models.IntegerField(default=0)
+    
+    class Meta:
+        ordering = ('from_function', 'to_function', 'resource_type',)
+    
+    def __unicode__(self):
+        return " ".join(["from", self.from_function.agent.name, "to", self.to_function.agent.name, str(self.amount), self.resource_type.name])
+
 
 class SiteSettings(models.Model):
     featured_cluster = models.ForeignKey(Cluster, related_name="featured")
