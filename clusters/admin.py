@@ -16,7 +16,7 @@ class IncomingFunctionResourceFlowInline(admin.TabularInline):
     model = FunctionResourceFlow
     fk_name = 'to_function'
     verbose_name = 'incoming flow'
-    verbose_name_plural = 'outgoing flows'
+    verbose_name_plural = 'incoming flows'
 
 
 class OutgoingFunctionResourceFlowInline(admin.TabularInline):
@@ -49,7 +49,7 @@ class IncomingAgentResourceFlowInline(admin.TabularInline):
     model = AgentResourceFlow
     fk_name = 'to_function'
     verbose_name = 'incoming flow'
-    verbose_name_plural = 'outgoing flows'
+    verbose_name_plural = 'incoming flows'
 
 
 class OutgoingAgentResourceFlowInline(admin.TabularInline):
