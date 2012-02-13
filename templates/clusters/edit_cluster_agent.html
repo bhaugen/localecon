@@ -31,7 +31,7 @@ p {font-size:0.7875em}
 	<tr>
 		<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}</th>
 	</tr>
-	<form action="{% url inline_new_agent_function cluster_id=cluster.id agent_id=agent.id %}" method="POST">
+	<form action="{% url inline_new_agent_function cluster_id=cluster.id agent_id=agent.id %}" method="POST">{% csrf_token %}
 	<tr>
 		<th style="text-align: right;" >New Function:</th>
 		<td>{{ new_function_form.function }}</td>
@@ -69,6 +69,7 @@ p {font-size:0.7875em}
 				<tr>
 					<th style="text-align: right;" >{{ agent.name }}</th>
 					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=res.resource_type.id %}" method="POST">
+						{% csrf_token %}
 						<td>
 							{{ res.agent_resource_form.role }}&nbsp;
 							{{ res.agent_resource_form.name }}

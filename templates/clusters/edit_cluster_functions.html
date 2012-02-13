@@ -30,7 +30,7 @@ p {font-size:0.7875em}
 <div style="float:left;" >
 	<table>
 		<tr><th style="text-align: center; font-size: 120%; " colspan="4" >Functions:</th></tr>
-		<form action="{% url inline_new_function cluster_id=cluster.id %}" method="POST">
+		<form action="{% url inline_new_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
 				<th style="text-align: right;" >New:</th>
 				<td>{{ new_function_form.name }}</td>
@@ -94,7 +94,7 @@ p {font-size:0.7875em}
 					{% endfor %}
 				</tr>
 			{% endif %}
-			<form action="{% url new_function_resource function_id=fun.id %}" method="POST">
+			<form action="{% url new_function_resource function_id=fun.id %}" method="POST">{% csrf_token %}
 				<tr>
 					<td>{{ fun.form.role }}</td>
 					<td>
@@ -113,7 +113,7 @@ p {font-size:0.7875em}
 <div style="float:left; margin-left: 2em;" >
 	<table>
 		<tr><th style="text-align: center; font-size: 120%; " colspan="3" >Resources:</th></tr>
-		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">
+		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
 				<th style="text-align: right;" >New:</th>
 				<td>{{ new_resource_form.name }}</td>

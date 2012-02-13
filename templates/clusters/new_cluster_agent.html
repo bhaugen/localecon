@@ -25,7 +25,7 @@ p {font-size:0.7875em}
 
 {% include "clusters/_cluster_nav.html" %}
 
-	<form action="." method="POST" >
+	<form action="." method="POST" >{% csrf_token %}
 		<table style="padding-top: 1em;" >
 			<tr>
 				<th style="text-align: right; " >Name:</th>
