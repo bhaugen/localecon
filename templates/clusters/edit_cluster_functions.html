@@ -169,7 +169,7 @@ p {font-size:0.7875em}
 		{
 			var amount = this.value;
 			var id = this.id;
-			$.post("{% url change_function_resource_amount %}");
+			$.post("{% url change_function_resource_amount %}",  { id: id, amount: amount });
 		});
 	
     var data = "{{ resource_names }}".split(";");
