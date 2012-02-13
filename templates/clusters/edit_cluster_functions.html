@@ -172,7 +172,7 @@ p {font-size:0.7875em}
 <script>
   $(document).ready(function(){
 	$(".amount").blur(function() {
-  alert('Handler for .blur() called on ' + this.value);
+  alert('Handler for .blur() called on id: ' + this.id + " value: " + this.value);
 });
     var data = "{{ resource_names }}".split(";");
 $("#id_resource-name").autocomplete(data, {matchContains: true});
