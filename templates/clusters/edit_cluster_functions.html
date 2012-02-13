@@ -186,16 +186,17 @@ p {font-size:0.7875em}
 	{
 		$(".amount").blur(function() 
 		{
-			var amount = this.value;
+			var field = this;
+			var amount = field.value;
 			if ($.isNumeric(amount))
 			{
-				var id = this.id;
+				var id = field.id;
 				$.post("{% url change_function_resource_amount %}",  { id: id, amount: amount });
 			}
 			else
 			{
 				alert(amount + " is not a number);
-				this.value = parseInt(amount);
+				field.value = parseInt(amount);
 			}
 		});
 	
