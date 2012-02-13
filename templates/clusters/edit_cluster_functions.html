@@ -154,13 +154,6 @@ p {font-size:0.7875em}
 	</table>
 </div>
 <div style="clear: both;" ></div> 
-{% comment %}
-<script src="http://www.google.com/jsapi"></script>
-<script>
-	
-	google.load("jquery", "1.3.2");
-</script>
-{% endcomment %}
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
   <link rel="stylesheet" href="/site_media/css/jquery.autocomplete.css" type="text/css" />
@@ -170,14 +163,20 @@ p {font-size:0.7875em}
 
 
 <script>
-  $(document).ready(function(){
-	$(".amount").blur(function() {
-  alert('Handler for .blur() called on id: ' + this.id + " value: " + this.value);
-});
+	$(document).ready(function()
+	{
+		$(".amount").blur(function() 
+		{
+			var amount = this.value;
+			var id = this.id;
+			$.post("{% url change_function_resource_amount %}");
+		});
+	
     var data = "{{ resource_names }}".split(";");
-$("#id_resource-name").autocomplete(data, {matchContains: true});
-  });
-  </script>
+	$("#id_resource-name").autocomplete(data, {matchContains: true});
+	
+	});
+</script>
 
 
 

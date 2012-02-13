@@ -372,6 +372,14 @@ def json_agent_address(request, agent_name):
     data = serializers.serialize("json", EconomicAgent.objects.filter(name=agent_name), fields=('address',))    
     return HttpResponse(data, mimetype="text/json-comment-filtered")
 
+def change_function_resource_amount(request):
+    id = request.POST.get("id")
+    amount = request.POST.get("amount")
+    frt = get_object_or_404(FunctionResourceType, pk=id)
+    import pdb; pdb.set_trace()
+    data = "ok"
+    return HttpResponse(data, mimetype="text/plain")
+
 @login_required    
 def inline_new_resource(request, cluster_id):
     if request.method == "POST":

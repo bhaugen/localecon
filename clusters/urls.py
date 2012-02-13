@@ -33,5 +33,7 @@ urlpatterns = patterns('',
     
     #function resources
     url(r'^newfunctionresource/(?P<function_id>\d+)/$', 'clusters.views.new_function_resource', name="new_function_resource"),
+    url(r'^changefunctionresourceamount/$', 'clusters.views.change_function_resource_amount', 
+        name="change_function_resource_amount"),
 )
 
