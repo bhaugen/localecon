@@ -376,7 +376,10 @@ def change_function_resource_amount(request):
     id = request.POST.get("id")
     amount = request.POST.get("amount")
     frt = get_object_or_404(FunctionResourceType, pk=id)
-    import pdb; pdb.set_trace()
+    amount = int.amount
+    if amount != frt.amount:
+        frt.amount = int(amount)
+        frt.save()
     data = "ok"
     return HttpResponse(data, mimetype="text/plain")
 
