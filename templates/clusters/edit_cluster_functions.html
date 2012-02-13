@@ -76,8 +76,13 @@ p {font-size:0.7875em}
 								{{ resource.resource_type }}
 							</td>
 							<th>Amount</th>
+							{% comment %}
 							<td style="text-align: right; ">
 								{{ resource.amount|intcomma }}
+							</td>
+							{% endcomment %}
+							<td>
+								<input id="{{ resource.id }}" type="text" value="{{ resource.amount }}" />
 							</td>
 						{% else %}
 							<tr>

@@ -83,6 +83,13 @@ class FunctionResourceTypeForm(forms.ModelForm):
     class Meta:
         model = FunctionResourceType
         fields = ('resource_type', 'role', 'amount')
+        
+class FunctionResourceTypeAmountForm(forms.ModelForm):
+    amount = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+        
+    class Meta:
+        model = FunctionResourceType
+        fields = ('amount',)
 
 
 class FunctionAgentForm(forms.ModelForm):
