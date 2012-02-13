@@ -187,15 +187,24 @@ p {font-size:0.7875em}
 		$(".amount").blur(function() 
 		{
 			var amount = this.value;
+			intAmount = parseInt(amount);
 			if ($.isNumeric(amount))
 			{
-				var id = this.id;
-				$.post("{% url change_function_resource_amount %}",  { id: id, amount: amount });
+				if (intAmount == parseFloat(amount))
+				{
+					var id = this.id;
+					$.post("{% url change_function_resource_amount %}",  { id: id, amount: amount });
+				}
+				else
+				{
+					alert(amount + "must be an integer");
+					this.value = intAmount;
+				}
 			}
 			else
 			{
 				alert(amount + " is not a number");
-				this.value = parseInt(amount);
+				this.value = intAmount;
 			}
 		});
 	
