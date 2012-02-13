@@ -386,8 +386,8 @@ def change_function_resource_amount(request):
 
 def delete_function_resource(request, id):
     frt = get_object_or_404(FunctionResourceType, pk=id)
-    print frt
     cluster = frt.function.cluster
+    frt.delete()
     return HttpResponseRedirect('/%s/%s/'
         % ('clusters/editclusterfunctions', cluster.id))
 
