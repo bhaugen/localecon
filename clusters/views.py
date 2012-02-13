@@ -384,6 +384,13 @@ def change_function_resource_amount(request):
     data = "ok"
     return HttpResponse(data, mimetype="text/plain")
 
+def delete_function_resource(request, id):
+    frt = get_object_or_404(FunctionResourceType, pk=id)
+    print frt
+    cluster = frt.function.cluster
+    return HttpResponseRedirect('/%s/%s/'
+        % ('clusters/editclusterfunctions', cluster.id))
+
 @login_required    
 def inline_new_resource(request, cluster_id):
     if request.method == "POST":

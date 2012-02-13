@@ -50,7 +50,13 @@ p {font-size:0.7875em}
 							</td>
 							<th>Amount</th>
 							<td style="text-align: right; ">
-								{{ resource.amount|intcomma }}
+								<input class="amount" id="{{ resource.id }}" type="text" size="6" value="{{ resource.amount }}" />
+							</td>
+							<td>
+								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
+									{% csrf_token %}
+									<input type="submit" value="Delete" />
+								</form>
 							</td>
 						{% else %}
 							<tr>
@@ -60,8 +66,14 @@ p {font-size:0.7875em}
 								</td>
 								<th>Amount</th>
 								<td style="text-align: right; ">
-									{{ resource.amount|intcomma }}
+									<input class="amount" id="{{ resource.id }}" type="text" size="6" value="{{ resource.amount }}" />
 								</td>
+								<td>
+								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
+									{% csrf_token %}
+									<input type="submit" value="Delete" />
+								</form>
+							</td>
 							</tr>
 						{% endif %}
 					{% endfor %}
@@ -76,13 +88,14 @@ p {font-size:0.7875em}
 								{{ resource.resource_type }}
 							</td>
 							<th>Amount</th>
-							{% comment %}
-							<td style="text-align: right; ">
-								{{ resource.amount|intcomma }}
-							</td>
-							{% endcomment %}
 							<td>
 								<input class="amount" id="{{ resource.id }}" type="text" size="6" value="{{ resource.amount }}" />
+							</td>
+							<td>
+								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
+									{% csrf_token %}
+									<input type="submit" value="Delete" />
+								</form>
 							</td>
 						{% else %}
 							<tr>
@@ -92,8 +105,14 @@ p {font-size:0.7875em}
 								</td>
 								<th>Amount</th>
 								<td style="text-align: right; ">
-									{{ resource.amount|intcomma }}
+									<input class="amount" id="{{ resource.id }}" type="text" size="6" value="{{ resource.amount }}" />
 								</td>
+								<td>
+								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
+									{% csrf_token %}
+									<input type="submit" value="Delete" />
+								</form>
+							</td>
 							</tr>
 						{% endif %}
 					{% endfor %}
