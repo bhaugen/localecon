@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+     Flow Diagram: {{ cluster }}
+{% endblock %}
+
+{% block extra_head %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="/site_media/scripts/raphael-min.js"></script>
+<script type="text/javascript" src="/site_media/scripts/dracula_graffle.js"></script>
+<script type="text/javascript" src="/site_media/scripts/dracula_graph.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<h3>Flow Diagram: {{ cluster }}</h3>
+{% include "clusters/_cluster_nav.html" %}
+<div id="canvas"></div>
+Looks ugly? Click <button id="redraw" onclick="redraw();">redraw</button> or move things around by hand.
+
+{% include "clusters/_flow_diagram.html" %}
+ 
+{% endblock %}

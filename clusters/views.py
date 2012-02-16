@@ -164,13 +164,9 @@ def network(request, cluster_id):
             total += v.amount
             edges.append(Edge(fn, v.resource_type, v))
     for edge in edges:
-        #print "edge.function_resource:", edge.function_resource, edge.function_resource.amount
         width = round((edge.function_resource.amount / total), 2) * 50
-        #print "width1:", width
         width = int(width)
-        #print "width2:", width
         edge.width = width
-        #print "edge.width:", edge.width
     nodes.extend(list(set(rtypes)))
     #for node in nodes:
     #    node.next = node.to_nodes(cluster) 
@@ -179,6 +175,26 @@ def network(request, cluster_id):
         'nodes': nodes,
         'edges': edges,
         },context_instance=RequestContext(request))
+    
+def flows(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    edges = FunctionResourceFlow.objects.filter(from_function__cluster=cluster)
+    nodes = []
+    total = 0.0
+    for edge in edges:
+        nodes.extend([flow.from_function, flow.to_function])
+        total += edge.amount
+    nodes = list(set(nodes))
+    for edge in edges:
+        width = round((edge.amount / total), 2) * 50
+        width = int(width)
+        edge.width = width
+    return render_to_response("clusters/network.html", {
+        'cluster': cluster,
+        'nodes': nodes,
+        'edges': edges,
+        },context_instance=RequestContext(request))    
+
 
 def iotable(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)

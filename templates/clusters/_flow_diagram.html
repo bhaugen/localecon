@@ -1,0 +1,61 @@
+<script type="text/javascript">
+	
+
+var redraw, g, renderer;
+
+/* only do all this when document has finished loading (needed for RaphaelJS) */
+window.onload = function() {
+    
+    var width = $(document).width() - 50;
+    var height = $(document).height() - 100;
+	
+	   var render = function(r, n) {
+            /* the Raphael set is obligatory, containing all you want to display */
+			if(n.label)
+			{
+				var lbl = n.label;
+				lbl = lbl.split(' ').join('\n');
+				n.label = lbl;
+			}
+			if(n.id.indexOf("EconomicFunction") >= 0)
+			{
+				var set = r.set().push(
+					r.rect(n.point[0]-30, n.point[1]-13, 60, 44, 6).attr({"fill": "#E0FFFF", "stroke-width": 2 })).push(
+					r.text(n.point[0], n.point[1] + 10, (n.label || n.id)));
+			}
+			else
+			{
+				var set = r.set().push(
+					r.ellipse(n.point[0]-30, n.point[1]-13, 40, 25).attr({"fill": "#FFF8DC", "stroke-width": 2 })).push(
+					r.text(n.point[0]-30, n.point[1]-10, (n.label || n.id)));	
+			}
+            return set;
+        };
+    
+    g = new Graph();
+	
+
+	{% for node in nodes %}
+		g.addNode( "{{ node.node_id }}", {label: "{{ node.name }}", render:render } );
+	{% endfor %}
+	
+	{% for edge in edges %}
+			g.addEdge( "{{ edge.from_function.node_id}}" , "{{ edge.to_function.node_id }}", 
+				{ directed : true, label : "{{ edge.resource_type.name }}", weight: 1, stroke : "#D2691E" , fill : "#D2691E|{{ edge.width }}" } );
+	{% endfor %}
+ 
+    /* layout the graph using the Spring layout implementation */
+    var layouter = new Graph.Layout.Spring(g);
+    
+    /* draw the graph using the RaphaelJS draw implementation */
+    renderer = new Graph.Renderer.Raphael('canvas', g, width, height);
+    
+    redraw = function() {
+        layouter.layout();
+        renderer.draw();
+    };
+
+};
+
+	
+</script>
