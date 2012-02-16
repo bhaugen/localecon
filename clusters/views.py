@@ -182,7 +182,7 @@ def flows(request, cluster_id):
     nodes = []
     total = 0.0
     for edge in edges:
-        nodes.extend([flow.from_function, flow.to_function])
+        nodes.extend([edge.from_function, edge.to_function])
         total += edge.amount
     nodes = list(set(nodes))
     for edge in edges:
