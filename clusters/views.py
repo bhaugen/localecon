@@ -189,6 +189,7 @@ def flows(request, cluster_id):
         width = round((edge.amount / total), 2) * 50
         width = int(width)
         edge.width = width
+        print edge, edge.width
     return render_to_response("clusters/network.html", {
         'cluster': cluster,
         'nodes': nodes,
