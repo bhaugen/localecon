@@ -205,6 +205,10 @@ def edit_flows(request, cluster_id):
         
     resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
     
+    if request.method == POST:
+        if formset.is_valid():
+            formset.save()
+    
     return render_to_response("clusters/edit_flows.html", {
         "cluster": cluster,
         "new_function_form": new_function_form,
