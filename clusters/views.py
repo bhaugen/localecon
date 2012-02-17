@@ -55,6 +55,12 @@ def cluster_params(cluster):
     }
     return template_params
 
+
+class FlowResource(object):
+     def __init__(self, resource_type):
+         self.resource_type = resource_type
+
+
 def flow_radial_graph_params(cluster):
     template_params = {}
     flows = FunctionResourceFlow.objects.filter(
@@ -68,13 +74,13 @@ def flow_radial_graph_params(cluster):
             len(from_fn.inputs)
         except TypeError:
             from_fn.inputs = []
-        from_fn.inputs.append(flow.resource_type)
+        from_fn.inputs.append(FlowResource(flow.resource_type))
         to_fn = flow.to_function
         try:
             len(from_fn.outputs)
         except TypeError:
             to_fn.outputs = []
-        to_fn.outputs.append(flow.resource_type)
+        to_fn.outputs.append(FlowResource(flow.resource_type))
         functions.extend([from_fn, to_fn])
         resources.append(flow.resource_type)
     functions = list(set(functions))
