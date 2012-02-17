@@ -87,18 +87,6 @@ class FunctionResourceTypeForm(forms.ModelForm):
         
 class FunctionResourceFlowForm(forms.ModelForm):
     amount = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
-    
-    def __init__(self, cluster, *args, **kwargs):
-        super(FunctionResourceFlowForm, self).__init__(*args, **kwargs)
-        self.fields["from_function"].choices = [('', '----------')] + [
-            (fn.id, fn.name) for fn in cluster.functions.all()
-        ]
-        self.fields["to_function"].choices = [('', '----------')] + [
-            (fn.id, fn.name) for fn in cluster.functions.all()
-        ]
-        self.fields["resource_type"].choices = [('', '----------')] + [
-            (cr.resource_type.id, cr.resource_type.name) for cr in cluster.community.resources.all()
-        ]
 
         
     class Meta:
