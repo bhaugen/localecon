@@ -333,7 +333,7 @@ class Cluster(models.Model):
         
     def has_function_resources(self):
         frts = FunctionResourceType.objects.filter(
-            from_function__cluster=self)
+            function__cluster=self)
         if frts:
             return True
         else:
