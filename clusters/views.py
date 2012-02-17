@@ -147,7 +147,7 @@ class Edge(object):
          self.function_resource = function_resource
          self.width = width
 
- 
+
 def network(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     nodes = list(cluster.functions.all())
@@ -176,15 +176,39 @@ def network(request, cluster_id):
         'edges': edges,
         },context_instance=RequestContext(request))
     
+class FlowEdge(object):
+     def __init__(self, from_node, to_node, label, amount, width=1):
+         self.from_node = from_node
+         self.to_node = to_node
+         self.label = label
+         self.amount = amount
+         self.width = width
+    
 def flows(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    edges = FunctionResourceFlow.objects.filter(from_function__cluster=cluster)
+    flows = FunctionResourceFlow.objects.filter(
+        from_function__cluster=cluster)
     nodes = []
     total = 0.0
-    for edge in edges:
-        nodes.extend([edge.from_function, edge.to_function])
-        total += edge.amount
+    for flow in flows:
+        nodes.extend([flow.from_function, flow.to_function])
+        total += flow.amount
     nodes = list(set(nodes))
+    edges = []
+    prev = None
+    edges = []
+    for flow in flows:
+        if prev:
+            prev_match = prev.to_function.id==flow.to_function.id and prev.from_function.id==flow.from_function.id
+        else:
+            prev_match=False
+        if prev_match:
+            edge.label = ", ".join([edge.label, flow.resource_type.name])
+            edge.amount += flow.amount
+        else:
+            edge = FlowEdge(flow.from_function, flow.to_function, flow.resource_type.name, flow.amount)
+            edges.append(edge)
+        prev = flow                  
     for edge in edges:
         width = round((edge.amount / total), 2) * 50
         width = int(width)
