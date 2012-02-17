@@ -194,7 +194,7 @@ def edit_flows(request, cluster_id):
         )
     resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
     
-    return render_to_response("clusters/edit_cluster_functions.html", {
+    return render_to_response("clusters/edit_flows.html", {
         "cluster": cluster,
         "new_function_form": new_function_form,
         "new_resource_form": new_resource_form,
