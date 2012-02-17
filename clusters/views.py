@@ -60,7 +60,7 @@ class FlowResource(object):
      def __init__(self, resource_type):
          self.resource_type = resource_type
 
-
+# does not work; FlowResource objects cannot fake it for FunctionResourceTypes
 def flow_radial_graph_params(cluster):
     template_params = {}
     flows = FunctionResourceFlow.objects.filter(
@@ -183,11 +183,7 @@ def featured_cluster(request):
     
 def radial_graph(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    template_params = {}
-    if cluster.has_function_resources():
-        template_params = cluster_params(cluster)
-    elif cluster.has_flows():
-        template_params = flow_radial_graph_params(cluster)
+    template_params = cluster_params(cluster)
     
     return render_to_response("clusters/radial_graph.html", 
         template_params,

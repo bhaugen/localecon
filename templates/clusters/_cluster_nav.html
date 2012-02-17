@@ -2,7 +2,9 @@
 	<a href="{% url cluster cluster_id=cluster.id %}">Cluster Map</a>&nbsp;&nbsp;
 	<a href="{% url economic_functions cluster_id=cluster.id %}">Functions</a>&nbsp;&nbsp;
 	<a href="{% url cluster_agents cluster_id=cluster.id %}">Agents</a>&nbsp;&nbsp;
-	<a href="{% url radial_graph cluster_id=cluster.id %}">Radial Graph</a>&nbsp;&nbsp;
+	{% if cluster.has_function_resources %}
+		<a href="{% url radial_graph cluster_id=cluster.id %}">Radial Graph</a>&nbsp;&nbsp;
+	{% endif %}
 	<a href="{% url network cluster_id=cluster.id %}">Network Diagram</a>&nbsp;&nbsp;
 	{% if cluster.has_flows %}
 		<a href="{% url flows cluster_id=cluster.id %}">Flow Diagram</a>&nbsp;&nbsp;
