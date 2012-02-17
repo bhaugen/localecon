@@ -74,32 +74,6 @@ p {font-size:0.7875em}
 				<td><input type="submit" name="submit" value="Add" /></td>
 			</tr>
 		</form>
-		<tr>
-			<th style="text-align: center; font-size: 110%; " colspan="3" >Resources used in this Cluster:</th>
-		</tr>
-		{% for res in resources %}
-			<tr><th style="text-align: left; font-size: 110%; " colspan="3" >{{ res }}</th></tr>
-			{% if res.my_producers %}
-				<tr>
-					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produced By:</th>
-					<td colspan="2" >
-					{% for fun in res.my_producers %}
-						{{ fun.function.name }}<br />
-					{% endfor %}
-					</td>
-				</tr>
-			{% endif %}
-			{% if res.my_consumers %}
-				<tr>
-					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumed By:</th>
-					<td colspan="2" >
-					{% for fun in res.my_consumers %}
-						{{ fun.function.name }}<br />	
-					{% endfor %}
-					</td>
-				</tr>
-			{% endif %}
-		{% endfor %}
 	</table>
 </div>
 <div style="clear: both;" ></div> 
