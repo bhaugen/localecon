@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.db.models import Q
 from django.forms.formsets import formset_factory
+from django.forms.models import modelformset_factory
 from django.core.mail import send_mail
 from django.core import serializers
 
@@ -169,6 +170,35 @@ def edit_cluster_functions(request, cluster_id):
         "new_resource_form": new_resource_form,
         "resource_names": resource_names,
         #template_params,
+        }, context_instance=RequestContext(request))
+    
+@login_required
+def edit_flows(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    
+    new_function_form = EconomicFunctionForm(prefix="function")
+    new_resource_form = EconomicResourceTypeForm(prefix="resource")
+    
+    flows = FunctionResourceFlow.objects.filter(
+        from_function__cluster=cluster)
+    
+    FlowFormSet = modelformset_factory(
+        FunctionResourceFlow,
+        queryset=flows,
+        form=FunctionResourceFlowForm,
+        extra=3,
+        )
+    formset = FlowFormSet(
+        data=request.POST or None,
+        )
+    resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
+    
+    return render_to_response("clusters/edit_cluster_functions.html", {
+        "cluster": cluster,
+        "new_function_form": new_function_form,
+        "new_resource_form": new_resource_form,
+        "resource_names": resource_names,
+        "formset": formset,
         }, context_instance=RequestContext(request))
     
 def featured_cluster(request):

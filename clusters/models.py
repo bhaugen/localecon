@@ -243,7 +243,6 @@ class Cluster(models.Model):
             answer.append(flow.resource_type)
         return list(set(answer))
       
-      
     def agents(self):
         answer = []
         for fun in self.functions.all():

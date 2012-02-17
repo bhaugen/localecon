@@ -3,7 +3,7 @@
 {% load humanize %}
 
 {% block title %}
-     Edit Function Inputs and Outputs in Cluster: {{ cluster }}
+     Edit Flows in Cluster: {{ cluster }}
 {% endblock %}
 
 {% block extra_head %}
@@ -23,7 +23,7 @@ p {font-size:0.7875em}
 
 
 
-<h3>Edit Function Inputs and Outputs in Cluster: {{ cluster }}</h3>
+<h3>Edit Flows in Cluster: {{ cluster }}</h3>
 
 {% include "clusters/_cluster_nav.html" %}
 
@@ -38,100 +38,29 @@ p {font-size:0.7875em}
 				<td>&nbsp;</td>
 			</tr>
 		</form>
-		{% for fun in functions %}
-			<tr><th style="text-align: left; font-size: 110%; " colspan="4" >{{ fun.name }}</th></tr>
-			{% if fun.inputs %}
-				<tr>
-					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumes:</th>
-					{% for resource in fun.inputs %}
-						{% if forloop.first %}
-							<td>
-								{{ resource.resource_type }}
-							</td>
-							<th>Amount</th>
-							<td style="text-align: right; ">
-								<input class="amount" id="{{ resource.id }}" type="text" size="6" value="{{ resource.amount }}" />
-							</td>
-							<td>
-								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
-									{% csrf_token %}
-									<input type="submit" value="Delete" />
-								</form>
-							</td>
-						{% else %}
-							<tr>
-								<td>&nbsp;</td>
-								<td>
-									{{ resource.resource_type }}
-								</td>
-								<th>Amount</th>
-								<td style="text-align: right; ">
-									<input class="amount" id="{{ resource.id }}" type="text" size="6" value="{{ resource.amount }}" />
-								</td>
-								<td>
-								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
-									{% csrf_token %}
-									<input type="submit" value="Delete" />
-								</form>
-							</td>
-							</tr>
-						{% endif %}
+		<form method="post" action=""
+			<table>
+				<thead>
+					<th>From Function</th>
+					<th>To Function</th>
+					<th>Resource</th>
+					<th>Amount</th>
+				</thead>
+				<tbody>
+					{{ formset.management_form }}
+					{% for form in formset %}
+						{{ form.id }}
+						<tr>
+							<td>{{ form.from_function }}</td>
+							<td>{{ form.to_function }}</td>
+							<td>{{ form.resource_type }}</td>
+							<td>{{ form.amount }}</td>
+						</tr>
 					{% endfor %}
-				</tr>
-			{% endif %}
-			{% if fun.outputs %}
-				<tr>
-					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produces:</th>
-					{% for resource in fun.outputs %}
-						{% if forloop.first %}
-							<td>
-								{{ resource.resource_type }}
-							</td>
-							<th>Amount</th>
-							<td>
-								<input class="amount" id="{{ resource.id }}" type="text" size="6" value="{{ resource.amount }}" />
-							</td>
-							<td>
-								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
-									{% csrf_token %}
-									<input type="submit" value="Delete" />
-								</form>
-							</td>
-						{% else %}
-							<tr>
-								<td>&nbsp;</td>
-								<td>
-									{{ resource.resource_type }}
-								</td>
-								<th>Amount</th>
-								<td style="text-align: right; ">
-									<input class="amount" id="{{ resource.id }}" type="text" size="6" value="{{ resource.amount }}" />
-								</td>
-								<td>
-								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
-									{% csrf_token %}
-									<input type="submit" value="Delete" />
-								</form>
-							</td>
-							</tr>
-						{% endif %}
-					{% endfor %}
-				</tr>
-			{% endif %}
-			<form action="{% url new_function_resource function_id=fun.id %}" method="POST">{% csrf_token %}
-				<tr>
-					<td>{{ fun.form.role }}</td>
-					<td>
-						{{ fun.form.resource_type }}
-					</td>		
-					<td>
-						{{ fun.form.amount }}
-					</td>
-					<td><input type="submit" name="submit" value="Add" /></td>
-				</tr>
-			</form>
-		{% endfor %}
-	</table>
+				</tbody>
+			</table>
+			
+</form>
 </div>
 
 <div style="float:left; margin-left: 2em;" >
