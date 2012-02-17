@@ -539,6 +539,7 @@ def delete_function_resource(request, id):
 @login_required    
 def inline_new_resource(request, cluster_id):
     if request.method == "POST":
+        next = request.POST.get("next")
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = EconomicResourceTypeForm(request.POST, prefix="resource")
         if form.is_valid():
@@ -549,9 +550,7 @@ def inline_new_resource(request, cluster_id):
             except EconomicResourceType.DoesNotExist:
                 resource = form.save()
             crt, created = CommunityResourceType.objects.get_or_create(community=cluster.community, resource_type=resource)
-    return HttpResponseRedirect('/%s/%s/'
-        % ('clusters/editclusterfunctions', cluster_id))
-
+    return HttpResponseRedirect(next)
 
 @login_required    
 def inline_agent_resource(request, cluster_id, agent_id, parent_id):

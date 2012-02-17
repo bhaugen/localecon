@@ -143,6 +143,7 @@ p {font-size:0.7875em}
 				<td>{{ new_resource_form.name }}</td>
 				<td><input type="submit" name="submit" value="Add" /></td>
 			</tr>
+			<input type="hidden" name="next" value="{% url edit_cluster_functions cluster_id=cluster.id %}" />
 		</form>
 		<tr>
 			<th style="text-align: center; font-size: 110%; " colspan="3" >Resources used in this Cluster:</th>
