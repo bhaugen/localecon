@@ -377,11 +377,15 @@ def economic_functions(request, cluster_id):
     for res in resources:
         res.my_consumers = res.cluster_consumers(cluster)
         res.my_producers = res.cluster_producers(cluster)
+        
+    flows = FunctionResourceFlow.objects.filter(
+        from_function__cluster=cluster)
     
     return render_to_response("clusters/economic_functions.html", {
         "cluster": cluster,
         "functions": functions,
         "resources": resources,
+        "flows": flows,
         }, context_instance=RequestContext(request))
     
     

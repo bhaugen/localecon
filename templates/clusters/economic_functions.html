@@ -129,6 +129,27 @@ p {font-size:0.7875em}
 		{% endfor %}
 	</table>
 </div>
+{% if flows %}
+<div style="float:left; margin-left: 2em;" >
+	<table>
+		<tr><th style="text-align: center; font-size: 120%; " colspan="3" >Flows:</th></tr>
+		<tr>
+			<th>From Function</th>
+			<th>To Function</th>
+			<th>Resource</th>
+			<th>Amount</th>
+		</tr>
+		{% for flow in flows %}
+			<tr>
+				<td>{{ flow.from_function.name }}</td>
+				<td>{{ flow.to_function.name }}</td>
+				<td>{{ flow.resource_type.name }}</td>
+				<td style="text-align: right;" >{{ flow.amount|intcomma }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+</div>
+{% endif %}
 <div style="clear: both;" ></div> 
 
 
