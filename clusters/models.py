@@ -325,7 +325,7 @@ class Cluster(models.Model):
     
     def has_flows(self):
         flows = FunctionResourceFlow.objects.filter(
-            from_function__cluster=cluster)
+            from_function__cluster=self)
         if flows:
             return True
         else:
