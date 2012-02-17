@@ -237,6 +237,10 @@ class Cluster(models.Model):
         for fun in self.functions.all():
             for r in fun.resources.all():
                 answer.append(r.resource_type)
+        flows = FunctionResourceFlow.objects.filter(
+            from_function__cluster=self)
+        for flow in flows:
+            answer.append(flow.resource_type)
         return list(set(answer))
       
       
