@@ -192,6 +192,17 @@ def edit_flows(request, cluster_id):
             from_function__cluster=cluster),
         data=request.POST or None,
         )
+    function_choices = [('', '----------')] + [
+            (fn.id, fn.name) for fn in cluster.functions.all()
+            ]
+    resource_choices = [('', '----------')] + [
+            (cr.resource_type.id, cr.resource_type.name) for cr in cluster.community.resources.all()
+            ]
+    for form in formset.forms:
+        form.fields['from_function'].choices = function_choices
+        form.fields['to_function'].choices = function_choices
+        form.fields['resource_type'].choices = resource_choices
+        
     resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
     
     return render_to_response("clusters/edit_flows.html", {
