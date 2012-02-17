@@ -141,30 +141,45 @@ def radial_graph(request, cluster_id):
         context_instance=RequestContext(request))
    
 class Edge(object):
-     def __init__(self, from_node, to_node, function_resource, width=1):
+     def __init__(self, from_node, to_node, amount, width=1):
          self.from_node = from_node
          self.to_node = to_node
-         self.function_resource = function_resource
+         self.amount = amount
          self.width = width
 
 
 def network(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    nodes = list(cluster.functions.all())
+    frts = FunctionResourceType.objects.filter(
+        function__cluster=cluster)
     edges = []
     rtypes = []
     total = 0.0
-    for fn in nodes:
-        for v in fn.inputs():
-            rtypes.append(v.resource_type)
-            total += v.amount
-            edges.append(Edge(v.resource_type, fn, v))
-        for v in fn.outputs():
-            rtypes.append(v.resource_type)
-            total += v.amount
-            edges.append(Edge(fn, v.resource_type, v))
+    if frts:
+        nodes = list(cluster.functions.all())
+        for fn in nodes:
+            for v in fn.inputs():
+                rtypes.append(v.resource_type)
+                total += v.amount
+                edges.append(Edge(v.resource_type, fn, v.amount))
+            for v in fn.outputs():
+                rtypes.append(v.resource_type)
+                total += v.amount
+                edges.append(Edge(fn, v.resource_type, v.amount))
+    else:
+        flows = FunctionResourceFlow.objects.filter(
+            from_function__cluster=cluster)
+        nodes = []
+        edges = []
+        for flow in flows:
+            nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
+            total += flow.amount
+            edges.append(Edge(flow.from_function, flow.resource_type, flow.amount))
+            edges.append(Edge(flow.resource_type, flow.to_function, flow.amount))
+        nodes = list(set(nodes))
+            
     for edge in edges:
-        width = round((edge.function_resource.amount / total), 2) * 50
+        width = round((edge.amount / total), 2) * 50
         width = int(width)
         edge.width = width
     nodes.extend(list(set(rtypes)))
@@ -194,7 +209,6 @@ def flows(request, cluster_id):
         nodes.extend([flow.from_function, flow.to_function])
         total += flow.amount
     nodes = list(set(nodes))
-    edges = []
     prev = None
     edges = []
     for flow in flows:
