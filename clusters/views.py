@@ -64,11 +64,15 @@ def flow_radial_graph_params(cluster):
     edges = []
     for flow in flows:
         from_fn = flow.from_function
-        if not from_fn.inputs:
+        try:
+            len(from_fn.inputs)
+        except TypeError:
             from_fn.inputs = []
         from_fn.inputs.append(flow.resource_type)
         to_fn = flow.to_function
-        if not to_fn.outputs:
+        try:
+            len(from_fn.outputs)
+        except TypeError:
             to_fn.outputs = []
         to_fn.outputs.append(flow.resource_type)
         functions.extend([from_fn, to_fn])
