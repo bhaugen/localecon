@@ -3,6 +3,9 @@
 	<a href="{% url cluster_agents cluster_id=cluster.id %}">Agents</a>&nbsp;&nbsp;
 	<a href="{% url radial_graph cluster_id=cluster.id %}">Radial Graph</a>&nbsp;&nbsp;
 	<a href="{% url network cluster_id=cluster.id %}">Network Diagram</a>&nbsp;&nbsp;
+	{% if cluster.has_flows %}
+		<a href="{% url flows cluster_id=cluster.id %}">Flow Diagram</a>&nbsp;&nbsp;
+	{% endif %}
 	<a href="{% url fr_table cluster_id=cluster.id %}">Function-Resource Table</a>&nbsp;&nbsp;
 	<a href="{% url diagnostics cluster_id=cluster.id %}">Diagnostics</a>
 

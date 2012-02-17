@@ -323,6 +323,14 @@ class Cluster(models.Model):
                     diffs.append({"function_resource": res, "function_amount": res.amount, "agent_total": agent_total})
         return diffs
     
+    def has_flows(self):
+        flows = FunctionResourceFlow.objects.filter(
+            from_function__cluster=cluster)
+        if flows:
+            return True
+        else:
+            return False
+    
 
 class EconomicFunction(models.Model):
     cluster = models.ForeignKey(Cluster, related_name="functions")
