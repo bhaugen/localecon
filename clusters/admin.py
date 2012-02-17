@@ -84,7 +84,14 @@ class EconomicResourceTypeAdmin(admin.ModelAdmin):
     
 admin.site.register(EconomicResourceType, EconomicResourceTypeAdmin)
 
+
+class CommunityResourceTypeAdmin(admin.ModelAdmin):
+    list_display = ('community', 'resource_type')
+    list_filter = ['community']
+    search_fields = ['community', 'resource_type']
+
+admin.site.register(CommunityResourceType, CommunityResourceTypeAdmin)
+
 admin.site.register(SiteSettings)
-admin.site.register(CommunityResourceType)
 admin.site.register(CommunityAgent)
 
