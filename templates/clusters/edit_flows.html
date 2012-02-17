@@ -38,29 +38,30 @@ p {font-size:0.7875em}
 				<td>&nbsp;</td>
 			</tr>
 		</form>
-		<form method="post" action=""
-			<table>
-				<thead>
-					<th>From Function</th>
-					<th>To Function</th>
-					<th>Resource</th>
-					<th>Amount</th>
-				</thead>
-				<tbody>
-					{{ formset.management_form }}
-					{% for form in formset %}
-						{{ form.id }}
-						<tr>
-							<td>{{ form.from_function }}</td>
-							<td>{{ form.to_function }}</td>
-							<td>{{ form.resource_type }}</td>
-							<td>{{ form.amount }}</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-			
-</form>
+	</table>
+	
+	<form method="post" action=""
+		<table>
+			<thead>
+				<th>From Function</th>
+				<th>To Function</th>
+				<th>Resource</th>
+				<th>Amount</th>
+			</thead>
+			<tbody>
+				{{ formset.management_form }}
+				{% for form in formset %}
+					{{ form.id }}
+					<tr>
+						<td>{{ form.from_function }}</td>
+						<td>{{ form.to_function }}</td>
+						<td>{{ form.resource_type }}</td>
+						<td>{{ form.amount }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</form>
 </div>
 
 <div style="float:left; margin-left: 2em;" >
