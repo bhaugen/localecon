@@ -54,6 +54,47 @@ def cluster_params(cluster):
         "frtable": frtable,
     }
     return template_params
+
+def flow_radial_graph_params(cluster):
+    template_params = {}
+    flows = FunctionResourceFlow.objects.filter(
+        from_function__cluster=cluster)
+    functions = []
+    resources = []
+    edges = []
+    for flow in flows:
+        from_fn = flow.from_function
+        if not from_fn.inputs:
+            from_fn.inputs = []
+        from_fn.inputs.append(flow.resource_type)
+        to_fn = flow.to_function
+        if not to_fn.outputs:
+            to_fn.outputs = []
+        to_fn.outputs.append(flow.resource_type)
+        functions.extend([from_fn, to_fn])
+        resources.append(flow.resource_type)
+    functions = list(set(functions))
+    resources = list(set(resources))
+    linked_efs = []
+    resources = []
+    
+    agents = {}
+    for ef in functions:
+        for agent in ef.agents.all():
+            #agents.setdefault(ef.node_id(), []).append(agent.agent.name)
+            agents.setdefault(ef, []).append(agent.agent)
+            
+    root = cluster.root()
+                       
+    template_params =  {
+        "cluster": cluster,
+        "functions": functions,
+        "resources": resources,
+        "function_agents": agents,
+        "root": root,
+    }
+    return template_params
+
     
 def clusters(request):
     communities = Community.objects.all()
@@ -134,7 +175,11 @@ def featured_cluster(request):
     
 def radial_graph(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    template_params = cluster_params(cluster)
+    template_params = {}
+    if cluster.has_function_resources():
+        template_params = cluster_params(cluster)
+    elif cluster.has_flows():
+        template_params = flow_radial_graph_params(cluster)
     
     return render_to_response("clusters/radial_graph.html", 
         template_params,
