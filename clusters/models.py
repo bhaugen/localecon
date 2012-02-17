@@ -330,6 +330,14 @@ class Cluster(models.Model):
             return True
         else:
             return False
+        
+    def has_function_resources(self):
+        frts = FunctionResourceType.objects.filter(
+            from_function__cluster=self)
+        if frts:
+            return True
+        else:
+            return False
     
 
 class EconomicFunction(models.Model):
