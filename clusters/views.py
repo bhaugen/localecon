@@ -207,8 +207,9 @@ def edit_flows(request, cluster_id):
     
     if request.method == "POST":
         import pdb; pdb.set_trace()
-        if formset.is_valid():
-            formset.save()
+        for form in formset.forms:
+            if form.is_valid():
+                form.save()
     
     return render_to_response("clusters/edit_flows.html", {
         "cluster": cluster,
