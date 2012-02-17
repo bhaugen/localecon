@@ -203,7 +203,7 @@ def flows(request, cluster_id):
         else:
             prev_match=False
         if prev_match:
-            edge.label = ", ".join([edge.label, flow.resource_type.name])
+            edge.label = "\n".join([edge.label, flow.resource_type.name])
             edge.amount += flow.amount
         else:
             edge = FlowEdge(flow.from_function, flow.to_function, flow.resource_type.name, flow.amount)
