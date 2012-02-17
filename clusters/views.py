@@ -184,11 +184,11 @@ def edit_flows(request, cluster_id):
     
     FlowFormSet = modelformset_factory(
         FunctionResourceFlow,
-        queryset=flows,
         form=FunctionResourceFlowForm,
         extra=3,
         )
     formset = FlowFormSet(
+        queryset=flows,
         data=request.POST or None,
         )
     resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
