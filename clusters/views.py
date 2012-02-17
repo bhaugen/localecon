@@ -79,8 +79,6 @@ def flow_radial_graph_params(cluster):
         resources.append(flow.resource_type)
     functions = list(set(functions))
     resources = list(set(resources))
-    linked_efs = []
-    resources = []
     
     agents = {}
     for ef in functions:
