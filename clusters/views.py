@@ -206,6 +206,7 @@ def edit_flows(request, cluster_id):
     resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
     
     if request.method == "POST":
+        import pdb; pdb.set_trace()
         if formset.is_valid():
             formset.save()
     
