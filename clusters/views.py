@@ -259,8 +259,8 @@ class Edge(object):
          self.width = width
 
 
-def network(request, cluster_id):
-    cluster = get_object_or_404(Cluster, pk=cluster_id)
+def network_params(cluster):
+    template_params = {}
     frts = FunctionResourceType.objects.filter(
         function__cluster=cluster)
     edges = []
@@ -294,13 +294,20 @@ def network(request, cluster_id):
         width = int(width)
         edge.width = width
     nodes.extend(list(set(rtypes)))
-    #for node in nodes:
-    #    node.next = node.to_nodes(cluster) 
-    return render_to_response("clusters/network.html", {
+    template_params =  {
         'cluster': cluster,
         'nodes': nodes,
         'edges': edges,
-        },context_instance=RequestContext(request))
+    }
+    return template_params
+    
+
+def network(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    template_params = network_params(cluster)
+    return render_to_response("clusters/network.html",
+        template_params,
+        context_instance=RequestContext(request))
     
 class FlowEdge(object):
      def __init__(self, from_node, to_node, label, amount, width=1):
