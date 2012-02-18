@@ -210,14 +210,21 @@ def edit_flows(request, cluster_id):
         for form in formset.forms:
             if form.is_valid():
                 form.save()
-    
-    return render_to_response("clusters/edit_flows.html", {
-        "cluster": cluster,
-        "new_function_form": new_function_form,
-        "new_resource_form": new_resource_form,
-        "resource_names": resource_names,
-        "formset": formset,
-        }, context_instance=RequestContext(request))
+    template_params = flow_params(cluster)
+    template_params["new_function_form"] = new_function_form
+    template_params["new_resource_form"] = new_resource_form
+    template_params["resource_names"] = resource_names
+    template_params["formset"] = formset
+    return render_to_response("clusters/edit_flows.html",
+        #{
+        #"cluster": cluster,
+        #"new_function_form": new_function_form,
+        #"new_resource_form": new_resource_form,
+        #"resource_names": resource_names,
+        #"formset": formset,
+        #},
+        template_params,
+        context_instance=RequestContext(request))
     
 def featured_cluster(request):
     cluster = get_featured_cluster()
