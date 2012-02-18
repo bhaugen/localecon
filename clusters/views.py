@@ -207,10 +207,16 @@ def edit_flows(request, cluster_id):
     resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
     
     if request.method == "POST":
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         for form in formset.forms:
             if form.is_valid():
-                form.save()
+                delete = form.cleaned_data["DELETE"]
+                if delete:
+                    id = form.cleaned_data["id"]
+                    deleted = FunctionResourceFlow.objects.get(id=id)
+                    deleted.delete()
+                else:
+                    form.save()
     template_params = flow_params(cluster)
     template_params["new_function_form"] = new_function_form
     template_params["new_resource_form"] = new_resource_form
