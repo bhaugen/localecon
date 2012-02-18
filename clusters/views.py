@@ -356,6 +356,7 @@ def flow_params(cluster):
 def flows(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     template_params = flow_params(cluster)
+    template_params["use_window_size"] = True
     return render_to_response("clusters/flows.html",
         template_params,
         context_instance=RequestContext(request))    
