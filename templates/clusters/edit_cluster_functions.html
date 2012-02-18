@@ -146,6 +146,8 @@ p {font-size:0.7875em}
 			</tr>
 			<input type="hidden" name="next" value="{% url edit_cluster_functions cluster_id=cluster.id %}" />
 		</form>
+		
+		{% comment %}
 		<tr>
 			<th style="text-align: center; font-size: 110%; " colspan="3" >Resources used in this Cluster:</th>
 		</tr>
@@ -172,7 +174,13 @@ p {font-size:0.7875em}
 				</tr>
 			{% endif %}
 		{% endfor %}
+		{% endcomment %}
+		
 	</table>
+	
+	<div id="canvas"></div>
+	{% include "clusters/_network_diagram.html" %}
+	
 </div>
 <div style="clear: both;" ></div> 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
