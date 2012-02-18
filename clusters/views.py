@@ -305,6 +305,7 @@ def network_params(cluster):
 def network(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     template_params = network_params(cluster)
+    template_params["use_window_size"] = True
     return render_to_response("clusters/network.html",
         template_params,
         context_instance=RequestContext(request))
