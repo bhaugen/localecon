@@ -77,11 +77,12 @@ p {font-size:0.7875em}
 			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
 		</form>
 	</table>
+
+<div id="canvas"></div>
+{% include "clusters/_flow_diagram.html" %}
 </div>
 
-<div id="canvas" style="float:left; margin-left: 2em;" ></div>
-{% include "clusters/_flow_diagram.html" %}
-
+	
 <div style="clear: both;" ></div> 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
