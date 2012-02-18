@@ -185,6 +185,7 @@ def edit_flows(request, cluster_id):
     FlowFormSet = modelformset_factory(
         FunctionResourceFlow,
         form=FunctionResourceFlowForm,
+        can_delete=True,
         extra=3,
         )
     formset = FlowFormSet(
