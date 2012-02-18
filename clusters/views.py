@@ -295,9 +295,9 @@ class FlowEdge(object):
          self.label = label
          self.amount = amount
          self.width = width
-    
-def flows(request, cluster_id):
-    cluster = get_object_or_404(Cluster, pk=cluster_id)
+         
+def flow_params(cluster):
+    template_params = {}
     flows = FunctionResourceFlow.objects.filter(
         from_function__cluster=cluster)
     nodes = []
@@ -324,11 +324,19 @@ def flows(request, cluster_id):
         width = round((edge.amount / total), 2) * 50
         width = int(width)
         edge.width = width
-    return render_to_response("clusters/flows.html", {
+    template_params =  {
         'cluster': cluster,
         'nodes': nodes,
         'edges': edges,
-        },context_instance=RequestContext(request))    
+    }
+    return template_params
+    
+def flows(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    template_params = flow_params(cluster)
+    return render_to_response("clusters/flows.html",
+        template_params,
+        context_instance=RequestContext(request))    
 
 
 def iotable(request, cluster_id):
