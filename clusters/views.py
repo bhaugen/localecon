@@ -212,9 +212,9 @@ def edit_flows(request, cluster_id):
             if form.is_valid():
                 delete = form.cleaned_data["DELETE"]
                 if delete:
-                    id = form.cleaned_data["id"]
-                    deleted = FunctionResourceFlow.objects.get(id=id)
-                    deleted.delete()
+                    deleted = form.cleaned_data["id"]
+                    #deleted = FunctionResourceFlow.objects.get(id=id)
+                    #deleted.delete()
                 else:
                     form.save()
     template_params = flow_params(cluster)
