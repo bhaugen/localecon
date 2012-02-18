@@ -1,13 +1,20 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="/site_media/scripts/raphael-min.js"></script>
+<script type="text/javascript" src="/site_media/scripts/dracula_graffle.js"></script>
+<script type="text/javascript" src="/site_media/scripts/dracula_graph.js"></script>
+
 <script type="text/javascript">
-	
 
 var redraw, g, renderer;
 
 /* only do all this when document has finished loading (needed for RaphaelJS) */
 window.onload = function() {
     
-    var width = $(document).width() - 50;
-    var height = $(document).height() - 100;
+    //var width = $(document).width() - 50;
+    //var height = $(document).height() - 100;
+	
+	var width = $('#canvas').width();
+    var height = $('#canvas').height();
 	
 	   var render = function(r, n) {
             /* the Raphael set is obligatory, containing all you want to display */
