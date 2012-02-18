@@ -216,6 +216,7 @@ def edit_flows(request, cluster_id):
                     #First, I expected formsets to delete automatically id DELETE is True.
                     #Second, returning an object when requesting id is nice
                     #but smells like it might break in the future.
+                    import pdb; pdb.set_trace()
                     deleted = form.cleaned_data["id"]
                     deleted.delete()
                 else:
