@@ -161,7 +161,7 @@ def edit_cluster_functions(request, cluster_id):
         res.my_producers = res.cluster_producers(cluster)
         
     resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
-    templateplate_params = network_params(cluster)
+    template_params = network_params(cluster)
     template_params["functions"] = functions
     template_params["resources"] = resources
     template_params["new_function_form"] = new_function_form
