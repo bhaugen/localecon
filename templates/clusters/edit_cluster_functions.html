@@ -37,6 +37,7 @@ p {font-size:0.7875em}
 			</tr>
 			<input type="hidden" name="next" value="{% url edit_cluster_functions cluster_id=cluster.id %}" />
 		</form>
+		<br/>
 		{% for fun in functions %}
 			<tr><th style="text-align: left; font-size: 110%; " colspan="4" >{{ fun.name }}</th></tr>
 			{% if fun.inputs %}
@@ -143,7 +144,7 @@ p {font-size:0.7875em}
 			</tr>
 			<input type="hidden" name="next" value="{% url edit_cluster_functions cluster_id=cluster.id %}" />
 		</form>
-		
+		<br/>
 		{% comment %}
 		<tr>
 			<th style="text-align: center; font-size: 110%; " colspan="3" >Resources used in this Cluster:</th>
