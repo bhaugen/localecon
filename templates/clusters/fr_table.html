@@ -9,9 +9,10 @@
 
 {% block content %}
 
+{% include "clusters/_cluster_nav.html" %}
+
 	<h3>Function-Resource Table for {{ cluster }}</h3>
 
-	{% include "clusters/_cluster_nav.html" %}
 
 	<p><i>Positive numbers = production, negative numbers = consumption</i></p>
 	{% if cluster.number_description %}

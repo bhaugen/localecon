@@ -21,11 +21,10 @@ p {font-size:0.7875em}
 
 {% block content %}
 
-
+{% include "clusters/_cluster_nav.html" %}
 
 <h3>Agents performing Functions in Cluster {{ cluster }}</h3>
 
-{% include "clusters/_cluster_nav.html" %}
 <p>
 <a style="font-size:130%;" href="{% url new_cluster_agent cluster_id=cluster.id %}">Add new Cluster Agent</a>
 </p>

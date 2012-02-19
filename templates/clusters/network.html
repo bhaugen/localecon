@@ -10,8 +10,10 @@
 
 {% block content %}
 
-<h3>Network Diagram: {{ cluster }}</h3>
 {% include "clusters/_cluster_nav.html" %}
+
+<h3>Network Diagram: {{ cluster }}</h3>
+
 <div id="canvas"></div>
 Looks ugly? Click <button id="redraw" onclick="redraw();">redraw</button> or move things around by hand.
 
