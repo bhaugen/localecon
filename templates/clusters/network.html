@@ -12,11 +12,15 @@
 
 {% include "clusters/_cluster_nav.html" %}
 
+<div class="network">
+
 <h3>Network Diagram: {{ cluster }}</h3>
 
 <div id="canvas"></div>
 Looks ugly? Click <button id="redraw" onclick="redraw();">redraw</button> or move things around by hand.
 
 {% include "clusters/_network_diagram.html" %}
+	
+</div>
  
 {% endblock %}
