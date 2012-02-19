@@ -11,11 +11,13 @@
 
 {% block content %}
 
+{% include "clusters/_cluster_nav.html" %}
+
 <h3>Cluster: {{ cluster }}</h3>
 
 <p>
 	{{ cluster.description }}<br />
-	{% include "clusters/_cluster_nav.html" %}
+
 </p>
 
 {% if map_url %}
@@ -24,6 +26,8 @@
 <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
 	src="{{ map_url|safe }}"></iframe>
 
+{% else %}
+<h3>No map yet.</h3>
 
 {% endif %}
 
