@@ -14,10 +14,12 @@
 
 {% include "clusters/_cluster_nav.html" %}
 
-<h3>Network Diagram: {{ cluster }}</h3>
-
+<div>
+	<span style="font-size: 130%;">Network Diagram: {{ cluster }}</span>
+	Looks ugly? Click <button id="redraw" onclick="redraw();">redraw</button> or move things around by hand.
+</div>
 <div id="canvas"></div>
-Looks ugly? Click <button id="redraw" onclick="redraw();">redraw</button> or move things around by hand.
+
 
 {% include "clusters/_network_diagram.html" %}
 	
