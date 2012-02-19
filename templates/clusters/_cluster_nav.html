@@ -1,9 +1,5 @@
-<link type="text/css" href="/site_media/css/smoothness/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script type="text/javascript" src="/site_media/scripts/jquery-ui-1.8.17.custom.min.js"></script>
 
 <div style="float: left; ">
-	<div id="nav-tabs">
 	<ul>
 		<li><a href="{% url cluster cluster_id=cluster.id %}">Cluster Map</a></li>
 		<li><a href="{% url economic_functions cluster_id=cluster.id %}">Functions</a></li>
@@ -21,7 +17,6 @@
 		<li><a href="{% url diagnostics cluster_id=cluster.id %}">Diagnostics</a></li>
 		<li><a href="{% url clusters %}">All Clusters</a></li>
 	</ul>
-	</div>
 </div>
 <div style="float: right; width: 10%;">
 	{% if user.is_authenticated %}
@@ -32,10 +27,3 @@
 	{% endif %}
 </div>
 <div style="clear: both;"></div>
-
-<script type="text/javascript">
-	$(document).ready(function()
-	{
-		$( "#nav-tabs" ).tabs();
-	});
-</script>
