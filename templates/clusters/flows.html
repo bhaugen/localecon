@@ -10,6 +10,8 @@
 
 {% block content %}
 
+<div class="flows">
+
 {% include "clusters/_cluster_nav.html" %}
 
 <h3>Flow Diagram: {{ cluster }}</h3>
@@ -18,5 +20,7 @@
 Looks ugly? Click <button id="redraw" onclick="redraw();">redraw</button> or move things around by hand.
 
 {% include "clusters/_flow_diagram.html" %}
+	
+</div>
  
 {% endblock %}

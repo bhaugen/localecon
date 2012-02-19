@@ -21,6 +21,8 @@ p {font-size:0.7875em}
 
 {% block content %}
 
+<div class="agents">
+
 {% include "clusters/_cluster_nav.html" %}
 
 <h3>Agents performing Functions in Cluster {{ cluster }}</h3>
@@ -66,5 +68,5 @@ p {font-size:0.7875em}
 	{% endfor %}
 </table>
 
-
+</div>
 {% endblock %}

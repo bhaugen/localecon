@@ -21,6 +21,8 @@ p {font-size:0.7875em}
 
 {% block content %}
 
+<div class="diagnostics">
+
 {% include "clusters/_cluster_nav.html" %}
 
 <h3>Diagnostics for Cluster: {{ cluster }}</h3>
@@ -59,5 +61,5 @@ p {font-size:0.7875em}
 	<h3>All function consumption is produced within this cluster</h3>
 {% endif %}
 
- 
+ </div>
 {% endblock %}

@@ -21,6 +21,8 @@ p {font-size:0.7875em}
 
 {% block content %}
 
+<div class="functions">
+
 {% include "clusters/_cluster_nav.html" %}
 
 <h3>Edit Flows in Cluster: {{ cluster }}</h3>
@@ -82,9 +84,11 @@ p {font-size:0.7875em}
 <button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
 {% include "clusters/_flow_diagram.html" %}
 </div>
-
 	
 <div style="clear: both;" ></div> 
+	
+</div>
+	
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
   <link rel="stylesheet" href="/site_media/css/jquery.autocomplete.css" type="text/css" />

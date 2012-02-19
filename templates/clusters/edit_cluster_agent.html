@@ -21,6 +21,8 @@ p {font-size:0.7875em}
 
 {% block content %}
 
+<div class="agents">
+
 {% include "clusters/_cluster_nav.html" %}
 
 <h3>Edit Agent {{ agent }} in Cluster {{ cluster }}</h3>
@@ -88,6 +90,8 @@ p {font-size:0.7875em}
 	{% endif %}
 
 </table>
+	
+</div>
 {% comment %}
 <script src="http://www.google.com/jsapi"></script>
 <script>

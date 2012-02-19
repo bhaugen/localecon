@@ -11,6 +11,8 @@
 
 {% block content %}
 
+<div class="map">
+
 {% include "clusters/_cluster_nav.html" %}
 
 <h3>Cluster: {{ cluster }}</h3>
@@ -30,5 +32,6 @@
 <h3>No map yet.</h3>
 
 {% endif %}
+</div>
 
 {% endblock %}
