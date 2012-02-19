@@ -1,21 +1,101 @@
+{% load i18n %}
+
+<!-- 
+	CSS Tabs is licensed under Creative Commons Attribution 2.5 - http://creativecommons.org/licenses/by/2.5/ 
+	Joshua Kaufman, unraveled http://unraveled.com/projects/html/css_tabs/
+	28 January, 2007
+-->
+
+<style type="text/css">
+
+/* begin css tabs */
+
+ul#tabnav 
+{ /* general settings */
+	text-align: left; /* set to left, right or center */
+	margin: 8px 0 16px 0; /* set margins as desired */
+	font: bold 11px verdana, arial, sans-serif; /* set font as desired */
+	border-bottom: 1px solid #006699; /* set border COLOR as desired */
+	list-style-type: none;
+	padding: 1px 10px 2px 10px; /* THIRD number must change with respect to padding-top (X) below */
+}
+
+ul#tabnav li 
+{ /* do not change */
+display: inline;
+}
+
+div.map li.map, 
+div.functions li.functions, 
+div.agents li.agents, 
+div.radial li.radial, 
+div.network li.network, 
+div.flows li.flows, 
+div.frt li.frt, 
+div.diagnostics li.diagnostics, 
+div.all li.all, 
+
+{ /* settings for selected tab */
+	border-bottom: 1px solid #ffffff; /* set border color to page background color */
+	background-color: #ffffff !important; /* set background color to match above border color */
+}
+
+div.map li.map a, 
+div.functions li.functions a, 
+div.agents li.agents a, 
+div.radial li.radial a, 
+div.network li.network a, 
+div.flows li.flows a, 
+div.frt li.frt a, 
+div.diagnostics li.diagnostics a, 
+div.all li.all a, 
+
+{ /* settings for selected tab link */
+	background-color: #ffffff  !important; /* set selected tab background color as desired */
+	color: #000000; /* set selected tab link color as desired */
+	position: relative;
+	top: 1px;
+	padding-top: 4px; /* must change with respect to padding (X) above and below */
+}
+
+ul#tabnav li a 
+{ /* settings for all tab links */
+	padding: 4px 4px; /* set padding (tab size) as desired; FIRST number must change with respect to padding-top (X) above */
+	border: 1px solid #006699; /* set border COLOR as desired; usually matches border color specified in #tabnav */
+	background-color: #EAF2D3; /* set unselected tab background color as desired */
+	color: #666; /* set unselected tab link color as desired */
+	margin-right: 0px; /* set additional spacing between tabs as desired */
+	text-decoration: none;
+	border-bottom: none;
+}
+
+ul#tabnav a:hover 
+{ /* settings for hover effect */
+	background: #fff; /* set desired hover color */
+}
+
+/* end css tabs */
+
+</style>
+
 
 <div style="float: left; ">
 	<ul>
-		<li><a href="{% url cluster cluster_id=cluster.id %}">Cluster Map</a></li>
-		<li><a href="{% url economic_functions cluster_id=cluster.id %}">Functions</a></li>
-		<li><a href="{% url cluster_agents cluster_id=cluster.id %}">Agents</a></li>
+		<li class="map" ><a href="{% url cluster cluster_id=cluster.id %}">Cluster Map</a></li>
+		<li class="functions" ><a href="{% url economic_functions cluster_id=cluster.id %}">Functions</a></li>
+		<li class="agents" ><a href="{% url cluster_agents cluster_id=cluster.id %}">Agents</a></li>
 		{% if cluster.has_function_resources %}
-			<li><a href="{% url radial_graph cluster_id=cluster.id %}">Radial Graph</a></li>
+			<li class="radial" ><a href="{% url radial_graph cluster_id=cluster.id %}">Radial Graph</a></li>
 		{% endif %}
-		<li><a href="{% url network cluster_id=cluster.id %}">Network Diagram</a></li>
+		<li class="network" ><a href="{% url network cluster_id=cluster.id %}">Network Diagram</a></li>
 		{% if cluster.has_flows %}
-			<li><a href="{% url flows cluster_id=cluster.id %}">Flow Diagram</a></li>
+			<li class="flows" ><a href="{% url flows cluster_id=cluster.id %}">Flow Diagram</a></li>
 		{% endif %}
 		{% if cluster.has_function_resources %}
-			<li><a href="{% url fr_table cluster_id=cluster.id %}">Function-Resource Table</a></li>
+			<li class="frt" ><a href="{% url fr_table cluster_id=cluster.id %}">Function-Resource Table</a></li>
 		{% endif %}
-		<li><a href="{% url diagnostics cluster_id=cluster.id %}">Diagnostics</a></li>
-		<li><a href="{% url clusters %}">All Clusters</a></li>
+		<li class="diagnostics" ><a href="{% url diagnostics cluster_id=cluster.id %}">Diagnostics</a></li>
+		<li class="all" ><a href="{% url clusters %}">All Clusters</a></li>
 	</ul>
 </div>
 <div style="float: right; width: 10%;">

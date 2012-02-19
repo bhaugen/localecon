@@ -8,17 +8,33 @@
 	<style>	
 		body
 		{
+			font-size: 100%;
 			font-family: Myriad,Arial,Helvetica,clean,sans-serif; 
 			margin: 10px;
 		}
 
+		table th
+		{
+			font-weight: bold;
+			color: gray;
+		}
+
+		th, td
+		{
+			padding-left:5px;
+		}
+		th
+		{
+			font-weight:bold;
+		}
+
 		.ga-event-table
 		{
-			font-size: 80%; 
+			font-size: 100%; 
 			border-collapse: collapse; 
 			border-style: solid; 
 			border-width: 1px; 
-			border-color: gray;	
+			border-color: lightgrey;	
 		}
 
 		.ga-event-table th
@@ -26,16 +42,17 @@
 			border-style: solid; 
 			border-width: 1px; 
 			border-color: gray;
-			background-color: #D0D0D0;
+			background-color: #EAF2D3;
 			padding-left: 4px;
 			padding-right: 4px;
+			font-weight: bold;
 		}
 
 		.ga-event-table td
 		{
 			border-style: solid; 
 			border-width: 1px; 
-			border-color: gray;
+			border-color: lightgrey;
 			padding-left: 4px;
 			padding-right: 4px;
 		}
@@ -61,6 +78,20 @@
 				display: none !important; 
 			}
 		}
+
+	tr.even td 
+	{
+		color:#000000;
+		background-color:#EAF2D3;
+	}
+	.errorlist
+	{
+		color: red;
+	}
+	.errorlist ul
+	{
+		list-style-type:none;
+	}
     </style>
 
 	{% block extra_head %}
