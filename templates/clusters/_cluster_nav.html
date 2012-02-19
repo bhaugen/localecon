@@ -2,7 +2,8 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="/site_media/scripts/jquery-ui-1.8.17.custom.min.js"></script>
 
-<div id="tabs" style="float: left; ">
+<div style="float: left; ">
+	<div id="tabs">
 	<ul>
 		<li><a href="{% url cluster cluster_id=cluster.id %}">Cluster Map</a></li>
 		<li><a href="{% url economic_functions cluster_id=cluster.id %}">Functions</a></li>
@@ -20,6 +21,7 @@
 		<li><a href="{% url diagnostics cluster_id=cluster.id %}">Diagnostics</a></li>
 		<li><a href="{% url clusters %}">All Clusters</a></li>
 	</ul>
+	</div>
 </div>
 <div style="float: right; width: 10%;">
 	{% if user.is_authenticated %}
