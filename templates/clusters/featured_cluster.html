@@ -155,28 +155,7 @@ var Log = {
 </p>
 <h3>Featured Cluster: {{ cluster }}</h3>
 
-<center>
-	<table class="ga-event-table" style="margin-bottom: 4px;" >
-		<tr>
-			<th>Function\Resource</th>
-			{% for column in frtable.columns %}
-				<th>{{ column }}</th>
-			{% endfor %}
-		</tr>
-		{% for row in frtable.rows %}
-			<tr>
-				{% for cell in row %}
-					{% if forloop.first %}
-						<th style="text-align: left;" >{{ cell }}</th>
-					{% else %}
-						<td style="text-align: right;" >{{ cell }}</td>
-					{% endif %}
-				{% endfor %}			
-			</tr>
-		{% endfor %}
-
-	</table>
-</center>
+<img src="/site_media/images/network.png" />
 {% include "clusters/_cluster.html" %}
 
  </div>
