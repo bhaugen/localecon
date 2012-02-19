@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-     Cluster: {{ cluster }}
+     Radial Graph: {{ cluster }}
 {% endblock %}
 
 {% block header %}
@@ -29,7 +29,7 @@ var Log = {
 
 {% include "clusters/_cluster_nav.html" %}
 
-<h3>Cluster Diagram: {{ cluster }}</h3>
+<h3>Radial Graph of {{ cluster }}</h3>
 
 <br />
 {% include "clusters/_cluster.html" %}
