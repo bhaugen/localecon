@@ -80,7 +80,7 @@ ul#tabnav a:hover
 
 
 <div style="float: left; ">
-	<ul>
+	<ul id="tabnav" class="do-not-print" >
 		<li class="map" ><a href="{% url cluster cluster_id=cluster.id %}">Cluster Map</a></li>
 		<li class="functions" ><a href="{% url economic_functions cluster_id=cluster.id %}">Functions</a></li>
 		<li class="agents" ><a href="{% url cluster_agents cluster_id=cluster.id %}">Agents</a></li>
