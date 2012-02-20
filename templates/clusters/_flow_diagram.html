@@ -65,7 +65,7 @@ window.onload = function() {
 	
 			var x = {{ forloop.counter }};
 			var color = colors[Math.floor(Math.random()*7)];
-			g.addEdge( "{{ edge.from_function.node_id }}" , "{{ edge.to_function.node_id }}", 
+			g.addEdge( "{{ edge.from_node.node_id }}" , "{{ edge.to_node.node_id }}", 
 				{ directed : true, label : label, weight: 1, stroke : color , fill : color + "|{{ edge.width }}" } );
 			
 			//g.addEdge( "{{ edge.from_node.node_id }}" , "{{ edge.to_node.node_id }}", 
