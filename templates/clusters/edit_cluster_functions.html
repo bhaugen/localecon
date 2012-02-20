@@ -179,6 +179,9 @@ p {font-size:0.7875em}
 	<div id="canvas"></div>
 	<button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
 	{% include "clusters/_network_diagram.html" %}
+	{% if not edges %}
+	A network diagram will appear here as you add Functions and their Resources.
+	{% endif %}
 	
 </div>
 <div style="clear: both;" ></div>
