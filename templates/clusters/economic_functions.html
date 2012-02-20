@@ -37,13 +37,15 @@ td
 <h3>Economic Functions for Cluster: {{ cluster }}</h3>
 
 <div style="float: left; width: 40%; " >
-	<a href="{% url edit_cluster_functions cluster_id=cluster.id %}">Edit Function Consumption &amp; Production</a>
-	<br/>
+	<form action="{% url edit_cluster_functions cluster_id=cluster.id %}" method="GET">
+    	<input type="submit" value="Edit Function Consumption &amp; Production" />
+	</form>
 	<i>When you don't know which functions trade directly with each other. See <a href="/clusterdetails/" target="_blank" >Cluster Details</a>.</i>
 </div>
 <div style="float: left; margin-left: 2em; width: 40%; " >
-	<a href="{% url edit_flows cluster_id=cluster.id %}">Edit Flows</a>
-	<br/>
+	<form action="{% url edit_flows cluster_id=cluster.id %}" method="GET">
+    	<input type="submit" value="Edit Flows" />
+	</form>
 	<i>When you <b>do</b> know which functions trade directly with each other. See <a href="/clusterdetails/" target="_blank" >Cluster Details</a>.</i>
 </div>
 <div style="clear: both; "></div>
