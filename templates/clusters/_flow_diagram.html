@@ -6,6 +6,17 @@
 <script type="text/javascript">
 
 var redraw, g, renderer;
+	
+var colors = [
+	"#F0F8FF",
+	"#F5F5DC",
+	"#F0FFFF",
+	"#F0FFF0",
+	"#FFE4C4",
+	"#CDFFCD",
+	"#D2691E"];
+	
+	
 
 /* only do all this when document has finished loading (needed for RaphaelJS) */
 window.onload = function() {
@@ -49,14 +60,16 @@ window.onload = function() {
 	{% endfor %}
 	
 	{% for edge in edges %}
-			//var color1 = Raphael.getColor();
-			//var color2 = Raphael.getColor();
-			//g.addEdge( "{{ edge.from_function.node_id }}" , "{{ edge.to_function.node_id }}", 
-			//	{ directed : true, label : "{{ edge.resource_type.name }}", weight: 1, stroke : color1 , fill : color2 + "|{{ edge.width }}" } );
 			var label = "{{ edge.label }}";
 			label = label.replace(";", "\n");
-			g.addEdge( "{{ edge.from_node.node_id }}" , "{{ edge.to_node.node_id }}", 
-				{ directed : true, label : label, weight: 1, stroke : "#D2691E" , fill : "#D2691E|{{ edge.width }}" } );
+	
+			var x = {{ forloop.counter }};
+			var color = colors[Math.floor(Math.random()*7)];
+			g.addEdge( "{{ edge.from_function.node_id }}" , "{{ edge.to_function.node_id }}", 
+				{ directed : true, label : label, weight: 1, stroke : color , fill : color + "|{{ edge.width }}" } );
+			
+			//g.addEdge( "{{ edge.from_node.node_id }}" , "{{ edge.to_node.node_id }}", 
+			//	{ directed : true, label : label, weight: 1, stroke : "#D2691E" , fill : "#D2691E|{{ edge.width }}" } );
 	{% endfor %}
  
     /* layout the graph using the Spring layout implementation */
