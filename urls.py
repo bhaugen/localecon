@@ -22,8 +22,8 @@ urlpatterns = patterns('',
         {"template": "clusters/email_sent.html"}, name="email_sent"),
         
     # about
-    url(r'^about/$', direct_to_template, 
-        {"template": "about.html"}, name="about"),
+    #url(r'^about/$', direct_to_template, 
+    #    {"template": "about.html"}, name="about"),
 
 )
 
