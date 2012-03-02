@@ -87,6 +87,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django_extensions',
     'clusters',
+    'south',
 )
 
 
