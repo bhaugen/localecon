@@ -201,6 +201,9 @@ class Unit(models.Model):
      name = models.CharField(max_length=64)
      symbol = models.CharField(max_length=1, blank=True)
      
+     def __unicode__(self):
+        return self.abbrev
+     
 
 class Community(models.Model):
     name = models.CharField(max_length=128)
