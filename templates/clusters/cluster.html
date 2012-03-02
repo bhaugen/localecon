@@ -15,7 +15,7 @@
 	window.onload = function() {
         var myOptions = {
           center: new google.maps.LatLng({{ map_center }}),
-          zoom: {{ map_zoom_level }},
+          zoom: {{ zoom_level }},
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),
