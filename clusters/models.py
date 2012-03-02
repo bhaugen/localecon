@@ -188,8 +188,20 @@ def connected_functions(node, all_nodes, to_return):
                 if not producer.function in to_return:
                     connected_functions(producer.function, all_nodes, to_return)
     return to_return
-    
-    
+ 
+UNIT_TYPE_CHOICES = (
+    ('quantity', 'quantity'),
+    ('value', 'value'),
+)
+ 
+ 
+class Unit(models.Model):
+     type = models.CharField(max_length=12, choices=UNIT_TYPE_CHOICES)
+     abbrev = models.CharField(max_length=8)
+     name = models.CharField(max_length=64)
+     symbol = models.CharField(max_length=1, blank=True)
+     
+
 class Community(models.Model):
     name = models.CharField(max_length=128)
     map_center = models.CharField(max_length=255, blank=True,
@@ -198,6 +210,9 @@ class Community(models.Model):
     longitude = models.FloatField(default=0.0, blank=True, null=True)
     map_zoom_level = models.PositiveSmallIntegerField(default=0,
         help_text="0-20 - larger numbers zoom in more")
+    unit_of_value = models.ForeignKey(Unit, blank=True, null=True,
+        limit_choices_to={type: "value"},
+        related_name="community_units")
     
     class Meta:
         verbose_name_plural = "communities"
@@ -399,6 +414,9 @@ class EconomicResourceType(models.Model):
     parent = models.ForeignKey('self', blank=True, null=True, 
         related_name='children')
     slug = models.SlugField("Page name", editable=False)
+    unit_of_quantity = models.ForeignKey(Unit, blank=True, null=True,
+        limit_choices_to={type: "quantity"},
+        related_name="resource_units")
     
     class Meta:
         ordering = ('name',)
@@ -475,6 +493,7 @@ class FunctionResourceType(models.Model):
     resource_type = models.ForeignKey(EconomicResourceType, related_name='functions')
     role = models.CharField(max_length=12, choices=ROLE_CHOICES)
     quantity = models.IntegerField(default=0)
+    value = models.IntegerField(default=0)
     
     class Meta:
         ordering = ('function', 'role', 'resource_type',)
@@ -518,6 +537,7 @@ class FunctionResourceFlow(models.Model):
     to_function = models.ForeignKey(EconomicFunction, related_name='incoming_flows')
     resource_type = models.ForeignKey(EconomicResourceType, related_name='function_flows')
     quantity = models.IntegerField(default=0)
+    value = models.IntegerField(default=0)
     
     class Meta:
         ordering = ('from_function', 'to_function', 'resource_type',)
@@ -591,6 +611,7 @@ class AgentResourceType(models.Model):
     resource_type = models.ForeignKey(EconomicResourceType, related_name='agents')
     role = models.CharField(max_length=12, choices=ROLE_CHOICES)
     quantity = models.IntegerField(default=0)
+    value = models.IntegerField(default=0)
     
     class Meta:
         ordering = ('agent', 'role', 'resource_type',)
@@ -604,6 +625,7 @@ class AgentResourceFlow(models.Model):
     to_function = models.ForeignKey(AgentFunction, related_name='incoming_flows')
     resource_type = models.ForeignKey(EconomicResourceType, related_name='agent_flows')
     quantity = models.IntegerField(default=0)
+    value = models.IntegerField(default=0)
     
     class Meta:
         ordering = ('from_function', 'to_function', 'resource_type',)
