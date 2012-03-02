@@ -46,20 +46,20 @@ p {font-size:0.7875em}
 			<tr>
 				<th>Function Resources:</th>
 				<th>Resource</th>
-				<th>Amount</th>
+				<th>Quantity</th>
 			</tr>
 			{% for res in fun.resources %}
 				<tr>
 					<td>&nbsp;</td>
 					<td> {{ res.role }} {{ res.resource_type }}</td>
-					<td style="text-align: right;" >{{ res.amount|intcomma }}</td>
+					<td style="text-align: right;" >{{ res.quantity|intcomma }}</td>
 				</tr>
 				{% for agent_res in res.agent_resource_list %}
 					<tr>
 						<td>&nbsp;</td>
 						<td><b>Agent Resource:</b>  {{ agent_res.role }} {{ agent_res.resource_type }} </td>
 						<td style="text-align: right;" >
-							{{ agent_res.amount|intcomma }}
+							{{ agent_res.quantity|intcomma }}
 						</td>
 					</tr>
 				{% endfor %}

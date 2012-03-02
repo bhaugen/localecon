@@ -45,7 +45,7 @@ p {font-size:0.7875em}
 {% endif %}
 
 {% if missing_function_numbers %}
-	<h3>Function resources with zero amounts:</h3>
+	<h3>Function resources with zero quantities:</h3>
 	<ul>
 		{% for miss in missing_function_numbers %}
 			<li>{{ miss }}</li>
@@ -54,7 +54,7 @@ p {font-size:0.7875em}
 {% endif %}
 
 {% if missing_agent_numbers %}
-	<h3>Agent resources with zero amounts:</h3>
+	<h3>Agent resources with zero quantities:</h3>
 	<ul>
 		{% for miss in missing_agent_numbers %}
 			<li>{{ miss }}</li>
@@ -63,12 +63,12 @@ p {font-size:0.7875em}
 {% endif %}
 
 {% if function_agent_diffs %}
-	<h3>Differences between Function and Agent Amounts:</h3>
+	<h3>Differences between Function and Agent Quantities:</h3>
 	<table>
 		{% for diff in function_agent_diffs %}
 			<tr>
-				<th  style="text-align: right; " >{{ diff.function_resource }} Amount:</th>
-				<td style="text-align: right; " >{{ diff.function_amount|intcomma }}</td>
+				<th  style="text-align: right; " >{{ diff.function_resource }} Quantity:</th>
+				<td style="text-align: right; " >{{ diff.function_quantity|intcomma }}</td>
 				<th  style="text-align: right; " >Agent Total:</th>
 				<td style="text-align: right; " >{{ diff.agent_total|intcomma }}</td>
 			</tr>

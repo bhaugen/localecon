@@ -38,7 +38,7 @@ p {font-size:0.7875em}
 		{% for miss in function_production_without_consumption %}
 			<tr>
 				<td>{{ miss.function_resource }}</td>
-				<td style="text-align: right; " >{{ miss.amount_missing|intcomma }}</td>
+				<td style="text-align: right; " >{{ miss.quantity_missing|intcomma }}</td>
 			</tr>
 		{% endfor %}
 	</table>
@@ -53,7 +53,7 @@ p {font-size:0.7875em}
 		{% for miss in function_consumption_without_production %}
 			<tr>
 				<td>{{ miss.function_resource }}</td>
-				<td style="text-align: right; " >{{ miss.amount_missing|intcomma }}</td>
+				<td style="text-align: right; " >{{ miss.quantity_missing|intcomma }}</td>
 			</tr>
 		{% endfor %}
 	</table>

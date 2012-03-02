@@ -47,7 +47,7 @@ p {font-size:0.7875em}
 				<th>From Function</th>
 				<th>To Function</th>
 				<th>Resource</th>
-				<th>Amount</th>
+				<th>Quantity</th>
 				<th>Delete</th>
 			</thead>
 			<tbody>
@@ -58,7 +58,7 @@ p {font-size:0.7875em}
 						<td>{{ form.from_function }}</td>
 						<td>{{ form.to_function }}</td>
 						<td>{{ form.resource_type }}</td>
-						<td>{{ form.amount }}</td>
+						<td>{{ form.quantity }}</td>
 						<td>{{ form.DELETE }}</td>
 					</tr>
 				{% endfor %}
@@ -105,27 +105,27 @@ p {font-size:0.7875em}
 <script>
 	$(document).ready(function()
 	{
-		$(".amount").blur(function() 
+		$(".quantity").blur(function() 
 		{
-			var amount = this.value;
-			intAmount = parseInt(amount);
-			if ($.isNumeric(amount))
+			var quantity = this.value;
+			intQuantity = parseInt(quantity);
+			if ($.isNumeric(quantity))
 			{
-				if (intAmount == parseFloat(amount))
+				if (intQuantity == parseFloat(quantity))
 				{
 					var id = this.id;
-					$.post("{% url change_function_resource_amount %}",  { id: id, amount: amount });
+					$.post("{% url change_function_resource_amount %}",  { id: id, quantity: quantity });
 				}
 				else
 				{
-					alert(amount + " must be an integer");
-					this.value = intAmount;
+					alert(quantity + " must be an integer");
+					this.value = intQuantity;
 				}
 			}
 			else
 			{
-				alert(amount + " is not a number");
-				this.value = intAmount;
+				alert(quantity + " is not a number");
+				this.value = intQuantity;
 			}
 		});
 	

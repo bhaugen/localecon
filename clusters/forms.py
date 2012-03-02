@@ -68,10 +68,10 @@ class FunctionResourceTypeFormX(forms.ModelForm):
         
     class Meta:
         model = FunctionResourceType
-        fields = ('resource_type', 'role', 'amount')
+        fields = ('resource_type', 'role', 'quantity')
         
 class FunctionResourceTypeForm(forms.ModelForm):
-    amount = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+    quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
     role = forms.ChoiceField(choices=ROLE_CHOICES)
     
     def __init__(self, community, *args, **kwargs):
@@ -82,23 +82,23 @@ class FunctionResourceTypeForm(forms.ModelForm):
         
     class Meta:
         model = FunctionResourceType
-        fields = ('resource_type', 'role', 'amount')
+        fields = ('resource_type', 'role', 'quantity')
 
         
 class FunctionResourceFlowForm(forms.ModelForm):
-    amount = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+    quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
 
         
     class Meta:
         model = FunctionResourceFlow
 
         
-class FunctionResourceTypeAmountForm(forms.ModelForm):
-    amount = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+class FunctionResourceTypeQuantityForm(forms.ModelForm):
+    quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
         
     class Meta:
         model = FunctionResourceType
-        fields = ('amount',)
+        fields = ('quantity',)
 
 
 class FunctionAgentForm(forms.ModelForm):
@@ -125,7 +125,7 @@ class AgentFunctionForm(forms.ModelForm):
 
 class AgentResourceForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'size': '16', 'class': 'resource-name'}))
-    amount = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+    quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
     
     def __init__(self, function_resource=None, *args, **kwargs):
         super(AgentResourceForm, self).__init__(*args, **kwargs)
@@ -134,7 +134,7 @@ class AgentResourceForm(forms.ModelForm):
     
     class Meta:
         model = AgentResourceType
-        fields = ('role', 'amount')
+        fields = ('role', 'quantity')
 
         
 class EmailForm(forms.Form):

@@ -260,10 +260,10 @@ def radial_graph(request, cluster_id):
         context_instance=RequestContext(request))
    
 class Edge(object):
-     def __init__(self, from_node, to_node, amount, width=1):
+     def __init__(self, from_node, to_node, quantity, width=1):
          self.from_node = from_node
          self.to_node = to_node
-         self.amount = amount
+         self.quantity = quantity
          self.width = width
 
 
@@ -279,12 +279,12 @@ def network_params(cluster):
         for fn in nodes:
             for v in fn.inputs():
                 rtypes.append(v.resource_type)
-                total += v.amount
-                edges.append(Edge(v.resource_type, fn, v.amount))
+                total += v.quantity
+                edges.append(Edge(v.resource_type, fn, v.quantity))
             for v in fn.outputs():
                 rtypes.append(v.resource_type)
-                total += v.amount
-                edges.append(Edge(fn, v.resource_type, v.amount))
+                total += v.quantity
+                edges.append(Edge(fn, v.resource_type, v.quantity))
     else:
         flows = FunctionResourceFlow.objects.filter(
             from_function__cluster=cluster)
@@ -292,13 +292,13 @@ def network_params(cluster):
         edges = []
         for flow in flows:
             nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
-            total += flow.amount
-            edges.append(Edge(flow.from_function, flow.resource_type, flow.amount))
-            edges.append(Edge(flow.resource_type, flow.to_function, flow.amount))
+            total += flow.quantity
+            edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity))
+            edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity))
         nodes = list(set(nodes))
             
     for edge in edges:
-        width = round((edge.amount / total), 2) * 50
+        width = round((edge.quantity / total), 2) * 50
         width = int(width)
         edge.width = width
     nodes.extend(list(set(rtypes)))
@@ -319,11 +319,11 @@ def network(request, cluster_id):
         context_instance=RequestContext(request))
     
 class FlowEdge(object):
-     def __init__(self, from_node, to_node, label, amount, width=1):
+     def __init__(self, from_node, to_node, label, quantity, width=1):
          self.from_node = from_node
          self.to_node = to_node
          self.label = label
-         self.amount = amount
+         self.quantity = quantity
          self.width = width
          
 def flow_params(cluster):
@@ -334,7 +334,7 @@ def flow_params(cluster):
     total = 0.0
     for flow in flows:
         nodes.extend([flow.from_function, flow.to_function])
-        total += flow.amount
+        total += flow.quantity
     nodes = list(set(nodes))
     prev = None
     edges = []
@@ -345,13 +345,13 @@ def flow_params(cluster):
             prev_match=False
         if prev_match:
             edge.label = ";".join([edge.label, flow.resource_type.name])
-            edge.amount += flow.amount
+            edge.quantity += flow.quantity
         else:
-            edge = FlowEdge(flow.from_function, flow.to_function, flow.resource_type.name, flow.amount)
+            edge = FlowEdge(flow.from_function, flow.to_function, flow.resource_type.name, flow.quantity)
             edges.append(edge)
         prev = flow                  
     for edge in edges:
-        width = round((edge.amount / total), 2) * 50
+        width = round((edge.quantity / total), 2) * 50
         width = int(width)
         edge.width = width
     template_params =  {
@@ -567,12 +567,12 @@ def json_agent_address(request, agent_name):
 
 def change_function_resource_amount(request):
     id = request.POST.get("id")
-    amount = request.POST.get("amount")
+    quantity = request.POST.get("quantity")
     frt = get_object_or_404(FunctionResourceType, pk=id)
     #import pdb; pdb.set_trace()
-    amount = int(amount)
-    if amount != frt.amount:
-        frt.amount = int(amount)
+    quantity = int(quantity)
+    if quantity != frt.quantity:
+        frt.quantity = int(quantity)
         frt.save()
     data = "ok"
     return HttpResponse(data, mimetype="text/plain")
@@ -612,7 +612,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             data = form.cleaned_data
             name = data['name']
             role = data['role']
-            amount = data['amount']
+            quantity = data['quantity']
             new_resource = True
             
             #import pdb; pdb.set_trace()
@@ -629,7 +629,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             if new_resource:
                 resource = EconomicResourceType(name=name, parent=parent)
                 resource.save()
-            AgentResourceType(resource_type=resource, agent=agent, role=role, amount=amount).save()
+            AgentResourceType(resource_type=resource, agent=agent, role=role, quantity=quantity).save()
             crt, created = CommunityResourceType.objects.get_or_create(community=cluster.community, resource_type=resource)
     return HttpResponseRedirect('/%s/%s/%s/'
        % ('clusters/editclusteragent', cluster_id, agent.id))

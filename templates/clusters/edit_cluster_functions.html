@@ -48,9 +48,9 @@ p {font-size:0.7875em}
 							<td>
 								{{ resource.resource_type }}
 							</td>
-							<th>Amount</th>
+							<th>Quantity</th>
 							<td style="text-align: right; ">
-								<input class="amount" id="{{ resource.id }}" type="text" size="6" value="{{ resource.amount }}" />
+								<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
 							</td>
 							<td>
 								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
@@ -64,9 +64,9 @@ p {font-size:0.7875em}
 								<td>
 									{{ resource.resource_type }}
 								</td>
-								<th>Amount</th>
+								<th>Quantity</th>
 								<td style="text-align: right; ">
-									<input class="amount" id="{{ resource.id }}" type="text" size="6" value="{{ resource.amount }}" />
+									<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
 								</td>
 								<td>
 								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
@@ -87,9 +87,9 @@ p {font-size:0.7875em}
 							<td>
 								{{ resource.resource_type }}
 							</td>
-							<th>Amount</th>
+							<th>Quantity</th>
 							<td>
-								<input class="amount" id="{{ resource.id }}" type="text" size="6" value="{{ resource.amount }}" />
+								<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
 							</td>
 							<td>
 								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
@@ -103,9 +103,9 @@ p {font-size:0.7875em}
 								<td>
 									{{ resource.resource_type }}
 								</td>
-								<th>Amount</th>
+								<th>Quantity</th>
 								<td style="text-align: right; ">
-									<input class="amount" id="{{ resource.id }}" type="text" size="6" value="{{ resource.amount }}" />
+									<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
 								</td>
 								<td>
 								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
@@ -125,7 +125,7 @@ p {font-size:0.7875em}
 						{{ fun.form.resource_type }}
 					</td>		
 					<td>
-						{{ fun.form.amount }}
+						{{ fun.form.quantity }}
 					</td>
 					<td><input type="submit" name="submit" value="Add" /></td>
 				</tr>
@@ -201,27 +201,27 @@ p {font-size:0.7875em}
 <script>
 	$(document).ready(function()
 	{
-		$(".amount").blur(function() 
+		$(".quantity").blur(function() 
 		{
-			var amount = this.value;
-			intAmount = parseInt(amount);
-			if ($.isNumeric(amount))
+			var quantity = this.value;
+			intQuantity = parseInt(quantity);
+			if ($.isNumeric(quantity))
 			{
-				if (intAmount == parseFloat(amount))
+				if (intQuantity == parseFloat(quantity))
 				{
 					var id = this.id;
-					$.post("{% url change_function_resource_amount %}",  { id: id, amount: amount });
+					$.post("{% url change_function_resource_amount %}",  { id: id, quantity: quantity });
 				}
 				else
 				{
-					alert(amount + " must be an integer");
-					this.value = intAmount;
+					alert(quantity + " must be an integer");
+					this.value = intQuantity;
 				}
 			}
 			else
 			{
-				alert(amount + " is not a number");
-				this.value = intAmount;
+				alert(quantity + " is not a number");
+				this.value = intQuantity;
 			}
 		});
 	

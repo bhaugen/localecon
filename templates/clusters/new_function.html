@@ -21,13 +21,13 @@
 			<tr>
 				<th>Resource (select from Community, Any or add new)</th>
 				<th>Role</th>
-				<th>Amount</th>
+				<th>Quantity</th>
 			</tr>
 			{% for resource_form in resource_formset.forms %}
 				<tr>
 					<td style="white-space: nowrap" > {{ resource_form.resource_type }}</td>
 					<td> {{ resource_form.role }} </td>
-					<td> {{ resource_form.amount }} </td>
+					<td> {{ resource_form.quantity }} </td>
 				</tr>
 			{% endfor %}
 		</table>

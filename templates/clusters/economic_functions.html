@@ -64,9 +64,9 @@ td
 							<td>
 								{{ resource.resource_type }}
 							</td>
-							<th>Amount</th>
+							<th>Quantity</th>
 							<td style="text-align: right; ">
-								{{ resource.amount|intcomma }}
+								{{ resource.quantity|intcomma }}
 							</td>
 						{% else %}
 							<tr>
@@ -74,9 +74,9 @@ td
 								<td>
 									{{ resource.resource_type }}
 								</td>
-								<th>Amount</th>
+								<th>Quantity</th>
 								<td style="text-align: right; ">
-									{{ resource.amount|intcomma }}
+									{{ resource.quantity|intcomma }}
 								</td>
 							</tr>
 						{% endif %}
@@ -91,9 +91,9 @@ td
 							<td>
 								{{ resource.resource_type }}
 							</td>
-							<th>Amount</th>
+							<th>Quantity</th>
 							<td style="text-align: right; ">
-								{{ resource.amount|intcomma }}
+								{{ resource.quantity|intcomma }}
 							</td>
 						{% else %}
 							<tr>
@@ -101,9 +101,9 @@ td
 								<td>
 									{{ resource.resource_type }}
 								</td>
-								<th>Amount</th>
+								<th>Quantity</th>
 								<td style="text-align: right; ">
-									{{ resource.amount|intcomma }}
+									{{ resource.quantity|intcomma }}
 								</td>
 							</tr>
 						{% endif %}
@@ -152,14 +152,14 @@ td
 			<th>From Function</th>
 			<th>To Function</th>
 			<th>Resource</th>
-			<th style="text-align: right;" >Amount</th>
+			<th style="text-align: right;" >Quantity</th>
 		</tr>
 		{% for flow in flows %}
 			<tr>
 				<td>{{ flow.from_function.name }}</td>
 				<td>{{ flow.to_function.name }}</td>
 				<td>{{ flow.resource_type.name }}</td>
-				<td style="text-align: right;" >{{ flow.amount|intcomma }}</td>
+				<td style="text-align: right;" >{{ flow.quantity|intcomma }}</td>
 			</tr>
 		{% endfor %}
 	</table>

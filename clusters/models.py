@@ -159,8 +159,8 @@ def function_resource_table(cluster):
         if fr.role == "consumes":
             mult = -1
         row_cell = resources.index(fr.resource_type) + 1
-        functions[fr.function][row_cell] = fr.amount * mult
-        functions[fr.function][col_count + 1] += fr.amount * mult
+        functions[fr.function][row_cell] = fr.quantity * mult
+        functions[fr.function][col_count + 1] += fr.quantity * mult
     rows = functions.values()
     rows.sort()
     col_totals = ["Totals",]
@@ -273,7 +273,7 @@ class Cluster(models.Model):
         missing = []
         for fun in funs:
             for res in fun.resources.all():
-                if not res.amount:
+                if not res.quantity:
                     missing.append(res)
         return missing
     
@@ -282,7 +282,7 @@ class Cluster(models.Model):
         missing = []
         for agent in agents:
             for res in agent.resources.all():
-                if not res.amount:
+                if not res.quantity:
                     missing.append(res)
         return missing
     
@@ -293,9 +293,9 @@ class Cluster(models.Model):
             for out in fun.outputs():
                 consumption = 0
                 for consumer in out.resource_type.cluster_consumers(self):
-                    consumption += consumer.amount
-                if consumption < out.amount:
-                    missing.append({"function_resource": out, "amount_missing": consumption - out.amount })
+                    consumption += consumer.quantity
+                if consumption < out.quantity:
+                    missing.append({"function_resource": out, "quantity_missing": consumption - out.quantity })
         return missing
 
     def function_consumption_without_production(self):
@@ -305,9 +305,9 @@ class Cluster(models.Model):
             for inp in fun.inputs():
                 production = 0
                 for producer in inp.resource_type.cluster_producers(self):
-                    production += producer.amount
-                if production < inp.amount:
-                    missing.append({"function_resource": inp, "amount_missing": production - inp.amount })
+                    production += producer.quantity
+                if production < inp.quantity:
+                    missing.append({"function_resource": inp, "quantity_missing": production - inp.quantity })
         return missing
     
     def function_agent_diffs(self):
@@ -319,14 +319,14 @@ class Cluster(models.Model):
                 agent_total = 0
                 for agent in agents:
                     agent_total += sum(
-                        ares.amount for ares in agent.agent.resources.filter(
+                        ares.quantity for ares in agent.agent.resources.filter(
                             resource_type=res.resource_type, role=res.role)
                         )
                     for ares in agent.agent.resources.filter(role=res.role):
                         if ares.resource_type.is_child_of(res.resource_type):
-                            agent_total += ares.amount
-                if agent_total != res.amount:
-                    diffs.append({"function_resource": res, "function_amount": res.amount, "agent_total": agent_total})
+                            agent_total += ares.quantity
+                if agent_total != res.quantity:
+                    diffs.append({"function_resource": res, "function_quantity": res.quantity, "agent_total": agent_total})
         return diffs
     
     def has_flows(self):
@@ -474,7 +474,7 @@ class FunctionResourceType(models.Model):
     function = models.ForeignKey(EconomicFunction, related_name='resources')
     resource_type = models.ForeignKey(EconomicResourceType, related_name='functions')
     role = models.CharField(max_length=12, choices=ROLE_CHOICES)
-    amount = models.IntegerField(default=0)
+    quantity = models.IntegerField(default=0)
     
     class Meta:
         ordering = ('function', 'role', 'resource_type',)
@@ -517,13 +517,13 @@ class FunctionResourceFlow(models.Model):
     from_function = models.ForeignKey(EconomicFunction, related_name='outgoing_flows')
     to_function = models.ForeignKey(EconomicFunction, related_name='incoming_flows')
     resource_type = models.ForeignKey(EconomicResourceType, related_name='function_flows')
-    amount = models.IntegerField(default=0)
+    quantity = models.IntegerField(default=0)
     
     class Meta:
         ordering = ('from_function', 'to_function', 'resource_type',)
     
     def __unicode__(self):
-        return " ".join(["from", self.from_function.name, "to", self.to_function.name, str(self.amount), self.resource_type.name])
+        return " ".join(["from", self.from_function.name, "to", self.to_function.name, str(self.quantity), self.resource_type.name])
 
     
 class EconomicAgent(models.Model):
@@ -590,7 +590,7 @@ class AgentResourceType(models.Model):
     agent = models.ForeignKey(EconomicAgent, related_name='resources')
     resource_type = models.ForeignKey(EconomicResourceType, related_name='agents')
     role = models.CharField(max_length=12, choices=ROLE_CHOICES)
-    amount = models.IntegerField(default=0)
+    quantity = models.IntegerField(default=0)
     
     class Meta:
         ordering = ('agent', 'role', 'resource_type',)
@@ -603,13 +603,13 @@ class AgentResourceFlow(models.Model):
     from_function = models.ForeignKey(AgentFunction, related_name='outgoing_flows')
     to_function = models.ForeignKey(AgentFunction, related_name='incoming_flows')
     resource_type = models.ForeignKey(EconomicResourceType, related_name='agent_flows')
-    amount = models.IntegerField(default=0)
+    quantity = models.IntegerField(default=0)
     
     class Meta:
         ordering = ('from_function', 'to_function', 'resource_type',)
     
     def __unicode__(self):
-        return " ".join(["from", self.from_function.agent.name, "to", self.to_function.agent.name, str(self.amount), self.resource_type.name])
+        return " ".join(["from", self.from_function.agent.name, "to", self.to_function.agent.name, str(self.quantity), self.resource_type.name])
 
 
 class SiteSettings(models.Model):
