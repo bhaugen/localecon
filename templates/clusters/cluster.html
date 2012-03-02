@@ -6,6 +6,24 @@
 
 {% block header %}
 
+<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAc0-doJQKo1hkahziXvU9kJ5cUYnBTCsU&sensor=false">
+</script>
+
+<script type="text/javascript">
+	
+	window.onload = function() {
+        var myOptions = {
+          center: new google.maps.LatLng(-34.397, 150.644),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            myOptions);
+	};
+	
+	
+</script>
 
 {% endblock %}
 
@@ -22,16 +40,8 @@
 
 </p>
 
-{% if map_url %}
+<div id="map_canvas" style="width:100%; height:100%"></div>
 
-
-<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
-	src="{{ map_url|safe }}"></iframe>
-
-{% else %}
-<h3>No map yet.</h3>
-
-{% endif %}
 </div>
 
 {% endblock %}
