@@ -94,4 +94,4 @@ admin.site.register(CommunityResourceType, CommunityResourceTypeAdmin)
 
 admin.site.register(SiteSettings)
 admin.site.register(CommunityAgent)
-
+admin.site.register(Unit)
