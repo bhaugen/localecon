@@ -375,9 +375,9 @@ class EconomicFunction(models.Model):
     def __unicode__(self):
         return " ".join([self.cluster.name, self.name])
     
-    def save(self, force_insert=False, force_update=False):
+    def save(self, *args, **kwargs):
         unique_slugify(self, self.name)
-        super(EconomicFunction, self).save(force_insert, force_update)
+        super(EconomicFunction, self).save(*args, **kwargs)
         
     def node_id(self):
         return "".join([ type(self).__name__, "-", self.slug])
@@ -427,9 +427,9 @@ class EconomicResourceType(models.Model):
     def __unicode__(self):
         return self.name
     
-    def save(self, force_insert=False, force_update=False):
+    def save(self, *args, **kwargs):
         unique_slugify(self, self.name)
-        super(EconomicResourceType, self).save(force_insert, force_update)
+        super(EconomicResourceType, self).save(*args, **kwargs)
         
     def node_id(self):
         return "".join([ type(self).__name__, "-", self.slug])
@@ -504,7 +504,7 @@ class FunctionResourceType(models.Model):
     def __unicode__(self):
         return " ".join([self.function.name, self.role, self.resource_type.name])
     
-    def save(self, force_insert=False, force_update=False):
+    def save(self, *args, **kwargs):
         if not self.pk:
             community = self.function.cluster.community
             rt = self.resource_type
@@ -512,7 +512,7 @@ class FunctionResourceType(models.Model):
                 crt = CommunityResourceType.objects.get(community=community, resource_type=rt)
             except CommunityResourceType.DoesNotExist:
                 crt = CommunityResourceType(community=community, resource_type=rt).save()
-        super(FunctionResourceType, self).save(force_insert, force_update)
+        super(FunctionResourceType, self).save(*args, **kwargs)
         
     def agent_resources(self):
         answer = []
@@ -562,9 +562,9 @@ class EconomicAgent(models.Model):
     def __unicode__(self):
         return self.name
     
-    def save(self, force_insert=False, force_update=False):
+    def save(self, *args, **kwargs):
         unique_slugify(self, self.name)
-        super(EconomicAgent, self).save(force_insert, force_update)
+        super(EconomicAgent, self).save(*args, **kwargs)
         
     def node_id(self):
         return "".join([ type(self).__name__, "-", self.slug])
@@ -599,14 +599,14 @@ class AgentFunction(models.Model):
     def __unicode__(self):
         return " ".join([self.agent.name, self.function.name])
     
-    def save(self, force_insert=False, force_update=False):
+    def save(self, *args, **kwargs):
         if not self.pk:
             community = self.function.cluster.community
             try:
                 ca = CommunityAgent.objects.get(community=community, agent=self.agent)
             except CommunityAgent.DoesNotExist:
                 ca = CommunityAgent(community=community, agent=self.agent).save()
-        super(AgentFunction, self).save(force_insert, force_update)
+        super(AgentFunction, self).save(*args, **kwargs)
 
 
 class AgentResourceType(models.Model):
