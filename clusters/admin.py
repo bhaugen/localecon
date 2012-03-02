@@ -80,7 +80,7 @@ admin.site.register(AgentFunction, AgentFunctionAdmin)
 class EconomicResourceTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'parent')
     list_filter = ['parent']
-    search_fields = ['name', 'parent']
+    search_fields = ['name',]
     
 admin.site.register(EconomicResourceType, EconomicResourceTypeAdmin)
 
