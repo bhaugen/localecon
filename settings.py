@@ -91,6 +91,8 @@ INSTALLED_APPS = (
 )
 
 
+GOOGLE_API_KEY="AIzaSyAc0-doJQKo1hkahziXvU9kJ5cUYnBTCsU"
+
 try:
     from local_settings import *
 except ImportError:

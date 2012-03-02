@@ -10,6 +10,7 @@ from django.forms.formsets import formset_factory
 from django.forms.models import modelformset_factory
 from django.core.mail import send_mail
 from django.core import serializers
+from django.conf import settings
 
 from datetime import datetime, timedelta
 
@@ -115,13 +116,15 @@ def clusters(request):
   
 def cluster(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    #template_params = cluster_params(cluster)
-    
+    community = cluster.community
+    map_center = ",".join(community.latitude, community.longitude)
+    map_key = settings.GOOGLE_API_KEY
     
     return render_to_response("clusters/cluster.html", {
         "cluster": cluster,
-        "map_url": cluster.map_url,
-        #template_params,
+        "map_center": map_center,
+        "map_key": map_key,
+        "zoom_level": community.map_zoom_level,
         }, context_instance=RequestContext(request))
     
 def cluster_agents(request, cluster_id):

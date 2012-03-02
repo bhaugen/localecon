@@ -7,15 +7,15 @@
 {% block header %}
 
 <script type="text/javascript"
-      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAc0-doJQKo1hkahziXvU9kJ5cUYnBTCsU&sensor=false">
+      src="http://maps.googleapis.com/maps/api/js?key={{ map_key }}&sensor=false">
 </script>
 
 <script type="text/javascript">
 	
 	window.onload = function() {
         var myOptions = {
-          center: new google.maps.LatLng(45.2, -63),
-          zoom: 7,
+          center: new google.maps.LatLng({{ map_center }}),
+          zoom: {{ map_zoom_level }},
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),

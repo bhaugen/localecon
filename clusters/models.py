@@ -192,9 +192,12 @@ def connected_functions(node, all_nodes, to_return):
     
 class Community(models.Model):
     name = models.CharField(max_length=128)
-    map_center = models.CharField(max_length=255, blank=True)
-    latitude = models.FloatField(default=0.0, blank=True, null=True, editable=False)
-    longitude = models.FloatField(default=0.0, blank=True, null=True, editable=False)
+    map_center = models.CharField(max_length=255, blank=True,
+        help_text="Map center may be an address, or latitude and longitude.")
+    latitude = models.FloatField(default=0.0, blank=True, null=True)
+    longitude = models.FloatField(default=0.0, blank=True, null=True)
+    map_zoom_level = models.PositiveSmallIntegerField(default=0,
+        help_text="0-20 - larger numbers zoom in more")
     
     class Meta:
         verbose_name_plural = "communities"
