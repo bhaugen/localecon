@@ -211,7 +211,7 @@ class Community(models.Model):
     map_zoom_level = models.PositiveSmallIntegerField(default=0,
         help_text="0-20 - larger numbers zoom in more")
     unit_of_value = models.ForeignKey(Unit, blank=True, null=True,
-        limit_choices_to={type: "value"},
+        limit_choices_to={"type": "value"},
         related_name="community_units")
     
     class Meta:
@@ -415,7 +415,7 @@ class EconomicResourceType(models.Model):
         related_name='children')
     slug = models.SlugField("Page name", editable=False)
     unit_of_quantity = models.ForeignKey(Unit, blank=True, null=True,
-        limit_choices_to={type: "quantity"},
+        limit_choices_to={"type": "quantity"},
         related_name="resource_units")
     
     class Meta:
