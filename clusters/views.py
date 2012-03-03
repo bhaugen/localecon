@@ -520,6 +520,7 @@ def new_cluster_agent(request, cluster_id):
     community = cluster.community
     map_center = ",".join([str(community.latitude), str(community.longitude)])
     map_key = settings.GOOGLE_API_KEY
+    zoom_level = community.map_zoom_level - 1
     form = EconomicAgentForm(data=request.POST or None)
     agent_names = '~'.join([agt.name for agt in EconomicAgent.objects.all()])
     if request.method == "POST":
@@ -537,7 +538,7 @@ def new_cluster_agent(request, cluster_id):
         "cluster": cluster,
         "map_center": map_center,
         "map_key": map_key,
-        "zoom_level": community.map_zoom_level,
+        "zoom_level": zoom_level,
         "form": form,
         "agent_names": agent_names,
     }, context_instance=RequestContext(request))
