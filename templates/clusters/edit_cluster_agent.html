@@ -98,6 +98,8 @@ p {font-size:0.7875em}
 			<tr>
 				<td>Address:</td>					
 				<td>{{ agent_form.address }}</td>
+				{{ agent_form.latitude }}
+				{{ agent_form.longitude }}
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" name="submit_address" value="Change address" /></td>
@@ -155,10 +157,15 @@ var map;
     var address = document.getElementById("id_address").value;
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
+		var loc = results[0].geometry.location;
+		var lat = loc.lat()
+		var lng = loc.lng();
+		$("#id_latitude").val(lat);
+		$("#id_longitude").val(lng);
+        map.setCenter(loc);
         var marker = new google.maps.Marker({
             map: map,
-            position: results[0].geometry.location
+            position: loc
         });
       } else {
         alert("Geocode was not successful for the following reason: " + status);
