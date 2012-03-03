@@ -40,6 +40,11 @@ p {font-size:0.7875em}
 		<input id="submit" type="submit" value="Submit" />
 	</form>
 <div id="map_canvas" style="width: 320px; height: 480px;"></div>
+
+<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key={{ map_key }}&sensor=false">
+</script>
+
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
   <link rel="stylesheet" href="/site_media/css/jquery.autocomplete.css" type="text/css" />
@@ -69,8 +74,8 @@ var map;
     geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(-34.397, 150.644);
     var myOptions = {
-      zoom: 8,
-      center: latlng,
+      center: new google.maps.LatLng({{ map_center }}),
+      zoom: {{ zoom_level }},
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);

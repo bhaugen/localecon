@@ -517,6 +517,9 @@ def new_resource(request, cluster_id):
 @login_required    
 def new_cluster_agent(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    community = cluster.community
+    map_center = ",".join([str(community.latitude), str(community.longitude)])
+    map_key = settings.GOOGLE_API_KEY
     form = EconomicAgentForm(data=request.POST or None)
     agent_names = '~'.join([agt.name for agt in EconomicAgent.objects.all()])
     if request.method == "POST":
@@ -532,6 +535,9 @@ def new_cluster_agent(request, cluster_id):
                % ('clusters/editclusteragent', cluster_id, agent.id))
     return render_to_response("clusters/new_cluster_agent.html",{ 
         "cluster": cluster,
+        "map_center": map_center,
+        "map_key": map_key,
+        "zoom_level": community.map_zoom_level,
         "form": form,
         "agent_names": agent_names,
     }, context_instance=RequestContext(request))
