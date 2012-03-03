@@ -547,7 +547,12 @@ def new_cluster_agent(request, cluster_id):
 @login_required    
 def edit_cluster_agent(request, cluster_id, agent_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    community = cluster.community
+    map_center = ",".join([str(community.latitude), str(community.longitude)])
+    map_key = settings.GOOGLE_API_KEY
+    zoom_level = community.map_zoom_level - 1
     agent = get_object_or_404(EconomicAgent, pk=agent_id)
+    agent_form = AgentAddressForm(instance=agent, data=request.POST or None)
     agent.cluster_functions = agent.functions.filter(function__cluster=cluster)
     for cf in agent.cluster_functions:
         cf.resources = cf.function.resources.all()
@@ -562,6 +567,10 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     return render_to_response("clusters/edit_cluster_agent.html",{ 
         "cluster": cluster,
         "agent": agent,
+        "agent_form": agent_form,
+        "map_center": map_center,
+        "map_key": map_key,
+        "zoom_level": zoom_level,
         "new_function_form": new_function_form,
         "resource_names": resource_names,
     }, context_instance=RequestContext(request))

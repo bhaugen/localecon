@@ -61,6 +61,12 @@ class EconomicAgentForm(forms.ModelForm):
         model = EconomicAgent
         fields = ('name', 'address')
 
+class AgentAddressForm(forms.ModelForm):
+    address = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '50',}))
+    
+    class Meta:
+        model = EconomicAgent
+        fields = ('address',)
               
 
 class FunctionResourceTypeFormX(forms.ModelForm):

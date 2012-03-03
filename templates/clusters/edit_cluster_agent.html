@@ -27,7 +27,7 @@ p {font-size:0.7875em}
 
 <h3>Edit Agent {{ agent }} in Cluster {{ cluster }}</h3>
 
-<br />
+<div style="float:left;">
 <table>
 	<tr>
 		<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}</th>
@@ -90,16 +90,26 @@ p {font-size:0.7875em}
 	{% endif %}
 
 </table>
+</div>
+<div style="float:left;">	
+	<form action="" method="POST">
+		{% csrf_token %}
+		<td>Address:</td>					
+		<td>{{ agent_form.address }}</td>
+		<td><input type="submit" name="submit_address" value="Change address" /></td>
+	</form>
+	<div id="map_canvas" style="width: 480px; height: 320px;"></div>
+</div>
+	
+<div style="clear:both;"></div>
 	
 </div>
-{% comment %}
-<script src="http://www.google.com/jsapi"></script>
-<script>
-	
-	google.load("jquery", "1.3.2");
-</script>
-{% endcomment %}
+
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key={{ map_key }}&sensor=false">
+</script>
 
   <link rel="stylesheet" href="/site_media/css/jquery.autocomplete.css" type="text/css" />
   <script type="text/javascript" src="/site_media/scripts/jquery.bgiframe.min.js"></script>
@@ -121,7 +131,39 @@ function html_unescape(text) {
 	
 var resourceNames = html_unescape("{{ resource_names }}").split("~");
 
+var geocoder;
+var map;
+	
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+      center: new google.maps.LatLng({{ map_center }}),
+      zoom: {{ zoom_level }},
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  }
+
+  function codeAddress() {
+    var address = document.getElementById("id_address").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+	
 $(document).ready(function(){
+	initialize();
+	codeAddress();
+	$("#id_address").blur(codeAddress);
 	$(".resource-name").autocomplete(resourceNames, {matchContains: true});
 });
 
