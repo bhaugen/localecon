@@ -6,6 +6,7 @@
 
 {% block extra_head %}
 
+
 <style>
 
 body {font-size:90%}
@@ -29,7 +30,7 @@ p {font-size:0.7875em}
 		<table style="padding-top: 1em;" >
 			<tr>
 				<th style="text-align: right; " >Name:</th>
-				<td>{{ form.name }} <span id="name-comment"></span></td>
+				<td>{{ form.name }} <span id="name-comment" style="color:green;" ></span></td>
 			</tr>
 			<tr>
 				<th style="text-align: right; " >Address:</th>
@@ -38,7 +39,7 @@ p {font-size:0.7875em}
 		</table>
 		<input id="submit" type="submit" value="Submit" />
 	</form>
-
+<div id="map_canvas" style="width: 320px; height: 480px;"></div>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
   <link rel="stylesheet" href="/site_media/css/jquery.autocomplete.css" type="text/css" />
@@ -60,9 +61,40 @@ function html_unescape(text) {
 }
 	
 var agentNames = html_unescape("{{ agent_names }}").split("~");
+	
+var geocoder;
+var map;
+	
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+      zoom: 8,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  }
+
+  function codeAddress() {
+    var address = document.getElementById("id_address").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
 
 $(document).ready(function(){
+	initialize();
 	$("#id_name").blur(getAddress);
+	$("#id_address").blur(codeAddress);
 	$("#id_name").autocomplete(agentNames, {matchContains: true});
 });
 	
@@ -87,6 +119,7 @@ function getAddress(event)
 					$("#id_address").attr("disabled", "disabled");
 					$("#name-comment").html("Existing Agent which you may re-use");
 					$("#submit").attr("value", "Select");
+					codeAddress();
 				});
 			break;
 		}

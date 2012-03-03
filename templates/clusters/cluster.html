@@ -10,9 +10,12 @@
       src="http://maps.googleapis.com/maps/api/js?key={{ map_key }}&sensor=false">
 </script>
 
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
 <script type="text/javascript">
 	
-	window.onload = function() {
+	function initialize() {
         var myOptions = {
           center: new google.maps.LatLng({{ map_center }}),
           zoom: {{ zoom_level }},
@@ -20,9 +23,11 @@
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),
             myOptions);
-	};
+	}
 	
-	
+	$(document).ready(function() {
+		initialize();
+	});
 </script>
 
 {% endblock %}
