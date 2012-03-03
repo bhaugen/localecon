@@ -552,8 +552,8 @@ class FunctionResourceFlow(models.Model):
 class EconomicAgent(models.Model):
     name = models.CharField(max_length=128)
     address = models.CharField(max_length=255, blank=True)
-    latitude = models.FloatField(default=0.0, blank=True, null=True, editable=False)
-    longitude = models.FloatField(default=0.0, blank=True, null=True, editable=False)
+    latitude = models.FloatField(default=0.0, blank=True, null=True)
+    longitude = models.FloatField(default=0.0, blank=True, null=True)
     slug = models.SlugField("Page name", editable=False)
     
     class Meta:

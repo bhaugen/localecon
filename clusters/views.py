@@ -558,12 +558,12 @@ def edit_cluster_agent(request, cluster_id, agent_id):
         cf.resources = cf.function.resources.all()
         for res in cf.resources:
             res.agent_resource_form = AgentResourceForm(res)
-            res.agent_resource_list = res.resources_for_agent(agent)
-           
+            res.agent_resource_list = res.resources_for_agent(agent)       
     new_function_form = AgentFunctionForm(cluster, agent, prefix="function")
-    
     resource_names = '~'.join([res.name for res in EconomicResourceType.objects.all()])
-    
+    if request.method == "POST":
+        if agent_form.is_valid():
+            agent_form.save()
     return render_to_response("clusters/edit_cluster_agent.html",{ 
         "cluster": cluster,
         "agent": agent,
