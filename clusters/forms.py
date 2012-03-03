@@ -62,7 +62,7 @@ class EconomicAgentForm(forms.ModelForm):
         fields = ('name', 'address')
 
 class AgentAddressForm(forms.ModelForm):
-    address = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '50',}))
+    address = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '40',}))
     
     class Meta:
         model = EconomicAgent
