@@ -94,9 +94,15 @@ p {font-size:0.7875em}
 <div style="float:left;">	
 	<form action="" method="POST">
 		{% csrf_token %}
-		<td>Address:</td>					
-		<td>{{ agent_form.address }}</td>
-		<td><input type="submit" name="submit_address" value="Change address" /></td>
+		<table>
+			<tr>
+				<td>Address:</td>					
+				<td>{{ agent_form.address }}</td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" name="submit_address" value="Change address" /></td>
+			</tr>
+		</table>
 	</form>
 	<div id="map_canvas" style="width: 480px; height: 320px;"></div>
 </div>
