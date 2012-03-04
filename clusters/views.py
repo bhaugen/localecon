@@ -570,7 +570,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     return render_to_response("clusters/edit_cluster_agent.html",{ 
         "cluster": cluster,
         "agent": agent,
-        "cluster_funs": cluster_funs,
+        "cluster_funs": agent.cluster_funs,
         "agent_form": agent_form,
         "map_center": map_center,
         "map_key": map_key,
