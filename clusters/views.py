@@ -552,7 +552,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
         map_center = ",".join([str(community.latitude), str(community.longitude)])
     map_key = settings.GOOGLE_API_KEY
     zoom_level = 0
-    if commmunity.map_zoom_level:
+    if community.map_zoom_level:
         zoom_level = community.map_zoom_level - 1
     agent = get_object_or_404(EconomicAgent, pk=agent_id)
     agent_form = AgentAddressForm(instance=agent, data=request.POST or None)
