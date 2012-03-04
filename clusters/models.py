@@ -624,7 +624,7 @@ class AgentResourceType(models.Model):
     
 
 class AgentFunctionResourceType(models.Model):
-    agent_function = models.ForeignKey(AgentFunction, related_name='resources')
+    agent_function = models.ForeignKey(AgentFunction, related_name='function_resources')
     resource_type = models.ForeignKey(EconomicResourceType, related_name='agent_functions')
     role = models.CharField(max_length=12, choices=ROLE_CHOICES)
     quantity = models.IntegerField(default=0)
