@@ -556,6 +556,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
         zoom_level = community.map_zoom_level - 1
     agent = get_object_or_404(EconomicAgent, pk=agent_id)
     agent_form = AgentAddressForm(instance=agent, data=request.POST or None)
+    import pdb; pdb.set_trace()
     agent.cluster_funs = agent.functions.filter(function__cluster=cluster)
     for cf in agent.cluster_funs:
         cf.rsrcs = cf.function.resources.all()
