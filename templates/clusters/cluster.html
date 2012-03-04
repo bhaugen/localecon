@@ -49,7 +49,15 @@
 				'</div>'+
 				'<h2 id="firstHeading" class="firstHeading">{{ agent.name }}</h2>'+
 				'<div id="bodyContent">'+
-				'<p></p>'+
+				'<table>'+
+				'<tr><th>Produces</th><th>Qty</th></tr>'+
+				{% for af in agent.functions.all %}
+					{% for afrt in af.function_resources.all %}
+					'<tr><td>{{ afrt.resource_type.name }}</td>'+
+					'<td>{{ afrt.quantity }}</td></tr>'+
+					{% endfor %}
+				{% endfor %}
+				'</table>'+
 			    '</div>'+
 				'</div>';
 
