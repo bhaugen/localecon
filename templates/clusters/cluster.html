@@ -15,6 +15,23 @@
 
 <script type="text/javascript">
 	
+	function addMarker(location, name, contentString)
+	{
+		var infowindow = new google.maps.InfoWindow({
+			content: contentString
+		});
+	
+		var marker = new google.maps.Marker({
+			position: location,
+			map: map,
+			title: name
+		});
+	
+		google.maps.event.addListener(marker, 'click', function() {
+			 infowindow.open(map,marker);
+		});
+	
+	}
 	
 	function initialize() {
         var myOptions = {
@@ -37,20 +54,11 @@
 			    '</div>'+
 				'</div>';
 
-			var infowindow = new google.maps.InfoWindow({
-				content: contentString
-			});
-	
 			var location = new google.maps.LatLng({{ agent.lat_lng }});
-			var marker = new google.maps.Marker({
-				position: location,
-				map: map,
-				title: "{{ agent.name }}"
-			});
+			
+			var name = "{{ agent.name }}";
 	
-			google.maps.event.addListener(marker, 'click', function() {
-			  infowindow.open(map,marker);
-			});
+			addMarker(location, name, contentString);		
 	
 		{% endfor %}
 	}
