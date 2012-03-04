@@ -146,6 +146,20 @@ class AgentResourceForm(forms.ModelForm):
         model = AgentResourceType
         fields = ('role', 'quantity')
 
+
+class AgentFunctionResourceForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput(attrs={'size': '16', 'class': 'resource-name'}))
+    quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+    
+    def __init__(self, function_resource=None, *args, **kwargs):
+        super(AgentFunctionResourceForm, self).__init__(*args, **kwargs)
+        if function_resource:
+            self.fields["role"].choices = [(function_resource.role, function_resource.role)]
+    
+    class Meta:
+        model = AgentFunctionResourceType
+        fields = ('role', 'quantity')
+
         
 class EmailForm(forms.Form):
     email_address = forms.EmailField()

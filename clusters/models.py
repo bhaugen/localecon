@@ -622,6 +622,24 @@ class AgentResourceType(models.Model):
     def __unicode__(self):
         return " ".join([self.agent.name, self.role, self.resource_type.name])
     
+
+class AgentFunctionResourceType(models.Model):
+    agent_function = models.ForeignKey(AgentFunction, related_name='resources')
+    resource_type = models.ForeignKey(EconomicResourceType, related_name='agent_functions')
+    role = models.CharField(max_length=12, choices=ROLE_CHOICES)
+    quantity = models.IntegerField(default=0)
+    value = models.IntegerField(default=0)
+    
+    class Meta:
+        ordering = ('agent_function', 'role', 'resource_type',)
+    
+    def __unicode__(self):
+        return " ".join([
+            self.agent_function.agent.name,
+            self.agent_function.function.name,
+            self.role, 
+            self.resource_type.name])
+
     
 class AgentResourceFlow(models.Model):
     from_function = models.ForeignKey(AgentFunction, related_name='outgoing_flows')
