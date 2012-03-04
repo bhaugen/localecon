@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load humanize %}
+
 {% block title %}
      Cluster: {{ cluster }}
 {% endblock %}
@@ -54,7 +56,7 @@
 					'<table>'+
 					{% for afrt in af.function_resources.all %}
 					'<tr><td>{{ afrt.resource_type.name }}</td>'+
-					'<td style="text-align:right;">{{ afrt.quantity }}</td></tr>'+
+					'<td style="text-align:right;">{{ afrt.quantity|intcomma }}</td></tr>'+
 					{% endfor %}
 					'</table>'+
 				{% endfor %}
@@ -86,7 +88,7 @@
 <h3>Cluster: {{ cluster }}</h3>
 
 <p>
-	{{ cluster.description }}<br />
+	{{ cluster.description }}
 
 </p>
 
