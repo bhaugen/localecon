@@ -15,7 +15,7 @@
 
 <script type="text/javascript">
 	
-	function addMarker(location, name, contentString)
+	function addMarker(map, location, name, contentString)
 	{
 		var infowindow = new google.maps.InfoWindow({
 			content: contentString
@@ -58,7 +58,7 @@
 			
 			var name = "{{ agent.name }}";
 	
-			addMarker(location, name, contentString);		
+			addMarker(map, location, name, contentString);		
 	
 		{% endfor %}
 	}
