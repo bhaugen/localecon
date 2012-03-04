@@ -26,12 +26,7 @@
             myOptions);
 	
 		{% for agent in agents %}
-			var location = new google.maps.LatLng({{ agent.lat_lng }});
-			var marker = new google.maps.Marker({
-				position: location,
-				map: map,
-				title: "{{ agent.name }}"
-			});
+	
 			var contentString = '<div id="content">'+
 			    '<div id="siteNotice">'+
 				'</div>'+
@@ -44,6 +39,13 @@
 
 			var infowindow = new google.maps.InfoWindow({
 				content: contentString
+			});
+	
+			var location = new google.maps.LatLng({{ agent.lat_lng }});
+			var marker = new google.maps.Marker({
+				position: location,
+				map: map,
+				title: "{{ agent.name }}"
 			});
 	
 			google.maps.event.addListener(marker, 'click', function() {
