@@ -52,7 +52,7 @@ p {font-size:0.7875em}
 				<th>Resource</th>
 				<th>Quantity</th>
 			</tr>
-			{% for res in fun.resources %}
+			{% for res in fun.rsrcs %}
 				<tr>
 					<td style="text-align: right;" >{{ fun.function.name }}</td>
 					<td> {{ res.role }} {{ res.resource_type }}</td>
