@@ -136,8 +136,8 @@ def cluster_agents(request, cluster_id):
     for agent in agents:
         agent.cluster_functions = agent.functions.filter(function__cluster=cluster)
         for cf in agent.cluster_functions:
-            cf.resources = cf.function.resources.all()
-            for res in cf.resources:
+            cf.rsrcs = cf.function.resources.all()
+            for res in cf.rsrcs:
                 res.agent_resource_list = res.resources_for_agent(agent)
     
     return render_to_response("clusters/cluster_agents.html", {
@@ -556,7 +556,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
         zoom_level = community.map_zoom_level - 1
     agent = get_object_or_404(EconomicAgent, pk=agent_id)
     agent_form = AgentAddressForm(instance=agent, data=request.POST or None)
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     agent.cluster_funs = agent.functions.filter(function__cluster=cluster)
     for cf in agent.cluster_funs:
         cf.rsrcs = cf.function.resources.all()
