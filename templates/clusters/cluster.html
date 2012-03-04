@@ -26,8 +26,9 @@
             myOptions);
 	
 		{% for agent in agents %}
+			var location = new google.maps.LatLng({{ agent.lat_lng }});
 			marker = new google.maps.Marker({
-				position: {{ agent.lat_lng }},
+				position: location,
 				map: map
 			});
 		{% endfor %}
