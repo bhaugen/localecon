@@ -558,8 +558,8 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     agent_form = AgentAddressForm(instance=agent, data=request.POST or None)
     agent.cluster_functions = agent.functions.filter(function__cluster=cluster)
     for cf in agent.cluster_functions:
-        cf.resources = cf.function.resources.all()
-        for res in cf.resources:
+        cf.rsrcs = cf.function.resources.all()
+        for res in cf.rsrcs:
             res.agent_resource_form = AgentResourceForm(res)
             res.agent_resource_list = res.resources_for_agent(agent)       
     new_function_form = AgentFunctionForm(cluster, agent, prefix="function")
