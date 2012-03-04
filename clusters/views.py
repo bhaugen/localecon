@@ -117,11 +117,13 @@ def clusters(request):
 def cluster(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     community = cluster.community
+    agents = cluster.agents()
     map_center = ",".join([str(community.latitude), str(community.longitude)])
     map_key = settings.GOOGLE_API_KEY
     
     return render_to_response("clusters/cluster.html", {
         "cluster": cluster,
+        "agents": agents,
         "map_center": map_center,
         "map_key": map_key,
         "zoom_level": community.map_zoom_level,

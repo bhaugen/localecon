@@ -574,7 +574,9 @@ class EconomicAgent(models.Model):
     
     def outputs(self):
         return self.resources.filter(role="produces")
-
+    
+    def lat_lng(self):
+        return ",".join([str(self.latitude), str(self.longitude)])
     
 
 

@@ -15,6 +15,7 @@
 
 <script type="text/javascript">
 	
+	
 	function initialize() {
         var myOptions = {
           center: new google.maps.LatLng({{ map_center }}),
@@ -23,6 +24,13 @@
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),
             myOptions);
+	
+		{% for agent in agents %}
+			marker = new google.maps.Marker({
+				position: {{ agent.lat_lng }},
+				map: map
+			});
+		{% endfor %}
 	}
 	
 	$(document).ready(function() {
