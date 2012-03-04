@@ -27,11 +27,29 @@
 	
 		{% for agent in agents %}
 			var location = new google.maps.LatLng({{ agent.lat_lng }});
-			marker = new google.maps.Marker({
+			var marker = new google.maps.Marker({
 				position: location,
 				map: map,
 				title: "{{ agent.name }}"
 			});
+			var contentString = '<div id="content">'+
+			    '<div id="siteNotice">'+
+				'</div>'+
+				'<h2 id="firstHeading" class="firstHeading">{{ agent.name }}</h2>'+
+				'<div id="bodyContent">'+
+				'<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+			    'Heritage Site.</p>'+
+			    '</div>'+
+				'</div>';
+
+			var infowindow = new google.maps.InfoWindow({
+				content: contentString
+			});
+	
+			google.maps.event.addListener(marker, 'click', function() {
+			  infowindow.open(map,marker);
+			});
+	
 		{% endfor %}
 	}
 	
