@@ -29,7 +29,8 @@
 			var location = new google.maps.LatLng({{ agent.lat_lng }});
 			marker = new google.maps.Marker({
 				position: location,
-				map: map
+				map: map,
+				title: {{ agent.name }}
 			});
 		{% endfor %}
 	}
