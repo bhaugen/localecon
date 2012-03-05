@@ -46,7 +46,7 @@
 	
 		{% for agent in agents %}
 	
-			var contentString = '<div id="content">'+
+			var contentString = '<div id="content" style="font-size:90%;color:grey;">'+
 			    '<div id="siteNotice">'+
 				'</div>'+
 				'<h2 id="firstHeading" class="firstHeading">{{ agent.name }}</h2>'+
@@ -56,7 +56,8 @@
 					'<table>'+
 					{% for afrt in af.function_resources.all %}
 					'<tr><td>{{ afrt.resource_type.name }}</td>'+
-					'<td style="text-align:right;">{{ afrt.quantity|intcomma }}</td></tr>'+
+					'<td style="text-align:right;">{{afrt.quantity|intcomma}}{{afrt.resource_type.unit.abbrev}}</td>'+
+					'<td style="text-align:right;">${{ afrt.value|intcomma }}</td></tr>'+
 					{% endfor %}
 					'</table>'+
 				{% endfor %}
