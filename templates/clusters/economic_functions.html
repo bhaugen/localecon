@@ -165,6 +165,7 @@ td
 			<th>To Function</th>
 			<th>Resource</th>
 			<th style="text-align: right;" >Quantity</th>
+			<th style="text-align: right;" >Value</th>
 		</tr>
 		{% for flow in flows %}
 			<tr>
@@ -172,6 +173,7 @@ td
 				<td>{{ flow.to_function.name }}</td>
 				<td>{{ flow.resource_type.name }}</td>
 				<td style="text-align: right;" >{{ flow.quantity|intcomma }}</td>
+				<td style="text-align: right;" >{{ flow.value|intcomma }}</td>
 			</tr>
 		{% endfor %}
 	</table>
