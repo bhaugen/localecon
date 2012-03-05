@@ -48,7 +48,8 @@ p {font-size:0.7875em}
 				<th>To Function</th>
 				<th>Resource</th>
 				<th>Quantity</th>
-				<th>Delete</th>
+				<th>Value</th>
+				<th>Del</th>
 			</thead>
 			<tbody>
 				{{ formset.management_form }}
@@ -59,6 +60,7 @@ p {font-size:0.7875em}
 						<td>{{ form.to_function }}</td>
 						<td>{{ form.resource_type }}</td>
 						<td>{{ form.quantity }}</td>
+						<td>{{ form.value }}</td>
 						<td>{{ form.DELETE }}</td>
 					</tr>
 				{% endfor %}

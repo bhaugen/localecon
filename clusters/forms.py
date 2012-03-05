@@ -98,6 +98,7 @@ class FunctionResourceTypeForm(forms.ModelForm):
         
 class FunctionResourceFlowForm(forms.ModelForm):
     quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+    value = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
 
         
     class Meta:
