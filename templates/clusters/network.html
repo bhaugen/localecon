@@ -10,10 +10,14 @@
 	{
 		list-style-type: none;
 		display: inline;
+	    margin: 0;
+		padding: 0;
 	}
 	li
 	{
 		display: inline;
+	    margin: 0;
+		padding: 0;
 	}
 </style>
 
@@ -29,8 +33,8 @@
 	<span style="font-size: 130%;">Network Diagram: {{ cluster }}</span>
 	<span style="margin-left: 3em; font-size: 90%; font-strength: bold; ">
 		<button id="redraw" onclick="redraw();">redraw</button>
-		&nbsp;Show: 
-		<form style="display: inline;" id="toggleForm" action="." method="POST">{% csrf_token %}
+		&nbsp;&nbsp;&nbsp;Show: 
+		<form style="display: inline; margin: 0; padding: 0;" id="toggleForm" action="." method="POST">{% csrf_token %}
 			{{ toggle_form.toggle }}
 		</form>
 	</span>
