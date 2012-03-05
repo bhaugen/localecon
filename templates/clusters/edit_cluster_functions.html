@@ -46,10 +46,10 @@ p {font-size:0.7875em}
 		{% for fun in functions %}
 			<tr><th style="text-align: left; font-size: 110%; " colspan="4" >{{ fun.name }}</th></tr>
 			{% if fun.inputs %}
-				<tr style="background: #EAF2D3;" >
-					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumes:</th>
 					{% for resource in fun.inputs %}
 						{% if forloop.first %}
+						<tr style="background: #EAF2D3;" >
+							<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumes:</th>
 							<td>
 								{{ resource.resource_type }}
 							</td>
@@ -65,8 +65,9 @@ p {font-size:0.7875em}
 									<input type="submit" value="Del" />
 								</form>
 							</td>
+						</tr>
 						{% else %}
-							<tr>
+							<tr style="background: #EAF2D3;" >
 								<td>&nbsp;</td>
 								<td>
 									{{ resource.resource_type }}
@@ -86,7 +87,6 @@ p {font-size:0.7875em}
 							</tr>
 						{% endif %}
 					{% endfor %}
-				</tr>
 			{% endif %}
 			{% if fun.outputs %}
 				<tr style="background: #EAF2D3;" >
