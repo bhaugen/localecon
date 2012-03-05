@@ -152,7 +152,7 @@ def cluster_agents(request, cluster_id):
 @login_required
 def edit_cluster_functions(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    
+    symbol = cluster.community.unit_of_value.symbol
     new_function_form = EconomicFunctionForm(prefix="function")
     new_resource_form = EconomicResourceTypeForm(prefix="resource")
     
@@ -167,6 +167,7 @@ def edit_cluster_functions(request, cluster_id):
         
     resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
     template_params = network_params(cluster, "qty")
+    template_params["symbol"] = symbol
     template_params["functions"] = functions
     template_params["resources"] = resources
     template_params["new_function_form"] = new_function_form

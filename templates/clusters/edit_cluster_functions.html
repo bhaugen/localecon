@@ -48,14 +48,18 @@ p {font-size:0.7875em}
 							<td>
 								{{ resource.resource_type }}
 							</td>
-							<th>Quantity</th>
+							<th>{{ resource.resource_type.unit_of_value.abbrev }}</th>
 							<td style="text-align: right; ">
 								<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
+							</td>
+							<th>{{ symbol }}</th>
+							<td style="text-align: right; ">
+								<input class="value" id="{{ resource.id }}" type="text" size="6" value="{{ resource.value }}" />
 							</td>
 							<td>
 								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
 									{% csrf_token %}
-									<input type="submit" value="Delete" />
+									<input type="submit" value="Del" />
 								</form>
 							</td>
 						{% else %}
@@ -64,14 +68,18 @@ p {font-size:0.7875em}
 								<td>
 									{{ resource.resource_type }}
 								</td>
-								<th>Quantity</th>
+								<th>{{ resource.resource_type.unit_of_value.abbrev }}</th>
 								<td style="text-align: right; ">
 									<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
+								</td>
+								<th>{{ symbol }}</th>
+								<td style="text-align: right; ">
+									<input class="value" id="{{ resource.id }}" type="text" size="6" value="{{ resource.value }}" />
 								</td>
 								<td>
 								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
 									{% csrf_token %}
-									<input type="submit" value="Delete" />
+									<input type="submit" value="Del" />
 								</form>
 							</td>
 							</tr>
