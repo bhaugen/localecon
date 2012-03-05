@@ -19,7 +19,14 @@ var colors = [
 	
 
 /* only do all this when document has finished loading (needed for RaphaelJS) */
-window.onload = function() {
+
+$(document).ready(function() {
+	
+	$(".tog").change(function() 
+	{
+		//$("#toggleForm").submit();
+		this.form.submit();
+	});
     
 	{% if use_window_size %}
 		var width = $(document).width() - 50;
@@ -83,7 +90,7 @@ window.onload = function() {
         renderer.draw();
     };
 
-};
+});
 
 	
 </script>

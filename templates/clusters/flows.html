@@ -5,7 +5,21 @@
 {% endblock %}
 
 {% block extra_head %}
-
+<style>
+	ul
+	{
+		list-style-type: none;
+		display: inline;
+	    margin: 0;
+		padding: 0;
+	}
+	li
+	{
+		display: inline;
+	    margin: 0;
+		padding: 0;
+	}
+</style>
 {% endblock %}
 
 {% block content %}
@@ -17,7 +31,11 @@
 <div>
 	<span style="font-size: 130%;">Flow Diagram: {{ cluster }}</span>
 	<span style="margin-left: 3em; font-size: 90%;">
-		Looks ugly? Click <button id="redraw" onclick="redraw();">redraw</button> or move things around by hand.
+		<button id="redraw" onclick="redraw();">redraw</button>
+		&nbsp;&nbsp;&nbsp;Show: 
+		<form style="display: inline; margin: 0; padding: 0;" id="toggleForm" action="." method="POST">{% csrf_token %}
+			{{ toggle_form.toggle }}
+		</form>
 	</span>
 </div>
 

@@ -391,10 +391,20 @@ def flow_params(cluster):
     }
     return template_params
     
-def flows(request, cluster_id):
+def flows(request, cluster_id, toggle="qty"):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    toggle_form = QuantityValueForm(
+        initial={"toggle": toggle,},
+        data=request.POST or None)
     template_params = flow_params(cluster)
     template_params["use_window_size"] = True
+    template_params["toggle_form"] = toggle_form
+    if request.method == "POST":
+        if toggle_form.is_valid():
+            #import pdb; pdb.set_trace()
+            tog = toggle_form.cleaned_data["toggle"]
+            return HttpResponseRedirect('/%s/%s/%s/'
+                % ('clusters/flows', cluster_id, tog))
     return render_to_response("clusters/flows.html",
         template_params,
         context_instance=RequestContext(request))    
