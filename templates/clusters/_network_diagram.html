@@ -13,7 +13,8 @@ $(document).ready(function() {
 	
 	$(".tog").change(function() 
 	{
-		$("#toggleForm").submit();
+		//$("#toggleForm").submit();
+		this.form.submit();
 	});
 	
     {% if use_window_size %}
