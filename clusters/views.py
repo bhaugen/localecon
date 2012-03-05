@@ -293,10 +293,10 @@ def network_params(cluster, toggle):
                 #edges.append(Edge(fn, v.resource_type, v.quantity))
                 if toggle == "val":
                     total += v.value
-                    edges.append(Edge(v.resource_type, fn, v.value))
+                    edges.append(Edge(fn, v.resource_type, v.value))
                 else:
                     total += v.quantity
-                    edges.append(Edge(v.resource_type, fn, v.quantity))
+                    edges.append(Edge(fn, v.resource_type, v.quantity))
     else:
         flows = FunctionResourceFlow.objects.filter(
             from_function__cluster=cluster)
