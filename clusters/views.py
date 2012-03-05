@@ -269,7 +269,7 @@ class Edge(object):
          self.width = width
 
 
-def network_params(cluster):
+def network_params(cluster, toggle):
     template_params = {}
     frts = FunctionResourceType.objects.filter(
         function__cluster=cluster)
@@ -312,10 +312,18 @@ def network_params(cluster):
     return template_params
     
 
-def network(request, cluster_id):
+def network(request, cluster_id, toggle=1):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    template_params = network_params(cluster)
+    toggle_form = QuantityValueForm(
+        initial={"toggle": toggle,},
+        data=request.POST or None)
+    template_params = network_params(cluster, toggle)
     template_params["use_window_size"] = True
+    if request.method == "POST":
+        if toggle_form.is_valid():
+            tog = toggle_form.cleaned_data["toggle"]
+            return HttpResponseRedirect('/%s/%s/%s/'
+                % ('clusters/network', cluster_id, tog))
     return render_to_response("clusters/network.html",
         template_params,
         context_instance=RequestContext(request))

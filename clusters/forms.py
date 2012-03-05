@@ -166,3 +166,13 @@ class EmailForm(forms.Form):
     subject = forms.CharField()
     message = forms.CharField(widget = forms.Textarea)
     
+    
+TOGGLE_CHOICES = (
+    ('qty', 'Quantity'),
+    ('val', 'Value'),
+) 
+
+class QuantityValueForm(forms.Form):
+    toggle = forms.ChoiceField(choices=TOGGLE_CHOICES, widget=forms.RadioSelect())
+    
+    
