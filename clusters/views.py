@@ -356,7 +356,7 @@ class FlowEdge(object):
          self.quantity = quantity
          self.width = width
          
-def flow_params(cluster):
+def flow_params(cluster, toggle):
     template_params = {}
     flows = FunctionResourceFlow.objects.filter(
         from_function__cluster=cluster)
@@ -364,7 +364,10 @@ def flow_params(cluster):
     total = 0.0
     for flow in flows:
         nodes.extend([flow.from_function, flow.to_function])
-        total += flow.quantity
+        if toggle == "val":
+            total += flow.value
+        else:
+            total += flow.quantity
     nodes = list(set(nodes))
     prev = None
     edges = []
@@ -375,7 +378,10 @@ def flow_params(cluster):
             prev_match=False
         if prev_match:
             edge.label = ";".join([edge.label, flow.resource_type.name])
-            edge.quantity += flow.quantity
+            if toggle == "val":
+                edge.quantity += flow.value
+            else:
+                edge.quantity += flow.quantity
         else:
             edge = FlowEdge(flow.from_function, flow.to_function, flow.resource_type.name, flow.quantity)
             edges.append(edge)
@@ -396,7 +402,7 @@ def flows(request, cluster_id, toggle="qty"):
     toggle_form = QuantityValueForm(
         initial={"toggle": toggle,},
         data=request.POST or None)
-    template_params = flow_params(cluster)
+    template_params = flow_params(cluster, toggle)
     template_params["use_window_size"] = True
     template_params["toggle_form"] = toggle_form
     if request.method == "POST":
