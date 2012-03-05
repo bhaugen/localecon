@@ -17,11 +17,11 @@
 
 <script type="text/javascript">
 	
+var infowindow = new google.maps.InfoWindow({});
+	
 	function addMarker(map, location, name, contentString)
 	{
-		var infowindow = new google.maps.InfoWindow({
-			content: contentString
-		});
+		
 	
 		var marker = new google.maps.Marker({
 			position: location,
@@ -30,7 +30,8 @@
 		});
 	
 		google.maps.event.addListener(marker, 'click', function() {
-			 infowindow.open(map,marker);
+			infoWindow.setContent(contentString);
+			infowindow.open(map, this);
 		});
 	
 	}
