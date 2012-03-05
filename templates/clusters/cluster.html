@@ -56,7 +56,7 @@
 					'<table>'+
 					{% for afrt in af.function_resources.all %}
 					'<tr><td>{{ afrt.resource_type.name }}</td>'+
-					'<td style="text-align:right;">{{afrt.quantity|intcomma}}{{afrt.resource_type.unit.abbrev}}</td>'+
+					'<td style="text-align:right;">{{afrt.quantity|intcomma}}{{afrt.resource_type.unit_of_quantity.abbrev}}</td>'+
 					'<td style="text-align:right;">${{ afrt.value|intcomma }}</td></tr>'+
 					{% endfor %}
 					'</table>'+
