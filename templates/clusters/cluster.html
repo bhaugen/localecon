@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
 	
-var infowindow = new google.maps.InfoWindow({});
+var infoWin = new google.maps.InfoWindow({});
 	
 	function addMarker(map, location, name, contentString)
 	{
@@ -30,8 +30,8 @@ var infowindow = new google.maps.InfoWindow({});
 		});
 	
 		google.maps.event.addListener(marker, 'click', function() {
-			infowindow.setContent(contentString);
-			infowindow.open(map, this);
+			infoWin.setContent(contentString);
+			infoWin.open(map, this);
 		});
 	
 	}
