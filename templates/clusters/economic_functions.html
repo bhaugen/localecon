@@ -55,7 +55,11 @@ td
 		<tr><th style="text-align: center; font-size: 120%; " colspan="4" >Functions:</th></tr>
 
 		{% for fun in functions %}
-			<tr><th style="text-align: left; font-size: 110%; " colspan="4" >{{ fun.name }}</th></tr>
+			<tr>
+				<th style="text-align: left; font-size: 110%; " colspan="2" >{{ fun.name }}</th>
+				<th>Qty</th>
+				<th>Value</th>
+			</tr>
 			{% if fun.inputs %}
 				<tr>
 					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumes:</th>
@@ -64,9 +68,11 @@ td
 							<td>
 								{{ resource.resource_type }}
 							</td>
-							<th>Quantity</th>
 							<td style="text-align: right; ">
 								{{ resource.quantity|intcomma }}
+							</td>
+							<td style="text-align: right; ">
+								{{ resource.value|intcomma }}
 							</td>
 						{% else %}
 							<tr>
@@ -74,9 +80,11 @@ td
 								<td>
 									{{ resource.resource_type }}
 								</td>
-								<th>Quantity</th>
 								<td style="text-align: right; ">
 									{{ resource.quantity|intcomma }}
+								</td>
+								<td style="text-align: right; ">
+									{{ resource.value|intcomma }}
 								</td>
 							</tr>
 						{% endif %}
@@ -91,9 +99,11 @@ td
 							<td>
 								{{ resource.resource_type }}
 							</td>
-							<th>Quantity</th>
 							<td style="text-align: right; ">
 								{{ resource.quantity|intcomma }}
+							</td>
+							<td style="text-align: right; ">
+								{{ resource.value|intcomma }}
 							</td>
 						{% else %}
 							<tr>
@@ -101,9 +111,11 @@ td
 								<td>
 									{{ resource.resource_type }}
 								</td>
-								<th>Quantity</th>
 								<td style="text-align: right; ">
 									{{ resource.quantity|intcomma }}
+								</td>
+								<td style="text-align: right; ">
+									{{ resource.value|intcomma }}
 								</td>
 							</tr>
 						{% endif %}
