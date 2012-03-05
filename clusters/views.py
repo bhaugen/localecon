@@ -387,8 +387,10 @@ def flow_params(cluster, toggle):
             edges.append(edge)
         prev = flow                  
     for edge in edges:
-        width = round((edge.quantity / total), 2) * 50
-        width = int(width)
+        width = 1
+        if total > 0:
+            width = round((edge.quantity / total), 2) * 50
+            width = int(width)
         edge.width = width
     template_params =  {
         'cluster': cluster,
