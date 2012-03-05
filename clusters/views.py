@@ -312,7 +312,7 @@ def network_params(cluster, toggle):
     return template_params
     
 
-def network(request, cluster_id, toggle=1):
+def network(request, cluster_id, toggle="qty"):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     toggle_form = QuantityValueForm(
         initial={"toggle": toggle,},
@@ -322,7 +322,7 @@ def network(request, cluster_id, toggle=1):
     template_params["toggle_form"] = toggle_form
     if request.method == "POST":
         if toggle_form.is_valid():
-            import pdb; pdb.set_trace()
+            #import pdb; pdb.set_trace()
             tog = toggle_form.cleaned_data["toggle"]
             return HttpResponseRedirect('/%s/%s/%s/'
                 % ('clusters/network', cluster_id, tog))
