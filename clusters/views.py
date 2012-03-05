@@ -319,6 +319,7 @@ def network(request, cluster_id, toggle=1):
         data=request.POST or None)
     template_params = network_params(cluster, toggle)
     template_params["use_window_size"] = True
+    template_params["toggle_form"] = toggle_form
     if request.method == "POST":
         if toggle_form.is_valid():
             tog = toggle_form.cleaned_data["toggle"]
