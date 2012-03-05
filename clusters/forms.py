@@ -173,6 +173,6 @@ TOGGLE_CHOICES = (
 ) 
 
 class QuantityValueForm(forms.Form):
-    toggle = forms.ChoiceField(choices=TOGGLE_CHOICES, widget=forms.RadioSelect())
+    toggle = forms.ChoiceField(choices=TOGGLE_CHOICES, widget=forms.RadioSelect(attrs={'class': 'tog'}))
     
     

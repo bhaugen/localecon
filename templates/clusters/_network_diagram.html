@@ -11,9 +11,9 @@ var redraw, g, renderer;
 //window.onload = function() {
 $(document).ready(function() {
 	
-	$(input[type="radio"]).change(function() 
+	$(".tog").change(function() 
 	{
-		$(".toggleForm").submit();
+		$("#toggleForm").submit();
 	});
 	
     {% if use_window_size %}
