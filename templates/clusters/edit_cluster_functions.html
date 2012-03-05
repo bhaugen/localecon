@@ -38,10 +38,15 @@ p {font-size:0.7875em}
 			<input type="hidden" name="next" value="{% url edit_cluster_functions cluster_id=cluster.id %}" />
 		</form>
 		<br/>
+		<tr>
+			<th>&nbsp;</th>
+			<th>Qty</th>
+			<th>Value</th>
+		</tr>
 		{% for fun in functions %}
 			<tr><th style="text-align: left; font-size: 110%; " colspan="4" >{{ fun.name }}</th></tr>
 			{% if fun.inputs %}
-				<tr>
+				<tr style="background: #EAF2D3;" >
 					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumes:</th>
 					{% for resource in fun.inputs %}
 						{% if forloop.first %}
@@ -84,7 +89,7 @@ p {font-size:0.7875em}
 				</tr>
 			{% endif %}
 			{% if fun.outputs %}
-				<tr>
+				<tr style="background: #EAF2D3;" >
 					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produces:</th>
 					{% for resource in fun.outputs %}
 						{% if forloop.first %}
