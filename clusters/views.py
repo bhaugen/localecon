@@ -642,7 +642,19 @@ def change_function_resource_amount(request):
     #import pdb; pdb.set_trace()
     quantity = int(quantity)
     if quantity != frt.quantity:
-        frt.quantity = int(quantity)
+        frt.quantity = quantity
+        frt.save()
+    data = "ok"
+    return HttpResponse(data, mimetype="text/plain")
+
+def change_function_resource_value(request):
+    id = request.POST.get("id")
+    value = request.POST.get("value")
+    frt = get_object_or_404(FunctionResourceType, pk=id)
+    #import pdb; pdb.set_trace()
+    value = int(value)
+    if value != frt.value:
+        frt.value = value
         frt.save()
     data = "ok"
     return HttpResponse(data, mimetype="text/plain")

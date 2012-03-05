@@ -220,13 +220,37 @@ p {font-size:0.7875em}
 		$(".quantity").blur(function() 
 		{
 			var quantity = this.value;
-			intQuantity = parseInt(quantity);
+			var intQuantity = parseInt(quantity);
 			if ($.isNumeric(quantity))
 			{
 				if (intQuantity == parseFloat(quantity))
 				{
 					var id = this.id;
 					$.post("{% url change_function_resource_amount %}",  { id: id, quantity: quantity });
+				}
+				else
+				{
+					alert(quantity + " must be an integer");
+					this.value = intQuantity;
+				}
+			}
+			else
+			{
+				alert(quantity + " is not a number");
+				this.value = intQuantity;
+			}
+		});
+	
+		$(".value").blur(function() 
+		{
+			var quantity = this.value;
+			var intQuantity = parseInt(quantity);
+			if ($.isNumeric(quantity))
+			{
+				if (intQuantity == parseFloat(quantity))
+				{
+					var id = this.id;
+					$.post("{% url change_function_resource_value %}",  { id: id, value: quantity });
 				}
 				else
 				{
