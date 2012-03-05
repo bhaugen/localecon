@@ -89,10 +89,10 @@ p {font-size:0.7875em}
 					{% endfor %}
 			{% endif %}
 			{% if fun.outputs %}
-				<tr style="background: #EAF2D3;" >
-					<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produces:</th>
 					{% for resource in fun.outputs %}
 						{% if forloop.first %}
+						<tr style="background: #EAF2D3;" >
+							<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produces:</th>
 							<td>
 								{{ resource.resource_type }}
 							</td>
@@ -108,8 +108,9 @@ p {font-size:0.7875em}
 									<input type="submit" value="Del" />
 								</form>
 							</td>
+						</tr>
 						{% else %}
-							<tr>
+							<tr style="background: #EAF2D3;" >
 								<td>&nbsp;</td>
 								<td>
 									{{ resource.resource_type }}
@@ -129,7 +130,6 @@ p {font-size:0.7875em}
 							</tr>
 						{% endif %}
 					{% endfor %}
-				</tr>
 			{% endif %}
 			<form action="{% url new_function_resource function_id=fun.id %}" method="POST">{% csrf_token %}
 				<tr>
