@@ -281,12 +281,22 @@ def network_params(cluster, toggle):
         for fn in nodes:
             for v in fn.inputs():
                 rtypes.append(v.resource_type)
-                total += v.quantity
-                edges.append(Edge(v.resource_type, fn, v.quantity))
+                if toggle == "val":
+                    total += v.value
+                    edges.append(Edge(v.resource_type, fn, v.value))
+                else:
+                    total += v.quantity
+                    edges.append(Edge(v.resource_type, fn, v.quantity))
             for v in fn.outputs():
                 rtypes.append(v.resource_type)
-                total += v.quantity
-                edges.append(Edge(fn, v.resource_type, v.quantity))
+                #total += v.quantity
+                #edges.append(Edge(fn, v.resource_type, v.quantity))
+                if toggle == "val":
+                    total += v.value
+                    edges.append(Edge(v.resource_type, fn, v.value))
+                else:
+                    total += v.quantity
+                    edges.append(Edge(v.resource_type, fn, v.quantity))
     else:
         flows = FunctionResourceFlow.objects.filter(
             from_function__cluster=cluster)
@@ -294,9 +304,17 @@ def network_params(cluster, toggle):
         edges = []
         for flow in flows:
             nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
-            total += flow.quantity
-            edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity))
-            edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity))
+            #total += flow.quantity
+            #edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity))
+            #edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity))
+            if toggle == "val":
+                total += flow.value
+                edges.append(Edge(flow.from_function, flow.resource_type, flow.value))
+                edges.append(Edge(flow.resource_type, flow.to_function, flow.value))
+            else:
+                total += flow.quantity
+                edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity))
+                edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity))
         nodes = list(set(nodes))
             
     for edge in edges:
