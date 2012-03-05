@@ -30,8 +30,8 @@ var infowindow = new google.maps.InfoWindow({});
 		});
 	
 		google.maps.event.addListener(marker, 'click', function() {
-			infoWindow.setContent(contentString);
-			infoWindow.open(map, this);
+			infowindow.setContent(contentString);
+			infowindow.open(map, this);
 		});
 	
 	}
