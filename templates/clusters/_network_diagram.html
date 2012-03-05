@@ -14,7 +14,7 @@ $(document).ready(function() {
 	$(".id_toggle").change(function() 
 	{
 		$(".toggleForm").submit();
-	}
+	});
 	
     {% if use_window_size %}
 		var width = $(document).width() - 50;
@@ -84,7 +84,7 @@ $(document).ready(function() {
         renderer.draw();
     };
 
-};
+});
 
 	
 </script>
