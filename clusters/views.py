@@ -235,7 +235,7 @@ def edit_flows(request, cluster_id):
         return HttpResponseRedirect('/%s/%s/'
                % ('clusters/editflows', cluster.id))
     
-    template_params = flow_params(cluster)
+    template_params = flow_params(cluster, "qty")
     template_params["new_function_form"] = new_function_form
     template_params["new_resource_form"] = new_resource_form
     template_params["resource_names"] = resource_names
