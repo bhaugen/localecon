@@ -694,7 +694,7 @@ def delete_function_resource(request, id):
     
 def delete_agent_function_resource(request, id):
     frt = get_object_or_404(AgentFunctionResourceType, pk=id)
-    cluster = frt.function.cluster
+    cluster = frt.agent_function.function.cluster
     agent = frt.agent_function.agent
     frt.delete()
     return HttpResponseRedirect('/%s/%s/%s/'
