@@ -47,12 +47,14 @@ p {font-size:0.7875em}
 				<th>Function Resources:</th>
 				<th>Resource</th>
 				<th>Quantity</th>
+				<th>Value</th>
 			</tr>
 			{% for res in fun.rsrcs %}
 				<tr>
 					<td>&nbsp;</td>
 					<td> {{ res.role }} {{ res.resource_type }}</td>
 					<td style="text-align: right;" >{{ res.quantity|intcomma }}</td>
+					<td style="text-align: right;" >{{ res.value|intcomma }}</td>
 				</tr>
 				{% for agent_res in res.agent_resource_list %}
 					<tr>
@@ -60,6 +62,9 @@ p {font-size:0.7875em}
 						<td><b>Agent Resource:</b>  {{ agent_res.role }} {{ agent_res.resource_type }} </td>
 						<td style="text-align: right;" >
 							{{ agent_res.quantity|intcomma }}
+						</td>
+						<td style="text-align: right;" >
+							{{ agent_res.value|intcomma }}
 						</td>
 					</tr>
 				{% endfor %}
