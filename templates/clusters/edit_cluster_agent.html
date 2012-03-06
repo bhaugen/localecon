@@ -73,7 +73,7 @@ p {font-size:0.7875em}
 					</tr>
 				{% endfor %}
 				<tr>
-					<th style="text-align: right;" >{{ agent.name }} {{ res.agent_resource_form.function }} </th>
+					<th style="text-align: right;" >{{ agent.name }} {{ res.agent_resource_form.function.name }} </th>
 					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=res.resource_type.id %}" method="POST">
 						{% csrf_token %}
 						<td>
