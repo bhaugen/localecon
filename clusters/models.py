@@ -337,10 +337,10 @@ class Cluster(models.Model):
                 agent_total = 0
                 for agent in agents:
                     agent_total += sum(
-                        ares.quantity for ares in agent.agent.resources.filter(
+                        ares.quantity for ares in agent.function_resources.filter(
                             resource_type=res.resource_type, role=res.role)
                         )
-                    for ares in agent.agent.resources.filter(role=res.role):
+                    for ares in agent.function_resources.filter(role=res.role):
                         if ares.resource_type.is_child_of(res.resource_type):
                             agent_total += ares.quantity
                 if agent_total != res.quantity:
