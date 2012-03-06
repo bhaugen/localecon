@@ -319,8 +319,10 @@ def network_params(cluster, toggle):
         nodes = list(set(nodes))
             
     for edge in edges:
-        width = round((edge.quantity / total), 2) * 50
-        width = int(width)
+        width = 1
+        if total > 0:
+            width = round((edge.quantity / total), 2) * 50
+            width = int(width)
         edge.width = width
     nodes.extend(list(set(rtypes)))
     template_params =  {
