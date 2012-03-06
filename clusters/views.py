@@ -690,7 +690,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
         agent = get_object_or_404(EconomicAgent, pk=agent_id)
         parent = get_object_or_404(EconomicResourceType, pk=parent_id)
         cluster = get_object_or_404(Cluster, pk=cluster_id)
-        form = AgentResourceForm(function_resource=None, data=request.POST)
+        form = AgentFunctionResourceForm(function_resource=None, data=request.POST)
         
         if form.is_valid():
             data = form.cleaned_data
