@@ -79,7 +79,7 @@ p {font-size:0.7875em}
 								<input class="value" id="{{ agent_res.id }}" type="text" size="7" value="{{ agent_res.value }}" />
 							</td>
 							<td>
-								<form style="display: inline;" action="{% url delete_function_resource id=agent_res.id %}" method="POST">
+								<form style="display: inline;" action="{% url delete_agent_function_resource id=agent_res.id %}" method="POST">
 									{% csrf_token %}
 									<input type="submit" value="Del" />
 								</form>
@@ -200,6 +200,56 @@ $(document).ready(function(){
 	codeAddress();
 	$("#id_address").blur(codeAddress);
 	$(".resource-name").autocomplete(resourceNames, {matchContains: true});
+	
+	$(".quantity").blur(function() 
+		{
+			var quantity = this.value;
+			var intQuantity = parseInt(quantity);
+			if ($.isNumeric(quantity))
+			{
+				if (intQuantity == parseFloat(quantity))
+				{
+					var id = this.id;
+					$.post("{% url change_agent_function_resource_amount %}",  { id: id, quantity: quantity });
+				}
+				else
+				{
+					alert(quantity + " must be an integer");
+					this.value = intQuantity;
+				}
+			}
+			else
+			{
+				alert(quantity + " is not a number");
+				this.value = intQuantity;
+			}
+		});
+	
+		$(".value").blur(function() 
+		{
+			var quantity = this.value;
+			var intQuantity = parseInt(quantity);
+			if ($.isNumeric(quantity))
+			{
+				if (intQuantity == parseFloat(quantity))
+				{
+					var id = this.id;
+					$.post("{% url change_agent_function_resource_value %}",  { id: id, value: quantity });
+				}
+				else
+				{
+					alert(quantity + " must be an integer");
+					this.value = intQuantity;
+				}
+			}
+			else
+			{
+				alert(quantity + " is not a number");
+				this.value = intQuantity;
+			}
+		});
+	
+	
 });
 
  </script>

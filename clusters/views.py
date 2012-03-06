@@ -661,12 +661,44 @@ def change_function_resource_value(request):
     data = "ok"
     return HttpResponse(data, mimetype="text/plain")
 
+def change_agent_function_resource_amount(request):
+    id = request.POST.get("id")
+    quantity = request.POST.get("quantity")
+    frt = get_object_or_404(AgentFunctionResourceType, pk=id)
+    #import pdb; pdb.set_trace()
+    quantity = int(quantity)
+    if quantity != frt.quantity:
+        frt.quantity = quantity
+        frt.save()
+    data = "ok"
+    return HttpResponse(data, mimetype="text/plain")
+
+def change_agent_function_resource_value(request):
+    id = request.POST.get("id")
+    value = request.POST.get("value")
+    frt = get_object_or_404(AgentFunctionResourceType, pk=id)
+    #import pdb; pdb.set_trace()
+    value = int(value)
+    if value != frt.value:
+        frt.value = value
+        frt.save()
+    data = "ok"
+    return HttpResponse(data, mimetype="text/plain")
+
 def delete_function_resource(request, id):
     frt = get_object_or_404(FunctionResourceType, pk=id)
     cluster = frt.function.cluster
     frt.delete()
     return HttpResponseRedirect('/%s/%s/'
         % ('clusters/editclusterfunctions', cluster.id))
+    
+def delete_agent_function_resource(request, id):
+    frt = get_object_or_404(AgentFunctionResourceType, pk=id)
+    cluster = frt.function.cluster
+    agent = frt.agent_function.agent
+    frt.delete()
+    return HttpResponseRedirect('/%s/%s/%s/'
+        % ('clusters/editclusteragent', cluster.id, agent.id))
 
 @login_required    
 def inline_new_resource(request, cluster_id):
