@@ -610,8 +610,8 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     for cf in agent.cluster_funs:
         cf.rsrcs = cf.function.resources.all()
         for res in cf.rsrcs:
-            res.agent_resource_form = AgentResourceForm(res)
-            res.agent_resource_list = res.resources_for_agent(agent)       
+            res.agent_resource_form = AgentFunctionResourceForm(res)
+            res.agent_resource_list = res.function_resources_for_agent(agent)       
     new_function_form = AgentFunctionForm(cluster, agent, prefix="function")
     resource_names = '~'.join([res.name for res in EconomicResourceType.objects.all()])
     if request.method == "POST":
