@@ -534,6 +534,12 @@ class FunctionResourceType(models.Model):
                 answer.append(ar)
         return answer
     
+    def function_resources_for_agent(self, agent):
+        af = agent.functions.filter(function=self)
+        return AgentFunctionResourceType.objects.filter(
+            agent_function=af,
+            role=self.role)
+
     
 class FunctionResourceFlow(models.Model):
     from_function = models.ForeignKey(EconomicFunction, related_name='outgoing_flows')

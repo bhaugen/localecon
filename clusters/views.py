@@ -140,7 +140,7 @@ def cluster_agents(request, cluster_id):
         for cf in agent.cluster_functions:
             cf.rsrcs = cf.function.resources.all()
             for res in cf.rsrcs:
-                res.agent_resource_list = res.resources_for_agent(agent)
+                res.agent_resource_list = res.function_resources_for_agent(agent)
     
     return render_to_response("clusters/cluster_agents.html", {
         "cluster": cluster,
