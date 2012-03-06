@@ -45,7 +45,7 @@ def cluster_params(cluster):
             
     root = cluster.root()
     
-    frtable = function_resource_table(cluster)
+    frtable = function_resource_table(cluster, "qty")
                        
     template_params =  {
         "cluster": cluster,
