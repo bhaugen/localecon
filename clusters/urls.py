@@ -40,7 +40,7 @@ urlpatterns = patterns('',
     url(r'^deletefunctionresource/(?P<id>\d+)/$', 'clusters.views.delete_function_resource', name="delete_function_resource"),
     url(r'^changefunctionresourceamount/$', 'clusters.views.change_function_resource_amount', 
         name="change_function_resource_amount"),
-    url(r'^changefunctionresourcevaalue/$', 'clusters.views.change_function_resource_value', 
+    url(r'^changefunctionresourcevalue/$', 'clusters.views.change_function_resource_value', 
         name="change_function_resource_value"),
         
     url(r'^deleteagentfunctionresource/(?P<id>\d+)/$', 'clusters.views.delete_agent_function_resource', 
