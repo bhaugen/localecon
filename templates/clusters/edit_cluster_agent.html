@@ -76,6 +76,7 @@ p {font-size:0.7875em}
 					<th style="text-align: right;" >{{ agent.name }} {{ res.function.name }} </th>
 					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=res.resource_type.id %}" method="POST">
 						{% csrf_token %}
+						{{ agent_function_id }}
 						<td>
 							{{ res.agent_resource_form.role }}&nbsp;
 							{{ res.agent_resource_form.name }}

@@ -610,8 +610,9 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     for cf in agent.cluster_funs:
         cf.rsrcs = cf.function.resources.all()
         for res in cf.rsrcs:
-            res.agent_resource_form = AgentFunctionResourceForm(res)
-            res.agent_resource_form.function = res.function
+            agent_function = agent.functions.filter(function=res.function)
+            init = {"agent_function_id": agent_function.id,}
+            res.agent_resource_form = AgentFunctionResourceForm(res, initial=init)
             res.agent_resource_list = res.function_resources_for_agent(agent)       
     new_function_form = AgentFunctionForm(cluster, agent, prefix="function")
     resource_names = '~'.join([res.name for res in EconomicResourceType.objects.all()])
@@ -696,6 +697,8 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             name = data['name']
             role = data['role']
             quantity = data['quantity']
+            value = data['value']
+            agent_function_id = data['agent_function_id']
             new_resource = True
             
             #import pdb; pdb.set_trace()
@@ -712,7 +715,13 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             if new_resource:
                 resource = EconomicResourceType(name=name, parent=parent)
                 resource.save()
-            AgentResourceType(resource_type=resource, agent=agent, role=role, quantity=quantity).save()
+            agent_function = AgentFunction.objects.get(id=agent_function_id)
+            AgentFunctionResourceType(
+                resource_type=resource, 
+                agent_function=agent_function, 
+                role=role, 
+                quantity=quantity,
+                value=value).save()
             crt, created = CommunityResourceType.objects.get_or_create(community=cluster.community, resource_type=resource)
     return HttpResponseRedirect('/%s/%s/%s/'
        % ('clusters/editclusteragent', cluster_id, agent.id))
