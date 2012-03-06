@@ -665,7 +665,7 @@ def change_agent_function_resource_amount(request):
     id = request.POST.get("id")
     quantity = request.POST.get("quantity")
     frt = get_object_or_404(AgentFunctionResourceType, pk=id)
-    #import pdb; pdb.set_trace()
+    import pdb; pdb.set_trace()
     quantity = int(quantity)
     if quantity != frt.quantity:
         frt.quantity = quantity
@@ -677,7 +677,7 @@ def change_agent_function_resource_value(request):
     id = request.POST.get("id")
     value = request.POST.get("value")
     frt = get_object_or_404(AgentFunctionResourceType, pk=id)
-    #import pdb; pdb.set_trace()
+    import pdb; pdb.set_trace()
     value = int(value)
     if value != frt.value:
         frt.value = value
