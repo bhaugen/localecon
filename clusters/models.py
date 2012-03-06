@@ -535,7 +535,7 @@ class FunctionResourceType(models.Model):
         return answer
     
     def function_resources_for_agent(self, agent):
-        af = agent.functions.filter(function=self)
+        af = agent.functions.filter(function=self.function)
         return AgentFunctionResourceType.objects.filter(
             agent_function=af,
             role=self.role)

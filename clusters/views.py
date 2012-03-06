@@ -141,7 +141,7 @@ def cluster_agents(request, cluster_id):
             cf.rsrcs = cf.function.resources.all()
             for res in cf.rsrcs:
                 res.agent_resource_list = res.function_resources_for_agent(agent)
-    
+    #import pdb; pdb.set_trace()
     return render_to_response("clusters/cluster_agents.html", {
         "cluster": cluster,
         "agents": agents,
