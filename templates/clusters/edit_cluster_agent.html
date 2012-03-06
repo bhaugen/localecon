@@ -62,8 +62,8 @@ p {font-size:0.7875em}
 				</tr>
 				{% for agent_res in res.agent_resource_list %}
 					<tr>
-						<td>&nbsp;</td>
-						<td><b>{{ agent.name }}</b>  {{ agent_res.role }} {{ agent_res.resource_type }} </td>
+						<td><b>{{ agent.name }} {{ agent_res.agent_function.function.name }}</b></td>
+						<td>{{ agent_res.role }} {{ agent_res.resource_type }} </td>
 						<td style="text-align: right;" >
 							{{ agent_res.quantity|intcomma }}
 						</td>
