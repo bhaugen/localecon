@@ -138,7 +138,7 @@ class FunctionResourceTable(object):
          self.columns = columns
          self.rows = rows
 
-def function_resource_table(cluster):
+def function_resource_table(cluster, toggle):
     frs = FunctionResourceType.objects.filter(function__cluster=cluster)
     functions = {}
     resources = []

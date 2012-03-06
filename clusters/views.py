@@ -341,7 +341,6 @@ def network(request, cluster_id, toggle="qty"):
     template_params["toggle_form"] = toggle_form
     if request.method == "POST":
         if toggle_form.is_valid():
-            #import pdb; pdb.set_trace()
             tog = toggle_form.cleaned_data["toggle"]
             return HttpResponseRedirect('/%s/%s/%s/'
                 % ('clusters/network', cluster_id, tog))
@@ -774,9 +773,17 @@ def new_function_resource(request, function_id):
         % ('clusters/editclusterfunctions', fun.cluster.id))
         
     
-def fr_table(request, cluster_id):
+def fr_table(request, cluster_id, toggle="qty"):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    frtable = function_resource_table(cluster)
+    toggle_form = QuantityValueForm(
+        initial={"toggle": toggle,},
+        data=request.POST or None)
+    frtable = function_resource_table(cluster, toggle)
+    if request.method == "POST":
+        if toggle_form.is_valid():
+            tog = toggle_form.cleaned_data["toggle"]
+            return HttpResponseRedirect('/%s/%s/%s/'
+                % ('clusters/frtable', cluster_id, tog))
     
     return render_to_response("clusters/fr_table.html",{ 
         "cluster": cluster,

@@ -13,7 +13,15 @@
 
 {% include "clusters/_cluster_nav.html" %}
 
-	<h3>Function-Resource Table for {{ cluster }}</h3>
+<div>
+	<span style="font-size: 130%;">Function-Resource Table {{ cluster }}</span>
+	<span style="margin-left: 3em; font-size: 90%; font-strength: bold; ">
+		Show: 
+		<form style="display: inline; margin: 0; padding: 0;" id="toggleForm" action="." method="POST">{% csrf_token %}
+			{{ toggle_form.toggle }}
+		</form>
+	</span>
+</div>
 
 
 	<p><i>Positive numbers = production, negative numbers = consumption</i></p>
@@ -42,4 +50,21 @@
 	</table>
  
 </div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+	$(".tog").change(function() 
+	{
+		//$("#toggleForm").submit();
+		this.form.submit();
+	});
+
+});
+	
+</script>
+
 {% endblock %} 
