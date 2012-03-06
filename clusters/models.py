@@ -539,10 +539,17 @@ class FunctionResourceType(models.Model):
         return answer
     
     def function_resources_for_agent(self, agent):
+        answer = []
         af = agent.functions.filter(function=self.function)
-        return AgentFunctionResourceType.objects.filter(
+        afrts = AgentFunctionResourceType.objects.filter(
             agent_function=af,
             role=self.role)
+        for afrt in afrts:
+            if afrt.resource_type.id == self.resource_type.id:
+                answer.append(afrt)
+            elif afrt.resource_type.is_child_of(self.resource_type):
+                answer.append(afrt)
+        return answer
 
     
 class FunctionResourceFlow(models.Model):
