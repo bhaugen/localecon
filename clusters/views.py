@@ -788,6 +788,7 @@ def fr_table(request, cluster_id, toggle="qty"):
     return render_to_response("clusters/fr_table.html",{ 
         "cluster": cluster,
         "frtable": frtable,
+        "toggle_form": toggle_form,
     }, context_instance=RequestContext(request))
     
 def send_email(request):
