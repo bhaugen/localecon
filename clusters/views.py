@@ -610,7 +610,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     for cf in agent.cluster_funs:
         cf.rsrcs = cf.function.resources.all()
         for res in cf.rsrcs:
-            agent_function = agent.functions.filter(function=res.function)
+            agent_function = agent.functions.get(function=res.function)
             init = {"agent_function_id": agent_function.id,}
             res.agent_resource_form = AgentFunctionResourceForm(res, initial=init)
             res.agent_resource_list = res.function_resources_for_agent(agent)       
