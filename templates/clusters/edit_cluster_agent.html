@@ -62,7 +62,7 @@ p {font-size:0.7875em}
 				</tr>
 				{% for agent_res in res.agent_resource_list %}
 					<tr>
-						<td><b>{{ agent.name }} {{ agent_res.agent_function.function.name }}</b></td>
+						<td style="text-align: right;" ><b>{{ agent.name }} {{ agent_res.agent_function.function.name }}</b></td>
 						<td>{{ agent_res.role }} {{ agent_res.resource_type }} </td>
 						<td style="text-align: right;" >
 							{{ agent_res.quantity|intcomma }}
@@ -73,7 +73,7 @@ p {font-size:0.7875em}
 					</tr>
 				{% endfor %}
 				<tr>
-					<th style="text-align: right;" >{{ agent.name }}</th>
+					<th style="text-align: right;" >{{ agent.name }} {{ res.agent_resource_form.function }} </th>
 					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=res.resource_type.id %}" method="POST">
 						{% csrf_token %}
 						<td>
