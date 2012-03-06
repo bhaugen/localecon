@@ -159,8 +159,12 @@ def function_resource_table(cluster, toggle):
         if fr.role == "consumes":
             mult = -1
         row_cell = resources.index(fr.resource_type) + 1
-        functions[fr.function][row_cell] = fr.quantity * mult
-        functions[fr.function][col_count + 1] += fr.quantity * mult
+        if toggle == "val":
+            functions[fr.function][row_cell] = fr.value * mult
+            functions[fr.function][col_count + 1] += fr.value * mult
+        else:
+            functions[fr.function][row_cell] = fr.quantity * mult
+            functions[fr.function][col_count + 1] += fr.quantity * mult
     rows = functions.values()
     rows.sort()
     col_totals = ["Totals",]
