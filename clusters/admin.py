@@ -92,6 +92,12 @@ class CommunityResourceTypeAdmin(admin.ModelAdmin):
 
 admin.site.register(CommunityResourceType, CommunityResourceTypeAdmin)
 
+class CommunityAgentAdmin(admin.ModelAdmin):
+    list_display = ('community', 'agent')
+    list_filter = ['community']
+    search_fields = ['community', 'agent']
+
+admin.site.register(CommunityAgent, CommunityAgentAdmin)
+
 admin.site.register(SiteSettings)
-admin.site.register(CommunityAgent)
 admin.site.register(Unit)
