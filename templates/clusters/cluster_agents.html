@@ -47,10 +47,10 @@ p {font-size:0.7875em}
 				<th>Function Resources:</th>
 				<th>Resource</th>
 				<th>Quantity</th>
-				<th>Value</th>
+				<th style="text-align: right;" >Value</th>
 			</tr>
 			{% for res in fun.rsrcs %}
-				<tr>
+				<tr style="background: #EAF2D3;" >
 					<td>&nbsp;</td>
 					<td> {{ res.role }} {{ res.resource_type }}</td>
 					<td style="text-align: right;" >{{ res.quantity|intcomma }}</td>
