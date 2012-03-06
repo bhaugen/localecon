@@ -50,11 +50,11 @@ p {font-size:0.7875em}
 				<th style="text-align: right;" >Value</th>
 			</tr>
 			{% for res in fun.rsrcs %}
-				<tr style="background: #EAF2D3;" >
+				<tr>
 					<td>&nbsp;</td>
-					<td> {{ res.role }} {{ res.resource_type }}</td>
-					<td style="text-align: right;" >{{ res.quantity|intcomma }}</td>
-					<td style="text-align: right;" >{{ res.value|intcomma }}</td>
+					<td style="background: #EAF2D3;" > {{ res.role }} {{ res.resource_type }}</td>
+					<td style="text-align: right; background: #EAF2D3;" >{{ res.quantity|intcomma }}</td>
+					<td style="text-align: right; background: #EAF2D3;" >{{ res.value|intcomma }}</td>
 				</tr>
 				{% for agent_res in res.agent_resource_list %}
 					<tr>
