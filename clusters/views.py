@@ -385,7 +385,11 @@ def flow_params(cluster, toggle):
             else:
                 edge.quantity += flow.quantity
         else:
-            edge = FlowEdge(flow.from_function, flow.to_function, flow.resource_type.name, flow.quantity)
+            if toggle == "val":
+                nbr += flow.value
+            else:
+                nbr += flow.quantity
+            edge = FlowEdge(flow.from_function, flow.to_function, flow.resource_type.name, nbr)
             edges.append(edge)
         prev = flow                  
     for edge in edges:
