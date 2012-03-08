@@ -90,7 +90,7 @@ var infoWin = new google.maps.InfoWindow({});
 <h3>Cluster: {{ cluster }}</h3>
 
 <p style="margin:0;">
-	{{ cluster.description }}
+	{{ cluster.description|urlize }}
 </p>
 
 <div id="map_canvas" style="height: 600px; width: 1000px;" ></div>
