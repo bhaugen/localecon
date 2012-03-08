@@ -538,6 +538,17 @@ class FunctionResourceType(models.Model):
                 answer.append(ar)
         return answer
     
+    def agent_function_resources(self):
+        answer = []
+        function_agents = self.function.agents.all()
+        for fa in function_agents:
+            for ar in fa.function_resources.all():
+                if ar.resource_type.id == self.resource_type.id and ar.role == self.role:
+                    answer.append(ar)
+                elif ar.resource_type.is_child_of(self.resource_type) and ar.role == self.role:
+                    answer.append(ar)
+        return answer
+    
     def function_resources_for_agent(self, agent):
         answer = []
         af = agent.functions.filter(function=self.function)
