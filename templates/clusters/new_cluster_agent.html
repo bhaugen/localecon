@@ -71,7 +71,7 @@ var agentNames = html_unescape("{{ agent_names }}").split("~");
 	
 var geocoder;
 var map;
-var old_marker;
+var old_marker = new google.maps.Marker();
 	
   function initialize() {
     geocoder = new google.maps.Geocoder();
