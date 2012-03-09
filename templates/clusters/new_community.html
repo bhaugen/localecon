@@ -73,10 +73,9 @@ var old_marker = new google.maps.Marker();
 	
   function initialize() {
     geocoder = new google.maps.Geocoder();
-    var latlng = new google.maps.LatLng(-34.397, 150.644);
     var myOptions = {
-      center: new google.maps.LatLng({{ map_center }}),
-      zoom: {{ zoom_level }},
+      center: new google.maps.LatLng(0,0),
+      zoom: 0,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
