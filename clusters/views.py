@@ -576,6 +576,7 @@ def new_resource(request, cluster_id):
 @login_required    
 def new_community(request):
     form = CommunityForm(data=request.POST or None)
+    map_key = settings.GOOGLE_API_KEY
     if request.method == "POST":
         #import pdb; pdb.set_trace()
         if form.is_valid():
@@ -583,12 +584,17 @@ def new_community(request):
             return redirect("clusters")
     return render_to_response("clusters/new_community.html",{ 
         "form": form,
+        "map_key": map_key,
     }, context_instance=RequestContext(request))
     
 @login_required    
 def edit_community(request, community_id):
     community = get_object_or_404(Community, pk=community_id)
     form = CommunityForm(instance=community, data=request.POST or None)
+    map_center = "0, 0"
+    if community.latitude and community.longitude:
+        map_center = ",".join([str(community.latitude), str(community.longitude)])
+    map_key = settings.GOOGLE_API_KEY
     if request.method == "POST":
         #import pdb; pdb.set_trace()
         if form.is_valid():
@@ -597,6 +603,8 @@ def edit_community(request, community_id):
     return render_to_response("clusters/edit_community.html",{ 
         "form": form,
         "community": community,
+        "map_center": map_center,
+        "map_key": map_key,
     }, context_instance=RequestContext(request))    
 
 @login_required    

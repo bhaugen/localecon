@@ -74,7 +74,7 @@ var old_marker = new google.maps.Marker();
   function initialize() {
     geocoder = new google.maps.Geocoder();
     var myOptions = {
-      center: new google.maps.LatLng({{ community.map_center }}),
+      center: new google.maps.LatLng({{ map_center }}),
       zoom: {{ community.zoom_level }},
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
