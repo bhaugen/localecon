@@ -577,7 +577,7 @@ def new_resource(request, cluster_id):
 def new_community(request):
     form = CommunityForm(data=request.POST or None)
     if request.method == "POST":
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         if form.is_valid():
             form.save()
             return redirect("clusters")
@@ -585,6 +585,20 @@ def new_community(request):
         "form": form,
     }, context_instance=RequestContext(request))
     
+@login_required    
+def edit_community(request, community_id):
+    community = get_object_or_404(Community, pk=community_id)
+    form = CommunityForm(instance=community, data=request.POST or None)
+    if request.method == "POST":
+        #import pdb; pdb.set_trace()
+        if form.is_valid():
+            form.save()
+            return redirect("clusters")
+    return render_to_response("clusters/edit_community.html",{ 
+        "form": form,
+        "community": community,
+    }, context_instance=RequestContext(request))    
+
 @login_required    
 def new_cluster_agent(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
