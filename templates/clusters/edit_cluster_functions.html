@@ -155,12 +155,13 @@ p {font-size:0.7875em}
 		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
 				<th style="text-align: right;" >New Resource:</th>
-				<td>{{ new_resource_form.name }}<span id="name-comment" style="color:green;" ></span></td>
+				<td>{{ new_resource_form.name }}</td>
+				<td><span id="name-comment" style="color:green;" ></span></td>
 			</tr>
 			<tr>
 				<th style="text-align: right;" >Unit of qty:</th>
 				<td>{{ new_resource_form.unit_of_quantity }}</td>
-				<td><input type="submit" name="submit" value="Add" /></td>
+				<td><input id="submit_new_resource" type="submit" name="submit_new_resource" value="Add" /></td>
 			</tr>
 			<input type="hidden" name="next" value="{% url edit_cluster_functions cluster_id=cluster.id %}" />
 		</form>
@@ -330,7 +331,7 @@ function getUnit(event)
 					$("#id_unit_of_quantity").val(unit);
 					$("#id_unit_of_quantity").attr("disabled", "disabled");
 					$("#name-comment").html("Existing Resource which you may re-use");
-					$("#submit").attr("value", "Select");
+					$("#submit_new_resource").attr("value", "Select");
 				});
 			break;
 		}
