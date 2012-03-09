@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}
+     New Community
+{% endblock %}
+
+{% block extra_head %}
+
+
+<style>
+
+body {font-size:90%}
+h1 {font-size:2.25em}
+h2 {font-size:1.6875em}
+p {font-size:0.7875em}
+	
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<h3>New Community</h3>
+
+{% include "clusters/_cluster_nav.html" %}
+
+	<form action="." method="POST" >{% csrf_token %}
+		<table style="padding-top: 1em;" >
+			<tr>
+				<th style="text-align: right; " >Name:</th>
+				<td>{{ form.name }} <span id="name-comment" style="color:green;" ></span></td>
+			</tr>
+			<tr>
+				<th style="text-align: right; " >Map Center:</th>
+				<td>{{ form.map_center }}</td>
+			</tr>
+			<tr>
+				<th style="text-align: right; " >Map Zoom Level</th>
+				<td>{{ form.map_zoom_level }}</td>
+			</tr>
+			<tr>
+				<th style="text-align: right; " >Unit of Value</th>
+				<td>{{ form.unit_of_value }}</td>
+			</tr>
+		</table>
+		{{ form.latitude }}
+		{{ form.longitude }}
+		<input id="submit" type="submit" value="Submit" />
+	</form>
+<div id="map_canvas" style="width: 480px; height: 320px;"></div>
+
+<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key={{ map_key }}&sensor=false">
+</script>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="/site_media/css/jquery.autocomplete.css" type="text/css" />
+  <script type="text/javascript" src="/site_media/scripts/jquery.bgiframe.min.js"></script>
+
+  <script type="text/javascript" src="/site_media/scripts/jquery.autocomplete.js"></script>
+
+
+<script>
+	
+var geocoder;
+var map;
+var old_marker = new google.maps.Marker();
+	
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+      center: new google.maps.LatLng({{ map_center }}),
+      zoom: {{ zoom_level }},
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  }
+
+  function codeAddress() {
+	old_marker.setMap(null);
+    var address = document.getElementById("id_map_center").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var loc = results[0].geometry.location;
+		var lat = loc.lat()
+		var lng = loc.lng();
+		$("#id_latitude").val(lat);
+		$("#id_longitude").val(lng);
+        map.setCenter(loc);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: loc
+        });
+		old_marker = marker;
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+	
+	function reZoom()
+	{
+		var zoom = $("#id_map_zoom_level").val();
+		map.setZoom(zoom);
+	}
+
+$(document).ready(function(){
+	initialize();
+	$("#id_map_center").blur(codeAddress);
+	$("#id_map_zoom_level").blur(reZoom);
+});
+	
+	
+ </script>
+
+
+{% endblock %}

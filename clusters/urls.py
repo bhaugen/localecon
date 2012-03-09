@@ -1,6 +1,10 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
+                       
+    #communities
+    url(r'^newcommunity/$', 'clusters.views.new_community', name="new_community"),
+    
     # clusters
     url(r'^$', 'clusters.views.clusters', name="clusters"),
     url(r'^cluster/(?P<cluster_id>\d+)/$', 'clusters.views.cluster', name="cluster"),

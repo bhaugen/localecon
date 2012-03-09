@@ -8,6 +8,16 @@ class EconomicFunctionForm(forms.ModelForm):
     class Meta:
         model = EconomicFunction
         fields = ('name',)
+
+
+class CommunityForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput(attrs={'size': '40',}))
+    map_center = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '80',}))
+    latitude = forms.FloatField(required=False, widget=forms.HiddenInput)
+    longitude = forms.FloatField(required=False, widget=forms.HiddenInput)
+    
+    class Meta:
+        model = Community
         
 
 class EconomicResourceTypeForm(forms.ModelForm):

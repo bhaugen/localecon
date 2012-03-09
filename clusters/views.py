@@ -572,6 +572,14 @@ def new_resource(request, cluster_id):
         "form": form,
     }, context_instance=RequestContext(request))
     
+    
+@login_required    
+def new_community(request):
+    form = CommunityForm(data=request.POST or None)
+    return render_to_response("clusters/new_community.html",{ 
+        "form": form,
+    }, context_instance=RequestContext(request))
+    
 @login_required    
 def new_cluster_agent(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
