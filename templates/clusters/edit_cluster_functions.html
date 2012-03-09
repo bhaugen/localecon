@@ -313,7 +313,7 @@ p {font-size:0.7875em}
 
 function getUnit(event)
 {
-	$("#id_unit_of_quantity").attr("value", "");
+	//$("#id_unit_of_quantity").attr("value", "");
 	$("#id_unit_of_quantity").attr("disabled", "");
 	$("#name-comment").html("");
 	$("#submit").attr("value", "Add");
@@ -327,8 +327,7 @@ function getUnit(event)
 			$.get(jsonUrl,
 				function(data){
 					var unit = eval(data)[0].fields.unit_of_quantity;
-					var field = $("#id_unit_of_quantity");
-					$("#id_unit_of_quantity").attr("value", unit);
+					$("#id_unit_of_quantity").val(unit);
 					$("#id_unit_of_quantity").attr("disabled", "disabled");
 					$("#name-comment").html("Existing Resource which you may re-use");
 					$("#submit").attr("value", "Select");
