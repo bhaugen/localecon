@@ -577,6 +577,7 @@ def new_resource(request, cluster_id):
 def new_community(request):
     form = CommunityForm(data=request.POST or None)
     if request.method == "POST":
+        import pdb; pdb.set_trace()
         if form.is_valid():
             form.save()
             return redirect("clusters")
