@@ -14,7 +14,7 @@ class EconomicResourceTypeForm(forms.ModelForm):
     
     class Meta:
         model = EconomicResourceType
-        fields = ('name',)
+        fields = ('name', 'unit_of_quantity')
         
         
 class ParentedResourceTypeForm(forms.ModelForm):
