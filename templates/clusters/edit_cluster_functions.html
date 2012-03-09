@@ -155,7 +155,11 @@ p {font-size:0.7875em}
 		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
 				<th style="text-align: right;" >New Resource:</th>
-				<td>{{ new_resource_form.name }}</td>
+				<td>{{ new_resource_form.name }}<span id="name-comment" style="color:green;" ></span></td>
+			</tr>
+			<tr>
+				<th style="text-align: right;" >Unit of qty:</th>
+				<td>{{ new_resource_form.unit_of_quantity }}</td>
 				<td><input type="submit" name="submit" value="Add" /></td>
 			</tr>
 			<input type="hidden" name="next" value="{% url edit_cluster_functions cluster_id=cluster.id %}" />
@@ -213,10 +217,12 @@ p {font-size:0.7875em}
 
   <script type="text/javascript" src="/site_media/scripts/jquery.autocomplete.js"></script>
 
-
 <script>
+	
 	$(document).ready(function()
 	{
+		$("#id_resource-name").blur(getUnit);
+	
 		$(".quantity").blur(function() 
 		{
 			var quantity = this.value;
@@ -305,6 +311,32 @@ p {font-size:0.7875em}
     }
 });
 
+function getUnit(event)
+{
+	$("#id_unit_of_quantity").attr("value", "");
+	$("#id_unit_of_quantity").attr("disabled", "");
+	$("#name-comment").html("");
+	$("#submit").attr("value", "Add");
+	
+	var name = event.target.value;
+	for(i=0;i<data.length;i++)
+	{
+		if(data[i]==name)
+		{
+			var jsonUrl = encodeURI("/clusters/jsonresourceunit/" + name + "/");
+			$.get(jsonUrl,
+				function(data){
+					var unit = eval(data)[0].fields.unit_of_quantity;
+					$("#id_unit_of_quantity").attr("value", address);
+					$("#id_unit_of_quantity").attr("disabled", "disabled");
+					$("#name-comment").html("Existing Resource which you may re-use");
+					$("#submit").attr("value", "Select");
+				});
+			break;
+		}
+
+	}
+}
 	
 	});
 </script>

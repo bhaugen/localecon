@@ -646,6 +646,11 @@ def json_agent_address(request, agent_name):
     data = serializers.serialize("json", EconomicAgent.objects.filter(name=agent_name), fields=('address',))    
     return HttpResponse(data, mimetype="text/json-comment-filtered")
 
+def json_resource_unit(request, name):
+    # Note: serializer requires an iterable, not a single object. Thus filter rather than get.  
+    data = serializers.serialize("json", EconomicResourceType.objects.filter(name=name), fields=('unit_of_quantity',))    
+    return HttpResponse(data, mimetype="text/json-comment-filtered")
+
 def change_function_resource_amount(request):
     id = request.POST.get("id")
     quantity = request.POST.get("quantity")
