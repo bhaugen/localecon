@@ -114,7 +114,7 @@ $(document).ready(function(){
 function getAddress(event)
 {
 	$("#id_address").attr("value", "");
-	$("#id_address").attr("disabled", "");
+	$("#id_address").attr("disabled", false);
 	$("#name-comment").html("");
 	$("#submit").attr("value", "Submit");
 	
@@ -128,7 +128,7 @@ function getAddress(event)
 				function(data){
 					var address = eval(data)[0].fields.address;
 					$("#id_address").attr("value", address);
-					$("#id_address").attr("disabled", "disabled");
+					$("#id_address").attr("disabled", true);
 					$("#name-comment").html("Existing Agent which you may re-use");
 					$("#submit").attr("value", "Re-use in this cluster");
 					codeAddress();

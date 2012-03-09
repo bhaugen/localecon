@@ -315,7 +315,7 @@ p {font-size:0.7875em}
 function getUnit(event)
 {
 	//$("#id_resource-unit_of_quantity").attr("value", "");
-	$("#id_resource-unit_of_quantity").attr("disabled", "");
+	$("#id_resource-unit_of_quantity").attr("disabled", false);
 	$("#name-comment").html("");
 	$("#submit").attr("value", "Add");
 	
@@ -329,7 +329,7 @@ function getUnit(event)
 				function(data){
 					var unit = eval(data)[0].fields.unit_of_quantity;
 					$("#id_resource-unit_of_quantity").val(unit);
-					$("#id_resource-unit_of_quantity").attr("disabled", "disabled");
+					$("#id_resource-unit_of_quantity").attr("disabled", true);
 					$("#name-comment").html("Existing Resource which you may re-use");
 					$("#submit_new_resource").attr("value", "Re-use in this cluster");
 				});
