@@ -615,7 +615,7 @@ def edit_cluster(request, cluster_id):
             cluster.community = community
             cluster.save()
             return HttpResponseRedirect('/%s/%s/'
-               % ('clusters/cluster', cluster_id)
+               % ('clusters/cluster', cluster_id))
     return render_to_response("clusters/new_cluster.html",{ 
         "form": form,
         "community": community,
