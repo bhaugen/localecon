@@ -24,7 +24,9 @@ p {font-size:0.7875em}
 
 <h3>New Community</h3>
 
+{% comment %}
 {% include "clusters/_cluster_nav.html" %}
+{% endcomment %}
 
 	<form action="." method="POST" >{% csrf_token %}
 		<table style="padding-top: 1em;" >
