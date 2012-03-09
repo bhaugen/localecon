@@ -8,10 +8,17 @@
 {% block content %}
 <div style="float: left; ">
 	<h3>Communities and Clusters</h3>
+	
+	<form action="{% url new_cluster  %}" method="GET">
+    	<input type="submit" value="New Cluster" />
+	</form>
 
 		<ul>
 			{% for community in communities  %}
-				<li>{{ community }} Community</li>
+				<li>
+					{{ community }} Community&nbsp;&nbsp;
+					<a href="{% url edit_community community_id=community.id %}">Edit</a>
+				</li>
 				{% if community.clusters.all %}
 					<ul>
 						{% for cluster in community.clusters.all %}

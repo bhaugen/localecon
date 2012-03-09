@@ -24,9 +24,7 @@ p {font-size:0.7875em}
 
 <h3>Edit Community {{ community.name }}</h3>
 
-{% comment %}
-{% include "clusters/_cluster_nav.html" %}
-{% endcomment %}
+<a href="{% url clusters %}">Back to All Clusters</a>
 
 	<form action="." method="POST" >{% csrf_token %}
 		<table style="padding-top: 1em;" >
