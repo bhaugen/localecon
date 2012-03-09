@@ -314,8 +314,8 @@ p {font-size:0.7875em}
 
 function getUnit(event)
 {
-	//$("#id_unit_of_quantity").attr("value", "");
-	$("#id_unit_of_quantity").attr("disabled", "");
+	//$("#id_resource-unit_of_quantity").attr("value", "");
+	$("#id_resource-unit_of_quantity").attr("disabled", "");
 	$("#name-comment").html("");
 	$("#submit").attr("value", "Add");
 	
@@ -328,10 +328,8 @@ function getUnit(event)
 			$.get(jsonUrl,
 				function(data){
 					var unit = eval(data)[0].fields.unit_of_quantity;
-					var uoq_value = $("#id_unit_of_quantity").val();
-					$("#id_unit_of_quantity").val(unit);
-					uoq_value = $("#id_unit_of_quantity").val();
-					$("#id_unit_of_quantity").attr("disabled", "disabled");
+					$("#id_resource-unit_of_quantity").val(unit);
+					$("#id_resource-unit_of_quantity").attr("disabled", "disabled");
 					$("#name-comment").html("Existing Resource which you may re-use");
 					$("#submit_new_resource").attr("value", "Select");
 				});
