@@ -152,7 +152,11 @@ def cluster_agents(request, cluster_id):
 @login_required
 def edit_cluster_functions(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    symbol = cluster.community.unit_of_value.symbol
+    symbol = "$"
+    try:
+        symbol = cluster.community.unit_of_value.symbol
+    except:
+        pass
     new_function_form = EconomicFunctionForm(prefix="function")
     new_resource_form = EconomicResourceTypeForm(prefix="resource")
     
