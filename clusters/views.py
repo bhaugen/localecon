@@ -588,6 +588,22 @@ def new_community(request):
     }, context_instance=RequestContext(request))
     
 @login_required    
+def new_cluster(request, community_id):
+    community = get_object_or_404(Community, pk=community_id)
+    form = ClusterForm(data=request.POST or None)
+    if request.method == "POST":
+        #import pdb; pdb.set_trace()
+        if form.is_valid():
+            cluster = form.save(commit=False)
+            cluster.community = community
+            cluster.save()
+            return redirect("clusters")
+    return render_to_response("clusters/new_cluster.html",{ 
+        "form": form,
+        "community": community,
+    }, context_instance=RequestContext(request))
+    
+@login_required    
 def edit_community(request, community_id):
     community = get_object_or_404(Community, pk=community_id)
     form = CommunityForm(instance=community, data=request.POST or None)

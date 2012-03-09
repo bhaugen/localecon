@@ -10,6 +10,14 @@ class EconomicFunctionForm(forms.ModelForm):
         fields = ('name',)
 
 
+class ClusterForm(forms.ModelForm):
+    
+    class Meta:
+        model = Cluster
+        fields = ('name', 'description')
+
+
+
 class CommunityForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'size': '40',}))
     map_center = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '80',}))

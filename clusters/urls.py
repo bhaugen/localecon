@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     
     # clusters
     url(r'^$', 'clusters.views.clusters', name="clusters"),
+    url(r'^newcluster/(?P<community_id>\d+)/$', 'clusters.views.new_cluster', name="new_cluster"),
     url(r'^cluster/(?P<cluster_id>\d+)/$', 'clusters.views.cluster', name="cluster"),
     url(r'^rgraph/(?P<cluster_id>\d+)/$', 'clusters.views.radial_graph', name="radial_graph"),
     url(r'^iotable/(?P<cluster_id>\d+)/$', 'clusters.views.iotable', name="iotable"),

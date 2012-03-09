@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}
+     New Cluster in Community {{ community }}
+{% endblock %}
+
+{% block extra_head %}
+
+
+<style>
+
+body {font-size:90%}
+h1 {font-size:2.25em}
+h2 {font-size:1.6875em}
+p {font-size:0.7875em}
+	
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<h3>New Cluster in Community {{ community }}</h3>
+
+<a href="{% url clusters %}">Back to All Clusters</a>
+
+	<form action="." method="POST" >{% csrf_token %}
+		<table style="padding-top: 1em;" >
+			<tr>
+				<th style="text-align: right; " >Name:</th>
+				<td>{{ form.name }} <span id="name-comment" style="color:green;" ></span></td>
+			</tr>
+			<tr>
+				<th style="text-align: right; " >Description:</th>
+				<td>{{ form.description }}</td>
+			</tr>
+		</table>
+		<input id="submit" type="submit" value="Submit" />
+	</form>
+
+
+{% endblock %}
