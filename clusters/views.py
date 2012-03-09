@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -576,6 +576,10 @@ def new_resource(request, cluster_id):
 @login_required    
 def new_community(request):
     form = CommunityForm(data=request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("clusters")
     return render_to_response("clusters/new_community.html",{ 
         "form": form,
     }, context_instance=RequestContext(request))
