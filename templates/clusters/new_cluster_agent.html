@@ -85,7 +85,7 @@ var marker;
   }
 
   function codeAddress() {
-	market.setMap(null);
+	marker.setMap(null);
     var address = document.getElementById("id_address").value;
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
