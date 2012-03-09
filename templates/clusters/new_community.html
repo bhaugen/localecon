@@ -106,7 +106,7 @@ var old_marker = new google.maps.Marker();
 	function reZoom()
 	{
 		var zoom = $("#id_map_zoom_level").val();
-		map.setZoom(zoom);
+		map.setZoom(parseInt(zoom));
 	}
 
 $(document).ready(function(){

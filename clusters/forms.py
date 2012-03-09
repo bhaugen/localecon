@@ -15,6 +15,7 @@ class CommunityForm(forms.ModelForm):
     map_center = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '80',}))
     latitude = forms.FloatField(required=False, widget=forms.HiddenInput)
     longitude = forms.FloatField(required=False, widget=forms.HiddenInput)
+    map_zoom_level = forms.IntegerField(widget=forms.TextInput(attrs={'size': '2',}))
     
     class Meta:
         model = Community
