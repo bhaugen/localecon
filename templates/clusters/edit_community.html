@@ -75,7 +75,7 @@ var old_marker = new google.maps.Marker();
     geocoder = new google.maps.Geocoder();
     var myOptions = {
       center: new google.maps.LatLng({{ map_center }}),
-      zoom: {{ community.zoom_level }},
+      zoom: {{ community.map_zoom_level }},
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
