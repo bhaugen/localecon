@@ -71,7 +71,7 @@ var agentNames = html_unescape("{{ agent_names }}").split("~");
 	
 var geocoder;
 var map;
-var marker;
+var old_marker;
 	
   function initialize() {
     geocoder = new google.maps.Geocoder();
@@ -85,7 +85,7 @@ var marker;
   }
 
   function codeAddress() {
-	marker.setMap(null);
+	old_marker.setMap(null):
     var address = document.getElementById("id_address").value;
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
@@ -95,10 +95,11 @@ var marker;
 		$("#id_latitude").val(lat);
 		$("#id_longitude").val(lng);
         map.setCenter(loc);
-        marker = new google.maps.Marker({
+        var marker = new google.maps.Marker({
             map: map,
             position: loc
         });
+		old_marker = marker;
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }
