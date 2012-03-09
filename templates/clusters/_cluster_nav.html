@@ -84,7 +84,7 @@ ul#tabnav a:hover
 <div style="float: left; ">
 	<ul id="tabnav" class="do-not-print" >
 		{% if user.is_authenticated %}
-		<li class="cluster" ><a href="{% url cluster cluster_id=cluster.id %}">Edit Cluster</a></li>
+		<li class="cluster" ><a href="{% url edit_cluster cluster_id=cluster.id %}">Edit Cluster</a></li>
 		{% endif %}
 		<li class="map" ><a href="{% url cluster cluster_id=cluster.id %}">Cluster Map</a></li>
 		<li class="functions" ><a href="{% url economic_functions cluster_id=cluster.id %}">Functions</a></li>
