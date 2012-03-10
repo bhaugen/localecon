@@ -616,7 +616,7 @@ def edit_cluster(request, cluster_id):
             cluster.save()
             return HttpResponseRedirect('/%s/%s/'
                % ('clusters/cluster', cluster_id))
-    return render_to_response("clusters/new_cluster.html",{ 
+    return render_to_response("clusters/edit_cluster.html",{ 
         "form": form,
         "cluster": cluster,
     }, context_instance=RequestContext(request))
