@@ -618,7 +618,7 @@ def edit_cluster(request, cluster_id):
                % ('clusters/cluster', cluster_id))
     return render_to_response("clusters/new_cluster.html",{ 
         "form": form,
-        "community": community,
+        "cluster": cluster,
     }, context_instance=RequestContext(request))
     
 @login_required    
