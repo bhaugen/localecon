@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Login" %}{% endblock %}
+
+{% block content %}
+    <div class="clearfix padtop">
+    <div id="basic-form" >
+    <fieldset>
+        <legend>{% trans "Log In" %}</legend>
+        
+        {% if user.is_authenticated %}
+            <p><span class="warning">{% trans "Note" %}</span>: {% blocktrans %}you are already logged in as {{ user }}.{% endblocktrans %}</p>
+        {% endif %}
+        
+        <form class="login" method="POST" action="">{% csrf_token %}
+            <table>
+				<tr>
+					<td colspan="2" style="font-size: 110%; font-weight: bold; font-style: italic;" >
+						Username and password are both case-sensitive
+					</td>
+				</tr>
+                <tr><td colspan="2">{{ form.non_field_errors }}</td></tr>
+                {% for field in form %}
+                    {% if field.errors %}<tr><td colspan="2">{{ field.errors }}</td></tr>{% endif %}
+                    <tr><th style="text-align: right;" >{{ field.label_tag }}</th><td>{{ field }}</td></tr>
+                    {% if field.help_text %}<tr><td colspan="2"><span>{{ field.help_text }}</span></td></tr>{% endif %}
+                {% endfor %}
+		{% comment %}	
+		<input type="hidden" name="next" value="{% url m_calendar 1 %}" />
+		{% endcomment %}
+                <tr><td></td><td><input type="submit" value="{% trans "Log in &raquo;" %}" class="button" /></td></tr>
+            </table>
+            <a href="{% url account.views.password_reset %}">{% trans "Forgot password?" %}</a>
+        </form>
+        </fieldset>
+    </div>
+    
+    
+    </div>
+{% endblock %}
+
+{% block extra_body %}
+<script>
+   // $("#id_username").focus();
+</script>
+{% endblock %}
