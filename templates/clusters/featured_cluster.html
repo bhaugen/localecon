@@ -135,9 +135,9 @@ var Log = {
 <div style="float: right; width: 10%;">
 	{% if user.is_authenticated %}
 		{{ user }} <a href="{% url acct_logout %}">Logout</a><br />
-		<a href="/help/">Help</a>
+		<a href="/help/">Help</a><br />
 		{% if user.is_staff %}
-			<br /><a href="/admin">Admin</a>
+			<a href="/admin">Admin</a><br />
 		{% endif %}
 		<a href="/about/">About</a><br />
 		<a href="{% url clusters %}">All Clusters</a>
