@@ -26,8 +26,8 @@ def login(request, form_class=LoginForm, template_name="account/login.html"):
         form = form_class(request.POST)
         user = form.login(request)
         if user:
-            #return HttpResponseRedirect(redirect_to)
-            return redirect("clusters")
+            return HttpResponseRedirect(redirect_to)
+            #return redirect("clusters")
     else:
         form = form_class()
     return render_to_response(template_name, {
