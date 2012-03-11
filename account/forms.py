@@ -8,7 +8,9 @@ from django.utils.encoding import smart_unicode
 
 #from misc.utils import get_send_mail
 #send_mail = get_send_mail()
-from mailer import send_mail
+#from mailer import send_mail
+from django.core.mail import send_mail
+
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
