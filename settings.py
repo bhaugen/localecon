@@ -93,8 +93,8 @@ INSTALLED_APPS = (
 
 GOOGLE_API_KEY="AIzaSyAc0-doJQKo1hkahziXvU9kJ5cUYnBTCsU"
 
-LOGIN_URL = "/account/login"
-LOGIN_REDIRECT_URLNAME = "clusters/"
+LOGIN_URL = "/account/login/"
+LOGIN_REDIRECT_URLNAME = "/clusters/"
 
 try:
     from local_settings import *
