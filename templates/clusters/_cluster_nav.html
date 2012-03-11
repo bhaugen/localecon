@@ -105,8 +105,11 @@ ul#tabnav a:hover
 </div>
 <div style="float: right; width: 10%;">
 	{% if user.is_authenticated %}
-		<a href="/admin">Admin</a><br />
+		{{ user }} <a href="{% url acct_logout %}">Logout</a>
 		<a href="/help/">Help</a>
+		{% if user.is_staff %}
+			<a href="/admin">Admin</a><br />
+		{% endif %}
 	{% else %}
 		<a href="/account/login/">Log in</a>
 	{% endif %}
