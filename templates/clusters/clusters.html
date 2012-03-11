@@ -52,10 +52,13 @@
 </div>
 <div style="float: right; width: 10%;">
 	{% if user.is_authenticated %}
-		<a href="/admin">Admin</a><br />
-		<a href="/help/">Help</a><br />
+		{{ user }} <a href="{% url acct_logout %}">Logout</a><br />
+		<a href="/help/">Help</a>
+		{% if user.is_staff %}
+			<br /><a href="/admin">Admin</a>
+		{% endif %}
 	{% else %}
-		<a href="/account/login/">Log in</a><br />
+		<a href="{% url acct_login %}">Log in</a>
 	{% endif %}
 </div>
 <div style="clear: both;"></div>
