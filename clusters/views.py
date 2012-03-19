@@ -275,7 +275,7 @@ class Edge(object):
 
 def agent_network_params(cluster, toggle):
     template_params = {}
-    frts = AgentResourceType.objects.filter(
+    frts = AgentFunctionResourceType.objects.filter(
         function__cluster=cluster)
     edges = []
     rtypes = []
