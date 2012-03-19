@@ -294,8 +294,6 @@ def network_params(cluster, toggle):
                     edges.append(Edge(v.resource_type, fn, v.quantity))
             for v in fn.outputs():
                 rtypes.append(v.resource_type)
-                #total += v.quantity
-                #edges.append(Edge(fn, v.resource_type, v.quantity))
                 if toggle == "val":
                     total += v.value
                     edges.append(Edge(fn, v.resource_type, v.value))
@@ -309,9 +307,6 @@ def network_params(cluster, toggle):
         edges = []
         for flow in flows:
             nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
-            #total += flow.quantity
-            #edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity))
-            #edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity))
             if toggle == "val":
                 total += flow.value
                 edges.append(Edge(flow.from_function, flow.resource_type, flow.value))
