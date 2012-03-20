@@ -399,6 +399,15 @@ def network(request, cluster_id, toggle="qty", level="fn"):
         level_form = FunctionAgentForm(
             initial={"level": level,},
             data=request.POST or None)
+    if request.method == "POST":
+        if level_form:
+            if level_form.is_valid():
+                level = level_form.cleaned_data["level"]
+        else:
+            if toggle_form.is_valid():
+                toggle = toggle_form.cleaned_data["toggle"]
+        return HttpResponseRedirect('/%s/%s/%s/%s/'
+                    % ('clusters/network', cluster_id, toggle, level))
     if level == "agt":
         template_params = agent_network_params(cluster, toggle)
     else:
@@ -406,18 +415,15 @@ def network(request, cluster_id, toggle="qty", level="fn"):
     template_params["use_window_size"] = True
     template_params["toggle_form"] = toggle_form
     template_params["level_form"] = level_form
-    if request.method == "POST":
-        if level_form:
-            if toggle_form.is_valid() and level_form.is_valid:
-                tog = toggle_form.cleaned_data["toggle"]
-                lvl = level_form.cleaned_data["level"]
-                return HttpResponseRedirect('/%s/%s/%s/%s/'
-                    % ('clusters/network', cluster_id, tog, lvl))
-        else:
-            if toggle_form.is_valid():
-                tog = toggle_form.cleaned_data["toggle"]
-                return HttpResponseRedirect('/%s/%s/%s/'
-                    % ('clusters/network', cluster_id, tog))
+    #if request.method == "POST":
+    #    if level_form:
+    #        if level_form.is_valid():
+    #            level = level_form.cleaned_data["level"]
+    #    else:
+    #        if toggle_form.is_valid():
+    #            toggle = toggle_form.cleaned_data["toggle"]
+    #    return HttpResponseRedirect('/%s/%s/%s/%s/'
+    #                % ('clusters/network', cluster_id, toggle, level))
     return render_to_response("clusters/network.html",
         template_params,
         context_instance=RequestContext(request))
