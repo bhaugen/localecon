@@ -826,6 +826,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
                 res.agent_resource_form = AgentFunctionResourceForm(res, initial=init)
                 res.agent_resource_list = res.function_resources_for_agent(agent)
         else:
+            init = {"agent_function_id": cf.id,}
             cf.agent_resource_form = AgentFunctionResourceForm(initial=init)
     new_function_form = AgentFunctionCreationForm(prefix="function")
     resource_names = '~'.join([res.name for res in EconomicResourceType.objects.all()])
