@@ -824,10 +824,16 @@ def edit_cluster_agent(request, cluster_id, agent_id):
                 agent_function = agent.functions.get(function=res.function)
                 init = {"agent_function_id": agent_function.id,}
                 res.agent_resource_form = AgentFunctionResourceForm(res, initial=init)
-                res.agent_resource_list = res.function_resources_for_agent(agent)
+                res.agent_resource_list = res.function_resources_for_agent(agent)                
         else:
             init = {"agent_function_id": cf.id,}
             cf.agent_resource_form = AgentFunctionResourceForm(initial=init)
+        outliers = []
+        candidates = cf.function_resources.all()
+        for c in candidates:
+            if c.is_outlier():
+                outliers.append(c)
+        cf.outliers = outliers
     new_function_form = AgentFunctionCreationForm(prefix="function")
     resource_names = '~'.join([res.name for res in EconomicResourceType.objects.all()])
     function_names = '~'.join([fn.name for fn in cluster.functions.all()])
