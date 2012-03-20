@@ -52,7 +52,7 @@ $(document).ready(function() {
 	
 
 	{% for node in nodes %}
-		g.addNode( "{{ node.node_id }}", {label: "{{ node.name|escape }}", render:render } );
+		g.addNode( "{{ node.node_id }}", {label: "{{ node.name|safe }}", render:render } );
 	{% endfor %}
 
 	{% comment %}
