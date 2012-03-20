@@ -669,7 +669,7 @@ def inline_new_agent_function(request, cluster_id, agent_id):
                 cluster=cluster,
                 name=name)
             if funs:
-                fun = fns[0]
+                fun = funs[0]
             else:
                 fun = EconomicFunction(
                     name=name,
