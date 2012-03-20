@@ -947,7 +947,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             parent = None
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = AgentFunctionResourceForm(function_resource=None, data=request.POST)
-        
+        import pdb; pdb.set_trace()
         if form.is_valid():
             data = form.cleaned_data
             name = data['name']
