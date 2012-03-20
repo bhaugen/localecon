@@ -398,7 +398,7 @@ def network(request, cluster_id, toggle="qty", level="fn"):
         level_form = FunctionAgentForm(
             initial={"level": level,},
             data=request.POST or None)
-    if lvl == "agt":
+    if level == "agt":
         template_params = agent_network_params(cluster, toggle)
     else:
         template_params = network_params(cluster, toggle)
