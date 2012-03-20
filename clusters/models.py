@@ -603,6 +603,18 @@ class EconomicAgent(models.Model):
     def outputs(self):
         return self.resources.filter(role="produces")
     
+    def function_inputs(self, cluster):
+        return AgentFunctionResourceType.objects.filter(
+            agent_function__agent=self, 
+            agent_function__function__cluster=cluster,
+            role="consumes")
+    
+    def function_outputs(self, cluster):
+        return AgentFunctionResourceType.objects.filter(
+            agent_function__agent=self, 
+            agent_function__function__cluster=cluster,
+            role="produces")
+    
     def lat_lng(self):
         return ",".join([str(self.latitude), str(self.longitude)])
     

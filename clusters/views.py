@@ -282,23 +282,23 @@ def agent_network_params(cluster, toggle):
     total = 0.0
     if frts:
         nodes = list(cluster.agents())
-        for fn in nodes:
-            for v in fn.inputs():
+        for agt in nodes:
+            for v in agt.function_inputs(cluster):
                 rtypes.append(v.resource_type)
                 if toggle == "val":
                     total += v.value
-                    edges.append(Edge(v.resource_type, fn, v.value))
+                    edges.append(Edge(v.resource_type, agt, v.value))
                 else:
                     total += v.quantity
-                    edges.append(Edge(v.resource_type, fn, v.quantity))
-            for v in fn.outputs():
+                    edges.append(Edge(v.resource_type, agt, v.quantity))
+            for v in agt.function_outputs(cluster):
                 rtypes.append(v.resource_type)
                 if toggle == "val":
                     total += v.value
-                    edges.append(Edge(fn, v.resource_type, v.value))
+                    edges.append(Edge(agt, v.resource_type, v.value))
                 else:
                     total += v.quantity
-                    edges.append(Edge(fn, v.resource_type, v.quantity))
+                    edges.append(Edge(agt, v.resource_type, v.quantity))
     else:
         flows = AgentResourceFlow.objects.filter(
             from_function__cluster=cluster)
