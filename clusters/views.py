@@ -138,14 +138,23 @@ def cluster_agents(request, cluster_id):
     for agent in agents:
         agent.cluster_functions = agent.functions.filter(function__cluster=cluster)
         for cf in agent.cluster_functions:
-            cf.rsrcs = cf.function.resources.all()
-            for res in cf.rsrcs:
-                res.agent_resource_list = res.function_resources_for_agent(agent)
+            if cf.rsrcs:
+                cf.rsrcs = cf.function.resources.all()
+                for res in cf.rsrcs:
+                    res.agent_resource_list = res.function_resources_for_agent(agent)
+            else:
+                cf.agent_resources = cf.function_resources.all()
+            outliers = []
+            candidates = cf.function_resources.all()
+            for c in candidates:
+                if c.is_outlier():
+                    outliers.append(c)
+                    cf.outliers = outliers
     #import pdb; pdb.set_trace()
     return render_to_response("clusters/cluster_agents.html", {
         "cluster": cluster,
         "agents": agents,
-        "map_url": cluster.map_url,
+        #"map_url": cluster.map_url,
         }, context_instance=RequestContext(request))
     
     
