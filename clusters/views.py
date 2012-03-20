@@ -947,7 +947,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             parent = None
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = AgentFunctionResourceForm(function_resource=None, data=request.POST)
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         if form.is_valid():
             data = form.cleaned_data
             name = data['name']
@@ -957,16 +957,17 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             agent_function_id = data['agent_function_id']
             new_resource = True
             
-            #import pdb; pdb.set_trace()
+            import pdb; pdb.set_trace()
             
             try:
                 resource = EconomicResourceType.objects.get(name=name)
+                new_resource = False
                 if parent:
                     if resource.id == parent.id:
                         new_resource = False
                     elif resource.parent:
                         if resource.parent.id == parent.id or resource.is_child_of(parent):
-                            new_resource = False               
+                            new_resource = False             
             except EconomicResourceType.DoesNotExist:
                 pass
             if new_resource:
