@@ -415,7 +415,7 @@ def network(request, cluster_id, toggle="qty", level="fn"):
         else:
             if toggle_form.is_valid():
                 tog = toggle_form.cleaned_data["toggle"]
-                return HttpResponseRedirect('/%s/%s/%s/%s/'
+                return HttpResponseRedirect('/%s/%s/%s/'
                     % ('clusters/network', cluster_id, tog))
     return render_to_response("clusters/network.html",
         template_params,
