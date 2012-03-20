@@ -191,11 +191,19 @@ class EmailForm(forms.Form):
     
     
 TOGGLE_CHOICES = (
-    ('qty', 'Quantity'),
+    ('qty', 'Quantity or'),
     ('val', 'Value'),
 ) 
 
 class QuantityValueForm(forms.Form):
     toggle = forms.ChoiceField(choices=TOGGLE_CHOICES, widget=forms.RadioSelect(attrs={'class': 'tog'}))
     
+LEVEL_CHOICES = (
+    ('fn', 'Functions or'),
+    ('agt', 'Agents'),
+) 
+
+class FunctionAgentForm(forms.Form):
+    level = forms.ChoiceField(choices=LEVEL_CHOICES, widget=forms.RadioSelect(attrs={'class': 'tog'}))
+
     

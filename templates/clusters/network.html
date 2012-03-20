@@ -37,6 +37,9 @@
 		<form style="display: inline; margin: 0; padding: 0;" id="toggleForm" action="." method="POST">{% csrf_token %}
 			{{ toggle_form.toggle }}
 		</form>
+		<form style="display: inline; margin: 0; padding: 0;" id="levelForm" action="." method="POST">{% csrf_token %}
+			{{ level_form.level }}
+		</form>
 	</span>
 </div>
 <div id="canvas"></div>
