@@ -664,9 +664,21 @@ def inline_new_agent_function(request, cluster_id, agent_id):
         #print "b4 form validity check"
         if form.is_valid():
             #print "after form validity check"
-            fun = form.save(commit=False)
-            fun.agent = agent
-            fun.save()
+            name = form.cleaned_data["name"]
+            funs = EconomicFunction.objects.filter(
+                cluster=cluster,
+                name=name)
+            if funs:
+                fun = fns[0]
+            else:
+                fun = EconomicFunction(
+                    name=name,
+                    cluster=cluster)
+                fun.save()
+            af = AgentFunction(
+                agent=agent,
+                function=fun)
+            af.save()
         #else:
         #    print "invalid form:", form
             

@@ -141,7 +141,7 @@ class FunctionAgentForm(forms.ModelForm):
 
 
 class AgentFunctionCreationForm(forms.Form):
-    name = forms.CharField(widget=forms.TextInput(attrs={'size': '16', 'class': 'function-name'}))
+    name = forms.CharField(widget=forms.TextInput(attrs={'size': '32', 'class': 'function-name'}))
 
 
 class AgentFunctionForm(forms.ModelForm):
