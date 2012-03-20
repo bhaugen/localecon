@@ -50,7 +50,7 @@ p {font-size:0.7875em}
 				<th style="text-align: right;" >Value</th>
 			</tr>
 			{% for res in fun.rsrcs %}
-				<tr>
+				<tr style="color: grey;" >
 					<td>&nbsp;</td>
 					<td style="background: #EAF2D3;" > {{ res.role }} {{ res.resource_type }}</td>
 					<td style="text-align: right; background: #EAF2D3;" >{{ res.quantity|intcomma }}</td>
