@@ -669,6 +669,16 @@ class AgentFunctionResourceType(models.Model):
             self.agent_function.function.name,
             self.role, 
             self.resource_type.name])
+        
+    def is_outlier(self):
+        fn = self.agent_function.function
+        resources = [frt.resource_type for frt in fn.resources.all()]
+        if self.resource_type in resources:
+            return False
+        for r in resources:
+            if self.resource_type.is_child_of(r):
+                return False
+        return True
 
     
 class AgentResourceFlow(models.Model):
