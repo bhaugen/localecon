@@ -92,7 +92,7 @@ p {font-size:0.7875em}
 				{% endfor %}
 				<tr>
 					<td style="text-align: right; font-weight:bold;" >{{ agent.name }} as {{ fun.function.name }} </td>
-					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=0 %}" method="POST">
+					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=res.resource_type.id %}" method="POST">
 						{% csrf_token %}
 						{{ res.agent_resource_form.agent_function_id }}
 						<td>
@@ -108,7 +108,7 @@ p {font-size:0.7875em}
 			{% else %}
 			<tr>
 					<td style="text-align: right; font-weight:bold;" >{{ agent.name }} as {{ res.function.name }} </td>
-					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=res.resource_type.id %}" method="POST">
+					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=0 %}" method="POST">
 						{% csrf_token %}
 						{{ res.agent_resource_form.agent_function_id }}
 						<td>
