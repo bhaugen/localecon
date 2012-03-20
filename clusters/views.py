@@ -403,9 +403,8 @@ def network(request, cluster_id, toggle="qty", level="fn"):
         if level_form:
             if level_form.is_valid():
                 level = level_form.cleaned_data["level"]
-        else:
-            if toggle_form.is_valid():
-                toggle = toggle_form.cleaned_data["toggle"]
+        if toggle_form.is_valid():
+            toggle = toggle_form.cleaned_data["toggle"]
         return HttpResponseRedirect('/%s/%s/%s/%s/'
                     % ('clusters/network', cluster_id, toggle, level))
     if level == "agt":
