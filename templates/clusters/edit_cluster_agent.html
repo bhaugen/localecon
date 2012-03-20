@@ -91,7 +91,7 @@ p {font-size:0.7875em}
 					</tr>
 				{% endfor %}
 				<tr>
-					<td style="text-align: right; font-weight:bold;" >{{ agent.name }} as {{ fun.function.name }} </td>
+					<td style="text-align: right; font-weight:bold;" >{{ agent.name }} as {{ res.function.name }} </td>
 					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=res.resource_type.id %}" method="POST">
 						{% csrf_token %}
 						{{ res.agent_resource_form.agent_function_id }}
@@ -107,16 +107,16 @@ p {font-size:0.7875em}
 			{% endfor %}
 			{% else %}
 			<tr>
-					<td style="text-align: right; font-weight:bold;" >{{ agent.name }} as {{ res.function.name }} </td>
+					<td style="text-align: right; font-weight:bold;" >{{ agent.name }} as {{ fun.function.name }} </td>
 					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=0 %}" method="POST">
 						{% csrf_token %}
-						{{ res.agent_resource_form.agent_function_id }}
+						{{ fun.agent_resource_form.agent_function_id }}
 						<td>
-							{{ res.agent_resource_form.role }}&nbsp;
-							{{ res.agent_resource_form.name }}
+							{{ fun.agent_resource_form.role }}&nbsp;
+							{{ fun.agent_resource_form.name }}
 						</td>					
-						<td>{{ res.agent_resource_form.quantity }}</td>
-						<td>{{ res.agent_resource_form.value }}</td>
+						<td>{{ fun.agent_resource_form.quantity }}</td>
+						<td>{{ fun.agent_resource_form.value }}</td>
 						<td><input type="submit" name="submit" value="Add" /></td>
 					</form>
 				</tr>
