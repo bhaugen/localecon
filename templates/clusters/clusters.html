@@ -8,6 +8,19 @@
 {% block content %}
 <div style="float: left; ">
 	<h3>Communities and Clusters</h3>
+</div>
+<div style="float: right; width: 10%;">
+	{% if user.is_authenticated %}
+		{{ user }} <a href="{% url acct_logout %}">Logout</a><br />
+		<a href="/help/">Help</a>
+		{% if user.is_staff %}
+			<br /><a href="/admin">Admin</a>
+		{% endif %}
+	{% else %}
+		<a href="{% url acct_login %}">Log in</a>
+	{% endif %}
+</div>
+<div style="float: left; ">
 	{% if user.is_authenticated %}
 	<form action="{% url new_community  %}" method="GET">
     	<input type="submit" value="New Community" />
@@ -50,17 +63,7 @@
 			{% endfor %}
 		</ul>
 </div>
-<div style="float: right; width: 10%;">
-	{% if user.is_authenticated %}
-		{{ user }} <a href="{% url acct_logout %}">Logout</a><br />
-		<a href="/help/">Help</a>
-		{% if user.is_staff %}
-			<br /><a href="/admin">Admin</a>
-		{% endif %}
-	{% else %}
-		<a href="{% url acct_login %}">Log in</a>
-	{% endif %}
-</div>
+
 <div style="clear: both;"></div>
  
 {% endblock %} 
