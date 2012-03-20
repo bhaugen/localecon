@@ -393,19 +393,30 @@ def network(request, cluster_id, toggle="qty", level="fn"):
     toggle_form = QuantityValueForm(
         initial={"toggle": toggle,},
         data=request.POST or None)
-    level_form = FunctionAgentForm(
-        initial={"level": level,},
-        data=request.POST or None)
-    template_params = network_params(cluster, toggle)
+    level_form = None
+    if cluster.agents():
+        level_form = FunctionAgentForm(
+            initial={"level": level,},
+            data=request.POST or None)
+    if lvl == "agt":
+        template_params = agent_network_params(cluster, toggle)
+    else:
+        template_params = network_params(cluster, toggle)
     template_params["use_window_size"] = True
     template_params["toggle_form"] = toggle_form
     template_params["level_form"] = level_form
     if request.method == "POST":
-        if toggle_form.is_valid() and level_form.is_valid:
-            tog = toggle_form.cleaned_data["toggle"]
-            lvl = level_form.cleaned_data["level"]
-            return HttpResponseRedirect('/%s/%s/%s/%s/'
-                % ('clusters/network', cluster_id, tog, lvl))
+        if level_form:
+            if toggle_form.is_valid() and level_form.is_valid:
+                tog = toggle_form.cleaned_data["toggle"]
+                lvl = level_form.cleaned_data["level"]
+                return HttpResponseRedirect('/%s/%s/%s/%s/'
+                    % ('clusters/network', cluster_id, tog, lvl))
+        else:
+            if toggle_form.is_valid():
+                tog = toggle_form.cleaned_data["toggle"]
+                return HttpResponseRedirect('/%s/%s/%s/%s/'
+                    % ('clusters/network', cluster_id, tog))
     return render_to_response("clusters/network.html",
         template_params,
         context_instance=RequestContext(request))
