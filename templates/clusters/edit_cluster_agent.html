@@ -55,10 +55,10 @@ p {font-size:0.7875em}
 			</tr>
 			{% for res in fun.rsrcs %}
 				<tr>
-					<td style="text-align: right;" >{{ fun.function.name }}</td>
-					<td> {{ res.role }} {{ res.resource_type }}</td>
-					<td style="text-align: right;" >{{ res.quantity|intcomma }}</td>
-					<td style="text-align: right;" >{{ res.value|intcomma }}</td>
+					<td style="text-align: right; background: #EAF2D3;" >{{ fun.function.name }}</td>
+					<td style="background: #EAF2D3;" > {{ res.role }} {{ res.resource_type }}</td>
+					<td style="text-align: right; background: #EAF2D3;" >{{ res.quantity|intcomma }}</td>
+					<td style="text-align: right; background: #EAF2D3;" >{{ res.value|intcomma }}</td>
 				</tr>
 				{% for agent_res in res.agent_resource_list %}
 					<tr>
@@ -87,7 +87,7 @@ p {font-size:0.7875em}
 					</tr>
 				{% endfor %}
 				<tr>
-					<th style="text-align: right;" >{{ agent.name }} {{ res.function.name }} </th>
+					<th style="text-align: right;" >{{ agent.name }} as {{ res.function.name }} </th>
 					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=res.resource_type.id %}" method="POST">
 						{% csrf_token %}
 						{{ res.agent_resource_form.agent_function_id }}
