@@ -140,6 +140,32 @@ p {font-size:0.7875em}
 			{% endfor %}
 			{% endif %}
 			{% else %}
+			{% for agent_res in fun.agent_resources %}
+				<tr>
+						<td style="text-align: right;" >{{ agent.name }} as {{ agent_res.agent_function.function.name }}</td>
+						<td>{{ agent_res.role }} {{ agent_res.resource_type }} </td>
+						{% comment %}
+						<td style="text-align: right;" >
+							{{ agent_res.quantity|intcomma }}
+						</td>
+						<td style="text-align: right;" >
+							{{ agent_res.value|intcomma }}
+						</td>
+						{% endcomment %}
+						<td style="text-align: right; ">
+								<input class="quantity" id="{{ agent_res.id }}" type="text" size="7" value="{{ agent_res.quantity }}" />
+							</td>
+							<td style="text-align: right; ">
+								<input class="value" id="{{ agent_res.id }}" type="text" size="7" value="{{ agent_res.value }}" />
+							</td>
+							<td>
+								<form style="display: inline;" action="{% url delete_agent_function_resource id=agent_res.id %}" method="POST">
+									{% csrf_token %}
+									<input type="submit" value="Del" />
+								</form>
+							</td>
+					</tr>
+			{% endfor %}
 			<tr>
 					<td style="text-align: right; font-weight:bold;" >{{ agent.name }} as {{ fun.function.name }} </td>
 					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=0 %}" method="POST">
