@@ -139,7 +139,11 @@ class FunctionAgentForm(forms.ModelForm):
         model = AgentFunction
         fields = ('agent',)
 
-   
+
+class AgentFunctionCreationForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput(attrs={'size': '16', 'class': 'function-name'}))
+
+
 class AgentFunctionForm(forms.ModelForm):
     
     def __init__(self, cluster, agent, *args, **kwargs):

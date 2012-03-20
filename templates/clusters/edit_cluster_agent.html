@@ -163,6 +163,7 @@ function html_unescape(text) {
 }
 	
 var resourceNames = html_unescape("{{ resource_names }}").split("~");
+var functionNames = html_unescape("{{ function_names }}").split("~");
 
 var geocoder;
 var map;
@@ -203,6 +204,7 @@ $(document).ready(function(){
 	codeAddress();
 	$("#id_address").blur(codeAddress);
 	$(".resource-name").autocomplete(resourceNames, {matchContains: true});
+	$(".function-name").autocomplete(functionNames, {matchContains: true});
 	
 	$(".quantity").blur(function() 
 		{

@@ -659,7 +659,7 @@ def inline_new_agent_function(request, cluster_id, agent_id):
     if request.method == "POST":
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         agent = get_object_or_404(EconomicAgent, pk=agent_id)
-        form = AgentFunctionForm(cluster, agent, data=request.POST, prefix="function")
+        form = AgentFunctionCreationForm(data=request.POST, prefix="function")
         #import pdb; pdb.set_trace()
         #print "b4 form validity check"
         if form.is_valid():
@@ -812,8 +812,9 @@ def edit_cluster_agent(request, cluster_id, agent_id):
             init = {"agent_function_id": agent_function.id,}
             res.agent_resource_form = AgentFunctionResourceForm(res, initial=init)
             res.agent_resource_list = res.function_resources_for_agent(agent)       
-    new_function_form = AgentFunctionForm(cluster, agent, prefix="function")
+    new_function_form = AgentFunctionCreationForm(prefix="function")
     resource_names = '~'.join([res.name for res in EconomicResourceType.objects.all()])
+    function_names = '~'.join([fn.name for fn in cluster.functions.all()])
     if request.method == "POST":
         if agent_form.is_valid():
             agent_form.save()
@@ -827,6 +828,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
         "zoom_level": zoom_level,
         "new_function_form": new_function_form,
         "resource_names": resource_names,
+        "function_names": function_names,
     }, context_instance=RequestContext(request))
     
     
