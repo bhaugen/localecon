@@ -394,6 +394,7 @@ def network(request, cluster_id, toggle="qty", level="fn"):
         initial={"toggle": toggle,},
         data=request.POST or None)
     level_form = None
+    import pdb; pdb.set_trace()
     if cluster.agents():
         level_form = FunctionAgentForm(
             initial={"level": level,},
