@@ -138,8 +138,8 @@ def cluster_agents(request, cluster_id):
     for agent in agents:
         agent.cluster_functions = agent.functions.filter(function__cluster=cluster)
         for cf in agent.cluster_functions:
+            cf.rsrcs = cf.function.resources.all()
             if cf.rsrcs:
-                cf.rsrcs = cf.function.resources.all()
                 for res in cf.rsrcs:
                     res.agent_resource_list = res.function_resources_for_agent(agent)
             else:
