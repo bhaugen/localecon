@@ -105,10 +105,38 @@ p {font-size:0.7875em}
 					</form>
 				</tr>
 			{% endfor %}
-			{% for res in fun.outliers %}
+			{% if fun.outliers %}
+			<tr>
+				<th>Other Resources:</th>
+				<th>Resource</th>
+				<th>Quantity</th>
+				<th style="text-align: right;" >Value</th>
+			</tr>
+			{% for agent_res in fun.outliers %}
 				 <tr>
-					 <td style="color: red;">{{ res }}</td>
-				 </tr>
+						<td style="text-align: right;" >{{ agent.name }} as {{ agent_res.agent_function.function.name }}</td>
+						<td>{{ agent_res.role }} {{ agent_res.resource_type }} </td>
+						{% comment %}
+						<td style="text-align: right;" >
+							{{ agent_res.quantity|intcomma }}
+						</td>
+						<td style="text-align: right;" >
+							{{ agent_res.value|intcomma }}
+						</td>
+						{% endcomment %}
+						<td style="text-align: right; ">
+								<input class="quantity" id="{{ agent_res.id }}" type="text" size="7" value="{{ agent_res.quantity }}" />
+							</td>
+							<td style="text-align: right; ">
+								<input class="value" id="{{ agent_res.id }}" type="text" size="7" value="{{ agent_res.value }}" />
+							</td>
+							<td>
+								<form style="display: inline;" action="{% url delete_agent_function_resource id=agent_res.id %}" method="POST">
+									{% csrf_token %}
+									<input type="submit" value="Del" />
+								</form>
+							</td>
+					</tr>
 			{% endfor %}
 			{% else %}
 			<tr>
