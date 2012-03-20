@@ -62,7 +62,7 @@ p {font-size:0.7875em}
 				</tr>
 				{% for agent_res in res.agent_resource_list %}
 					<tr>
-						<td style="text-align: right;" ><b>{{ agent.name }} {{ agent_res.agent_function.function.name }}</b></td>
+						<td style="text-align: right;" ><b>{{ agent.name }} as {{ agent_res.agent_function.function.name }}</b></td>
 						<td>{{ agent_res.role }} {{ agent_res.resource_type }} </td>
 						{% comment %}
 						<td style="text-align: right;" >
