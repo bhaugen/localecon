@@ -940,6 +940,7 @@ def inline_new_resource(request, cluster_id):
 def inline_agent_resource(request, cluster_id, agent_id, parent_id):
     if request.method == "POST":
         agent = get_object_or_404(EconomicAgent, pk=agent_id)
+        parent_id = int(parent_id)
         if parent_id:
             parent = get_object_or_404(EconomicResourceType, pk=parent_id)
         else:
