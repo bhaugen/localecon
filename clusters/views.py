@@ -937,7 +937,10 @@ def inline_new_resource(request, cluster_id):
 def inline_agent_resource(request, cluster_id, agent_id, parent_id):
     if request.method == "POST":
         agent = get_object_or_404(EconomicAgent, pk=agent_id)
-        parent = get_object_or_404(EconomicResourceType, pk=parent_id)
+        if parent_id:
+            parent = get_object_or_404(EconomicResourceType, pk=parent_id)
+        else:
+            parent = None
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = AgentFunctionResourceForm(function_resource=None, data=request.POST)
         
@@ -954,11 +957,12 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             
             try:
                 resource = EconomicResourceType.objects.get(name=name)
-                if resource.id == parent.id:
-                    new_resource = False
-                elif resource.parent:
-                    if resource.parent.id == parent.id or resource.is_child_of(parent):
-                        new_resource = False               
+                if parent:
+                    if resource.id == parent.id:
+                        new_resource = False
+                    elif resource.parent:
+                        if resource.parent.id == parent.id or resource.is_child_of(parent):
+                            new_resource = False               
             except EconomicResourceType.DoesNotExist:
                 pass
             if new_resource:
