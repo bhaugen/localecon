@@ -33,7 +33,7 @@ p {font-size:0.7875em}
 	{% endif %}
 </h3>
 
-<div style="float:left;">
+<div style="float:left; width: 50%;">
 <table>
 	<tr>
 		<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}</th>
@@ -196,7 +196,7 @@ p {font-size:0.7875em}
 
 </table>
 </div>
-<div style="float:left; margin-left: 2em; width: 50%;" >
+<div style="float:left; margin-left: 2em; width: 40%;" >
 	<div id="canvas" style="height: 500px;" ></div>
 	<button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
 	{% include "clusters/_network_diagram.html" %}
