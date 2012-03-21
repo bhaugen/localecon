@@ -81,7 +81,7 @@ p {font-size:0.7875em}
 			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
 		</form>
 	</table>
-
+{% comment %}
 <div id="canvas"></div>
 <button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
 {% include "clusters/_flow_diagram.html" %}
@@ -90,8 +90,11 @@ p {font-size:0.7875em}
 			A flow diagram will appear here as you add Flows.
 		</p>
 	{% endif %}
-</div>
+
+{% endcomment %}
 	
+</div>
+
 <div style="clear: both;" ></div> 
 	
 </div>
