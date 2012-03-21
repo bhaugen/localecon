@@ -822,6 +822,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
         edit_address = False
     if agent_communities[0].id != community.id:
         edit_address = False
+    print "community:", community, "agent_communities:", agent_communities
     print "edit_address:", edit_address
     #import pdb; pdb.set_trace()
     agent.cluster_funs = agent.functions.filter(function__cluster=cluster)
