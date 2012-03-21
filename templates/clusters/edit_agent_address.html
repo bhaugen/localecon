@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block title %}
+     Edit Address for {{ agent }}
+{% endblock %}
+
+{% block extra_head %}
+
+<style>
+
+body {font-size:90%}
+h1 {font-size:2.25em}
+h2 {font-size:1.6875em}
+p {font-size:0.7875em}
+	
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="agents">
+
+{% include "clusters/_cluster_nav.html" %}
+
+<h3>Edit Address for {{ agent }}</h3>
+
+	<form action="." method="POST">
+		{% csrf_token %}
+		<table>
+			<tr>
+				<td>Address:</td>					
+				<td>{{ agent_form.address }}</td>
+				{{ agent_form.latitude }}
+				{{ agent_form.longitude }}
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="submit" name="submit_address" value="Change address" /></td>
+			</tr>
+		</table>
+	</form>
+	<div id="map_canvas" style="width: 400px; height: 300px;"></div>
+	
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key={{ map_key }}&sensor=false">
+</script>
+
+<script type="text/javascript">
+	
+var geocoder;
+var map;
+	
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+      center: new google.maps.LatLng({{ map_center }}),
+      zoom: {{ zoom_level }},
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  }
+
+  function codeAddress() {
+    var address = document.getElementById("id_address").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+		var loc = results[0].geometry.location;
+		var lat = loc.lat()
+		var lng = loc.lng();
+		$("#id_latitude").val(lat);
+		$("#id_longitude").val(lng);
+        map.setCenter(loc);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: loc
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+	
+$(document).ready(function(){
+	initialize();
+	codeAddress();
+	$("#id_address").blur(codeAddress);
+	
+});
+</script>
+
+{% endblock %}

@@ -814,16 +814,14 @@ def new_cluster_agent(request, cluster_id):
 @login_required    
 def edit_cluster_agent(request, cluster_id, agent_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    community = cluster.community
-    map_center = "0, 0"
-    if community.latitude and community.longitude:
-        map_center = ",".join([str(community.latitude), str(community.longitude)])
-    map_key = settings.GOOGLE_API_KEY
-    zoom_level = 0
-    if community.map_zoom_level:
-        zoom_level = community.map_zoom_level - 1
     agent = get_object_or_404(EconomicAgent, pk=agent_id)
-    agent_form = AgentAddressForm(instance=agent, data=request.POST or None)
+    community = cluster.community
+    agent_communities = agent.communities.all()
+    edit_address = True
+    if agent_communities.count() > 1:
+        edit_address = False
+    if agent_communities[0].id != community.id:
+        edit_address = False
     #import pdb; pdb.set_trace()
     agent.cluster_funs = agent.functions.filter(function__cluster=cluster)
     for cf in agent.cluster_funs:
@@ -854,15 +852,35 @@ def edit_cluster_agent(request, cluster_id, agent_id):
         "cluster": cluster,
         "agent": agent,
         "cluster_funs": agent.cluster_funs,
-        "agent_form": agent_form,
-        "map_center": map_center,
-        "map_key": map_key,
-        "zoom_level": zoom_level,
         "new_function_form": new_function_form,
         "resource_names": resource_names,
         "function_names": function_names,
     }, context_instance=RequestContext(request))
     
+@login_required    
+def edit_agent_address(request, cluster_id, agent_id):
+    agent = get_object_or_404(EconomicAgent, pk=agent_id)
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    community = cluster.community
+    map_center = "0, 0"
+    if community.latitude and community.longitude:
+        map_center = ",".join([str(community.latitude), str(community.longitude)])
+    map_key = settings.GOOGLE_API_KEY
+    zoom_level = 0
+    if community.map_zoom_level:
+        zoom_level = community.map_zoom_level - 1
+    agent_form = AgentAddressForm(instance=agent, data=request.POST or None)
+    if request.method == "POST":
+        if agent_form.is_valid():
+            agent_form.save()
+    return render_to_response("clusters/edit_cluster_agent.html",{ 
+        "cluster": cluster,
+        "agent": agent,
+        "agent_form": agent_form,
+        "map_center": map_center,
+        "map_key": map_key,
+        "zoom_level": zoom_level,
+    }, context_instance=RequestContext(request))
     
 def json_agent_address(request, agent_name):
     # Note: serializer requires an iterable, not a single object. Thus filter rather than get.  
