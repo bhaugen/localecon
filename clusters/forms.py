@@ -10,7 +10,7 @@ class EconomicFunctionForm(forms.ModelForm):
         fields = ('name',)
 
 class InlineAgentFunctionForm(forms.ModelForm):
-    name = forms.CharField(widget=forms.TextInput(attrs={'size': '40',}))
+    name = forms.CharField(widget=forms.TextInput(attrs={'size': '24',}))
         
     def __init__(self, cluster, *args, **kwargs):
         super(InlineAgentFunctionForm, self).__init__(*args, **kwargs)
