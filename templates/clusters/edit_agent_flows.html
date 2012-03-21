@@ -28,11 +28,25 @@ p {font-size:0.7875em}
 <h3>Edit Agent Flows in Cluster: {{ cluster }}</h3>
 
 <div style="float:left; width: 50%;" >
+	
+	{% comment %}
 	<table>
 		<form action="{% url inline_new_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
 				<th style="text-align: right;" >New Function:</th>
 				<td>{{ new_function_form.name }}</td>
+				<td><input type="submit" name="submit" value="Add" /></td>
+			</tr>
+			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
+		</form>
+	</table>
+	{% endcomment %}
+	
+	<table>
+		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">{% csrf_token %}
+			<tr>
+				<th style="text-align: right;" >New Resource:</th>
+				<td>{{ new_resource_form.name }}</td>
 				<td><input type="submit" name="submit" value="Add" /></td>
 			</tr>
 			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
@@ -70,6 +84,7 @@ p {font-size:0.7875em}
 	</form>
 </div>
 
+{% comment %}
 <div style="float:left; margin-left: 2em; width: 40%; " >
 	<table>
 		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">{% csrf_token %}
@@ -81,7 +96,7 @@ p {font-size:0.7875em}
 			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
 		</form>
 	</table>
-{% comment %}
+
 <div id="canvas"></div>
 <button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
 {% include "clusters/_flow_diagram.html" %}
@@ -90,10 +105,8 @@ p {font-size:0.7875em}
 			A flow diagram will appear here as you add Flows.
 		</p>
 	{% endif %}
-
-{% endcomment %}
-	
 </div>
+{% endcomment %}
 
 <div style="clear: both;" ></div> 
 	
