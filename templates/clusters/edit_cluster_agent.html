@@ -26,7 +26,7 @@ p {font-size:0.7875em}
 {% include "clusters/_cluster_nav.html" %}
 
 <h3>
-	Edit Agent {{ agent }} in Cluster {{ cluster }}
+	Edit Agent {{ agent }} in Cluster {{ cluster }} edit_address: {{ edit_address }}
 	{% if edit_address %}
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="{% url edit_agent_address cluster_id=cluster.id agent_id=agent.id %}">Edit Address</a>
