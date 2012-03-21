@@ -261,7 +261,7 @@ def edit_agent_flows(request, cluster_id):
     flows = list(AgentResourceFlow.objects.filter(
         from_function__function__cluster=cluster))
     flows.extend = list(AgentResourceFlow.objects.filter(
-        to_function__function__cluster=cluster)
+        to_function__function__cluster=cluster))
     
     FlowFormSet = modelformset_factory(
         AgentResourceFlow,
@@ -271,7 +271,7 @@ def edit_agent_flows(request, cluster_id):
         )
     formset = FlowFormSet(
         queryset=AgentResourceFlow.objects.filter(
-            from_function__cluster=cluster),
+            from_function__function__cluster=cluster),
         data=request.POST or None,
         )
     function_choices = [('', '----------')] + [
