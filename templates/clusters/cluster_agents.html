@@ -30,7 +30,7 @@ p {font-size:0.7875em}
 <p>
 	<a style="font-size:130%;" href="{% url new_cluster_agent cluster_id=cluster.id %}">Add new Cluster Agent</a>
 	&nbsp;&nbsp;
-	<a href="{% url edit_agent_flows cluster_id=cluster.id %}">Edit Agent Flows</a>
+	<a style="font-size:130%;"  href="{% url edit_agent_flows cluster_id=cluster.id %}">Edit Agent Flows</a>
 </p>
 <table>
 	{% for agent in agents %}
