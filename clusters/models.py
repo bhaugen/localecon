@@ -658,6 +658,9 @@ class AgentFunction(models.Model):
         
     def node_id(self):
         return "".join([ type(self).__name__, "-", self.agent.name, self.function.name])
+    
+    def name(self):
+        return self.agent.name
 
 
 class AgentResourceType(models.Model):
