@@ -15,9 +15,12 @@
 		<a href="/help/">Help</a>
 		{% if user.is_staff %}
 			<br /><a href="/admin">Admin</a>
+		{% else %}
+			<br />
 		{% endif %}
 	{% else %}
 		<a href="{% url acct_login %}">Log in</a>
+		<br /><br /><br />
 	{% endif %}
 </div>
 <div style="float: left; ">
