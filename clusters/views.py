@@ -506,7 +506,7 @@ class FlowEdge(object):
 def agent_flow_params(cluster, toggle):
     template_params = {}
     flows = AgentResourceFlow.objects.filter(
-        from_function__cluster=cluster)
+        from_function__function__cluster=cluster)
     nodes = []
     total = 0.0
     for flow in flows:
