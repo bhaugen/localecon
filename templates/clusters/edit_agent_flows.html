@@ -25,9 +25,9 @@ p {font-size:0.7875em}
 
 {% include "clusters/_cluster_nav.html" %}
 
-<h3>Edit Flows in Cluster: {{ cluster }}</h3>
+<h3>Edit Agent Flows in Cluster: {{ cluster }}</h3>
 
-<div style="float:left;" >
+<div style="float:left; width: 50%;" >
 	<table>
 		<form action="{% url inline_new_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
@@ -70,7 +70,7 @@ p {font-size:0.7875em}
 	</form>
 </div>
 
-<div style="float:left; margin-left: 2em; width: 50%; " >
+<div style="float:left; margin-left: 2em; width: 40%; " >
 	<table>
 		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
