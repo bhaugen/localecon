@@ -35,7 +35,9 @@ p {font-size:0.7875em}
 		<tr>
 			<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}
 				&nbsp;&nbsp;
-				<a href="{% url edit_cluster_agent cluster_id=cluster.id agent_id=agent.id %}">Edit</a>
+				<a href="{% url edit_cluster_agent cluster_id=cluster.id agent_id=agent.id %}">Edit Consumption &amp; Production</a>
+				&nbsp;&nbsp;
+				<a href="{% url edit_agent_flows cluster_id=cluster.id agent_id=agent.id %}">Edit Flows</a>
 			</th>
 		</tr>
 		{% for fun in agent.cluster_functions %}

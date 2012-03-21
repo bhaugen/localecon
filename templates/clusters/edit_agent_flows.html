@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block title %}
+     Edit Flows in Cluster: {{ cluster }}
+{% endblock %}
+
+{% block extra_head %}
+
+<style>
+
+body {font-size:90%}
+h1 {font-size:2.25em}
+h2 {font-size:1.6875em}
+p {font-size:0.7875em}
+	
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="functions">
+
+{% include "clusters/_cluster_nav.html" %}
+
+<h3>Edit Flows in Cluster: {{ cluster }}</h3>
+
+<div style="float:left;" >
+	<table>
+		<form action="{% url inline_new_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
+			<tr>
+				<th style="text-align: right;" >New Function:</th>
+				<td>{{ new_function_form.name }}</td>
+				<td><input type="submit" name="submit" value="Add" /></td>
+			</tr>
+			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
+		</form>
+	</table>
+
+	<h3>Add or change flows</h3>
+	<input type="submit" name="submit_flows" value="Save flow changes" />
+	<form method="post" action="">{% csrf_token %}
+		<table>
+			<thead>
+				<th>From Function</th>
+				<th>To Function</th>
+				<th>Resource</th>
+				<th>Quantity</th>
+				<th>Value</th>
+				<th>Del</th>
+			</thead>
+			<tbody>
+				{{ formset.management_form }}
+				{% for form in formset %}
+					{{ form.id }}
+					<tr>
+						<td>{{ form.from_function }}</td>
+						<td>{{ form.to_function }}</td>
+						<td>{{ form.resource_type }}</td>
+						<td>{{ form.quantity }}</td>
+						<td>{{ form.value }}</td>
+						<td>{{ form.DELETE }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<input type="submit" name="submit_flows" value="Save flow changes" />
+	</form>
+</div>
+
+<div style="float:left; margin-left: 2em; width: 50%; " >
+	<table>
+		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">{% csrf_token %}
+			<tr>
+				<th style="text-align: right;" >New Resource:</th>
+				<td>{{ new_resource_form.name }}</td>
+				<td><input type="submit" name="submit" value="Add" /></td>
+			</tr>
+			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
+		</form>
+	</table>
+
+<div id="canvas"></div>
+<button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
+{% include "clusters/_flow_diagram.html" %}
+	{% if not edges %}
+		<p>
+			A flow diagram will appear here as you add Flows.
+		</p>
+	{% endif %}
+</div>
+	
+<div style="clear: both;" ></div> 
+	
+</div>
+	
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="/site_media/css/jquery.autocomplete.css" type="text/css" />
+  <script type="text/javascript" src="/site_media/scripts/jquery.bgiframe.min.js"></script>
+
+  <script type="text/javascript" src="/site_media/scripts/jquery.autocomplete.js"></script>
+
+
+<script>
+	$(document).ready(function()
+	{
+		$(".quantity").blur(function() 
+		{
+			var quantity = this.value;
+			intQuantity = parseInt(quantity);
+			if ($.isNumeric(quantity))
+			{
+				if (intQuantity == parseFloat(quantity))
+				{
+					var id = this.id;
+					$.post("{% url change_function_resource_amount %}",  { id: id, quantity: quantity });
+				}
+				else
+				{
+					alert(quantity + " must be an integer");
+					this.value = intQuantity;
+				}
+			}
+			else
+			{
+				alert(quantity + " is not a number");
+				this.value = intQuantity;
+			}
+		});
+	
+    var data = "{{ resource_names }}".split(";");
+	$("#id_resource-name").autocomplete(data, {matchContains: true});
+	
+	$(document).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+});
+
+	
+	});
+</script>
+
+
+
+{% endblock %}

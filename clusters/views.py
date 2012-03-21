@@ -250,7 +250,71 @@ def edit_flows(request, cluster_id):
     return render_to_response("clusters/edit_flows.html",
         template_params,
         context_instance=RequestContext(request))
+
+@login_required
+def edit_agent_flows(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
     
+    new_function_form = EconomicFunctionForm(prefix="function")
+    new_resource_form = EconomicResourceTypeForm(prefix="resource")
+    
+    flows = list(AgentResourceFlow.objects.filter(
+        from_function__function__cluster=cluster))
+    flows.extend = list(AgentResourceFlow.objects.filter(
+        to_function__function__cluster=cluster)
+    
+    FlowFormSet = modelformset_factory(
+        AgentResourceFlow,
+        form=AgentResourceFlowForm,
+        can_delete=True,
+        extra=3,
+        )
+    formset = FlowFormSet(
+        queryset=AgentResourceFlow.objects.filter(
+            from_function__cluster=cluster),
+        data=request.POST or None,
+        )
+    function_choices = [('', '----------')] + [
+            (fn.id, fn.name) for fn in cluster.functions.all()
+            ]
+    resource_choices = [('', '----------')] + [
+            (cr.resource_type.id, cr.resource_type.name) for cr in cluster.community.resources.all()
+            ]
+    for form in formset.forms:
+        form.fields['from_function'].choices = function_choices
+        form.fields['to_function'].choices = function_choices
+        form.fields['resource_type'].choices = resource_choices
+        
+    resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
+    
+    if request.method == "POST":
+        #import pdb; pdb.set_trace()
+        for form in formset.forms:
+            if form.is_valid():
+                delete = form.cleaned_data["DELETE"]
+                if delete:
+                    #todo: this delete code is odd.
+                    #First, I expected formsets to delete automatically id DELETE is True.
+                    #Second, returning an object when requesting id is nice
+                    #but smells like it might break in the future.
+                    #import pdb; pdb.set_trace()
+                    deleted = form.cleaned_data["id"]
+                    deleted.delete()
+                else:
+                    form.save()
+        return HttpResponseRedirect('/%s/%s/'
+               % ('clusters/clusteragents', cluster.id))
+    
+    template_params = flow_params(cluster, "qty")
+    template_params["new_function_form"] = new_function_form
+    template_params["new_resource_form"] = new_resource_form
+    template_params["resource_names"] = resource_names
+    template_params["formset"] = formset
+    return render_to_response("clusters/edit_agent_flows.html",
+        template_params,
+        context_instance=RequestContext(request))
+
+
 def featured_cluster(request):
     cluster = get_featured_cluster()
     template_params = {}
