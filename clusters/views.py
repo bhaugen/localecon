@@ -274,9 +274,10 @@ def edit_agent_flows(request, cluster_id):
             from_function__function__cluster=cluster),
         data=request.POST or None,
         )
+    agent_functions = AgentFunction.objects.filter(
+        function__cluster=cluster)
     function_choices = [('', '----------')] + [
-            (fn.id, fn.name) for fn in cluster.functions.all()
-            ]
+            (fn.id, fn.name) for fn in agent_functions]
     resource_choices = [('', '----------')] + [
             (cr.resource_type.id, cr.resource_type.name) for cr in cluster.community.resources.all()
             ]
