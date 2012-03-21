@@ -597,20 +597,37 @@ def flow_params(cluster, toggle):
     }
     return template_params
     
-def flows(request, cluster_id, toggle="qty"):
+def flows(request, cluster_id, toggle="qty", level="fn"):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     toggle_form = QuantityValueForm(
         initial={"toggle": toggle,},
         data=request.POST or None)
-    template_params = flow_params(cluster, toggle)
+    level_form = None
+    if cluster.agents():
+        level_form = FunctionAgentForm(
+            initial={"level": level,},
+            data=request.POST or None)
+    if request.method == "POST":
+        if level_form:
+            if level_form.is_valid():
+                level = level_form.cleaned_data["level"]
+        if toggle_form.is_valid():
+            toggle = toggle_form.cleaned_data["toggle"]
+        return HttpResponseRedirect('/%s/%s/%s/%s/'
+                    % ('clusters/flows', cluster_id, toggle, level))
+    if level == "agt":
+        template_params = agent_flow_params(cluster, toggle)
+    else:
+        template_params = flow_params(cluster, toggle)
     template_params["use_window_size"] = True
     template_params["toggle_form"] = toggle_form
-    if request.method == "POST":
-        if toggle_form.is_valid():
+    template_params["level_form"] = level_form
+    #if request.method == "POST":
+    #    if toggle_form.is_valid():
             #import pdb; pdb.set_trace()
-            tog = toggle_form.cleaned_data["toggle"]
-            return HttpResponseRedirect('/%s/%s/%s/'
-                % ('clusters/flows', cluster_id, tog))
+    #        tog = toggle_form.cleaned_data["toggle"]
+    #        return HttpResponseRedirect('/%s/%s/%s/'
+    #            % ('clusters/flows', cluster_id, tog))
     return render_to_response("clusters/flows.html",
         template_params,
         context_instance=RequestContext(request))    

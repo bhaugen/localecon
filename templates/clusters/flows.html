@@ -36,6 +36,12 @@
 		<form style="display: inline; margin: 0; padding: 0;" id="toggleForm" action="." method="POST">{% csrf_token %}
 			{{ toggle_form.toggle }}
 		</form>
+		{% if level_form %}
+		&nbsp;&nbsp;&nbsp;
+		<form style="display: inline; margin: 0; padding: 0;" id="levelForm" action="." method="POST">{% csrf_token %}
+			{{ level_form.level }}
+		</form>
+		{% endif %}
 	</span>
 </div>
 
