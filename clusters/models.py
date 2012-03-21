@@ -354,6 +354,9 @@ class Cluster(models.Model):
     def has_flows(self):
         flows = FunctionResourceFlow.objects.filter(
             from_function__cluster=self)
+        if not flows:
+            flows = AgentResourceFlow.objects.filter(
+                from_function__function__cluster=self)
         if flows:
             return True
         else:
@@ -362,6 +365,9 @@ class Cluster(models.Model):
     def has_function_resources(self):
         frts = FunctionResourceType.objects.filter(
             function__cluster=self)
+        if not frts:
+            frts = AgentFunctionResourceType.filter(
+                agent_function__function__cluster=self)
         if frts:
             return True
         else:
