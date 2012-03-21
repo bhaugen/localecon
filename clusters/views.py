@@ -845,11 +845,6 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     new_function_form = AgentFunctionCreationForm(prefix="function")
     resource_names = '~'.join([res.name for res in EconomicResourceType.objects.all()])
     function_names = '~'.join([fn.name for fn in cluster.functions.all()])
-    if request.method == "POST":
-        if agent_form.is_valid():
-            agent_form.save()
-            return HttpResponseRedirect('/%s/%s/%s/'
-               % ('clusters/editclusteragent', cluster_id, agent.id))
     return render_to_response("clusters/edit_cluster_agent.html",{ 
         "cluster": cluster,
         "agent": agent,
@@ -876,6 +871,8 @@ def edit_agent_address(request, cluster_id, agent_id):
     if request.method == "POST":
         if agent_form.is_valid():
             agent_form.save()
+            return HttpResponseRedirect('/%s/%s/%s/'
+               % ('clusters/editclusteragent', cluster_id, agent.id))
     return render_to_response("clusters/edit_agent_address.html",{ 
         "cluster": cluster,
         "agent": agent,
