@@ -843,8 +843,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     template_params["cluster"] = cluster
     template_params["agent"] = agent
     template_params["edit_address"] = edit_address
-    template_params["cluster_funs"] = cluster
-    template_params["cluster"] = agent.cluster_funs
+    template_params["cluster_funs"] = agent.cluster_funs
     template_params["new_function_form"] = new_function_form
     template_params["resource_names"] = resource_names
     template_params["function_names"] = function_names
