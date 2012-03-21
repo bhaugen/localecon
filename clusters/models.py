@@ -657,7 +657,7 @@ class AgentFunction(models.Model):
         super(AgentFunction, self).save(*args, **kwargs)
         
     def node_id(self):
-        return "".join([ type(self).__name__, "-", self.name, self.function.name])
+        return "".join([ type(self).__name__, "-", self.agent.name, self.function.name])
 
 
 class AgentResourceType(models.Model):
