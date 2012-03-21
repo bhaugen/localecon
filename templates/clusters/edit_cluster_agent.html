@@ -29,7 +29,7 @@ p {font-size:0.7875em}
 	Edit Agent {{ agent }} in Cluster {{ cluster }}
 	{% if edit_address %}
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="{% url edit_agent_address cluster_id=cluster.id agent_id=agent.id %}">Edit Address</a>
+		<a href="{% url edit_agent_address cluster_id=cluster.id agent_id=agent.id %}">Edit Name and Address</a>
 	{% endif %}
 </h3>
 
