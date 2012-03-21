@@ -255,7 +255,7 @@ def edit_flows(request, cluster_id):
 def edit_agent_flows(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     
-    new_function_form = AgentFunctionForm(cluster=cluster, prefix="function")
+    new_function_form = InlineAgentFunctionForm(cluster=cluster, prefix="function")
     new_resource_form = EconomicResourceTypeForm(prefix="resource")
     
     flows = list(AgentResourceFlow.objects.filter(
