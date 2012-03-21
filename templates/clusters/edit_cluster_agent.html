@@ -196,8 +196,16 @@ p {font-size:0.7875em}
 
 </table>
 </div>
-
-	
+<div style="float:left; margin-left: 2em; width: 50%;" >
+	<div id="canvas" style="height: 500px;" ></div>
+	<button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
+	{% include "clusters/_network_diagram.html" %}
+	{% if not edges %}
+		<p>
+			A network diagram will appear here as you add Functions and their Resources.
+		</p>
+	{% endif %}
+</div>
 <div style="clear:both;"></div>
 	
 </div>

@@ -187,12 +187,6 @@ def edit_cluster_functions(request, cluster_id):
     template_params["new_resource_form"] = new_resource_form
     template_params["resource_names"] = resource_names
     return render_to_response("clusters/edit_cluster_functions.html", 
-        #"cluster": cluster,
-        #"functions": functions,
-        #"resources": resources,
-        #"new_function_form": new_function_form,
-        #"new_resource_form": new_resource_form,
-        #"resource_names": resource_names,
         template_params,
         context_instance=RequestContext(request))
     
@@ -845,15 +839,18 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     new_function_form = AgentFunctionCreationForm(prefix="function")
     resource_names = '~'.join([res.name for res in EconomicResourceType.objects.all()])
     function_names = '~'.join([fn.name for fn in cluster.functions.all()])
-    return render_to_response("clusters/edit_cluster_agent.html",{ 
-        "cluster": cluster,
-        "agent": agent,
-        "edit_address": edit_address,
-        "cluster_funs": agent.cluster_funs,
-        "new_function_form": new_function_form,
-        "resource_names": resource_names,
-        "function_names": function_names,
-    }, context_instance=RequestContext(request))
+    template_params = agent_network_params(cluster, "qty")
+    template_params["cluster"] = cluster
+    template_params["agent"] = agent
+    template_params["edit_address"] = edit_address
+    template_params["cluster_funs"] = cluster
+    template_params["cluster"] = agent.cluster_funs
+    template_params["new_function_form"] = new_function_form
+    template_params["resource_names"] = resource_names
+    template_params["function_names"] = function_names
+    return render_to_response("clusters/edit_cluster_agent.html",
+        template_params, 
+        context_instance=RequestContext(request))
     
 @login_required    
 def edit_agent_address(request, cluster_id, agent_id):
