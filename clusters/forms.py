@@ -9,6 +9,18 @@ class EconomicFunctionForm(forms.ModelForm):
         model = EconomicFunction
         fields = ('name',)
 
+class AgentFunctionForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput(attrs={'size': '40',}))
+    
+    class Meta:
+        model = AgentFunction
+        fields = ('agent',)
+        
+    def __init__(self, cluster, *args, **kwargs):
+        super(AgentFunctionForm, self).__init__(*args, **kwargs)
+        self.fields["agent"].choices = [('', '----------')] + [
+            (agt.id, agt.name) for agt in cluster.agents()
+        ]
 
 class ClusterForm(forms.ModelForm):
     

@@ -255,7 +255,7 @@ def edit_flows(request, cluster_id):
 def edit_agent_flows(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     
-    new_function_form = EconomicFunctionForm(prefix="function")
+    new_function_form = AgentFunctionForm(cluster=cluster, prefix="function")
     new_resource_form = EconomicResourceTypeForm(prefix="resource")
     
     flows = list(AgentResourceFlow.objects.filter(
@@ -720,6 +720,27 @@ def inline_new_function(request, cluster_id):
             fun = form.save(commit=False)
             fun.cluster = cluster
             fun.save()         
+    return HttpResponseRedirect(next)
+
+@login_required 
+def inline_new_agent_function(request, cluster_id):
+    if request.method == "POST":
+        next = request.POST.get("next")
+        cluster = get_object_or_404(Cluster, pk=cluster_id)
+        form = AgentFunctionForm(request.POST, prefix="function")
+        #import pdb; pdb.set_trace()
+        if form.is_valid():
+            data = form.cleaned_data
+            agent = data["agent"]
+            fname = data["name"]
+            fun = EconomicFunction(
+                name=name,
+                cluster=cluster)
+            fun.save()
+            af = AgentFunction(
+                agent=agent,
+                function=fun)
+            af.save()        
     return HttpResponseRedirect(next)
     
 @login_required 

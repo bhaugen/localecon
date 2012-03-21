@@ -31,7 +31,7 @@ urlpatterns = patterns('',
     url(r'^editagentaddress/(?P<cluster_id>\d+)/(?P<agent_id>\d+)/$', 'clusters.views.edit_agent_address', name="edit_agent_address"),
     url(r'^inlinenewagentfunction/(?P<cluster_id>\d+)/(?P<agent_id>\d+)/$', 'clusters.views.inline_new_agent_function', name="inline_new_agent_function"),
     url(r'^jsonagentaddress/(?P<agent_name>.+)/$', 'clusters.views.json_agent_address', name="json_agent_address"),
-    
+    url(r'^inlinenewagentfunction/(?P<cluster_id>\d+)/$', 'clusters.views.inline_new_agent_function', name="inline_new_agent_function"),
     
     # functions
     url(r'^functions/(?P<cluster_id>\d+)/$', 'clusters.views.economic_functions', name="economic_functions"),

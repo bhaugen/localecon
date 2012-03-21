@@ -29,18 +29,19 @@ p {font-size:0.7875em}
 
 <div style="float:left; width: 50%;" >
 	
-	{% comment %}
 	<table>
-		<form action="{% url inline_new_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
+		<form action="{% url inline_new_agent_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
 				<th style="text-align: right;" >New Function:</th>
 				<td>{{ new_function_form.name }}</td>
+				<th style="text-align: right;" >Agent:</th>
+				<td>{{ new_function_form.agent }}</td>
 				<td><input type="submit" name="submit" value="Add" /></td>
 			</tr>
-			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
+			<input type="hidden" name="next" value="{% url edit_agent_flows cluster_id=cluster.id %}" />
 		</form>
 	</table>
-	{% endcomment %}
+
 	
 	<table>
 		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">{% csrf_token %}
