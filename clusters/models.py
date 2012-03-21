@@ -366,7 +366,7 @@ class Cluster(models.Model):
         frts = FunctionResourceType.objects.filter(
             function__cluster=self)
         if not frts:
-            frts = AgentFunctionResourceType.filter(
+            frts = AgentFunctionResourceType.objects.filter(
                 agent_function__function__cluster=self)
         if frts:
             return True
