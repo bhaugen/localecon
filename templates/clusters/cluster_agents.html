@@ -28,7 +28,9 @@ p {font-size:0.7875em}
 <h3>Agents performing Functions in Cluster {{ cluster }}</h3>
 
 <p>
-<a style="font-size:130%;" href="{% url new_cluster_agent cluster_id=cluster.id %}">Add new Cluster Agent</a>
+	<a style="font-size:130%;" href="{% url new_cluster_agent cluster_id=cluster.id %}">Add new Cluster Agent</a>
+	&nbsp;&nbsp;
+	<a href="{% url edit_agent_flows cluster_id=cluster.id %}">Edit Agent Flows</a>
 </p>
 <table>
 	{% for agent in agents %}
@@ -36,8 +38,6 @@ p {font-size:0.7875em}
 			<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}
 				&nbsp;&nbsp;
 				<a href="{% url edit_cluster_agent cluster_id=cluster.id agent_id=agent.id %}">Edit Consumption &amp; Production</a>
-				&nbsp;&nbsp;
-				<a href="{% url edit_agent_flows cluster_id=cluster.id agent_id=agent.id %}">Edit Flows</a>
 			</th>
 		</tr>
 		{% for fun in agent.cluster_functions %}
