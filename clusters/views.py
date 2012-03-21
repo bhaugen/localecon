@@ -870,7 +870,7 @@ def edit_agent_address(request, cluster_id, agent_id):
     zoom_level = 0
     if community.map_zoom_level:
         zoom_level = community.map_zoom_level - 1
-    agent_form = AgentAddressForm(instance=agent, data=request.POST or None)
+    agent_form = EconomicAgentForm(instance=agent, data=request.POST or None)
     if request.method == "POST":
         if agent_form.is_valid():
             agent_form.save()
