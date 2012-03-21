@@ -304,7 +304,7 @@ def agent_network_params(cluster, toggle):
                     edges.append(Edge(agt, v.resource_type, v.quantity))
     else:
         flows = AgentResourceFlow.objects.filter(
-            from_function__cluster=cluster)
+            from_function__function__cluster=cluster)
         nodes = []
         edges = []
         for flow in flows:
