@@ -655,6 +655,9 @@ class AgentFunction(models.Model):
             except CommunityAgent.DoesNotExist:
                 ca = CommunityAgent(community=community, agent=self.agent).save()
         super(AgentFunction, self).save(*args, **kwargs)
+        
+    def node_id(self):
+        return "".join([ type(self).__name__, "-", self.name, self.function.name])
 
 
 class AgentResourceType(models.Model):
