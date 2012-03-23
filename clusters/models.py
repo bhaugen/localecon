@@ -637,7 +637,7 @@ class EconomicAgent(models.Model):
 class CommunityAgent(models.Model):
     community = models.ForeignKey(Community, related_name="agents")
     agent = models.ForeignKey(EconomicAgent, related_name='communities')
-    group = models.CharField(max_length=128)
+    group = models.CharField(max_length=128, blank=True)
     geographic_area = models.CharField(max_length=255, blank=True)
     region_latitude = models.FloatField(default=0.0, blank=True, null=True)
     region_longitude = models.FloatField(default=0.0, blank=True, null=True)
