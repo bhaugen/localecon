@@ -1026,7 +1026,7 @@ def edit_community_agent(request, cluster_id, agent_id):
             return HttpResponseRedirect('/%s/%s/%s/'
                % ('clusters/editclusteragent', cluster_id, agent.id))
     return render_to_response("clusters/edit_community_agent.html",{ 
-        "cluster":, cluster,
+        "cluster": cluster,
         "community": community,
         "community_agent": ca,
         "agent": agent,
