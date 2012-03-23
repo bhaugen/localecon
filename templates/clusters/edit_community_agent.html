@@ -119,7 +119,7 @@ var area_marker = new google.maps.Marker({});
   }
 
   function codeAddress() {
-    var address = {{ agent.address }};
+    var address = "{{ agent.address|safe }}";
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
 		var loc = results[0].geometry.location;
