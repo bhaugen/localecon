@@ -958,6 +958,7 @@ def edit_agent_address(request, cluster_id, agent_id):
     agent = get_object_or_404(EconomicAgent, pk=agent_id)
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     community = cluster.community
+    ca = CommunityAgent.objects.get(community=community, agent=agent)
     area_name = community.agent_geographic_area_name
     map_center = "0, 0"
     if community.latitude and community.longitude:
@@ -966,9 +967,22 @@ def edit_agent_address(request, cluster_id, agent_id):
     zoom_level = 0
     if community.map_zoom_level:
         zoom_level = community.map_zoom_level - 1
-    agent_form = EconomicAgentForm(instance=agent, data=request.POST or None)
+    init = {
+        "group": ca.group,
+        "geographic_area": ca.geographic_area,
+        "region_latitude": ca.region_latitude,
+        "region_longitude": ca.region_longitude,
+    }
+    agent_form = EconomicAgentForm(instance=agent, initial=init, data=request.POST or None)
     if request.method == "POST":
         if agent_form.is_valid():
+            if area_name:
+                data = agent_form.cleaned_data
+                ca.group = data["group"]
+                ca.geographic_area = data["geographic_area"]
+                ca.region_latitude = data["region_latitude"]
+                ca.region_longitude = data["region_longitude"]
+                ca.save()
             agent_form.save()
             return HttpResponseRedirect('/%s/%s/%s/'
                % ('clusters/editclusteragent', cluster_id, agent.id))
