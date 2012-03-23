@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block title %}
+     Edit Community Info for Community {{ community }} and Agent {{ agent }}
+{% endblock %}
+
+{% block extra_head %}
+
+<style>
+
+body {font-size:90%}
+h1 {font-size:2.25em}
+h2 {font-size:1.6875em}
+p {font-size:0.7875em}
+th {text-align: right}
+	
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="agents">
+
+{% include "clusters/_cluster_nav.html" %}
+
+<h3>Edit Community Info for Community {{ community }} and Agent {{ agent }}</h3>
+
+	<form action="." method="POST">
+		{% csrf_token %}
+		<table>
+			<tr>
+				<th>Name:</th>					
+				<td>{{ agent.name }}</td>
+			</tr>
+			<tr>
+				<th>Address:</th>					
+				<td>{{ agent.address }}</td>
+				{{ agent_form.latitude }}
+				{{ agent_form.longitude }}
+			</tr>
+			{% if area_name %}
+			<tr>
+				<th>{{ area_name }}:</th>					
+				<td>{{ agent_form.geographic_area }}</td>
+				{{ agent_form.region_latitude }}
+				{{ agent_form.region_longitude }}
+			</tr>
+			{% endif %}
+			<tr>
+				<th>Group:</th>					
+				<td>{{ agent_form.group }}</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<th style="text-align: left; font-style: italic; " >
+					Group is an optional field that can be used to combine Agents on diagrams and reports. 
+					If you use it, Agents without a value in the Group field will not be included when you select groups.
+				</th>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="submit" name="submit_address" value="Save" /></td>
+			</tr>
+		</table>
+	</form>
+	
+	<div style="float: left;" >
+		<h4>Address Map:</h4>
+		<div id="map_canvas" style="width: 400px; height: 300px;"></div>
+	</div>
+	
+	{% if area_name %}
+		<div style="float: left; margin-left: 1em;" >
+			<h4>{{ area_name }} Map:</h4>
+			<div id="area_map_canvas" style="width: 400px; height: 300px;"></div>
+		</div>
+	{% endif %}
+	
+	<div style="clear:both;"></div>
+	
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key={{ map_key }}&sensor=false">
+</script>
+
+<script type="text/javascript">
+	
+var geocoder;
+var map;
+var marker = new google.maps.Marker({});
+	
+var area_map;
+var area_marker = new google.maps.Marker({});
+	
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+    var myOptions = {
+      center: new google.maps.LatLng({{ map_center }}),
+      zoom: {{ zoom_level }},
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	
+	{% if area_name %}
+		var myOptions = {
+	      center: new google.maps.LatLng({{ map_center }}),
+		  zoom: {{ zoom_level }},
+		  mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+		area_map = new google.maps.Map(document.getElementById("area_map_canvas"), myOptions);
+	{% endif %}
+	
+  }
+
+  function codeAddress() {
+    var address = {{ agent.address }};
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+		var loc = results[0].geometry.location;
+        map.setCenter(loc);
+        marker.setOptions({
+            map: map,
+            position: loc
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+
+  function codeArea() {
+    var address = document.getElementById("id_geographic_area").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+		var loc = results[0].geometry.location;
+		var lat = loc.lat()
+		var lng = loc.lng();
+		$("#id_region_latitude").val(lat);
+		$("#id_region_longitude").val(lng);
+        area_map.setCenter(loc);
+        area_marker.setOptions({
+            map: area_map,
+            position: loc
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }	
+	
+$(document).ready(function(){
+	initialize();
+	codeAddress();
+	{% if area_name %}
+		codeArea();
+		$("#id_geographic_area").blur(codeArea);
+	{% endif %}
+	
+});
+</script>
+
+{% endblock %}

@@ -41,7 +41,9 @@ class CommunityForm(forms.ModelForm):
     
     class Meta:
         model = Community
-        
+
+
+   
 
 class EconomicResourceTypeForm(forms.ModelForm):
     
@@ -99,6 +101,17 @@ class EconomicAgentForm(forms.ModelForm):
     class Meta:
         model = EconomicAgent
         fields = ('name', 'address', 'latitude', 'longitude')
+        
+        
+class EditCommunityAgentForm(forms.ModelForm):
+    geographic_area = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '80',}))
+    group = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '40',}))
+    region_latitude = forms.FloatField(required=False, widget=forms.HiddenInput)
+    region_longitude = forms.FloatField(required=False, widget=forms.HiddenInput)
+    
+    class Meta:
+        model = CommunityAgent
+        exclude = ('community', 'agent')
 
 class AgentAddressForm(forms.ModelForm):
     address = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '40',}))

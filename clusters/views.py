@@ -1004,6 +1004,38 @@ def edit_agent_address(request, cluster_id, agent_id):
         "area_name": area_name,
     }, context_instance=RequestContext(request))
     
+    
+@login_required    
+def edit_community_agent(request, cluster_id, agent_id):
+    agent = get_object_or_404(EconomicAgent, pk=agent_id)
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    community = cluster.community
+    ca = CommunityAgent.objects.get(community=community, agent=agent)
+    area_name = community.agent_geographic_area_name
+    map_center = "0, 0"
+    if community.latitude and community.longitude:
+        map_center = ",".join([str(community.latitude), str(community.longitude)])
+    map_key = settings.GOOGLE_API_KEY
+    zoom_level = 0
+    if community.map_zoom_level:
+        zoom_level = community.map_zoom_level - 1
+    agent_form = EditCommunityAgentForm(instance=ca, data=request.POST or None)
+    if request.method == "POST":
+        if agent_form.is_valid():
+            agent_form.save()
+            return HttpResponseRedirect('/%s/%s/%s/'
+               % ('clusters/editclusteragent', cluster_id, agent.id))
+    return render_to_response("clusters/edit_community_agent.html",{ 
+        "community": community,
+        "community_agent": ca,
+        "agent": agent,
+        "agent_form": agent_form,
+        "map_center": map_center,
+        "map_key": map_key,
+        "zoom_level": zoom_level,
+        "area_name": area_name,
+    }, context_instance=RequestContext(request))
+    
 def json_agent_address(request, agent_name):
     # Note: serializer requires an iterable, not a single object. Thus filter rather than get.  
     data = serializers.serialize("json", EconomicAgent.objects.filter(name=agent_name), fields=('address',))    
