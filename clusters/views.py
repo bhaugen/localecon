@@ -958,6 +958,7 @@ def edit_agent_address(request, cluster_id, agent_id):
     agent = get_object_or_404(EconomicAgent, pk=agent_id)
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     community = cluster.community
+    area_name = community.agent_geographic_area_name
     map_center = "0, 0"
     if community.latitude and community.longitude:
         map_center = ",".join([str(community.latitude), str(community.longitude)])
@@ -978,6 +979,7 @@ def edit_agent_address(request, cluster_id, agent_id):
         "map_center": map_center,
         "map_key": map_key,
         "zoom_level": zoom_level,
+        "area_name": area_name,
     }, context_instance=RequestContext(request))
     
 def json_agent_address(request, agent_name):

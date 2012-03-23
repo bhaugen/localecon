@@ -89,8 +89,12 @@ class EconomicResourceTypeFormX(forms.ModelForm):
 class EconomicAgentForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'size': '40',}))
     address = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '80',}))
+    geographic_area = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '80',}))
+    group = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '40',}))
     latitude = forms.FloatField(required=False, widget=forms.HiddenInput)
     longitude = forms.FloatField(required=False, widget=forms.HiddenInput)
+    region_latitude = forms.FloatField(required=False, widget=forms.HiddenInput)
+    region_longitude = forms.FloatField(required=False, widget=forms.HiddenInput)
     
     class Meta:
         model = EconomicAgent

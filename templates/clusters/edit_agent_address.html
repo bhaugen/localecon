@@ -41,13 +41,30 @@ th {text-align: right}
 				{{ agent_form.latitude }}
 				{{ agent_form.longitude }}
 			</tr>
+			{% if area_name %}
+			<tr>
+				<th>{{ area_name }}:</th>					
+				<td>{{ agent_form.geographic_area }}</td>
+				{{ agent_form.region_latitude }}
+				{{ agent_form.region_longitude }}
+			</tr>
+			{% endif %}
+			<tr>
+				<th>Group:</th>					
+				<td>{{ agent_form.group }}</td>
+			</tr>
 			<tr>
 				<td>&nbsp;</td>
 				<td><input type="submit" name="submit_address" value="Save" /></td>
 			</tr>
 		</table>
 	</form>
+	<h4>Address Map:</h4>
 	<div id="map_canvas" style="width: 400px; height: 300px;"></div>
+	
+	{% if area_name %}
+		<div id="area_map_canvas" style="width: 400px; height: 300px;"></div>
+	{% endif %}
 	
 </div>
 
@@ -63,15 +80,27 @@ var geocoder;
 var map;
 var marker = new google.maps.Marker({});
 	
+var area_map;
+var area_marker = new google.maps.Marker({});
+	
   function initialize() {
     geocoder = new google.maps.Geocoder();
-    var latlng = new google.maps.LatLng(-34.397, 150.644);
     var myOptions = {
       center: new google.maps.LatLng({{ map_center }}),
       zoom: {{ zoom_level }},
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	
+	{% if area_name %}
+		var myOptions = {
+	      center: new google.maps.LatLng({{ map_center }}),
+		  zoom: {{ zoom_level }},
+		  mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+		area_map = new google.maps.Map(document.getElementById("area_map_canvas"), myOptions);
+	{% endif %}
+	
   }
 
   function codeAddress() {
@@ -93,10 +122,34 @@ var marker = new google.maps.Marker({});
       }
     });
   }
+
+  function codeArea() {
+    var address = document.getElementById("id_geographic_area").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+		var loc = results[0].geometry.location;
+		var lat = loc.lat()
+		var lng = loc.lng();
+		$("#id_region_latitude").val(lat);
+		$("#id_region_longitude").val(lng);
+        area_map.setCenter(loc);
+        area_marker.setOptions({
+            map: area_map,
+            position: loc
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }	
 	
 $(document).ready(function(){
 	initialize();
 	codeAddress();
+	{% if area_name %}
+		codeArea();
+		$("#id_geographic_area").blur(codeArea);
+	{% endif %}
 	$("#id_address").blur(codeAddress);
 	
 });
