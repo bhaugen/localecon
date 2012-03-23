@@ -154,7 +154,6 @@ def cluster_agents(request, cluster_id):
     return render_to_response("clusters/cluster_agents.html", {
         "cluster": cluster,
         "agents": agents,
-        #"map_url": cluster.map_url,
         }, context_instance=RequestContext(request))
     
     

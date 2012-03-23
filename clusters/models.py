@@ -239,9 +239,6 @@ class Cluster(models.Model):
     description = models.TextField( blank=True, null=True)
     function_aspect_name = models.CharField(max_length=128, blank=True,
         help_text="Name for aspect fields on Economic Functions in this cluster.  If no name, aspects will not be used.")
-    map_url = models.CharField(max_length=255, blank=True)
-    number_description = models.TextField( blank=True, null=True,
-        help_text="This description will appear on tables with numbers, to tell what the numbers mean.")
     root_function = models.ForeignKey("EconomicFunction", blank=True, null=True,
         related_name="cluster_root", 
         help_text="Graph root is optional - can be either function or resource but not both")
