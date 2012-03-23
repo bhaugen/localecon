@@ -145,6 +145,7 @@ var area_marker = new google.maps.Marker({});
 		var loc = results[0].geometry.location;
 		var lat = loc.lat()
 		var lng = loc.lng();
+		var lat_field = $("#id_region_latitude");
 		$("#id_region_latitude").val(lat);
 		$("#id_region_longitude").val(lng);
         area_map.setCenter(loc);
