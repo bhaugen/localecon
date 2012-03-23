@@ -176,7 +176,6 @@ $(document).ready(function(){
 	$("#id_address").blur(codeAddress);
 	$("#id_name").autocomplete(agentNames, {matchContains: true});
 	{% if area_name %}
-		codeArea();
 		$("#id_geographic_area").blur(codeArea);
 	{% endif %}
 });
