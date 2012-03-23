@@ -61,6 +61,7 @@ th {text-align: right}
 	
 var geocoder;
 var map;
+var marker = new google.maps.Marker({});
 	
   function initialize() {
     geocoder = new google.maps.Geocoder();
@@ -83,7 +84,7 @@ var map;
 		$("#id_latitude").val(lat);
 		$("#id_longitude").val(lng);
         map.setCenter(loc);
-        var marker = new google.maps.Marker({
+        marker.setOptions({
             map: map,
             position: loc
         });
