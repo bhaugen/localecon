@@ -912,6 +912,7 @@ def new_cluster_agent(request, cluster_id):
         "zoom_level": zoom_level,
         "form": form,
         "agent_names": agent_names,
+        "area_name": area_name,
     }, context_instance=RequestContext(request))
 
 @login_required    

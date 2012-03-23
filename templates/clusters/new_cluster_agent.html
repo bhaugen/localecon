@@ -41,14 +41,14 @@ p {font-size:0.7875em}
 			{% if area_name %}
 			<tr>
 				<th>{{ area_name }}:</th>					
-				<td>{{ agent_form.geographic_area }}</td>
-				{{ agent_form.region_latitude }}
-				{{ agent_form.region_longitude }}
+				<td>{{ form.geographic_area }}</td>
+				{{ form.region_latitude }}
+				{{ form.region_longitude }}
 			</tr>
 			{% endif %}
 			<tr>
 				<th>Group:</th>					
-				<td>{{ agent_form.group }}</td>
+				<td>{{ form.group }}</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
