@@ -20,7 +20,7 @@ p {font-size:0.7875em}
 
 {% block content %}
 
-
+<div class="agents">
 
 <h3>New Agent for Cluster {{ cluster }}</h3>
 
@@ -42,6 +42,8 @@ p {font-size:0.7875em}
 		<input id="submit" type="submit" value="Submit" />
 	</form>
 <div id="map_canvas" style="width: 480px; height: 320px;"></div>
+	
+</div>
 
 <script type="text/javascript"
       src="http://maps.googleapis.com/maps/api/js?key={{ map_key }}&sensor=false">
