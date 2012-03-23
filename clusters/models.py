@@ -220,6 +220,10 @@ class Community(models.Model):
     unit_of_value = models.ForeignKey(Unit, blank=True, null=True,
         limit_choices_to={"type": "value"},
         related_name="community_units")
+    resource_aspect_name = models.CharField(max_length=128, blank=True,
+        help_text="Name for aspect fields on Economic Resource Types in this community.  If no name, aspects will not be used.")
+    agent_geographic_area_name = models.CharField(max_length=128, blank=True,
+        help_text="Name for geographic area fields for Economic Agents in this community.  If no name, areas will not be used.")
     
     class Meta:
         verbose_name_plural = "communities"
@@ -233,6 +237,8 @@ class Cluster(models.Model):
     community = models.ForeignKey(Community, related_name='clusters')
     name = models.CharField(max_length=128)
     description = models.TextField( blank=True, null=True)
+    function_aspect_name = models.CharField(max_length=128, blank=True,
+        help_text="Name for aspect fields on Economic Functions in this cluster.  If no name, aspects will not be used.")
     map_url = models.CharField(max_length=255, blank=True)
     number_description = models.TextField( blank=True, null=True,
         help_text="This description will appear on tables with numbers, to tell what the numbers mean.")
@@ -377,6 +383,7 @@ class Cluster(models.Model):
 class EconomicFunction(models.Model):
     cluster = models.ForeignKey(Cluster, related_name="functions")
     name = models.CharField(max_length=128)
+    aspect = models.CharField(max_length=128, blank=True)
     slug = models.SlugField("Page name", editable=False)
     
     class Meta:
@@ -488,6 +495,7 @@ class EconomicResourceType(models.Model):
 class CommunityResourceType(models.Model):
     community = models.ForeignKey(Community, related_name='resources')
     resource_type = models.ForeignKey(EconomicResourceType, related_name='communities')
+    aspect = models.CharField(max_length=128, blank=True)
 
     class Meta:
         ordering = ('community', 'resource_type')
@@ -629,6 +637,10 @@ class EconomicAgent(models.Model):
 class CommunityAgent(models.Model):
     community = models.ForeignKey(Community, related_name="agents")
     agent = models.ForeignKey(EconomicAgent, related_name='communities')
+    group = models.CharField(max_length=128)
+    geographic_area = models.CharField(max_length=255, blank=True)
+    region_latitude = models.FloatField(default=0.0, blank=True, null=True)
+    region_longitude = models.FloatField(default=0.0, blank=True, null=True)
 
     class Meta:
         ordering = ('community', 'agent')
