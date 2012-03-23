@@ -49,18 +49,22 @@ p {font-size:0.7875em}
 				<td>{{ form.resource_aspect_name }}</td>
 			</tr>
 			<tr>
-				Resource aspect is an optional field that can be used to classify Resources for diagrams and reports. 
-				If you do not give the field a name, it will not be used.  If you do use it, Resources without a value 
-				in that field will not be included when you select by aspect.
+				<td colspan="2">
+					Resource aspect is an optional field that can be used to classify Resources for diagrams and reports. 
+					If you do not give the field a name, it will not be used.  If you do use it, Resources without a value 
+					in that field will not be included when you select by aspect.
+				</td>
 			</tr>
 			<tr>
 				<th style="text-align: right; " >Agent Geographic Area Name</th>
 				<td>{{ form.agent_geographic_area_name }}</td>
 			</tr>
 			<tr>
-				Geographic Area is an optional field that can be used to combine Agents on maps. 
-				If you do not give the field a name, it will not be used.  If you do use it, Agents without a value 
-				in that field will not be included when you map by area.
+				<td colspan="2">
+					Geographic Area is an optional field that can be used to combine Agents on maps. 
+					If you do not give the field a name, it will not be used.  If you do use it, Agents without a value 
+					in that field will not be included when you map by area.
+				</td>
 			</tr>
 		</table>
 		{{ form.latitude }}
