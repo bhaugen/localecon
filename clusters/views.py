@@ -882,6 +882,7 @@ def edit_community(request, community_id):
 def new_cluster_agent(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     community = cluster.community
+    area_name = community.agent_geographic_area_name
     map_center = ",".join([str(community.latitude), str(community.longitude)])
     map_key = settings.GOOGLE_API_KEY
     zoom_level = community.map_zoom_level - 1
@@ -895,7 +896,13 @@ def new_cluster_agent(request, cluster_id):
                 agent = EconomicAgent.objects.get(name=name)
             except EconomicAgent.DoesNotExist:
                 agent = form.save()
-            crt, created = CommunityAgent.objects.get_or_create(community=cluster.community, agent=agent)
+            ca, created = CommunityAgent.objects.get_or_create(community=cluster.community, agent=agent)
+            ca.group = data["group"]
+            if area_name:
+                ca.geographic_area = data["geographic_area"]
+                ca.region_latitude = data["region_latitude"]
+                ca.region_longitude = data["region_longitude"]
+            ca.save()
             return HttpResponseRedirect('/%s/%s/%s/'
                % ('clusters/editclusteragent', cluster_id, agent.id))
     return render_to_response("clusters/new_cluster_agent.html",{ 
@@ -976,13 +983,13 @@ def edit_agent_address(request, cluster_id, agent_id):
     agent_form = EconomicAgentForm(instance=agent, initial=init, data=request.POST or None)
     if request.method == "POST":
         if agent_form.is_valid():
+            data = agent_form.cleaned_data
+            ca.group = data["group"]
             if area_name:
-                data = agent_form.cleaned_data
-                ca.group = data["group"]
                 ca.geographic_area = data["geographic_area"]
                 ca.region_latitude = data["region_latitude"]
                 ca.region_longitude = data["region_longitude"]
-                ca.save()
+            ca.save()
             agent_form.save()
             return HttpResponseRedirect('/%s/%s/%s/'
                % ('clusters/editclusteragent', cluster_id, agent.id))

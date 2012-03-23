@@ -38,10 +38,42 @@ p {font-size:0.7875em}
 				{{ form.latitude }}
 				{{ form.longitude }}
 			</tr>
+			{% if area_name %}
+			<tr>
+				<th>{{ area_name }}:</th>					
+				<td>{{ agent_form.geographic_area }}</td>
+				{{ agent_form.region_latitude }}
+				{{ agent_form.region_longitude }}
+			</tr>
+			{% endif %}
+			<tr>
+				<th>Group:</th>					
+				<td>{{ agent_form.group }}</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<th style="text-align: left; font-style: italic; " >
+					Group is an optional field that can be used to combine Agents on diagrams and reports. 
+					If you use it, Agents without a value in the Group field will not be included when you select groups.
+				</th>
+			</tr>
 		</table>
 		<input id="submit" type="submit" value="Submit" />
 	</form>
-<div id="map_canvas" style="width: 480px; height: 320px;"></div>
+	
+	<div style="float: left;" >
+		<h4>Address Map:</h4>
+		<div id="map_canvas" style="width: 400px; height: 300px;"></div>
+	</div>
+	
+	{% if area_name %}
+		<div style="float: left; margin-left: 1em;" >
+			<h4>{{ area_name }} Map:</h4>
+			<div id="area_map_canvas" style="width: 400px; height: 300px;"></div>
+		</div>
+	{% endif %}
+	
+	<div style="clear:both;"></div>
 	
 </div>
 
@@ -75,22 +107,34 @@ var geocoder;
 var map;
 var marker = new google.maps.Marker({});
 	
+var area_map;
+var area_marker = new google.maps.Marker({});
+	
   function initialize() {
     geocoder = new google.maps.Geocoder();
-    var latlng = new google.maps.LatLng(-34.397, 150.644);
     var myOptions = {
       center: new google.maps.LatLng({{ map_center }}),
       zoom: {{ zoom_level }},
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	
+	{% if area_name %}
+		var myOptions = {
+	      center: new google.maps.LatLng({{ map_center }}),
+		  zoom: {{ zoom_level }},
+		  mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+		area_map = new google.maps.Map(document.getElementById("area_map_canvas"), myOptions);
+	{% endif %}
+	
   }
 
   function codeAddress() {
     var address = document.getElementById("id_address").value;
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        var loc = results[0].geometry.location;
+		var loc = results[0].geometry.location;
 		var lat = loc.lat()
 		var lng = loc.lng();
 		$("#id_latitude").val(lat);
@@ -106,11 +150,35 @@ var marker = new google.maps.Marker({});
     });
   }
 
+  function codeArea() {
+    var address = document.getElementById("id_geographic_area").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+		var loc = results[0].geometry.location;
+		var lat = loc.lat()
+		var lng = loc.lng();
+		$("#id_region_latitude").val(lat);
+		$("#id_region_longitude").val(lng);
+        area_map.setCenter(loc);
+        area_marker.setOptions({
+            map: area_map,
+            position: loc
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }	
+
 $(document).ready(function(){
 	initialize();
 	$("#id_name").blur(getAddress);
 	$("#id_address").blur(codeAddress);
 	$("#id_name").autocomplete(agentNames, {matchContains: true});
+	{% if area_name %}
+		codeArea();
+		$("#id_geographic_area").blur(codeArea);
+	{% endif %}
 });
 	
 
