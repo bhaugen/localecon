@@ -66,12 +66,20 @@ th {text-align: right}
 			</tr>
 		</table>
 	</form>
-	<h4>Address Map:</h4>
-	<div id="map_canvas" style="width: 400px; height: 300px;"></div>
+	
+	<div style="float: left;" >
+		<h4>Address Map:</h4>
+		<div id="map_canvas" style="width: 400px; height: 300px;"></div>
+	</div>
 	
 	{% if area_name %}
-		<div id="area_map_canvas" style="width: 400px; height: 300px;"></div>
+		<div style="float: left;" >
+			<h4>{{ area_nam }} Map:</h4>
+			<div id="area_map_canvas" style="width: 400px; height: 300px;"></div>
+		</div>
 	{% endif %}
+	
+	<div style="clear:both;"></div>
 	
 </div>
 
