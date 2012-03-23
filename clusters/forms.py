@@ -35,7 +35,9 @@ class CommunityForm(forms.ModelForm):
     map_center = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '80',}))
     latitude = forms.FloatField(required=False, widget=forms.HiddenInput)
     longitude = forms.FloatField(required=False, widget=forms.HiddenInput)
-    map_zoom_level = forms.IntegerField(widget=forms.TextInput(attrs={'size': '2',}))
+    map_zoom_level = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '2',}))
+    resource_aspect_name = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '40',}))
+    agent_geographic_area_name = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '40',}))
     
     class Meta:
         model = Community
