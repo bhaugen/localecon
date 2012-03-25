@@ -128,6 +128,9 @@ def cluster(request, cluster_id, location="agt"):
                     % ('clusters/cluster', cluster_id, location))
     if location == "agt":
         agents = cluster.agents()
+        for agent in agents:
+            agent.all_functions = agent.functions.filter(
+                function__cluster=cluster)
     else:
         agents = cluster.regions()
     map_center = ",".join([str(community.latitude), str(community.longitude)])

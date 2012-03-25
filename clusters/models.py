@@ -698,8 +698,8 @@ class EconomicAgent(models.Model):
             agent_function__function__cluster=cluster,
             role="produces")
     
-    def all_functions(self):
-        return self.functions.all()
+    #def all_functions(self):
+    #    return self.functions.all()
     
     def lat_lng(self):
         return ",".join([str(self.latitude), str(self.longitude)])
