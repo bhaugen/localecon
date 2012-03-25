@@ -253,7 +253,7 @@ class RegionFunction(object):
     
     def produced_function_resources(self):
         answer = []
-        for r in self.resources:
+        for r in self.resources():
             if r.role == "produces":
                 answer.append(r)
         return answer
