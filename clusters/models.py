@@ -423,7 +423,7 @@ class Cluster(models.Model):
                         ca.region_longitude,
                         {})
                 area = areas[key]
-                afs = agent.functions.filter(cluster=self)
+                afs = agent.functions.filter(function__cluster=self)
                 for af in afs:
                     if not af.function.id in area.function_dict:
                         area.function_dict[af.function.id] = RegionFunction(
