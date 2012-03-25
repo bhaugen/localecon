@@ -111,7 +111,7 @@ var infoWin = new google.maps.InfoWindow({});
 	<span style="font-size: 130%;">Map of {{ cluster }}</span>
 	{% if location_form %}
 	<span style="margin-left: 3em; font-size: 90%; font-strength: bold; ">
-		Show: 
+		Markers: 
 		<form style="display: inline; margin: 0; padding: 0;" id="locationForm" action="." method="POST">{% csrf_token %}
 			{{ location_form.location }}
 		</form>
