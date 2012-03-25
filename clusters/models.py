@@ -429,7 +429,7 @@ class Cluster(models.Model):
                         area.functions[af.function.id] = RegionFunction(
                             af.function, {})
                     fn = area.functions[af.function.id]
-                    for afrt.resource_type. in af.function_resources.all():
+                    for afrt.resource_type in af.function_resources.all():
                         if not afrt.resource_type.id in fn.resources:
                             fn.resources[afrt.resource_type.id] = RegionFunctionResource(
                                 afrt.function, afrt.resource_type, 0.0, 0.0)
