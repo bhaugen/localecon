@@ -431,7 +431,7 @@ class Cluster(models.Model):
                             af.function, {})
                     fn = area.function_dict[af.function.id]
                     for afrt in af.function_resources.all():
-                        reskey = "".join([afrt.resource_type.id, afrt.role])
+                        reskey = "".join([str(afrt.resource_type.id), afrt.role])
                         if not reskey in fn.resource_dict:
                             fn.resource_dict[reskey] = RegionFunctionResource(
                                 af.function, afrt.resource_type, afrt.role, 0.0, 0.0)
