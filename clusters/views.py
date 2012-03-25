@@ -135,10 +135,7 @@ def cluster(request, cluster_id, location="agt"):
     else:
         agents = cluster.regions()
     map_center = ",".join([str(community.latitude), str(community.longitude)])
-    map_key = settings.GOOGLE_API_KEY
-    init = {"location": location,}
-    location_form = AgentAreaForm(community=community, initial=init, data=request.POST or None)
-    
+    map_key = settings.GOOGLE_API_KEY   
     return render_to_response("clusters/cluster.html", {
         "cluster": cluster,
         "agents": agents,
