@@ -425,12 +425,12 @@ class Cluster(models.Model):
                 area = areas[key]
                 afs = agent.functions.all()
                 for af in afs:
-                    if not af.function.name in area.functions():
+                    if not af.function.id in area.function_dict:
                         area.function_dict[af.function.id] = RegionFunction(
                             af.function, {})
                     fn = area.function_dict[af.function.id]
                     for afrt in af.function_resources.all():
-                        if not afrt.resource_type.id in fn.resources:
+                        if not afrt.resource_type.id in fn.resource_dict:
                             fn.resource_dict[afrt.resource_type.id] = RegionFunctionResource(
                                 afrt.function, afrt.resource_type, 0.0, 0.0)
                         rt = fn.resource_dict[afrt.resource_type.id]
