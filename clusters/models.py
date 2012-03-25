@@ -246,7 +246,7 @@ class RegionFunction(object):
         self.function = function
         self.resource_dict = resource_dict
         
-    def function_resources(self):
+    def resources(self):
         return self.resource_dict.values()
         
 
@@ -423,7 +423,7 @@ class Cluster(models.Model):
                         ca.region_longitude,
                         {})
                 area = areas[key]
-                afs = agent.functions.all()
+                afs = agent.functions.filter(cluster=self)
                 for af in afs:
                     if not af.function.id in area.function_dict:
                         area.function_dict[af.function.id] = RegionFunction(
@@ -437,10 +437,7 @@ class Cluster(models.Model):
                         rt.quantity += afrt.quantity
                         rt.value += afrt.value
         return areas.values()
-                        
-                
-                    
-    
+
 
 class EconomicFunction(models.Model):
     cluster = models.ForeignKey(Cluster, related_name="functions")
