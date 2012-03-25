@@ -234,9 +234,9 @@ class Community(models.Model):
 
 
 class RegionFunctionResource(object):
-    def __init__(self, function, resource, role, quantity, value):
+    def __init__(self, function, resource_type, role, quantity, value):
         self.function = function
-        self.resource = resource
+        self.resource_type = resource_type
         self.role = role
         self.quantity = quantity
         self.value = value
