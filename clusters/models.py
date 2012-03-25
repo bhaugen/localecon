@@ -231,6 +231,37 @@ class Community(models.Model):
         
     def __unicode__(self):
         return self.name
+
+
+class RegionFunctionResource(object):
+    def __init__(self, function, resource, quantity, value):
+        self.function = function
+        self.resource = resource
+        self.quantity = quantity
+        self.value = value
+ 
+
+class RegionFunction(object):
+    def __init__(self, function, resource_dict):
+        self.function = function
+        self.resource_dict = resource_dict
+        
+    def function_resources(self):
+        return self.resource_dict.values()
+        
+
+class Region(object):
+    def __init__(self, name, lat, lng, function_dict):
+        self.name = name
+        self.lat = lat
+        self.lng = lng
+        self.function_dict= function_dict
+        
+    def functions(self):
+        return self.function_dict.values()
+        
+    def lat_lng(self):
+        return ",".join([str(self.lat), str(self.lng)])
       
 
 class Cluster(models.Model):
@@ -375,6 +406,40 @@ class Cluster(models.Model):
             return True
         else:
             return False
+        
+    def regions(self):
+        areas = {}
+        agents = self.agents()
+        for agent in agents:
+            co = self.community
+            ca = CommunityAgent.objects.get(
+                community=co, agent=agent)
+            key = ca.region_latitude + ca.region_longitude
+            if key:
+                if not key in areas:
+                    areas[key] = Region(
+                        ca.geographic_area,
+                        ca.region_latitude,
+                        ca.region_longitude,
+                        {})
+                area = areas[key]
+                afs = agent.functions.all()
+                for af in afs:
+                    if not af.function.name in area.functions:
+                        area.functions[af.function.id] = RegionFunction(
+                            af.function, {})
+                    fn = area.functions[af.function.id]
+                    for afrt.resource_type. in af.function_resources.all():
+                        if not afrt.resource_type.id in fn.resources:
+                            fn.resources[afrt.resource_type.id] = RegionFunctionResource(
+                                afrt.function, afrt.resource_type, 0.0, 0.0)
+                        rt = fn.resources[afrt.resource_type.id]
+                        rt.quantity += afrt.quantity
+                        rt.value += afrt.value
+        return areas.values()
+                        
+                
+                    
     
 
 class EconomicFunction(models.Model):
@@ -628,8 +693,8 @@ class EconomicAgent(models.Model):
     
     def lat_lng(self):
         return ",".join([str(self.latitude), str(self.longitude)])
-    
 
+    
 
 class CommunityAgent(models.Model):
     community = models.ForeignKey(Community, related_name="agents")

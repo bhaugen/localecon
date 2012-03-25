@@ -250,4 +250,11 @@ LEVEL_CHOICES = (
 class FunctionAgentForm(forms.Form):
     level = forms.ChoiceField(choices=LEVEL_CHOICES, widget=forms.RadioSelect(attrs={'class': 'tog'}))
 
-    
+
+class AgentAreaForm(forms.Form):
+    location = forms.ChoiceField(widget=forms.RadioSelect(attrs={'class': 'tog'}))
+
+    def __init__(self, community, *args, **kwargs):
+        super(AgentAreaForm, self).__init__(*args, **kwargs)
+        self.fields["location"].choices = [
+            ('agt', 'Agent or'),('area', community.agent_geographic_area_name)]
