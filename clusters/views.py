@@ -119,7 +119,7 @@ def cluster(request, cluster_id, location="agt"):
     community = cluster.community
     init = {"location": location,}
     location_form = AgentAreaForm(community=community, initial=init, data=request.POST or None)
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     if request.method == "POST":
         if location_form:
             if location_form.is_valid():

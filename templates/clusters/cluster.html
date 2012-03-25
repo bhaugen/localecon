@@ -92,6 +92,10 @@ var infoWin = new google.maps.InfoWindow({});
 	
 	$(document).ready(function() {
 		initialize();
+		$(".tog").change(function() 
+		{
+			this.form.submit();
+		});
 	});
 </script>
 
