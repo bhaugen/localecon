@@ -3,10 +3,26 @@
 {% load humanize %}
 
 {% block title %}
-     Cluster: {{ cluster }}
+     Map of {{ cluster }}
 {% endblock %}
 
 {% block header %}
+
+<style>
+	ul
+	{
+		list-style-type: none;
+		display: inline;
+	    margin: 0;
+		padding: 0;
+	}
+	li
+	{
+		display: inline;
+	    margin: 0;
+		padding: 0;
+	}
+</style>
 
 <script type="text/javascript"
       src="http://maps.googleapis.com/maps/api/js?key={{ map_key }}&sensor=false">
@@ -87,7 +103,17 @@ var infoWin = new google.maps.InfoWindow({});
 
 {% include "clusters/_cluster_nav.html" %}
 
-<h3>Cluster: {{ cluster }}</h3>
+<div>
+	<span style="font-size: 130%;">Map of {{ cluster }}</span>
+	{% if location_form %}
+	<span style="margin-left: 3em; font-size: 90%; font-strength: bold; ">
+		Show: 
+		<form style="display: inline; margin: 0; padding: 0;" id="locationForm" action="." method="POST">{% csrf_token %}
+			{{ location_form.location }}
+		</form>
+	</span>
+	{% endif %}
+</div>
 
 <p style="margin:0;">
 	{{ cluster.description|urlize }}
