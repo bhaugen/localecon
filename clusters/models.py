@@ -240,6 +240,7 @@ class RegionFunctionResource(object):
         self.role = role
         self.quantity = quantity
         self.value = value
+         
  
 
 class RegionFunction(object):
@@ -249,6 +250,13 @@ class RegionFunction(object):
         
     def resources(self):
         return self.resource_dict.values()
+    
+    def produced_function_resources(self):
+        answer = []
+        for r in self.resources:
+            if r.role == "produces":
+                answer.append(r)
+        return answer
         
 
 class Region(object):
@@ -258,7 +266,7 @@ class Region(object):
         self.lng = lng
         self.function_dict= function_dict
         
-    def functions(self):
+    def all_functions(self):
         return self.function_dict.values()
         
     def lat_lng(self):
@@ -690,6 +698,9 @@ class EconomicAgent(models.Model):
             agent_function__function__cluster=cluster,
             role="produces")
     
+    def all_functions(self):
+        return self.functions.all()
+    
     def lat_lng(self):
         return ",".join([str(self.latitude), str(self.longitude)])
 
@@ -734,6 +745,13 @@ class AgentFunction(models.Model):
     
     def name(self):
         return self.agent.name
+    
+    def produced_function_resources(self):
+        answer = []
+        for afrt in self.function_resources.all():
+            if afrt.role == "produces":
+                answer.append(afrt)
+        return answer
 
 
 class AgentResourceType(models.Model):

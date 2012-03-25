@@ -126,7 +126,10 @@ def cluster(request, cluster_id, location="agt"):
                 location = location_form.cleaned_data["location"]
         return HttpResponseRedirect('/%s/%s/%s/'
                     % ('clusters/cluster', cluster_id, location))
-    agents = cluster.agents()
+    if location == "agt":
+        agents = cluster.agents()
+    else:
+        agents = cluster.regions()
     map_center = ",".join([str(community.latitude), str(community.longitude)])
     map_key = settings.GOOGLE_API_KEY
     init = {"location": location,}
