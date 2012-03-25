@@ -432,7 +432,7 @@ class Cluster(models.Model):
                     for afrt in af.function_resources.all():
                         if not afrt.resource_type.id in fn.resource_dict:
                             fn.resource_dict[afrt.resource_type.id] = RegionFunctionResource(
-                                afrt.function, afrt.resource_type, 0.0, 0.0)
+                                af.function, afrt.resource_type, 0.0, 0.0)
                         rt = fn.resource_dict[afrt.resource_type.id]
                         rt.quantity += afrt.quantity
                         rt.value += afrt.value
