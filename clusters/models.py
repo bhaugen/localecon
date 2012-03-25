@@ -234,9 +234,10 @@ class Community(models.Model):
 
 
 class RegionFunctionResource(object):
-    def __init__(self, function, resource, quantity, value):
+    def __init__(self, function, resource, role, quantity, value):
         self.function = function
         self.resource = resource
+        self.role = role
         self.quantity = quantity
         self.value = value
  
@@ -430,10 +431,11 @@ class Cluster(models.Model):
                             af.function, {})
                     fn = area.function_dict[af.function.id]
                     for afrt in af.function_resources.all():
-                        if not afrt.resource_type.id in fn.resource_dict:
-                            fn.resource_dict[afrt.resource_type.id] = RegionFunctionResource(
-                                af.function, afrt.resource_type, 0.0, 0.0)
-                        rt = fn.resource_dict[afrt.resource_type.id]
+                        reskey = "".join([afrt.resource_type.id, afrt.role])
+                        if not reskey in fn.resource_dict:
+                            fn.resource_dict[reskey] = RegionFunctionResource(
+                                af.function, afrt.resource_type, afrt.role, 0.0, 0.0)
+                        rt = fn.resource_dict[reskey]
                         rt.quantity += afrt.quantity
                         rt.value += afrt.value
         return areas.values()
