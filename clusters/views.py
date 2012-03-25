@@ -114,13 +114,22 @@ def clusters(request):
     }, context_instance=RequestContext(request))
 
   
-def cluster(request, cluster_id):
+def cluster(request, cluster_id, location="agt"):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    init = {"location": location,}
+    location_form = AgentAreaForm(community=community, initial=init, data=request.POST or None)
+    if request.method == "POST":
+        if location_form:
+            if location_form.is_valid():
+                location = location_form.cleaned_data["location"]
+        return HttpResponseRedirect('/%s/%s/%s/'
+                    % ('clusters/cluster', cluster_id, location))
     community = cluster.community
     agents = cluster.agents()
     map_center = ",".join([str(community.latitude), str(community.longitude)])
     map_key = settings.GOOGLE_API_KEY
-    location_form = AgentAreaForm(community=community, data=request.POST or None)
+    init = {"location": location,}
+    location_form = AgentAreaForm(community=community, initial=init, data=request.POST or None)
     
     return render_to_response("clusters/cluster.html", {
         "cluster": cluster,
