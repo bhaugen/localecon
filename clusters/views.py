@@ -1051,8 +1051,8 @@ def edit_agent_address(request, cluster_id, agent_id):
                 ca.region_longitude = data["region_longitude"]
             ca.save()
             agent_form.save()
-            return HttpResponseRedirect('/%s/%s/%s/'
-               % ('clusters/editclusteragent', cluster_id, agent.id))
+            return HttpResponseRedirect('/%s/%s/'
+               % ('clusters/clusteragents', cluster_id))
     return render_to_response("clusters/edit_agent_address.html",{ 
         "cluster": cluster,
         "agent": agent,
@@ -1082,8 +1082,8 @@ def edit_community_agent(request, cluster_id, agent_id):
     if request.method == "POST":
         if agent_form.is_valid():
             agent_form.save()
-            return HttpResponseRedirect('/%s/%s/%s/'
-               % ('clusters/editclusteragent', cluster_id, agent.id))
+            return HttpResponseRedirect('/%s/%s/'
+               % ('clusters/clusteragents', cluster_id))
     return render_to_response("clusters/edit_community_agent.html",{ 
         "cluster": cluster,
         "community": community,
