@@ -413,6 +413,63 @@ def agent_network_params(cluster, toggle):
     }
     return template_params
 
+def group_network_params(cluster, toggle):
+    template_params = {}
+    frts = AgentFunctionResourceType.objects.filter(
+        agent_function__function__cluster=cluster)
+    edges = []
+    rtypes = []
+    total = 0.0
+    if frts:
+        nodes = list(cluster.agents())
+        for agt in nodes:
+            for v in agt.function_inputs(cluster):
+                rtypes.append(v.resource_type)
+                if toggle == "val":
+                    total += v.value
+                    edges.append(Edge(v.resource_type, agt, v.value))
+                else:
+                    total += v.quantity
+                    edges.append(Edge(v.resource_type, agt, v.quantity))
+            for v in agt.function_outputs(cluster):
+                rtypes.append(v.resource_type)
+                if toggle == "val":
+                    total += v.value
+                    edges.append(Edge(agt, v.resource_type, v.value))
+                else:
+                    total += v.quantity
+                    edges.append(Edge(agt, v.resource_type, v.quantity))
+    else:
+        flows = AgentResourceFlow.objects.filter(
+            from_function__function__cluster=cluster)
+        nodes = []
+        edges = []
+        for flow in flows:
+            nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
+            if toggle == "val":
+                total += flow.value
+                edges.append(Edge(flow.from_function, flow.resource_type, flow.value))
+                edges.append(Edge(flow.resource_type, flow.to_function, flow.value))
+            else:
+                total += flow.quantity
+                edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity))
+                edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity))
+        nodes = list(set(nodes))
+            
+    for edge in edges:
+        width = 1
+        if total > 0:
+            width = round((edge.quantity / total), 2) * 50
+            width = int(width)
+        edge.width = width
+    nodes.extend(list(set(rtypes)))
+    template_params =  {
+        'cluster': cluster,
+        'nodes': nodes,
+        'edges': edges,
+    }
+    return template_params
+
 def network_params(cluster, toggle):
     template_params = {}
     frts = FunctionResourceType.objects.filter(
@@ -492,6 +549,8 @@ def network(request, cluster_id, toggle="qty", level="fn"):
                     % ('clusters/network', cluster_id, toggle, level))
     if level == "agt":
         template_params = agent_network_params(cluster, toggle)
+    elif level == "grp":
+        template_params = group_network_params(cluster, toggle)
     else:
         template_params = network_params(cluster, toggle)
     template_params["use_window_size"] = True

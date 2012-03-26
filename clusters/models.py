@@ -233,7 +233,7 @@ class Community(models.Model):
         return self.name
 
 
-class RegionFunctionResource(object):
+class AggregateFunctionResource(object):
     def __init__(self, function, resource_type, role, quantity, value):
         self.function = function
         self.resource_type = resource_type
@@ -243,7 +243,7 @@ class RegionFunctionResource(object):
          
  
 
-class RegionFunction(object):
+class AggregateFunction(object):
     def __init__(self, function, resource_dict):
         self.function = function
         self.resource_dict = resource_dict
@@ -435,13 +435,45 @@ class Cluster(models.Model):
                 afs = agent.functions.filter(function__cluster=self)
                 for af in afs:
                     if not af.function.id in area.function_dict:
-                        area.function_dict[af.function.id] = RegionFunction(
+                        area.function_dict[af.function.id] = AggregateFunction(
                             af.function, {})
                     fn = area.function_dict[af.function.id]
                     for afrt in af.function_resources.all():
                         reskey = "".join([str(afrt.resource_type.id), afrt.role])
                         if not reskey in fn.resource_dict:
-                            fn.resource_dict[reskey] = RegionFunctionResource(
+                            fn.resource_dict[reskey] = AggregateFunctionResource(
+                                af.function, afrt.resource_type, afrt.role, 0.0, 0.0)
+                        rt = fn.resource_dict[reskey]
+                        rt.quantity += afrt.quantity
+                        rt.value += afrt.value
+        return areas.values()
+    
+    def groups(self):
+        areas = {}
+        agents = self.agents()
+        for agent in agents:
+            co = self.community
+            ca = CommunityAgent.objects.get(
+                community=co, agent=agent)
+            key = ca.group
+            if key:
+                if not key in areas:
+                    areas[key] = Region(
+                        ca.geographic_area,
+                        ca.region_latitude,
+                        ca.region_longitude,
+                        {})
+                area = areas[key]
+                afs = agent.functions.filter(function__cluster=self)
+                for af in afs:
+                    if not af.function.id in area.function_dict:
+                        area.function_dict[af.function.id] = AggregateFunction(
+                            af.function, {})
+                    fn = area.function_dict[af.function.id]
+                    for afrt in af.function_resources.all():
+                        reskey = "".join([str(afrt.resource_type.id), afrt.role])
+                        if not reskey in fn.resource_dict:
+                            fn.resource_dict[reskey] = AggregateFunctionResource(
                                 af.function, afrt.resource_type, afrt.role, 0.0, 0.0)
                         rt = fn.resource_dict[reskey]
                         rt.quantity += afrt.quantity

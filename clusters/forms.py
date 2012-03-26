@@ -244,7 +244,8 @@ class QuantityValueForm(forms.Form):
     
 LEVEL_CHOICES = (
     ('fn', 'Functions or'),
-    ('agt', 'Agents'),
+    ('agt', 'Agents or'),
+    ('grp', 'Groups'),
 ) 
 
 class FunctionAgentForm(forms.Form):
