@@ -415,15 +415,14 @@ def agent_network_params(cluster, toggle):
 
 def group_network_params(cluster, toggle):
     template_params = {}
-    frts = AgentFunctionResourceType.objects.filter(
-        agent_function__function__cluster=cluster)
+    groups = cluster.groups()
     edges = []
     rtypes = []
     total = 0.0
-    if frts:
-        nodes = list(cluster.agents())
+    if groups:
+        nodes = groups
         for agt in nodes:
-            for v in agt.function_inputs(cluster):
+            for v in agt.function_inputs():
                 rtypes.append(v.resource_type)
                 if toggle == "val":
                     total += v.value
@@ -431,7 +430,7 @@ def group_network_params(cluster, toggle):
                 else:
                     total += v.quantity
                     edges.append(Edge(v.resource_type, agt, v.quantity))
-            for v in agt.function_outputs(cluster):
+            for v in agt.function_outputs():
                 rtypes.append(v.resource_type)
                 if toggle == "val":
                     total += v.value

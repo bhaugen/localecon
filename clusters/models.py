@@ -257,6 +257,12 @@ class AggregateFunction(object):
             if r.role == "produces":
                 answer.append(r)
         return answer
+    
+    def function_inputs(self):
+        return [res for res in self.resources() if res.role == "consumes"]
+    
+    def function_outputs(self):
+        return [res for res in self.resources() if res.role == "produces"]
         
 
 class Region(object):
@@ -279,6 +285,11 @@ class AgentGroup(object):
         
     def all_functions(self):
         return self.function_dict.values()
+    
+    def function_inputs(self):
+        fns = self.all_functions()
+        answer = 
+        
       
 
 class Cluster(models.Model):
