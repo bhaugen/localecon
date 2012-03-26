@@ -438,22 +438,6 @@ def group_network_params(cluster, toggle):
                 else:
                     total += v.quantity
                     edges.append(Edge(agt, v.resource_type, v.quantity))
-    else:
-        flows = AgentResourceFlow.objects.filter(
-            from_function__function__cluster=cluster)
-        nodes = []
-        edges = []
-        for flow in flows:
-            nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
-            if toggle == "val":
-                total += flow.value
-                edges.append(Edge(flow.from_function, flow.resource_type, flow.value))
-                edges.append(Edge(flow.resource_type, flow.to_function, flow.value))
-            else:
-                total += flow.quantity
-                edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity))
-                edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity))
-        nodes = list(set(nodes))
             
     for edge in edges:
         width = 1
