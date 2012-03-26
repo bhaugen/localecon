@@ -416,6 +416,7 @@ def agent_network_params(cluster, toggle):
 def group_network_params(cluster, toggle):
     template_params = {}
     groups = cluster.groups()
+    nodes = []
     edges = []
     rtypes = []
     total = 0.0
