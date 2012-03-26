@@ -68,10 +68,13 @@ p {font-size:0.7875em}
 					in that field will not be included when you map by area.
 				</th>
 			</tr>
+			{{ form.latitude }}
+			{{ form.longitude }}
+			<tr>
+				<td>&nbsp;</td>
+				<td><input id="submit" type="submit" value="Save" /></td>
+			</tr>
 		</table>
-		{{ form.latitude }}
-		{{ form.longitude }}
-		<input id="submit" type="submit" value="Submit" />
 	</form>
 <div id="map_canvas" style="height: 500px; width: 1000px;"></div>
 
