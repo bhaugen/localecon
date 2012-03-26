@@ -288,7 +288,17 @@ class AgentGroup(object):
     
     def function_inputs(self):
         fns = self.all_functions()
-        answer = 
+        answer = []
+        for fn in fns:
+            answer.extend(fn.function_inputs())
+        return answer
+    
+    def function_outputs(self):
+        fns = self.all_functions()
+        answer = []
+        for fn in fns:
+            answer.extend(fn.function_outputs())
+        return answer
         
       
 
