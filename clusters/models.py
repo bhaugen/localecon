@@ -283,6 +283,9 @@ class AgentGroup(object):
         self.name = name
         self.function_dict= function_dict
         
+    def node_id(self):
+        return "".join(["AgentGroup-", self.name])
+        
     def all_functions(self):
         return self.function_dict.values()
     
