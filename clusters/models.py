@@ -740,7 +740,10 @@ class EconomicAgent(models.Model):
         super(EconomicAgent, self).save(*args, **kwargs)
         
     def address_is_editable(self):
-        return self.communities.all().count()
+        if self.communities.all().count()>1:
+            return False
+        else:
+            return True
         
     def node_id(self):
         return "".join([ type(self).__name__, "-", self.slug])
