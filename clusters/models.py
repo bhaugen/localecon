@@ -271,6 +271,14 @@ class Region(object):
         
     def lat_lng(self):
         return ",".join([str(self.lat), str(self.lng)])
+    
+class AgentGroup(object):
+    def __init__(self, name, function_dict):
+        self.name = name
+        self.function_dict= function_dict
+        
+    def all_functions(self):
+        return self.function_dict.values()
       
 
 class Cluster(models.Model):
@@ -449,7 +457,7 @@ class Cluster(models.Model):
         return areas.values()
     
     def groups(self):
-        areas = {}
+        groups = {}
         agents = self.agents()
         for agent in agents:
             co = self.community
@@ -457,19 +465,17 @@ class Cluster(models.Model):
                 community=co, agent=agent)
             key = ca.group
             if key:
-                if not key in areas:
-                    areas[key] = Region(
-                        ca.geographic_area,
-                        ca.region_latitude,
-                        ca.region_longitude,
+                if not key in groups:
+                    groups[key] = AgentGroup(
+                        ca.group,
                         {})
-                area = areas[key]
+                grp = groups[key]
                 afs = agent.functions.filter(function__cluster=self)
                 for af in afs:
-                    if not af.function.id in area.function_dict:
-                        area.function_dict[af.function.id] = AggregateFunction(
+                    if not af.function.id in grp.function_dict:
+                        grp.function_dict[af.function.id] = AggregateFunction(
                             af.function, {})
-                    fn = area.function_dict[af.function.id]
+                    fn = grp.function_dict[af.function.id]
                     for afrt in af.function_resources.all():
                         reskey = "".join([str(afrt.resource_type.id), afrt.role])
                         if not reskey in fn.resource_dict:
@@ -478,7 +484,7 @@ class Cluster(models.Model):
                         rt = fn.resource_dict[reskey]
                         rt.quantity += afrt.quantity
                         rt.value += afrt.value
-        return areas.values()
+        return groups.values()
 
 
 class EconomicFunction(models.Model):
