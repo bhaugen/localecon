@@ -739,6 +739,9 @@ class EconomicAgent(models.Model):
         unique_slugify(self, self.name)
         super(EconomicAgent, self).save(*args, **kwargs)
         
+    def address_is_editable(self):
+        return self.communities.all().count()
+        
     def node_id(self):
         return "".join([ type(self).__name__, "-", self.slug])
     

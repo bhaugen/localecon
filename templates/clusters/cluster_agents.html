@@ -38,6 +38,12 @@ p {font-size:0.7875em}
 			<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}
 				&nbsp;&nbsp;
 				<a href="{% url edit_cluster_agent cluster_id=cluster.id agent_id=agent.id %}">Edit Consumption &amp; Production</a>
+					{% if agent.address_is_editable %}
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="{% url edit_agent_address cluster_id=cluster.id agent_id=agent.id %}">Edit Agent Details</a>
+					{% else %}
+						<a href="{% url edit_community_agent cluster_id=cluster.id agent_id=agent.id %}">Edit Community Agent Info</a>
+					{% endif %}
 			</th>
 		</tr>
 		{% for fun in agent.cluster_functions %}
