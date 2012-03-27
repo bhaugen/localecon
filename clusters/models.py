@@ -545,7 +545,7 @@ class Cluster(models.Model):
                 for af in afs:
                     if not af.function.id in grp.function_dict:
                         grp.function_dict[af.function.id] = AgentGroupFunction(
-                            af.function, [])
+                            af.function, {})
                     fn = grp.function_dict[af.function.id]
                     for flow in af.outgoing_flows.all():
                         flowkey = "-".join([
