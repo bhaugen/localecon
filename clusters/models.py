@@ -254,7 +254,10 @@ class AgentGroupFlow(object):
 class AgentGroupFunction(object):
     def __init__(self, function, flows):
         self.function = function
-        self.flows = flows
+        self.flow_dict = flow_dict
+        
+    def flows(self):
+        return self.flow_dict.values()
  
 
 class AggregateFunction(object):
@@ -545,14 +548,18 @@ class Cluster(models.Model):
                             af.function, [])
                     fn = grp.function_dict[af.function.id]
                     for flow in af.outgoing_flows.all():
-                        reskey = flow.resource_type.id
-                        if not reskey in fn.resource_dict:
-                            fn.resource_dict[reskey] = AgentGroupFlow(
+                        flowkey = "-".join([
+                            str(flow.from_function.function.id),
+                            str(flow.to_function.function.id),
+                            str(flow.resource_type.id),
+                            ])
+                        if not flowkey in fn.flow_dict:
+                            fn.resource_dict[flowkey] = AgentGroupFlow(
                                 flow.from_function.function,
                                 flow.to_function.function,
                                 flow.resource_type,
                                 0.0, 0.0)
-                        rt = fn.resource_dict[reskey]
+                        rt = fn.flow_dict[flowkey]
                         rt.quantity += flow.quantity
                         rt.value += flow.value
         return groups.values()
