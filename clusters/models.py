@@ -564,7 +564,7 @@ class Cluster(models.Model):
                         rt.value += flow.value
         group_flows = []
         for grp in groups:
-            for fn in group.all_functions():
+            for fn in grp.all_functions():
                 group_flows.extend(fn.flows())
         return group_flows
 
