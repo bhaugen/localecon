@@ -252,7 +252,7 @@ class AgentGroupFlow(object):
 
    
 class AgentGroupFunction(object):
-    def __init__(self, function, flows):
+    def __init__(self, function, flow_dict):
         self.function = function
         self.flow_dict = flow_dict
         
@@ -554,7 +554,7 @@ class Cluster(models.Model):
                             str(flow.resource_type.id),
                             ])
                         if not flowkey in fn.flow_dict:
-                            fn.resource_dict[flowkey] = AgentGroupFlow(
+                            fn.flow_dict[flowkey] = AgentGroupFlow(
                                 flow.from_function.function,
                                 flow.to_function.function,
                                 flow.resource_type,
