@@ -240,7 +240,21 @@ class AggregateFunctionResource(object):
         self.role = role
         self.quantity = quantity
         self.value = value
-         
+
+   
+class AgentGroupFlow(object):
+    def __init__(self, from_function, to_function, resource_type, quantity, value):
+        self.from_function = from_function
+        self.to_function = to_function
+        self.resource_type = resource_type
+        self.quantity = quantity
+        self.value = value
+
+   
+class AgentGroupFunction(object):
+    def __init__(self, function, flows):
+        self.function = function
+        self.flows = flows
  
 
 class AggregateFunction(object):
@@ -508,6 +522,39 @@ class Cluster(models.Model):
                         rt = fn.resource_dict[reskey]
                         rt.quantity += afrt.quantity
                         rt.value += afrt.value
+        return groups.values()
+    
+    def group_flows(self):
+        groups = {}
+        agents = self.agents()
+        for agent in agents:
+            co = self.community
+            ca = CommunityAgent.objects.get(
+                community=co, agent=agent)
+            key = ca.group
+            if key:
+                if not key in groups:
+                    groups[key] = AgentGroup(
+                        ca.group,
+                        {})
+                grp = groups[key]
+                afs = agent.functions.filter(function__cluster=self)
+                for af in afs:
+                    if not af.function.id in grp.function_dict:
+                        grp.function_dict[af.function.id] = AgentGroupFunction(
+                            af.function, [])
+                    fn = grp.function_dict[af.function.id]
+                    for flow in af.outgoing_flows.all():
+                        reskey = flow.resource_type.id
+                        if not reskey in fn.resource_dict:
+                            fn.resource_dict[reskey] = AgentGroupFlow(
+                                flow.from_function.function,
+                                flow.to_function.function,
+                                flow.resource_type,
+                                0.0, 0.0)
+                        rt = fn.resource_dict[reskey]
+                        rt.quantity += flow.quantity
+                        rt.value += flow.value
         return groups.values()
 
 

@@ -561,6 +561,53 @@ class FlowEdge(object):
          self.quantity = quantity
          self.width = width
          
+def group_flow_params(cluster, toggle):
+    template_params = {}
+    flows = AgentResourceFlow.objects.filter(
+        from_function__function__cluster=cluster)
+    nodes = []
+    total = 0.0
+    for flow in flows:
+        nodes.extend([flow.from_function, flow.to_function])
+        if toggle == "val":
+            total += flow.value
+        else:
+            total += flow.quantity
+    nodes = list(set(nodes))
+    prev = None
+    edges = []
+    for flow in flows:
+        if prev:
+            prev_match = prev.to_function.id==flow.to_function.id and prev.from_function.id==flow.from_function.id
+        else:
+            prev_match=False
+        if prev_match:
+            edge.label = ";".join([edge.label, flow.resource_type.name])
+            if toggle == "val":
+                edge.quantity += flow.value
+            else:
+                edge.quantity += flow.quantity
+        else:
+            if toggle == "val":
+                nbr = flow.value
+            else:
+                nbr = flow.quantity
+            edge = FlowEdge(flow.from_function, flow.to_function, flow.resource_type.name, nbr)
+            edges.append(edge)
+        prev = flow                  
+    for edge in edges:
+        width = 1
+        if total > 0:
+            width = round((edge.quantity / total), 2) * 50
+            width = int(width)
+        edge.width = width
+    template_params =  {
+        'cluster': cluster,
+        'nodes': nodes,
+        'edges': edges,
+    }
+    return template_params
+
 def agent_flow_params(cluster, toggle):
     template_params = {}
     flows = AgentResourceFlow.objects.filter(
