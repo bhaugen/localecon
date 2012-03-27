@@ -563,8 +563,7 @@ class FlowEdge(object):
          
 def group_flow_params(cluster, toggle):
     template_params = {}
-    flows = AgentResourceFlow.objects.filter(
-        from_function__function__cluster=cluster)
+    flows = cluster.group_flows()
     nodes = []
     total = 0.0
     for flow in flows:
@@ -722,6 +721,8 @@ def flows(request, cluster_id, toggle="qty", level="fn"):
                     % ('clusters/flows', cluster_id, toggle, level))
     if level == "agt":
         template_params = agent_flow_params(cluster, toggle)
+    elif level == "grp":
+        template_params = group_flow_params(cluster, toggle)
     else:
         template_params = flow_params(cluster, toggle)
     template_params["use_window_size"] = True
