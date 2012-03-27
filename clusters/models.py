@@ -562,7 +562,11 @@ class Cluster(models.Model):
                         rt = fn.flow_dict[flowkey]
                         rt.quantity += flow.quantity
                         rt.value += flow.value
-        return groups.values()
+        group_flows = []
+        for grp in groups:
+            for fn in group.all_functions():
+                group_flows.extend(fn.flows())
+        return group_flows
 
 
 class EconomicFunction(models.Model):
