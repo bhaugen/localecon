@@ -88,6 +88,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'clusters',
     'south',
+    'django_filters',
 )
 
 
