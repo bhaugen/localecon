@@ -8,6 +8,7 @@ class AgentFilterSet(django_filters.FilterSet):
 
     class Meta:
         model = EconomicAgent
+        exclude = ('slug',)
 
     @classmethod
     def queryset(cls):
