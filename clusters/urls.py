@@ -70,7 +70,7 @@ urlpatterns = patterns('',
         
     #reports
     url(r'^agentreport/$', 
-         'cluster.views.object_filter',
+         'clusters.views.object_filter',
          {'model': EconomicAgent, 'filter_class': AgentFilterSet, 'queryset': AgentFilterSet.queryset() }),
 )
 
