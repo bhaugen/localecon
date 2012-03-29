@@ -18,7 +18,7 @@
 {% for agent in filter.qs %}
     <p>{{ agent.name }} of {{ agent.address }}</p>
 	{% for ca in agent.communities.all %}
-		<p style="margin-left: 1em;" >{{ ca.community.name }}</p>
+		<p style="margin-left: 1em;" >Community: {{ ca.community.name }}</p>
 	{% endfor %}
 {% endfor %}
 </div>
