@@ -1334,7 +1334,7 @@ def send_email(request):
 
 def object_filter(request, model=None, queryset=None, template_name=None, extra_context=None,
     context_processors=None, filter_class=None, page_length=None, page_variable="p"):
-    #import pdb; pdb.set_trace()
+    import pdb; pdb.set_trace()
     if model is None and filter_class is None:
         raise TypeError("object_filter must be called with either model or filter_class")
     if model is None:
