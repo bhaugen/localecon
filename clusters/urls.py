@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import *
 
 from models import *
+from filter_defs import *
 
 urlpatterns = patterns('',
                        
