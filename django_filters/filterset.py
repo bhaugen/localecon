@@ -220,7 +220,7 @@ class BaseFilterSet(object):
 
     @property
     def qs(self):
-        #import pdb; pdb.set_trace()
+        import pdb; pdb.set_trace()
         if not hasattr(self, '_qs'):
             qs = self.queryset.all()
             for name, filter_ in self.filters.iteritems():
