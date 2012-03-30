@@ -44,8 +44,8 @@ class AgentFunctionResourceTypeFilterSet(django_filters.FilterSet):
             rts = EconomicResourceType.objects.filter(id__in=rtids)
             fnids = list(set(qs.values_list('agent_function__function', flat=True)))
             fns = EconomicFunction.objects.filter(id__in=fnids)
-            self.filters['resource_type'].choices = [('', '----------')] + [(rt.id, rt.name) for rt in rts]
-            self.filters['agent_function__function'].choices = [('', '----------')] + [(fn.id, fn.name) for fn in fns]
+            self.filters['resource_type'].field.choices = [('', '----------')] + [(rt.id, rt.name) for rt in rts]
+            self.filters['agent_function__function'].field.choices = [('', '----------')] + [(fn.id, fn.name) for fn in fns]
 
     @classmethod
     def queryset(cls):
