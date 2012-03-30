@@ -1,0 +1,22 @@
+
+
+<style>
+	th{text-align: right;}
+</style>
+
+<form action="" method="get">
+	<table>
+		{{ filter.form.as_table }}
+		<tr>
+			<td>&nbsp;</td>
+			<td><input type="submit" /></td>
+		</tr>
+	</table>
+</form>
+
+<div>
+{% for ca in filter.qs %}
+    <p>{{ ca.agent.name }} of {{ ca.agent.address }}</p>
+		<p style="margin-left: 1em;" >Community: {{ ca.community.name }}</p>
+{% endfor %}
+</div>
