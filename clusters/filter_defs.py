@@ -36,6 +36,12 @@ class AgentFunctionResourceTypeFilterSet(django_filters.FilterSet):
     class Meta:
         model = AgentFunctionResourceType
         fields = ('resource_type', 'agent_function__function')
+        
+    def __init__(self, *args, **kwargs):
+            super(AgentFunctionResourceTypeFilterSet, self).__init__(*args, **kwargs)
+            import pdb; pdb.set_trace()
+            #self.filters['resource_type'].choices =
+            #self.filters['agent_function__function'].choices = 
 
     @classmethod
     def queryset(cls):
