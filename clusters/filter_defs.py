@@ -22,9 +22,21 @@ class CommunityAgentFilterSet(django_filters.FilterSet):
 
     class Meta:
         model = CommunityAgent
-        #exclude = ('latitude', 'longitude', 'slug')
         fields = ('community',)
 
     @classmethod
     def queryset(cls):
         return CommunityAgent.objects.select_related().all()
+    
+    
+class AgentFunctionResourceTypeFilterSet(django_filters.FilterSet):
+    agent_function__agent__name = django_filters.CharFilter(label="Agent Name", lookup_type='contains')
+    agent_function__agent__address = django_filters.CharFilter(label="Agent Adress", lookup_type='contains')
+
+    class Meta:
+        model = AgentFunctionResourceType
+        fields = ('resource_type', 'agent_function__function')
+
+    @classmethod
+    def queryset(cls):
+        return AgentFunctionResourceType.objects.select_related().all()

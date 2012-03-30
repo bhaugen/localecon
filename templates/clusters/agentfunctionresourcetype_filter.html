@@ -1,0 +1,22 @@
+
+<style>
+	th{text-align: right;}
+</style>
+
+<form action="" method="get">
+	<table>
+		{{ filter.form.as_table }}
+		<tr>
+			<td>&nbsp;</td>
+			<td><input type="submit" /></td>
+		</tr>
+	</table>
+</form>
+
+<div>
+{% for afrt in filter.qs %}
+    <p>{{ afrt.agent_function.agent.name }} of {{ afrt.agent_function.agent.address }}</p>
+		{% ifchanged %}<p style="margin-left: 1em;" >{{ afrt.agent_function.function.name }}</p>{% endifchanged %}
+			{% ifchanged %}<p style="margin-left: 2em;" >{{ afrt }}</p>{% endifchanged %}
+{% endfor %}
+</div>

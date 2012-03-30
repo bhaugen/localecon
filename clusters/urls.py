@@ -75,5 +75,8 @@ urlpatterns = patterns('',
     url(r'^communityagentreport/$', 
          'clusters.views.object_filter',
          {'model': CommunityAgent, 'filter_class': CommunityAgentFilterSet, 'queryset': CommunityAgentFilterSet.queryset() }),
+    url(r'^agentfunctionreport/$', 
+         'clusters.views.object_filter',
+         {'model': AgentFunctionResourceType, 'filter_class': AgentFunctionResourceTypeFilterSet, 'queryset': AgentFunctionResourceTypeFilterSet.queryset() }),
 )
 
