@@ -1346,7 +1346,8 @@ def object_filter(request, cluster_id, model=None, queryset=None, template_name=
             {'Meta': meta})
     
     queryset = filter_class.queryset(cluster)
-        
+    
+    import pdb; pdb.set_trace()    
     filterset = filter_class(request.GET or None, queryset=queryset)
     
     if not template_name:
