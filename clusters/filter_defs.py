@@ -32,6 +32,7 @@ class CommunityAgentFilterSet(django_filters.FilterSet):
 class AgentFunctionResourceTypeFilterSet(django_filters.FilterSet):
     agent_function__agent__name = django_filters.CharFilter(label="Agent Name", lookup_type='contains')
     agent_function__agent__address = django_filters.CharFilter(label="Agent Address", lookup_type='contains')
+    agent_function__agent__communities__group = django_filters.CharFilter(label="Agent Group")
 
     class Meta:
         model = AgentFunctionResourceType
