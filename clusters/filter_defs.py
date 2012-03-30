@@ -39,9 +39,13 @@ class AgentFunctionResourceTypeFilterSet(django_filters.FilterSet):
         
     def __init__(self, *args, **kwargs):
             super(AgentFunctionResourceTypeFilterSet, self).__init__(*args, **kwargs)
-            import pdb; pdb.set_trace()
-            #self.filters['resource_type'].choices =
-            #self.filters['agent_function__function'].choices = 
+            qs = kwargs['queryset']
+            rtids = list(set(qs.values_list('resource_type', flat=True)))
+            rts = EconomicResourceType.objects.filter(id__in=rtids)
+            fnids = list(set(qs.values_list('agent_function__function', flat=True)))
+            fns = EconomicFunction.objects.filter(id__in=fnids)
+            self.filters['resource_type'].choices = [('', '----------')] + [(rt.id, rt.name) for rt in rts]
+            self.filters['agent_function__function'].choices = [('', '----------')] + [(fn.id, fn.name) for fn in fns]
 
     @classmethod
     def queryset(cls):
