@@ -15,8 +15,8 @@
 
 <div>
 {% for afrt in filter.qs %}
-    <p>{{ afrt.agent_function.agent.name }} of {{ afrt.agent_function.agent.address }}</p>
-		{% ifchanged %}<p style="margin-left: 1em;" >{{ afrt.agent_function.function.name }}</p>{% endifchanged %}
-			{% ifchanged %}<p style="margin-left: 2em;" >{{ afrt }}</p>{% endifchanged %}
+    {% ifchanged afrt.agent_function.agent %}<p>{{ afrt.agent_function.agent.name }} of {{ afrt.agent_function.agent.address }}</p>{% endifchanged %}
+		{% ifchanged afrt.agent_function %}<p style="margin-left: 1em;" >{{ afrt.agent_function.function.name }}</p>{% endifchanged %}
+			<p style="margin-left: 2em;" >{{ afrt }}</p>
 {% endfor %}
 </div>
