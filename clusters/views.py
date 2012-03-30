@@ -1332,10 +1332,12 @@ def send_email(request):
         "email_form": email_form,
     })
 
-def object_filter(request, cluster_id, model=None, queryset=None, template_name=None, extra_context=None,
+def object_filter(request, cluster_id=None, model=None, queryset=None, template_name=None, extra_context=None,
     context_processors=None, filter_class=None, page_length=None, page_variable="p"):
     #import pdb; pdb.set_trace()
-    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if cluster_id:
+        cluster = get_object_or_404(Cluster, pk=cluster_id)
+        queryset = filter_class.queryset(cluster)
     if model is None and filter_class is None:
         raise TypeError("object_filter must be called with either model or filter_class")
     if model is None:
@@ -1344,8 +1346,6 @@ def object_filter(request, cluster_id, model=None, queryset=None, template_name=
         meta = type('Meta', (object,), {'model': model})
         filter_class = type('%sFilterSet' % model._meta.object_name, (FilterSet,),
             {'Meta': meta})
-    
-    queryset = filter_class.queryset(cluster)
     
     #import pdb; pdb.set_trace()    
     filterset = filter_class(request.GET or None, queryset=queryset)
