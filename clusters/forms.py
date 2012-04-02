@@ -252,6 +252,16 @@ class FunctionAgentLevelForm(forms.Form):
     level = forms.ChoiceField(choices=LEVEL_CHOICES, widget=forms.RadioSelect(attrs={'class': 'tog'}))
 
 
+TWO_LEVEL_CHOICES = (
+    ('fn', 'Functions or'),
+    ('agt', 'Agents or'),
+) 
+
+class FunctionAgentTwoLevelForm(forms.Form):
+    level = forms.ChoiceField(choices=TWO_LEVEL_CHOICES, widget=forms.RadioSelect(attrs={'class': 'tog'}))
+
+
+
 class AgentAreaForm(forms.Form):
     location = forms.ChoiceField(widget=forms.RadioSelect(attrs={'class': 'tog'}))
 

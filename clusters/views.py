@@ -753,7 +753,7 @@ def diagnostics(request, cluster_id, level="fn"):
     
     level_form = None
     if cluster.agents():
-        level_form = FunctionAgentLevelForm(
+        level_form = FunctionAgentTwoLevelForm(
             initial={"level": level,},
             data=request.POST or None)
         
@@ -766,7 +766,7 @@ def diagnostics(request, cluster_id, level="fn"):
     
     if level == "agt":
         function_production_without_consumption = cluster.agent_function_production_without_consumption()
-        function_consumption_without_production = cluster.agent_function_consumption_without_production()
+        function_consumption_without_production = cluster.agent_function_consumption_without_production())
     else:
         function_production_without_consumption = cluster.function_production_without_consumption()
         function_consumption_without_production = cluster.function_consumption_without_production()
