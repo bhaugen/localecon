@@ -47,7 +47,7 @@ p {font-size:0.7875em}
 	{% if level_form %}
 		&nbsp;&nbsp;&nbsp;
 		<form style="display: inline; margin: 0; padding: 0;" id="levelForm" action="." method="POST">{% csrf_token %}
-			[{{ level_form.level }}]
+			Show {{ level_form.level }}
 		</form>
 	{% endif %}
 </h3>
