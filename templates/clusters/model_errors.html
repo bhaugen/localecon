@@ -66,7 +66,7 @@ p {font-size:0.7875em}
 	<h3>Differences between Function and Agent Quantities:</h3>
 	<table>
 		{% for diff in function_agent_diffs %}
-			{% if diff.agent_total_qty %}
+			{% if "agent_total_qty" in diff %}
 			<tr>
 				<th  style="text-align: right; " >{{ diff.function_resource }} Quantity:</th>
 				<td style="text-align: right; " >{{ diff.function_quantity|intcomma }}</td>
