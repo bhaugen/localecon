@@ -25,11 +25,11 @@ p {font-size:0.7875em}
 
 {% include "clusters/_cluster_nav.html" %}
 
-<h3>Diagnostics for Cluster: {{ cluster }}</h3>
+<h3>Diagnostics for Cluster: {{ cluster }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url model_errors cluster_id=cluster.id %}">Model Errors</a></h3>
 
 
 <h3>
-    Economic Gaps &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url model_errors cluster_id=cluster.id %}">Model Errors</a>
+    Economic Gaps
 </h3>
 
 {% if function_production_without_consumption %}
