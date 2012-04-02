@@ -439,7 +439,7 @@ class Cluster(models.Model):
     
     def agent_function_production_without_consumption(self):
         #import pdb; pdb.set_trace()
-        funs = self.agent_functions.all()
+        funs = self.agent_functions()
         missing = []
         for fun in funs:
             for out in fun.outputs():
@@ -456,7 +456,7 @@ class Cluster(models.Model):
 
     def agent_function_consumption_without_production(self):
         #import pdb; pdb.set_trace()
-        funs = self.agent_functions.all()
+        funs = self.agent_functions()
         missing = []
         for fun in funs:
             for inp in fun.inputs():
