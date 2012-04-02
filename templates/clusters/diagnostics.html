@@ -39,9 +39,11 @@ p {font-size:0.7875em}
 			<tr>
 				<td>{{ miss.function_resource }}</td>
 				{% if "quantity_missing" in miss %}
-					<td style="text-align: right; " >Missing quantity: {{ miss.quantity_missing|intcomma }}</td>
+					<td style="text-align: right; " >Missing quantity:</td>
+					 <td style="text-align: right; " >{{ miss.quantity_missing|intcomma }}</td>
 				{% else %}
-					<td style="text-align: right; " >Missing value: {{ miss.value_missing|intcomma }}</td>
+					<td style="text-align: right; " >Missing value:</td>
+					<td style="text-align: right; " > {{ miss.value_missing|intcomma }}</td>
 				{% endif %}
 			</tr>
 		{% endfor %}
@@ -58,9 +60,11 @@ p {font-size:0.7875em}
 			<tr>
 				<td>{{ miss.function_resource }}</td>
 				{% if "quantity_missing" in miss %}
-					<td style="text-align: right; " >Missing quantity: {{ miss.quantity_missing|intcomma }}</td>
+					<td style="text-align: right; " >Missing quantity:</td>
+					<td style="text-align: right; " > {{ miss.quantity_missing|intcomma }}</td>
 				{% else %}
-					<td style="text-align: right; " >Missing value: {{ miss.value_missing|intcomma }}</td>
+					<td style="text-align: right; " >Missing value:</td>
+					<td style="text-align: right; " > {{ miss.value_missing|intcomma }}</td>
 				{% endif %}
 			</tr>
 		{% endfor %}
