@@ -427,24 +427,31 @@ class Cluster(models.Model):
         return missing
     
     def function_agent_diffs(self):
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         funs = self.functions.all()
         diffs = []
         for fun in funs:
             # agents here are AgentFunction objects
             agents = fun.agents.all()
             for res in fun.resources.all():
-                agent_total = 0
+                agent_total_qty = 0
+                agent_total_val = 0
                 for agent in agents:
-                    agent_total += sum(
+                    agent_total_qty += sum(
                         ares.quantity for ares in agent.function_resources.filter(
+                            resource_type=res.resource_type, role=res.role)
+                        )
+                    agent_total_val += sum(
+                        ares.value for ares in agent.function_resources.filter(
                             resource_type=res.resource_type, role=res.role)
                         )
                     for ares in agent.function_resources.filter(role=res.role):
                         if ares.resource_type.is_child_of(res.resource_type):
-                            agent_total += ares.quantity
-                if agent_total != res.quantity:
-                    diffs.append({"function_resource": res, "function_quantity": res.quantity, "agent_total": agent_total})
+                            agent_total_qty += ares.quantity
+                if agent_total_qty != res.quantity:
+                    diffs.append({"function_resource": res, "function_quantity": res.quantity, "agent_total_qty": agent_total_qty})
+                if agent_total_val != res.value:
+                    diffs.append({"function_resource": res, "function_value": res.value, "agent_total_val": agent_total_val})
         return diffs
     
     def has_flows(self):

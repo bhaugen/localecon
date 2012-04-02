@@ -66,12 +66,21 @@ p {font-size:0.7875em}
 	<h3>Differences between Function and Agent Quantities:</h3>
 	<table>
 		{% for diff in function_agent_diffs %}
+			{% if diff.agent_total_qty %}
 			<tr>
 				<th  style="text-align: right; " >{{ diff.function_resource }} Quantity:</th>
 				<td style="text-align: right; " >{{ diff.function_quantity|intcomma }}</td>
 				<th  style="text-align: right; " >Agent Total:</th>
-				<td style="text-align: right; " >{{ diff.agent_total|intcomma }}</td>
+				<td style="text-align: right; " >{{ diff.agent_total_qty|intcomma }}</td>
 			</tr>
+			{% else %}
+			<tr>
+				<th  style="text-align: right; " >{{ diff.function_resource }} Value:</th>
+				<td style="text-align: right; " >{{ diff.function_value|intcomma }}</td>
+				<th  style="text-align: right; " >Agent Total:</th>
+				<td style="text-align: right; " >{{ diff.agent_total_val|intcomma }}</td>
+			</tr>
+			{% endif %}
 		{% endfor %}
 	</table>
 {% endif %}
