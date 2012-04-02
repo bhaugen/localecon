@@ -15,6 +15,20 @@ h1 {font-size:2.25em}
 h2 {font-size:1.6875em}
 p {font-size:0.7875em}
 	
+	ul
+	{
+		list-style-type: none;
+		display: inline;
+	    margin: 0;
+		padding: 0;
+	}
+	li
+	{
+		display: inline;
+	    margin: 0;
+		padding: 0;
+	}
+	
 </style>
 
 {% endblock %}
@@ -29,7 +43,13 @@ p {font-size:0.7875em}
 
 
 <h3>
-    Economic Gaps
+    Economic Gaps 
+	{% if level_form %}
+		&nbsp;&nbsp;&nbsp;
+		<form style="display: inline; margin: 0; padding: 0;" id="levelForm" action="." method="POST">{% csrf_token %}
+			[{{ level_form.level }}]
+		</form>
+	{% endif %}
 </h3>
 
 {% if function_production_without_consumption %}
@@ -74,4 +94,17 @@ p {font-size:0.7875em}
 {% endif %}
 
  </div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$(".tog").change(function() 
+	{
+		this.form.submit();
+	});
+
+});
+	
+</script>
 {% endblock %}

@@ -748,14 +748,25 @@ def iotable(request, cluster_id):
         "iotable": iotable,
     }, context_instance=RequestContext(request))
     
-def diagnostics(request, cluster_id):
+def diagnostics(request, cluster_id, level="fn"):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     
-    function_production_without_consumption = cluster.function_production_without_consumption()
-    function_consumption_without_production = cluster.function_consumption_without_production()
+    level_form = None
+    if cluster.agents():
+        level_form = FunctionAgentForm(
+            initial={"level": level,},
+            data=request.POST or None)
+    
+    if level == "agt":
+        agent_function_production_without_consumption = cluster.function_production_without_consumption()
+        agent_function_consumption_without_production = cluster.function_consumption_without_production()
+    else:
+        function_production_without_consumption = cluster.function_production_without_consumption()
+        function_consumption_without_production = cluster.function_consumption_without_production()
     
     return render_to_response("clusters/diagnostics.html",{ 
         "cluster": cluster,
+        "level_form": level_form,
         "function_production_without_consumption": function_production_without_consumption,
         "function_consumption_without_production": function_consumption_without_production,
     }, context_instance=RequestContext(request))
