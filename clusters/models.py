@@ -434,6 +434,43 @@ class Cluster(models.Model):
                     missing.append({"function_resource": inp, "value_missing": production_val - inp.value })
         return missing
     
+    def agent_functions(self):
+        return AgentFunction.objects.filter(function__cluster=self)
+    
+    def agent_function_production_without_consumption(self):
+        #import pdb; pdb.set_trace()
+        funs = self.agent_functions.all()
+        missing = []
+        for fun in funs:
+            for out in fun.outputs():
+                consumption_qty = 0
+                consumption_val = 0
+                for consumer in out.resource_type.cluster_consumers(self):
+                    consumption_qty += consumer.quantity
+                    consumption_val += consumer.value
+                if consumption_qty < out.quantity:
+                    missing.append({"function_resource": out, "quantity_missing": consumption_qty - out.quantity })
+                if consumption_val < out.value:
+                    missing.append({"function_resource": out, "value_missing": consumption_val - out.value })
+        return missing
+
+    def agent_function_consumption_without_production(self):
+        #import pdb; pdb.set_trace()
+        funs = self.agent_functions.all()
+        missing = []
+        for fun in funs:
+            for inp in fun.inputs():
+                production_qty = 0
+                production_val = 0
+                for producer in inp.resource_type.cluster_producers(self):
+                    production_qty += producer.quantity
+                    production_val += producer.value
+                if production_qty < inp.quantity:
+                    missing.append({"function_resource": inp, "quantity_missing": production_qty - inp.quantity })
+                if production_val < inp.value:
+                    missing.append({"function_resource": inp, "value_missing": production_val - inp.value })
+        return missing
+    
     def function_agent_diffs(self):
         #import pdb; pdb.set_trace()
         funs = self.functions.all()
@@ -897,7 +934,12 @@ class AgentFunction(models.Model):
             if afrt.role == "produces":
                 answer.append(afrt)
         return answer
-
+    
+    def outputs(self):
+        return self.function_resources.filter(role="produces")
+    
+    def inputs(self):
+        return self.function_resources.filter(role="consumes")
 
 class AgentResourceType(models.Model):
     agent = models.ForeignKey(EconomicAgent, related_name='resources')
