@@ -762,7 +762,7 @@ def diagnostics(request, cluster_id, level="fn"):
             if level_form.is_valid():
                 level = level_form.cleaned_data["level"]
         return HttpResponseRedirect('/%s/%s/%s/'
-                    % ('clusters/flows', cluster_id, level))
+                    % ('clusters/diagnostics', cluster_id, level))
     
     if level == "agt":
         agent_function_production_without_consumption = cluster.function_production_without_consumption()
