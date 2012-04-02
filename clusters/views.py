@@ -756,6 +756,13 @@ def diagnostics(request, cluster_id, level="fn"):
         level_form = FunctionAgentForm(
             initial={"level": level,},
             data=request.POST or None)
+        
+    if request.method == "POST":
+        if level_form:
+            if level_form.is_valid():
+                level = level_form.cleaned_data["level"]
+        return HttpResponseRedirect('/%s/%s/%s/'
+                    % ('clusters/flows', cluster_id, level))
     
     if level == "agt":
         agent_function_production_without_consumption = cluster.function_production_without_consumption()
