@@ -254,7 +254,7 @@ class FunctionAgentLevelForm(forms.Form):
 
 TWO_LEVEL_CHOICES = (
     ('fn', 'Functions or'),
-    ('agt', 'Agents or'),
+    ('agt', 'Agents'),
 ) 
 
 class FunctionAgentTwoLevelForm(forms.Form):
