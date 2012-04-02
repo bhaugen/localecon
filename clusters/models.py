@@ -413,6 +413,7 @@ class Cluster(models.Model):
         return missing
 
     def function_consumption_without_production(self):
+        import pdb; pdb.set_trace()
         funs = self.functions.all()
         missing = []
         for fun in funs:
@@ -428,6 +429,7 @@ class Cluster(models.Model):
         funs = self.functions.all()
         diffs = []
         for fun in funs:
+            # agents here are AgentFunction objects
             agents = fun.agents.all()
             for res in fun.resources.all():
                 agent_total = 0
