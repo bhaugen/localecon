@@ -248,7 +248,7 @@ LEVEL_CHOICES = (
     ('grp', 'Groups'),
 ) 
 
-class FunctionAgentForm(forms.Form):
+class FunctionAgentLevelForm(forms.Form):
     level = forms.ChoiceField(choices=LEVEL_CHOICES, widget=forms.RadioSelect(attrs={'class': 'tog'}))
 
 

@@ -520,7 +520,7 @@ def network(request, cluster_id, toggle="qty", level="fn"):
     level_form = None
     #import pdb; pdb.set_trace()
     if cluster.agents():
-        level_form = FunctionAgentForm(
+        level_form = FunctionAgentLevelForm(
             initial={"level": level,},
             data=request.POST or None)
     if request.method == "POST":
@@ -708,7 +708,7 @@ def flows(request, cluster_id, toggle="qty", level="fn"):
         data=request.POST or None)
     level_form = None
     if cluster.agents():
-        level_form = FunctionAgentForm(
+        level_form = FunctionAgentLevelForm(
             initial={"level": level,},
             data=request.POST or None)
     if request.method == "POST":
@@ -753,7 +753,7 @@ def diagnostics(request, cluster_id, level="fn"):
     
     level_form = None
     if cluster.agents():
-        level_form = FunctionAgentForm(
+        level_form = FunctionAgentLevelForm(
             initial={"level": level,},
             data=request.POST or None)
         
