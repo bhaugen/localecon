@@ -480,10 +480,10 @@ class Cluster(models.Model):
             for inc in incoming:
                 inc.flow = True
                 inc.matched = False
+            outgoing = fn.outgoing_flows.all()
             for og in outgoing:
                 og.flow = True
                 og.matched = False
-            outgoing = fn.outgoing_flows.all()
             for inp in fn.inputs():
                 inp.flow = False
                 report.append(inp)
