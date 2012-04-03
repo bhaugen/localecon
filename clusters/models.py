@@ -474,38 +474,38 @@ class Cluster(models.Model):
     def function_io_vs_flows(self):
         report = []
         fns = self.functions.all()
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         for fn in fns:
-            incoming_outliers = []
-            outgoing_outliers = []
+            incoming = fn.incoming_flows.all()
+            for inc in incoming:
+                inc.flow = True
+                inc.matched = False
+            for og in outgoing:
+                og.flow = True
+                og.matched = False
+            outgoing = fn.outgoing_flows.all()
             for inp in fn.inputs():
                 inp.flow = False
                 report.append(inp)
                 rels = inp.resource_type.all_relatives()
-                for inc in fn.incoming_flows.all():
-                    inc.flow = True
+                for inc in incoming:
                     if inc.resource_type in rels:
                         inc.matched = True
                         report.append(inc)
-                    else:
-                        inc.matched = False
-                        incoming_outliers.append(inc)
             for outp in fn.outputs():
                 outp.flow = False
                 report.append(outp)
                 rels = outp.resource_type.all_relatives()
                 for og in fn.outgoing_flows.all():
-                    og.flow = True
                     if og.resource_type in rels:
                         og.matched = True
                         report.append(og)
-                    else:
-                        og.matched = False
-                        outgoing_outliers.append(og)
-            for io in incoming_outliers:
-                report.append(io)
-            for oo in outgoing_outliers:
-                report.append(oo)
+            for inc in incoming:
+                if not inc.matched:
+                    report.append(io)
+            for og in outgoing:
+                if not og.matched:
+                    report.append(oo)
         return report
                         
                         
