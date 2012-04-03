@@ -768,7 +768,7 @@ def diagnostics(request, cluster_id, level="fn"):
     if level == "agt":
         function_production_without_consumption = cluster.agent_function_production_without_consumption()
         function_consumption_without_production = cluster.agent_function_consumption_without_production()
-        if cluster.has_flows():
+        #if cluster.has_flows():
             #function_io_vs_flows = cluster.agent_io_vs_flows()
     else:
         function_production_without_consumption = cluster.function_production_without_consumption()
