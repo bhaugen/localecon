@@ -781,6 +781,7 @@ def diagnostics(request, cluster_id, level="fn"):
         "level_form": level_form,
         "function_production_without_consumption": function_production_without_consumption,
         "function_consumption_without_production": function_consumption_without_production,
+        "function_io_vs_flows": function_io_vs_flows,
     }, context_instance=RequestContext(request))
     
 def model_errors(request, cluster_id):

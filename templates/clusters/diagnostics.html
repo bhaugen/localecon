@@ -94,14 +94,32 @@ p {font-size:0.7875em}
 {% endif %}
 	
 </div>
+
+{% if function_io_vs_flows %}
+<div style="float: left;">
+	<h3>
+		Function Production-Consumption vs Flows
+	</h3>
 	
-<h3>
-	Production-Consumption vs Flows
-</h3>
+	<table>
+		{% for line in function_io_vs_flows %}
+			<tr>
+				{% if line.flow %}
+					{% if line.matched %}
+						<td>Matched: {{ line }}</td>
+					{% else %}
+						<td>Unmatched: {{ line }}</td>
+				{% else %}
+					<td>{{ line }}</td>
+				{% endif %}
+			</tr>
+		{% endfor %}
+	</table>
 
 
  </div>
-
+{% endif %}
+	
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
