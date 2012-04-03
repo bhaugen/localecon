@@ -112,13 +112,13 @@ p {font-size:0.7875em}
 			<tr>
 				{% if line.flow %}
 					{% if line.matched %}
-						<td>Matched Flow: from {{ line.from_function.name }} to {{ line.to_function.name }} </td>
+						<td style="background: #EAF2D3;" >Matched Flow: from {{ line.from_function.name }} to {{ line.to_function.name }} </td>
 					{% else %}
-						<td>Unmatched Flow: from {{ line.from_function.name }} to {{ line.to_function.name }}</td>
+						<td style="background: #EAF2D3;" >Unmatched Flow: from {{ line.from_function.name }} to {{ line.to_function.name }}</td>
 					{% endif %}
 					<td>{{ line.resource_type }}</td>
-					<td style="text-align: right; " >{{ line.quantity|intcomma }}</td>
-					<td style="text-align: right; " >{{ symbol }}{{ line.value|intcomma }}</td>
+					<td style="text-align: right; background: #EAF2D3; " >{{ line.quantity|intcomma }}</td>
+					<td style="text-align: right; background: #EAF2D3; " >{{ symbol }}{{ line.value|intcomma }}</td>
 				{% else %}
 					<td style="text-align: right; ">{{ line.function.name }} {{ line.role }}</td>
 					<td>{{ line.resource_type.name }}</td>
