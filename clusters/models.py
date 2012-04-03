@@ -484,8 +484,10 @@ class Cluster(models.Model):
                 for inc in fn.incoming_flows.all():
                     inc.flow = True
                     if inc.resource_type in rels:
+                        inc.matched = True
                         report.append(inc)
                     else:
+                        inc.matched = False
                         incoming_outliers.append(inc)
             for outp in fn.outputs():
                 outp.flow = False
@@ -494,8 +496,10 @@ class Cluster(models.Model):
                 for og in fn.outgoing_flows.all():
                     og.flow = True
                     if og.resource_type in rels:
+                        og.matched = True
                         report.append(og)
                     else:
+                        og.matched = False
                         outgoing_outliers.append(og)
             for io in incoming_outliers:
                 report.append(io)
