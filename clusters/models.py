@@ -496,7 +496,7 @@ class Cluster(models.Model):
                 outp.flow = False
                 report.append(outp)
                 rels = outp.resource_type.all_relatives()
-                for og in fn.outgoing_flows.all():
+                for og in outgoing:
                     if og.resource_type in rels:
                         og.matched = True
                         report.append(og)
