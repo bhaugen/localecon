@@ -471,6 +471,44 @@ class Cluster(models.Model):
                     missing.append({"function_resource": inp, "value_missing": production_val - inp.value })
         return missing
     
+    def function_io_vs_flows(self):
+        report = []
+        fns = self.functions.all()
+        incoming = self.incoming_flows.all()
+        incoming_outliers = []
+        outgoing = self.outgoing_flows.all()
+        outgoing_outliers = []
+        for fn in fns:
+            for inp in fn.inputs():
+                inp.flow = False
+                report.append(inp)
+                rels = inp.resource_type.all_relatives()
+                for inc in incoming:
+                    if inc.resource_type in rels:
+                        inc.flow = True
+                        report.append(inc)
+                    else:
+                        incoming_outliers.append(inc)
+            for outp in fn.outputs():
+                outp.flow = False
+                report.append(outp)
+                rels = outp.resource_type.all_relatives()
+                for og in outgoing:
+                    if og.resource_type in rels:
+                        og.flow = True
+                        report.append(og)
+                    else:
+                        outgoing_outliers.append(og)
+        for io in incoming_outliers:
+            report.append(io)
+        for oo in outgoing_outliers:
+            report.append(oo)
+        return report
+                        
+                        
+                        
+                
+    
     def function_agent_diffs(self):
         #import pdb; pdb.set_trace()
         funs = self.functions.all()

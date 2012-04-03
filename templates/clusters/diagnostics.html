@@ -41,9 +41,9 @@ p {font-size:0.7875em}
 
 <h3>Diagnostics for Cluster: {{ cluster }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url model_errors cluster_id=cluster.id %}">Model Errors</a></h3>
 
-
+<div style="float: left;">
 <h3>
-    Economic Gaps 
+    Gaps 
 	{% if level_form %}
 		&nbsp;&nbsp;&nbsp;
 		<form style="display: inline; margin: 0; padding: 0;" id="levelForm" action="." method="POST">{% csrf_token %}
@@ -92,6 +92,13 @@ p {font-size:0.7875em}
 	{% else %}
 	<h3>All function consumption is produced within this cluster</h3>
 {% endif %}
+	
+</div>
+	
+<h3>
+	Production-Consumption vs Flows
+</h3>
+
 
  </div>
 
