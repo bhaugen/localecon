@@ -502,10 +502,10 @@ class Cluster(models.Model):
                         report.append(og)
             for inc in incoming:
                 if not inc.matched:
-                    report.append(io)
+                    report.append(inc)
             for og in outgoing:
                 if not og.matched:
-                    report.append(oo)
+                    report.append(og)
         return report
                         
                         
