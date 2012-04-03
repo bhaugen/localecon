@@ -482,8 +482,8 @@ class Cluster(models.Model):
                 report.append(inp)
                 rels = inp.resource_type.all_relatives()
                 for inc in fn.incoming_flows.all():
+                    inc.flow = True
                     if inc.resource_type in rels:
-                        inc.flow = True
                         report.append(inc)
                     else:
                         incoming_outliers.append(inc)
@@ -492,8 +492,8 @@ class Cluster(models.Model):
                 report.append(outp)
                 rels = outp.resource_type.all_relatives()
                 for og in fn.outgoing_flows.all():
+                    og.flow = True
                     if og.resource_type in rels:
-                        og.flow = True
                         report.append(og)
                     else:
                         outgoing_outliers.append(og)
