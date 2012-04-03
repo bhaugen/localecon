@@ -96,7 +96,7 @@ p {font-size:0.7875em}
 </div>
 
 {% if function_io_vs_flows %}
-<div style="float: left;">
+<div style="float: left; margin-left: 1em;">
 	<h3>
 		Function Production-Consumption vs Flows
 	</h3>
@@ -106,12 +106,15 @@ p {font-size:0.7875em}
 			<tr>
 				{% if line.flow %}
 					{% if line.matched %}
-						<td>Matched: {{ line }}</td>
+						<td>Matched Flow: {{ line }}</td>
 					{% else %}
-						<td>Unmatched: {{ line }}</td>
+						<td>Unmatched Flow: {{ line }}</td>
 					{% endif %}
 				{% else %}
-					<td>{{ line }}</td>
+					<td>{{ line.function.name }} {{ line.role }}</td>
+					<td>{{ line.resource_type.name }}</td>
+					<td style="text-align: right; " >Qty: {{ line.quantity }}</td>
+					<td style="text-align: right; " >Value: {{ line.value }}</td>
 				{% endif %}
 			</tr>
 		{% endfor %}
