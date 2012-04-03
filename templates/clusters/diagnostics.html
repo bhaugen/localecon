@@ -106,10 +106,13 @@ p {font-size:0.7875em}
 			<tr>
 				{% if line.flow %}
 					{% if line.matched %}
-						<td>Matched Flow: {{ line }}</td>
+						<td>Matched Flow: from {{ line.from_function.name }} to {{ line.from_function.name }} </td>
 					{% else %}
-						<td>Unmatched Flow: {{ line }}</td>
+						<td>Unmatched Flow: from {{ line.from_function.name }} to {{ line.from_function.name }}</td>
 					{% endif %}
+					<td>{{ line.resource_type }}</td>
+					<td style="text-align: right; " >Qty: {{ line.quantity }}</td>
+					<td style="text-align: right; " >Value: {{ line.value }}</td>
 				{% else %}
 					<td>{{ line.function.name }} {{ line.role }}</td>
 					<td>{{ line.resource_type.name }}</td>
