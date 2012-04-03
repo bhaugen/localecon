@@ -750,6 +750,11 @@ def iotable(request, cluster_id):
     
 def diagnostics(request, cluster_id, level="fn"):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    symbol = "$"
+    try:
+        symbol = cluster.community.unit_of_value.symbol
+    except:
+        pass
     
     level_form = None
     if cluster.agents():
@@ -778,6 +783,7 @@ def diagnostics(request, cluster_id, level="fn"):
     
     return render_to_response("clusters/diagnostics.html",{ 
         "cluster": cluster,
+        "symbol": symbol,
         "level_form": level_form,
         "function_production_without_consumption": function_production_without_consumption,
         "function_consumption_without_production": function_consumption_without_production,

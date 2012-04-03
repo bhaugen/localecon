@@ -84,7 +84,7 @@ p {font-size:0.7875em}
 					<td style="text-align: right; " > {{ miss.quantity_missing|intcomma }}</td>
 				{% else %}
 					<td style="text-align: right; " >Missing value:</td>
-					<td style="text-align: right; " > {{ miss.value_missing|intcomma }}</td>
+					<td style="text-align: right; " > {{ symbol }}{{ miss.value_missing|intcomma }}</td>
 				{% endif %}
 			</tr>
 		{% endfor %}
@@ -111,13 +111,13 @@ p {font-size:0.7875em}
 						<td>Unmatched Flow: from {{ line.from_function.name }} to {{ line.to_function.name }}</td>
 					{% endif %}
 					<td>{{ line.resource_type }}</td>
-					<td style="text-align: right; " >Qty: {{ line.quantity }}</td>
-					<td style="text-align: right; " >Value: {{ line.value }}</td>
+					<td style="text-align: right; " >Qty: {{ line.quantity|intcomma }}</td>
+					<td style="text-align: right; " >Value: {{ symbol }}{{ line.value|intcomma }}</td>
 				{% else %}
 					<td style="text-align: right; ">{{ line.function.name }} {{ line.role }}</td>
 					<td>{{ line.resource_type.name }}</td>
-					<td style="text-align: right; " >Qty: {{ line.quantity }}</td>
-					<td style="text-align: right; " >Value: {{ line.value }}</td>
+					<td style="text-align: right; " >Qty: {{ line.quantity|intcomma }}</td>
+					<td style="text-align: right; " >Value: {{ symbol }}{{ line.value|intcomma }}</td>
 				{% endif %}
 			</tr>
 		{% endfor %}
