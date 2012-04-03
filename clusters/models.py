@@ -474,6 +474,7 @@ class Cluster(models.Model):
     def function_io_vs_flows(self):
         report = []
         fns = self.functions.all()
+        import pdb; pdb.set_trace()
         for fn in fns:
             incoming_outliers = []
             outgoing_outliers = []
