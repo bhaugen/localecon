@@ -348,6 +348,11 @@ def radial_graph(request, cluster_id):
     return render_to_response("clusters/radial_graph.html", 
         template_params,
         context_instance=RequestContext(request))
+    
+def splitthousands(n, sep=','):
+    s = str(n)
+    if len(s) <= 3: return s  
+    return splitthousands(s[:-3], sep) + sep + s[-3:]
    
 class Edge(object):
      def __init__(self, from_node, to_node, quantity, width=1):
@@ -458,6 +463,12 @@ def network_params(cluster, toggle):
     template_params = {}
     frts = FunctionResourceType.objects.filter(
         function__cluster=cluster)
+    symbol = "$"
+    if toggle == "val":
+        try:
+            symbol = cluster.community.unit_of_value.symbol
+        except:
+            pass
     edges = []
     rtypes = []
     total = 0.0
@@ -468,18 +479,22 @@ def network_params(cluster, toggle):
                 rtypes.append(v.resource_type)
                 if toggle == "val":
                     total += v.value
-                    edges.append(Edge(v.resource_type, fn, v.value))
+                    val_string = "".join([symbol, splitthousands(v.value)])
+                    edges.append(Edge(v.resource_type, fn, val_string))
                 else:
                     total += v.quantity
-                    edges.append(Edge(v.resource_type, fn, v.quantity))
+                    qty_string = splitthousands(v.quantity)
+                    edges.append(Edge(v.resource_type, fn, qty_string))
             for v in fn.outputs():
                 rtypes.append(v.resource_type)
                 if toggle == "val":
                     total += v.value
-                    edges.append(Edge(fn, v.resource_type, v.value))
+                    val_string = "".join([symbol, splitthousands(v.value)])
+                    edges.append(Edge(fn, v.resource_type, val_string))
                 else:
                     total += v.quantity
-                    edges.append(Edge(fn, v.resource_type, v.quantity))
+                    qty_string = splitthousands(v.quantity)
+                    edges.append(Edge(fn, v.resource_type, qty_string))
     else:
         flows = FunctionResourceFlow.objects.filter(
             from_function__cluster=cluster)
