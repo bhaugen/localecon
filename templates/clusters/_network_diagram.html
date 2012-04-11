@@ -69,7 +69,7 @@ $(document).ready(function() {
 			g.addEdge( "{{ edge.from_node.node_id}}" , "{{ edge.to_node.node_id }}", 
 				{ 
 					directed : true, 
-					label : {{ edge.quantity }},
+					label : {{ edge.label }},
 					weight: 1, 
 					stroke : "#D2691E" , 
 					fill : "#D2691E|{{ edge.width }}" 
@@ -79,7 +79,7 @@ $(document).ready(function() {
 			g.addEdge( "{{ edge.from_node.node_id}}" , "{{ edge.to_node.node_id }}", 
 				{ 
 					directed : true, 
-					label : {{ edge.quantity }},
+					label : {{ edge.label }},
 					weight: 1, 
 					stroke : "#008B8B" , 
 					fill : "#008B8B|{{ edge.width }}" 
