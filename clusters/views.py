@@ -366,6 +366,12 @@ def agent_network_params(cluster, toggle):
     template_params = {}
     frts = AgentFunctionResourceType.objects.filter(
         agent_function__function__cluster=cluster)
+    symbol = "$"
+    if toggle == "val":
+        try:
+            symbol = cluster.community.unit_of_value.symbol
+        except:
+            pass
     edges = []
     rtypes = []
     total = 0.0
@@ -376,18 +382,22 @@ def agent_network_params(cluster, toggle):
                 rtypes.append(v.resource_type)
                 if toggle == "val":
                     total += v.value
-                    edges.append(Edge(v.resource_type, agt, v.value))
+                    val_string = "".join([symbol, splitthousands(v.value)])
+                    edges.append(Edge(v.resource_type, agt, v.value, val_string))
                 else:
                     total += v.quantity
-                    edges.append(Edge(v.resource_type, agt, v.quantity))
+                    qty_string = splitthousands(v.quantity)
+                    edges.append(Edge(v.resource_type, agt, v.quantity, qty_string))
             for v in agt.function_outputs(cluster):
                 rtypes.append(v.resource_type)
                 if toggle == "val":
                     total += v.value
-                    edges.append(Edge(agt, v.resource_type, v.value))
+                    val_string = "".join([symbol, splitthousands(v.value)])
+                    edges.append(Edge(agt, v.resource_type, v.value, val_string))
                 else:
                     total += v.quantity
-                    edges.append(Edge(agt, v.resource_type, v.quantity))
+                    qty_string = splitthousands(v.quantity)
+                    edges.append(Edge(agt, v.resource_type, v.quantity, qty_string))
     else:
         flows = AgentResourceFlow.objects.filter(
             from_function__function__cluster=cluster)
@@ -397,12 +407,14 @@ def agent_network_params(cluster, toggle):
             nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
             if toggle == "val":
                 total += flow.value
-                edges.append(Edge(flow.from_function, flow.resource_type, flow.value))
-                edges.append(Edge(flow.resource_type, flow.to_function, flow.value))
+                val_string = "".join([symbol, splitthousands(v.value)])
+                edges.append(Edge(flow.from_function, flow.resource_type, flow.value, val_string))
+                edges.append(Edge(flow.resource_type, flow.to_function, flow.value, val_string))
             else:
                 total += flow.quantity
-                edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity))
-                edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity))
+                qty_string = splitthousands(v.quantity)
+                edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity, qty_string))
+                edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity, qty_string))
         nodes = list(set(nodes))
             
     for edge in edges:
@@ -422,6 +434,12 @@ def agent_network_params(cluster, toggle):
 def group_network_params(cluster, toggle):
     template_params = {}
     groups = cluster.groups()
+    symbol = "$"
+    if toggle == "val":
+        try:
+            symbol = cluster.community.unit_of_value.symbol
+        except:
+            pass
     nodes = []
     edges = []
     rtypes = []
@@ -433,18 +451,22 @@ def group_network_params(cluster, toggle):
                 rtypes.append(v.resource_type)
                 if toggle == "val":
                     total += v.value
-                    edges.append(Edge(v.resource_type, agt, v.value))
+                    val_string = "".join([symbol, splitthousands(v.value)])
+                    edges.append(Edge(v.resource_type, agt, v.value, val_string))
                 else:
                     total += v.quantity
-                    edges.append(Edge(v.resource_type, agt, v.quantity))
+                    qty_string = splitthousands(v.quantity)
+                    edges.append(Edge(v.resource_type, agt, v.quantity, qty_string))
             for v in agt.function_outputs():
                 rtypes.append(v.resource_type)
                 if toggle == "val":
                     total += v.value
-                    edges.append(Edge(agt, v.resource_type, v.value))
+                    val_string = "".join([symbol, splitthousands(v.value)])
+                    edges.append(Edge(agt, v.resource_type, v.value, val_string))
                 else:
                     total += v.quantity
-                    edges.append(Edge(agt, v.resource_type, v.quantity))
+                    qty_string = splitthousands(v.quantity)
+                    edges.append(Edge(agt, v.resource_type, v.quantity, qty_string))
             
     for edge in edges:
         width = 1
@@ -505,12 +527,14 @@ def network_params(cluster, toggle):
             nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
             if toggle == "val":
                 total += flow.value
-                edges.append(Edge(flow.from_function, flow.resource_type, flow.value))
-                edges.append(Edge(flow.resource_type, flow.to_function, flow.value))
+                val_string = "".join([symbol, splitthousands(v.value)])
+                edges.append(Edge(flow.from_function, flow.resource_type, flow.value, val_string))
+                edges.append(Edge(flow.resource_type, flow.to_function, flow.value, val_string))
             else:
                 total += flow.quantity
-                edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity))
-                edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity))
+                qty_string = splitthousands(v.quantity)
+                edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity, qty_string))
+                edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity, qty_string))
         nodes = list(set(nodes))
             
     for edge in edges:
