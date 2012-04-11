@@ -618,7 +618,7 @@ class Cluster(models.Model):
                         reskey = "".join([str(afrt.resource_type.id), afrt.role])
                         if not reskey in fn.resource_dict:
                             fn.resource_dict[reskey] = AggregateFunctionResource(
-                                af.function, afrt.resource_type, afrt.role, 0.0, 0.0)
+                                af.function, afrt.resource_type, afrt.role, 0, 0)
                         rt = fn.resource_dict[reskey]
                         rt.quantity += afrt.quantity
                         rt.value += afrt.value
