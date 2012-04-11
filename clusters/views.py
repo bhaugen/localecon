@@ -443,7 +443,7 @@ def group_network_params(cluster, toggle):
     nodes = []
     edges = []
     rtypes = []
-    total = 0.0
+    total = 0
     if groups:
         nodes = groups
         for agt in nodes:
