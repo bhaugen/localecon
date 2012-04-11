@@ -355,10 +355,11 @@ def splitthousands(n, sep=','):
     return splitthousands(s[:-3], sep) + sep + s[-3:]
    
 class Edge(object):
-     def __init__(self, from_node, to_node, quantity, width=1):
+     def __init__(self, from_node, to_node, quantity, label, width=1):
          self.from_node = from_node
          self.to_node = to_node
          self.quantity = quantity
+         self.label = label
          self.width = width
 
 def agent_network_params(cluster, toggle):
@@ -480,21 +481,21 @@ def network_params(cluster, toggle):
                 if toggle == "val":
                     total += v.value
                     val_string = "".join([symbol, splitthousands(v.value)])
-                    edges.append(Edge(v.resource_type, fn, val_string))
+                    edges.append(Edge(v.resource_type, fn, v.value, val_string))
                 else:
                     total += v.quantity
                     qty_string = splitthousands(v.quantity)
-                    edges.append(Edge(v.resource_type, fn, qty_string))
+                    edges.append(Edge(v.resource_type, fn, v.quantity, qty_string))
             for v in fn.outputs():
                 rtypes.append(v.resource_type)
                 if toggle == "val":
                     total += v.value
                     val_string = "".join([symbol, splitthousands(v.value)])
-                    edges.append(Edge(fn, v.resource_type, val_string))
+                    edges.append(Edge(fn, v.resource_type, v.value, val_string))
                 else:
                     total += v.quantity
                     qty_string = splitthousands(v.quantity)
-                    edges.append(Edge(fn, v.resource_type, qty_string))
+                    edges.append(Edge(fn, v.resource_type, v.quantity, qty_string))
     else:
         flows = FunctionResourceFlow.objects.filter(
             from_function__cluster=cluster)
