@@ -178,7 +178,7 @@ function init(){
       //that draws some concentric circles.
       'background': {
         'CanvasStyles': {
-          'strokeStyle': '#555',
+          'strokeStyle': '#CC99FF',
           'shadowBlur': 50,
           'shadowColor': '#ccc'
         }
@@ -206,14 +206,15 @@ function init(){
         duration:3500,
         fps: 30,
         //Change father-child distance.
-        levelDistance: 200,
+        levelDistance: 70,
         //This method is called right before plotting
         //an edge. This method is useful to change edge styles
         //individually.
         onBeforePlotLine: function(adj){
             //Add some random lineWidth to each edge.
             if (!adj.data.$lineWidth) 
-                adj.data.$lineWidth = Math.random() * 5 + 1;
+                //adj.data.$lineWidth = Math.random() * 5 + 1;
+				adj.data.$lineWidth = 1;
         },
         /*
         onBeforeCompute: function(node){
@@ -290,7 +291,7 @@ function init(){
             var style = domElement.style;
             style.cursor = 'pointer';
             style.fontSize = "0.8em";
-            style.color = "#fff";
+            style.color = "#660000";
         },
         //This method is called when rendering/moving a label.
         //This is method is useful to make some last minute changes
@@ -346,11 +347,11 @@ function init(){
     //end
 
 
-    //rgraph.controller.onBeforeCompute(rgraph.graph.getNode(rgraph.root));
-    //Log.write('done');
-		
     rgraph.controller.onBeforeCompute(rgraph.graph.getNode(rgraph.root));
-    rgraph.controller.onAfterCompute();
+    Log.write('done');
+		
+    //rgraph.controller.onBeforeCompute(rgraph.graph.getNode(rgraph.root));
+    //rgraph.controller.onAfterCompute();
 
 	{% if root %}
 		rgraph.onClick('{{ root.node_id }}');
