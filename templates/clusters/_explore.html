@@ -870,7 +870,8 @@ function init(){
         
         Edge: {
             type: 'bezier',
-            overridable: true
+            overridable: true,
+			color: 'blue'
         },
         
         onBeforeCompute: function(node){
@@ -937,7 +938,7 @@ function init(){
         //override the Edge global style properties.
         onBeforePlotLine: function(adj){
             if (adj.nodeFrom.selected && adj.nodeTo.selected) {
-                adj.data.$color = "#eed";
+                adj.data.$color = "red";
                 adj.data.$lineWidth = 3;
             }
             else {
