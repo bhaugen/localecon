@@ -300,7 +300,12 @@ function init(){
             var left = parseInt(style.left);
             var w = domElement.offsetWidth;
             style.left = (left - w / 2) + 'px';
+        },
+	
+		onAfterCompute: function(){
+            Log.write("done");
         }
+	
     });
 
         
@@ -331,9 +336,7 @@ function init(){
             style.left = (left - w / 2) + 'px';
         },
     */
-        onAfterCompute: function(){
-            Log.write("done");
-        }
+        
         
     });
     //load graph.
