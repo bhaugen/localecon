@@ -31,7 +31,11 @@ h4 {
     top:0;
 }
 
-#left-container, #right-container {
+#left-container {
+    display: none;
+}
+
+#right-container {
     width:200px;
     color:#686c70;
     text-align: left;
@@ -61,8 +65,8 @@ h4 {
 }
 
 #center-container {
-    width:600px;
-    left:200px;
+    width:800px;
+    left:2px;
     background-color: #FFFFCC;
     color: #CC99FF;
 }
