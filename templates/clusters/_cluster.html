@@ -230,36 +230,8 @@ function init(){
             $jit.id('inner-details').innerHTML = html;
         },
 	*/
-        //Add node click handler and some styles.
-        //This method is called only once for each node/label crated.
-        onCreateLabel: function(domElement, node){
-            domElement.innerHTML = node.name;
-            domElement.onclick = function () {
-                rgraph.onClick(node.id, { 
-                    hideLabels: false,
-                    onComplete: function() {
-                        Log.write("done");
-                    }
-                });
-            };
-            var style = domElement.style;
-            style.cursor = 'pointer';
-            style.fontSize = "0.8em";
-            style.color = "#fff";
-        },
-        //This method is called when rendering/moving a label.
-        //This is method is useful to make some last minute changes
-        //to node labels like adding some position offset.
-        onPlaceLabel: function(domElement, node){
-            var style = domElement.style;
-            var left = parseInt(style.left);
-            var w = domElement.offsetWidth;
-            style.left = (left - w / 2) + 'px';
-        }
-    });
-
-        
-        onBeforeCompute: function(node){
+	
+		onBeforeCompute: function(node){
             Log.write("centering " + node.name + "...");
             
             //Make right column relations list.
@@ -302,6 +274,37 @@ function init(){
 
             document.getElementById('inner-details').innerHTML = html;
         },
+	
+        //Add node click handler and some styles.
+        //This method is called only once for each node/label crated.
+        onCreateLabel: function(domElement, node){
+            domElement.innerHTML = node.name;
+            domElement.onclick = function () {
+                rgraph.onClick(node.id, { 
+                    hideLabels: false,
+                    onComplete: function() {
+                        Log.write("done");
+                    }
+                });
+            };
+            var style = domElement.style;
+            style.cursor = 'pointer';
+            style.fontSize = "0.8em";
+            style.color = "#fff";
+        },
+        //This method is called when rendering/moving a label.
+        //This is method is useful to make some last minute changes
+        //to node labels like adding some position offset.
+        onPlaceLabel: function(domElement, node){
+            var style = domElement.style;
+            var left = parseInt(style.left);
+            var w = domElement.offsetWidth;
+            style.left = (left - w / 2) + 'px';
+        }
+    });
+
+        
+        
         
         //Add node click handler and some styles.
         //This method is called only once for each node/label crated.
