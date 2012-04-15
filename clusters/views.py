@@ -345,7 +345,7 @@ def edit_agent_flows(request, cluster_id):
         form.fields['to_function'].choices = function_choices
         form.fields['resource_type'].choices = resource_choices
         
-    resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
+    resource_names = '~'.join([res.name for res in EconomicResourceType.objects.all()])
     function_names = '~'.join([fn.name for fn in cluster.functions.all()])
     
     if request.method == "POST":
