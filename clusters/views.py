@@ -217,8 +217,6 @@ def edit_cluster_functions(request, cluster_id):
         symbol = cluster.community.unit_of_value.symbol
     except:
         pass
-    function_aspect_name = cluster.function_aspect_name
-    resource_aspect_name = cluster.community.resource_aspect_name
     new_function_form = EconomicFunctionForm(prefix="function")
     new_resource_form = EconomicResourceTypeForm(prefix="resource")
     
@@ -239,6 +237,8 @@ def edit_cluster_functions(request, cluster_id):
     template_params["new_function_form"] = new_function_form
     template_params["new_resource_form"] = new_resource_form
     template_params["resource_names"] = resource_names
+    function_aspect_name = cluster.function_aspect_name
+    resource_aspect_name = cluster.community.resource_aspect_name
     template_params["function_aspect_name"] = function_aspect_name
     template_params["resource_aspect_name"] = resource_aspect_name
     return render_to_response("clusters/edit_cluster_functions.html", 
@@ -301,6 +301,10 @@ def edit_flows(request, cluster_id):
     template_params["new_function_form"] = new_function_form
     template_params["new_resource_form"] = new_resource_form
     template_params["resource_names"] = resource_names
+    function_aspect_name = cluster.function_aspect_name
+    resource_aspect_name = cluster.community.resource_aspect_name
+    template_params["function_aspect_name"] = function_aspect_name
+    template_params["resource_aspect_name"] = resource_aspect_name
     template_params["formset"] = formset
     return render_to_response("clusters/edit_flows.html",
         template_params,

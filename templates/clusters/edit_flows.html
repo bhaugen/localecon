@@ -33,8 +33,17 @@ p {font-size:0.7875em}
 			<tr>
 				<th style="text-align: right;" >New Function:</th>
 				<td>{{ new_function_form.name }}</td>
-				<td><input type="submit" name="submit" value="Add" /></td>
+				{% if not function_aspect_name %}
+					<td><input type="submit" name="submit" value="Add" /></td>
+				{% endif %}
 			</tr>
+			{% if function_aspect_name %}
+				<tr>
+					<th style="text-align: right;" >{{ function_aspect_name }}:</th>
+					<td>{{ new_function_form.aspect }}</td>
+				<td><input type="submit" name="submit" value="Add" /></td>
+				</tr>
+			{% endif %}
 			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
 		</form>
 	</table>
@@ -76,8 +85,17 @@ p {font-size:0.7875em}
 			<tr>
 				<th style="text-align: right;" >New Resource:</th>
 				<td>{{ new_resource_form.name }}</td>
-				<td><input type="submit" name="submit" value="Add" /></td>
+				{% if not resource_aspect_name %}
+					<td><input id="submit_new_resource" type="submit" name="submit_new_resource" value="Add" /></td>
+				{% endif %}
 			</tr>
+			{% if resource_aspect_name %}
+				<tr>
+					<th style="text-align: right;" >{{ resource_aspect_name }}:</th>
+					<td>{{ new_resource_form.aspect }}</td>
+				<td><input id="submit_new_resource" type="submit" name="submit_new_resource" value="Add" /></td>
+				</tr>
+			{% endif %}
 			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
 		</form>
 	</table>
