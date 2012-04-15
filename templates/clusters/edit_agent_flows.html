@@ -14,6 +14,7 @@ body {font-size:90%}
 h1 {font-size:2.25em}
 h2 {font-size:1.6875em}
 p {font-size:0.7875em}
+th {white-space: nowrap;}
 	
 </style>
 
@@ -32,7 +33,7 @@ p {font-size:0.7875em}
 	<table>
 		<form action="{% url inline_new_agent_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
-				<th style="text-align: right; white-space: nowrap;" >New Function:</th>
+				<th style="text-align: right; " >New Function:</th>
 				<td>{{ new_function_form.name }}</td>
 				{% if function_aspect_name %}
 					<th style="text-align: right;" >{{ function_aspect_name }}:</th>
