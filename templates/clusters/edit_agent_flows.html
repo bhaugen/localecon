@@ -177,9 +177,9 @@ function getResourceDetails(event)
 	$("#submit").attr("value", "Add");
 	
 	var name = event.target.value;
-	for(i=0;i<data.length;i++)
+	for(i=0;i<resourceNames.length;i++)
 	{
-		if(data[i]==name)
+		if(resourceNames[i]==name)
 		{
 			var jsonUrl = encodeURI("/clusters/jsonresourceunit/" + name + "/");
 			$.get(jsonUrl,
