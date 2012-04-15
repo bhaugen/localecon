@@ -4,10 +4,11 @@ from clusters.models import *
 from clusters.fields import *
 
 class EconomicFunctionForm(forms.ModelForm):
+    aspect = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '24',}))
     
     class Meta:
         model = EconomicFunction
-        fields = ('name',)
+        fields = ('name', 'aspect')
 
 class InlineAgentFunctionForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'size': '24',}))
@@ -43,9 +44,8 @@ class CommunityForm(forms.ModelForm):
         model = Community
 
 
-   
-
 class EconomicResourceTypeForm(forms.ModelForm):
+    aspect = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '24',}))
     
     class Meta:
         model = EconomicResourceType

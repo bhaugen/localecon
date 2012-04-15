@@ -57,6 +57,42 @@ def cluster_params(cluster):
     }
     return template_params
 
+def explore_params(cluster):
+    template_params = {}
+    linked_efs = []
+    resources = []
+    efs = EconomicFunction.objects.filter(cluster=cluster)  
+    for ef in efs:
+        inputs = ef.inputs()
+        if inputs:
+            linked_efs.append(ef)
+            for inp in inputs:
+                resources.append(inp.resource_type)
+        outputs = ef.outputs()
+        if outputs:
+            linked_efs.append(ef)
+            for output in outputs:
+                resources.append(output.resource_type)
+                
+    efs = list(set(linked_efs))
+    resources = list(set(resources))
+    
+    agents = {}
+    for ef in efs:
+        for agent in ef.agents.all():
+            agents.setdefault(ef, []).append(agent.agent)
+            
+    root = cluster.root()
+                          
+    template_params =  {
+        "cluster": cluster,
+        "functions": efs,
+        "resources": resources,
+        "function_agents": agents,
+        "root": root,
+    }
+    return template_params
+
 
 class FlowResource(object):
      def __init__(self, resource_type):
@@ -181,6 +217,8 @@ def edit_cluster_functions(request, cluster_id):
         symbol = cluster.community.unit_of_value.symbol
     except:
         pass
+    function_aspect_name = cluster.function_aspect_name
+    resource_aspect_name = cluster.community.resource_aspect_name
     new_function_form = EconomicFunctionForm(prefix="function")
     new_resource_form = EconomicResourceTypeForm(prefix="resource")
     
@@ -201,6 +239,8 @@ def edit_cluster_functions(request, cluster_id):
     template_params["new_function_form"] = new_function_form
     template_params["new_resource_form"] = new_resource_form
     template_params["resource_names"] = resource_names
+    template_params["function_aspect_name"] = function_aspect_name
+    template_params["resource_aspect_name"] = resource_aspect_name
     return render_to_response("clusters/edit_cluster_functions.html", 
         template_params,
         context_instance=RequestContext(request))
@@ -791,10 +831,12 @@ def iotable(request, cluster_id):
     
 def explore(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    template_params = explore_params(cluster)
+    
+    return render_to_response("clusters/explore.html", 
+        template_params,
+        context_instance=RequestContext(request))
 
-    return render_to_response("clusters/explore.html",{ 
-        "cluster": cluster,
-    }, context_instance=RequestContext(request))
     
 def diagnostics(request, cluster_id, level="fn"):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
@@ -1304,11 +1346,17 @@ def inline_new_resource(request, cluster_id):
         if form.is_valid():
             data = form.cleaned_data
             name = data['name']
+            aspect = data['aspect']
             try:
                 resource = EconomicResourceType.objects.get(name=name)
             except EconomicResourceType.DoesNotExist:
                 resource = form.save()
-            crt, created = CommunityResourceType.objects.get_or_create(community=cluster.community, resource_type=resource)
+            crt, created = CommunityResourceType.objects.get_or_create(
+                community=cluster.community, resource_type=resource)
+            if aspect:
+                if aspect != crt.aspect:
+                    crt.aspect = aspect
+                    crt.save()
     return HttpResponseRedirect(next)
 
 @login_required    
