@@ -1298,6 +1298,7 @@ def json_resource_unit(request, name):
     return HttpResponse(data, mimetype="text/json-comment-filtered")
 
 def json_resource_aspect(request, name, community_id):
+    import pdb; pdb.set_trace()
     community = get_object_or_404(Community, id=community_id)
     erts = EconomicResourceType.objects.filter(name=name)
     ert = erts[0]
