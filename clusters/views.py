@@ -1169,7 +1169,9 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     if agent_communities[0].community.id != community.id:
         edit_address = False
     #import pdb; pdb.set_trace()
-    agent.cluster_funs = agent.functions.filter(function__cluster=cluster)
+    used = [(af.function.id) for af in agent.functions.all()]
+    agent.cluster_funs = agent.functions.filter(
+        function__cluster=cluster).exclude(id__in=used)
     for cf in agent.cluster_funs:
         cf.rsrcs = cf.function.resources.all()
         if cf.rsrcs:
