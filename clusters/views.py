@@ -346,8 +346,7 @@ def edit_agent_flows(request, cluster_id):
         form.fields['resource_type'].choices = resource_choices
         
     resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
-    used = [(af.function.id) for af in agent.functions.all()]
-    function_names = '~'.join([fn.name for fn in cluster.functions.all().exclude(id__in=used)])
+    function_names = '~'.join([fn.name for fn in cluster.functions.all()])
     
     if request.method == "POST":
         #import pdb; pdb.set_trace()
