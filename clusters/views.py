@@ -339,7 +339,7 @@ def edit_agent_flows(request, cluster_id):
             (fn.id, fn) for fn in agent_functions]
     resources = cluster.resources()
     resource_choices = [('', '----------')] + [
-            (cr.resource_type.id, cr.resource_type.name) for cr in resources
+            (res.id, res.name) for res in resources
             ]
     for form in formset.forms:
         form.fields['from_function'].choices = function_choices
