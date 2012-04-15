@@ -32,7 +32,7 @@ class OutgoingFunctionResourceFlowInline(admin.TabularInline):
 class EconomicFunctionAdmin(admin.ModelAdmin):
     list_display = ('name', 'cluster')
     list_filter = ['cluster',]
-    search_fields = ['name',]
+    search_fields = ['name', 'cluster__name']
     inlines = [ 
                FunctionResourceInline,
                IncomingFunctionResourceFlowInline,
@@ -91,14 +91,14 @@ admin.site.register(EconomicResourceType, EconomicResourceTypeAdmin)
 class CommunityResourceTypeAdmin(admin.ModelAdmin):
     list_display = ('community', 'resource_type')
     list_filter = ['community']
-    search_fields = ['community', 'resource_type']
+    search_fields = ['community__name', 'resource_type__name']
 
 admin.site.register(CommunityResourceType, CommunityResourceTypeAdmin)
 
 class CommunityAgentAdmin(admin.ModelAdmin):
     list_display = ('community', 'agent')
     list_filter = ['community']
-    search_fields = ['community', 'agent']
+    search_fields = ['community__name', 'agent__name']
 
 admin.site.register(CommunityAgent, CommunityAgentAdmin)
 
