@@ -4,7 +4,7 @@ from clusters.models import *
 from clusters.fields import *
 
 class EconomicFunctionForm(forms.ModelForm):
-    aspect = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '24',}))
+    aspect = forms.CharField(required=False)
     
     class Meta:
         model = EconomicFunction
@@ -46,7 +46,7 @@ class CommunityForm(forms.ModelForm):
 
 
 class EconomicResourceTypeForm(forms.ModelForm):
-    aspect = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '24',}))
+    aspect = forms.CharField(required=False)
     
     class Meta:
         model = EconomicResourceType
