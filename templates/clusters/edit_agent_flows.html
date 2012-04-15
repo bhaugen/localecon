@@ -195,10 +195,10 @@ function getResourceDetails(event)
 			var jsonUrl = encodeURI("/clusters/jsonresourceaspect/" + name + "/" + {{ cluster.community.id }} + "/");
 			$.get(jsonUrl,
 				function(data){
-					if(len(data) > 0)
+					if(data.length > 0)
 					{
 						var aspect = eval(data)[0].fields.aspect;
-						if (len(aspect) > 0)
+						if (aspect.length > 0)
 						{
 							$("#id_resource-aspect").val(aspect);
 							$("#id_resource-aspect").attr("disabled", true);
