@@ -1001,15 +1001,21 @@ def inline_new_agent_function(request, cluster_id, agent_id):
         if form.is_valid():
             #print "after form validity check"
             name = form.cleaned_data["name"]
+            aspect = form.cleaned_data["aspect"]
             funs = EconomicFunction.objects.filter(
                 cluster=cluster,
                 name=name)
             if funs:
                 fun = funs[0]
+                if aspect:
+                    if aspect != fun.aspect:
+                        fun.aspect = aspect
+                        fun.save()
             else:
                 fun = EconomicFunction(
                     name=name,
-                    cluster=cluster)
+                    cluster=cluster,
+                    aspect=aspect)
                 fun.save()
             af = AgentFunction(
                 agent=agent,
