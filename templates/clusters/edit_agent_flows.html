@@ -191,7 +191,7 @@ function getResourceDetails(event)
 					$("#name-comment").html("Existing Resource which you may re-use");
 					$("#submit_new_resource").attr("value", "Re-use in this cluster");
 				});
-			var jsonUrl = encodeURI("/clusters/json_resource_aspect/" + name + "/" + {{ cluster.community.id }} + "/");
+			var jsonUrl = encodeURI("/clusters/jsonresourceaspect/" + name + "/" + {{ cluster.community.id }} + "/");
 			$.get(jsonUrl,
 				function(data){
 					var aspect = eval(data)[0].fields.aspect;
