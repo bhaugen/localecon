@@ -1169,9 +1169,8 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     if agent_communities[0].community.id != community.id:
         edit_address = False
     #import pdb; pdb.set_trace()
-    used = [(af.function.id) for af in agent.functions.all()]
     agent.cluster_funs = agent.functions.filter(
-        function__cluster=cluster).exclude(id__in=used)
+        function__cluster=cluster)
     for cf in agent.cluster_funs:
         cf.rsrcs = cf.function.resources.all()
         if cf.rsrcs:
@@ -1192,7 +1191,8 @@ def edit_cluster_agent(request, cluster_id, agent_id):
         cf.outliers = outliers
     new_function_form = AgentFunctionCreationForm(prefix="function")
     resource_names = '~'.join([res.name for res in EconomicResourceType.objects.all()])
-    function_names = '~'.join([fn.name for fn in cluster.functions.all()])
+    used = [(af.function.id) for af in agent.functions.all()]
+    function_names = '~'.join([fn.name for fn in cluster.functions.all().exclude(id__in=used)])
     template_params = agent_network_params(cluster, "qty")
     template_params["cluster"] = cluster
     template_params["agent"] = agent
