@@ -195,9 +195,15 @@ function getResourceDetails(event)
 			var jsonUrl = encodeURI("/clusters/jsonresourceaspect/" + name + "/" + {{ cluster.community.id }} + "/");
 			$.get(jsonUrl,
 				function(data){
-					var aspect = eval(data)[0].fields.aspect;
-					$("#id_resource-aspect").val(aspect);
-					$("#id_resource-aspect").attr("disabled", true);
+					if(len(data) > 0)
+					{
+						var aspect = eval(data)[0].fields.aspect;
+						if (len(aspect) > 0)
+						{
+							$("#id_resource-aspect").val(aspect);
+							$("#id_resource-aspect").attr("disabled", true);
+						}
+					}
 				});
 			break;
 		}
