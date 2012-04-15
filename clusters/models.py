@@ -359,7 +359,7 @@ class Cluster(models.Model):
         for flow in flows:
             answer.append(flow.resource_type)
         for agent in self.agents():
-            for af in agent.functions.all():
+            for af in agent.functions.filter(function__cluster=self):
                 for afrt in af.function_resources.all():
                     answer.append(afrt.resource_type)
         return list(set(answer))
