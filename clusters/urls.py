@@ -55,6 +55,7 @@ urlpatterns = patterns('',
     url(r'^inlineagentresource/(?P<cluster_id>\d+)/(?P<agent_id>\d+)/(?P<parent_id>\d+)/$', 'clusters.views.inline_agent_resource', name="inline_agent_resource"),
     url(r'^newresource/(?P<cluster_id>\d+)/$', 'clusters.views.new_resource', name="new_resource"),
     url(r'^jsonresourceunit/(?P<name>.+)/$', 'clusters.views.json_resource_unit', name="json_resource_unit"),
+    url(r'^jsonresourceaspect/(?P<name>.+)/(?P<community_id>\d+)/$', 'clusters.views.json_resource_aspect', name="json_resource_aspect"),
     
     #function resources
     url(r'^newfunctionresource/(?P<function_id>\d+)/$', 'clusters.views.new_function_resource', name="new_function_resource"),

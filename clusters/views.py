@@ -1294,9 +1294,15 @@ def json_agent_address(request, agent_name):
 
 def json_resource_unit(request, name):
     # Note: serializer requires an iterable, not a single object. Thus filter rather than get.
-    qs = list(EconomicResourceType.objects.filter(name=name), fields=('unit_of_quantity',))
-    qs[0].aspect = "Cod"
-    data = serializers.serialize("json", qs)
+    data = serializers.serialize("json", EconomicResourceType.objects.filter(name=name), fields=('unit_of_quantity',))
+    return HttpResponse(data, mimetype="text/json-comment-filtered")
+
+def json_resource_aspect(request, name, community_id):
+    community = get_object_or_404(Community, id=community_id)
+    erts = EconomicResourceType.objects.filter(name=name)
+    ert = erts[0]
+    qs = CommunityResourceType.objects.filter(community=community, resource_type=ert)
+    data = serializers.serialize("json", qs, fields=('aspect',))
     return HttpResponse(data, mimetype="text/json-comment-filtered")
 
 def change_function_resource_amount(request):
