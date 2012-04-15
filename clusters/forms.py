@@ -12,6 +12,7 @@ class EconomicFunctionForm(forms.ModelForm):
 
 class InlineAgentFunctionForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'size': '24',}))
+    aspect = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '24',}))
         
     def __init__(self, cluster, *args, **kwargs):
         super(InlineAgentFunctionForm, self).__init__(*args, **kwargs)
@@ -183,10 +184,11 @@ class FunctionAgentForm(forms.ModelForm):
 
 class AgentFunctionCreationForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(attrs={'size': '32', 'class': 'function-name'}))
-    aspect = forms.CharField(widget=forms.TextInput(attrs={'size': '32', 'class': 'function-aspect'}))
+    aspect = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '32', 'class': 'function-aspect'}))
 
 
 class AgentFunctionForm(forms.ModelForm):
+    aspect = forms.CharField(required=False)
     
     def __init__(self, cluster, agent, *args, **kwargs):
         super(AgentFunctionForm, self).__init__(*args, **kwargs)

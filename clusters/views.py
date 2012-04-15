@@ -369,6 +369,10 @@ def edit_agent_flows(request, cluster_id):
     template_params["new_function_form"] = new_function_form
     template_params["new_resource_form"] = new_resource_form
     template_params["resource_names"] = resource_names
+    function_aspect_name = cluster.function_aspect_name
+    resource_aspect_name = cluster.community.resource_aspect_name
+    template_params["function_aspect_name"] = function_aspect_name
+    template_params["resource_aspect_name"] = resource_aspect_name
     template_params["formset"] = formset
     return render_to_response("clusters/edit_agent_flows.html",
         template_params,
@@ -970,7 +974,7 @@ def inline_new_function(request, cluster_id):
     return HttpResponseRedirect(next)
 
 @login_required 
-def inline_new_agent_function(request, cluster_id):
+def inline_new_agent_functionX(request, cluster_id):
     if request.method == "POST":
         next = request.POST.get("next")
         cluster = get_object_or_404(Cluster, pk=cluster_id)
@@ -980,6 +984,7 @@ def inline_new_agent_function(request, cluster_id):
             data = form.cleaned_data
             agent = data["agent"]
             fname = data["name"]
+            aspect = data["aspect"]
             fun = EconomicFunction(
                 name=name,
                 cluster=cluster)
