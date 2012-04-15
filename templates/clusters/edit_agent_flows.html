@@ -52,6 +52,10 @@ p {font-size:0.7875em}
 			<tr>
 				<th style="text-align: right;" >New Resource:</th>
 				<td>{{ new_resource_form.name }}</td>
+				{% if resource_aspect_name %}
+					<th style="text-align: right;" >{{ resource_aspect_name }}:</th>
+					<td>{{ new_resource_form.aspect }}</td>
+				{% endif %}
 				<td><input type="submit" name="submit" value="Add" /></td>
 			</tr>
 			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
