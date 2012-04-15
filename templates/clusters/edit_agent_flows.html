@@ -32,7 +32,7 @@ p {font-size:0.7875em}
 	<table>
 		<form action="{% url inline_new_agent_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
-				<th style="text-align: right;" >New Function:</th>
+				<th style="text-align: right; white-space: nowrap;" >New Function:</th>
 				<td>{{ new_function_form.name }}</td>
 				{% if function_aspect_name %}
 					<th style="text-align: right;" >{{ function_aspect_name }}:</th>
@@ -58,6 +58,7 @@ p {font-size:0.7875em}
 				{% endif %}
 				<td><input type="submit" name="submit" value="Add" /></td>
 			</tr>
+			<tr><td colspan="4"><span id="name-comment" style="color:green;" ></span></td></tr>
 			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
 		</form>
 	</table>
@@ -134,7 +135,10 @@ var functionNames = html_unescape("{{ function_names }}").split("~");
 	
 	$(document).ready(function()
 	{
-		$(".function-name").autocomplete(functionNames, {matchContains: true});
+		$("#id_function-name").autocomplete(functionNames, {matchContains: true});
+		$("#id_resource-name").autocomplete(resourceNames, {matchContains: true});
+		$("#id_function-name").blur(getFunctionDetails);
+		$("#id_resource-name").blur(getResourceDetails);
 	
 		$(".quantity").blur(function() 
 		{
@@ -160,8 +164,32 @@ var functionNames = html_unescape("{{ function_names }}").split("~");
 			}
 		});
 	
-    var data = "{{ resource_names }}".split(";");
-	$("#id_resource-name").autocomplete(data, {matchContains: true});
+	
+function getResourceDetails(event)
+{
+	$("#id_resource-unit_of_quantity").attr("disabled", false);
+	$("#name-comment").html("");
+	$("#submit").attr("value", "Add");
+	
+	var name = event.target.value;
+	for(i=0;i<data.length;i++)
+	{
+		if(data[i]==name)
+		{
+			var jsonUrl = encodeURI("/clusters/jsonresourceunit/" + name + "/");
+			$.get(jsonUrl,
+				function(data){
+					var unit = eval(data)[0].fields.unit_of_quantity;
+					$("#id_resource-unit_of_quantity").val(unit);
+					$("#id_resource-unit_of_quantity").attr("disabled", true);
+					$("#name-comment").html("Existing Resource which you may re-use");
+					$("#submit_new_resource").attr("value", "Re-use in this cluster");
+				});
+			break;
+		}
+
+	}
+}
 	
 	$(document).ajaxSend(function(event, xhr, settings) {
     function getCookie(name) {
