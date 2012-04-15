@@ -32,7 +32,7 @@ class OutgoingFunctionResourceFlowInline(admin.TabularInline):
 class EconomicFunctionAdmin(admin.ModelAdmin):
     list_display = ('name', 'cluster')
     list_filter = ['cluster',]
-    search_fields = ['name', 'cluster']
+    search_fields = ['name', 'cluster.name']
     inlines = [ 
                FunctionResourceInline,
                IncomingFunctionResourceFlowInline,
