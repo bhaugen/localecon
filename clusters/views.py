@@ -346,6 +346,8 @@ def edit_agent_flows(request, cluster_id):
         form.fields['resource_type'].choices = resource_choices
         
     resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
+    used = [(af.function.id) for af in agent.functions.all()]
+    function_names = '~'.join([fn.name for fn in cluster.functions.all().exclude(id__in=used)])
     
     if request.method == "POST":
         #import pdb; pdb.set_trace()
@@ -369,6 +371,7 @@ def edit_agent_flows(request, cluster_id):
     template_params["new_function_form"] = new_function_form
     template_params["new_resource_form"] = new_resource_form
     template_params["resource_names"] = resource_names
+    template_params["function_names"] = function_names
     function_aspect_name = cluster.function_aspect_name
     resource_aspect_name = cluster.community.resource_aspect_name
     template_params["function_aspect_name"] = function_aspect_name
