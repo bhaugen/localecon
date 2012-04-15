@@ -38,6 +38,18 @@ p {font-size:0.7875em}
 				<th style="text-align: right; " >Description:</th>
 				<td>{{ form.description }}</td>
 			</tr>
+			<tr>
+				<th style="text-align: right; " >Function aspect name:</th>
+				<td>{{ form.function_aspect_name }}</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<th style="text-align: left; font-style: italic;" >
+					Function aspect is an optional field that can be used to classify Functions for diagrams and reports. 
+					If you do not give the field a name, it will not be used.  If you do use it, Functions without a value 
+					in that field will not be included when you select by aspect.
+				</th>
+			</tr>
 		</table>
 		<input id="submit" type="submit" value="Submit" />
 	</form>

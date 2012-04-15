@@ -24,10 +24,11 @@ class InlineAgentFunctionForm(forms.ModelForm):
         fields = ('agent',)
 
 class ClusterForm(forms.ModelForm):
+    function_aspect_name = forms.CharField(required=False)
     
     class Meta:
         model = Cluster
-        fields = ('name', 'description')
+        fields = ('name', 'description', 'function_aspect_name')
 
 
 
