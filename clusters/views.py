@@ -1188,6 +1188,10 @@ def edit_cluster_agent(request, cluster_id, agent_id):
     template_params["new_function_form"] = new_function_form
     template_params["resource_names"] = resource_names
     template_params["function_names"] = function_names
+    function_aspect_name = cluster.function_aspect_name
+    resource_aspect_name = cluster.community.resource_aspect_name
+    template_params["function_aspect_name"] = function_aspect_name
+    template_params["resource_aspect_name"] = resource_aspect_name
     return render_to_response("clusters/edit_cluster_agent.html",
         template_params, 
         context_instance=RequestContext(request))
