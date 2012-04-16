@@ -167,20 +167,16 @@ p {font-size:0.7875em}
 				<td>{{ new_resource_form.name }}</td>
 				<td><span id="name-comment" style="color:green;" ></span></td>
 			</tr>
-			<tr>
-				<th style="text-align: right;" >Unit of qty:</th>
-				<td>{{ new_resource_form.unit_of_quantity }}</td>
-				{% if not resource_aspect_name %}
-					<td><input id="submit_new_resource" type="submit" name="submit_new_resource" value="Add" /></td>
-				{% endif %}
-			</tr>
 			{% if resource_aspect_name %}
 				<tr>
 					<th style="text-align: right;" >{{ resource_aspect_name }}:</th>
 					<td>{{ new_resource_form.aspect }}</td>
-				<td><input id="submit_new_resource" type="submit" name="submit_new_resource" value="Add" /></td>
 				</tr>
 			{% endif %}
+			<tr>
+				<th style="text-align: right;" >Unit of qty:</th>
+				<td>{{ new_resource_form.unit_of_quantity }}</td>
+				<td><input id="submit-new-resource" type="submit" name="submit" value="Add" /></td>
 			</tr>
 			<input type="hidden" name="next" value="{% url edit_cluster_functions cluster_id=cluster.id %}" />
 		</form>
