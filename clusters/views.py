@@ -337,7 +337,7 @@ def edit_agent_flows(request, cluster_id):
         function__cluster=cluster)
     function_choices = [('', '----------')] + [
             (fn.id, fn) for fn in agent_functions]
-    resources = cluster.resources()
+    resources = cluster.community.resources.all()
     resource_choices = [('', '----------')] + [
             (res.id, res.name) for res in resources
             ]
