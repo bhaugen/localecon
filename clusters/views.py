@@ -367,7 +367,7 @@ def edit_agent_flows(request, cluster_id):
                 else:
                     form.save()
         return HttpResponseRedirect('/%s/%s/'
-               % ('clusters/clusteragents', cluster.id))
+               % ('clusters/editagentflows', cluster.id))
     
     template_params = agent_flow_params(cluster, "qty")
     template_params["new_function_form"] = new_function_form
