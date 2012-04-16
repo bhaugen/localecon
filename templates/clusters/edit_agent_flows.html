@@ -28,7 +28,7 @@ th {white-space: nowrap;}
 
 <h3>Edit Agent Flows in Cluster: {{ cluster }}</h3>
 
-<div style="float:left; width: 50%;" >
+<div>
 	
 	<table>
 		<form action="{% url inline_new_agent_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
@@ -47,8 +47,10 @@ th {white-space: nowrap;}
 			<input type="hidden" name="next" value="{% url edit_agent_flows cluster_id=cluster.id %}" />
 		</form>
 	</table>
-
 	
+</div>
+
+<div style="float:left; width: 60%;" >	
 	<table>
 		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
@@ -98,7 +100,7 @@ th {white-space: nowrap;}
 	</form>
 </div>
 
-<div style="float:left; margin-left: 2em; width: 40%; " >
+<div style="float:left; margin-left: 2em; width: 35%; " >
 
 <div id="canvas"></div>
 <button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
