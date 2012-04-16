@@ -580,12 +580,12 @@ def network_params(cluster, toggle):
             nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
             if toggle == "val":
                 total += flow.value
-                val_string = "".join([symbol, splitthousands(v.value)])
+                val_string = "".join([symbol, splitthousands(flow.value)])
                 edges.append(Edge(flow.from_function, flow.resource_type, flow.value, val_string))
                 edges.append(Edge(flow.resource_type, flow.to_function, flow.value, val_string))
             else:
                 total += flow.quantity
-                qty_string = splitthousands(v.quantity)
+                qty_string = splitthousands(flow.quantity)
                 edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity, qty_string))
                 edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity, qty_string))
         nodes = list(set(nodes))
