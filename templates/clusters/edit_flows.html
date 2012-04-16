@@ -150,8 +150,8 @@ p {font-size:0.7875em}
 			}
 		});
 	
-    var data = "{{ resource_names }}".split(";");
-	$("#id_resource-name").autocomplete(data, {matchContains: true});
+    var resourceNames = "{{ resource_names }}".split(";");
+	$("#id_resource-name").autocomplete(resourceNames, {matchContains: true});
 	$("#id_resource-name").blur(getResourceDetails);
 	
 function getResourceDetails(event)
