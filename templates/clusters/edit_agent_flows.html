@@ -215,7 +215,7 @@ function getResourceDetails(event)
 					$("#id_resource-unit_of_quantity").val(unit);
 					$("#id_resource-unit_of_quantity").attr("disabled", true);
 					$("#name-comment").html("Existing Resource which you may re-use");
-					$("#submit-new-resource").attr("value", "Re-use in this cluster");
+					$("#submit-new-resource").attr("value", "Re-use in this community");
 				});
 			var jsonUrl = encodeURI("/clusters/jsonresourceaspect/" + name + "/" + {{ cluster.community.id }} + "/");
 			$.get(jsonUrl,
