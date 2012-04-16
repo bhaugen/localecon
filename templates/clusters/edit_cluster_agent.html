@@ -39,16 +39,17 @@ p {font-size:0.7875em}
 			<th style="text-align: right;" >New Function:</th>
 			<td>{{ new_function_form.name }}</td>
 			{% if not function_aspect_name %}
-					<td><input type="submit" name="submit" value="Add" /></td>
+					<td><input id="submit-new-function" type="submit" name="submit" value="Add" /></td>
 				{% endif %}
 			</tr>
 			{% if function_aspect_name %}
 				<tr>
 					<th style="text-align: right;" >{{ function_aspect_name }}:</th>
 					<td>{{ new_function_form.aspect }}</td>
-				<td><input type="submit" name="submit" value="Add" /></td>
+				<td><input id="submit-new-function" type="submit" name="submit" value="Add" /></td>
 				</tr>
 			{% endif %}
+			<tr><td colspan="4"><span id="function-comment" style="color:green;" ></span></td></tr>
 			<td>&nbsp;</td>
 		</tr>
 	</form>
@@ -241,8 +242,35 @@ var functionNames = html_unescape("{{ function_names }}").split("~");
 
 	
 $(document).ready(function(){
-	$(".resource-name").autocomplete(resourceNames, {matchContains: true});
-	$(".function-name").autocomplete(functionNames, {matchContains: true});
+	$("id_resource-name").autocomplete(resourceNames, {matchContains: true});
+	$("id_function-name").autocomplete(functionNames, {matchContains: true});
+	$("#id_function-name").blur(getFunctionDetails);
+	
+function getFunctionDetails(event)
+{
+	$("#id_function-aspect").attr("disabled", false);
+	$("#function-comment").html("");
+	$("#submit-new-function").attr("value", "Add");
+	
+	var name = event.target.value;
+	for(i=0;i<functionNames.length;i++)
+	{
+		if(functionNames[i]==name)
+		{
+			var jsonUrl = encodeURI("/clusters/jsonfunctionaspect/" + name + "/" + {{ cluster.id }} + "/");
+			$.get(jsonUrl,
+				function(data){
+					var aspect = eval(data)[0].fields.aspect;
+					$("#id_function-aspect").val(aspect);
+					$("#id_function-aspect").attr("disabled", true);
+					$("#function-comment").html("Existing Function which you may re-use");
+					$("#submit-new-function").attr("value", "Re-use for this agent");
+				});
+			break;
+		}
+
+	}
+}
 	
 	$(".quantity").blur(function() 
 		{
