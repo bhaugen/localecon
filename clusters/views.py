@@ -232,7 +232,7 @@ def edit_cluster_functions(request, cluster_id):
        
     used = [cr.resource_type.id for cr in community.resources.all()]
     resource_names = ';'.join([
-        res.name for res in EconomicResourceType.objects.all().exclude(id__in="used")])
+        res.name for res in EconomicResourceType.objects.all().exclude(id__in=used)])
     template_params = network_params(cluster, "qty")
     template_params["symbol"] = symbol
     template_params["functions"] = functions
