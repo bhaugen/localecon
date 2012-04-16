@@ -280,7 +280,9 @@ def edit_flows(request, cluster_id):
         form.fields['to_function'].choices = function_choices
         form.fields['resource_type'].choices = resource_choices
         
-    resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
+    used = [cr.resource_type.id for cr in community.resources.all()]
+    resource_names = ';'.join([
+        res.name for res in EconomicResourceType.objects.all().exclude(id__in=used)])
     
     if request.method == "POST":
         #import pdb; pdb.set_trace()
