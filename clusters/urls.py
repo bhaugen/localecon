@@ -42,6 +42,7 @@ urlpatterns = patterns('',
     url(r'^jsonagentaddress/(?P<agent_name>.+)/$', 'clusters.views.json_agent_address', name="json_agent_address"),
     url(r'^inlinenewagentfunction/(?P<cluster_id>\d+)/$', 'clusters.views.inline_new_agent_function', name="inline_new_agent_function"),
     
+    
     # functions
     url(r'^functions/(?P<cluster_id>\d+)/$', 'clusters.views.economic_functions', name="economic_functions"),
     url(r'^function/(?P<function_id>\d+)/$', 'clusters.views.economic_function', name="economic_function"),
@@ -49,6 +50,7 @@ urlpatterns = patterns('',
     url(r'^inlinenewfunction/(?P<cluster_id>\d+)/$', 'clusters.views.inline_new_function', name="inline_new_function"),
     url(r'^editclusterfunctions/(?P<cluster_id>\d+)/$', 'clusters.views.edit_cluster_functions', name="edit_cluster_functions"),
     url(r'^editflows/(?P<cluster_id>\d+)/$', 'clusters.views.edit_flows', name="edit_flows"),
+    url(r'^jsonfunctionaspect/(?P<function_name>.+)/(?P<cluster_id>\d+)/$', 'clusters.views.json_function_aspect', name="json_function_aspect"),
     
     # resources
     url(r'^inlinenewresource/(?P<cluster_id>\d+)/$', 'clusters.views.inline_new_resource', name="inline_new_resource"),

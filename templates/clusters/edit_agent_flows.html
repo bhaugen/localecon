@@ -41,8 +41,9 @@ th {white-space: nowrap;}
 				{% endif %}
 				<th style="text-align: right;" >Agent:</th>
 				<td>{{ new_function_form.agent }}</td>
-				<td><input type="submit" name="submit" value="Add" /></td>
+				<td><input id="submit-new-function" type="submit" name="submit" value="Add" /></td>
 			</tr>
+			<tr><td colspan="4"><span id="function-comment" style="color:green;" ></span></td></tr>
 			<input type="hidden" name="next" value="{% url edit_agent_flows cluster_id=cluster.id %}" />
 		</form>
 	</table>
@@ -59,7 +60,7 @@ th {white-space: nowrap;}
 				{% endif %}
 				<th style="text-align: right;" >Unit of qty:</th>
 				<td>{{ new_resource_form.unit_of_quantity }}</td>
-				<td><input type="submit" name="submit" value="Add" /></td>
+				<td><input id="submit-new-resource" type="submit" name="submit" value="Add" /></td>
 			</tr>
 			<tr><td colspan="4"><span id="name-comment" style="color:green;" ></span></td></tr>
 			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
@@ -169,6 +170,28 @@ var functionNames = html_unescape("{{ function_names }}").split("~");
 	
 function getFunctionDetails(event)
 {
+	$("#id_function-aspect").attr("disabled", false);
+	$("#function-comment").html("");
+	$("#submit-new-function").attr("value", "Add");
+	
+	var name = event.target.value;
+	for(i=0;i<functionNames.length;i++)
+	{
+		if(functionNames[i]==name)
+		{
+			var jsonUrl = encodeURI("/clusters/jsonfunctionaspect/" + name + "/" + {{ cluster.id }} + "/");
+			$.get(jsonUrl,
+				function(data){
+					var aspect = eval(data)[0].fields.aspect;
+					$("#id_function-aspect").val(aspect);
+					$("#id_function-aspect").attr("disabled", true);
+					$("#function-comment").html("Existing Function which you may re-use");
+					$("#submit-new-function").attr("value", "Re-use for this agent");
+				});
+			break;
+		}
+
+	}
 }
 	
 function getResourceDetails(event)
@@ -176,7 +199,7 @@ function getResourceDetails(event)
 	$("#id_resource-unit_of_quantity").attr("disabled", false);
 	$("#id_resource-aspect").attr("disabled", false);
 	$("#name-comment").html("");
-	$("#submit").attr("value", "Add");
+	$("#submit-new-resource").attr("value", "Add");
 	
 	var name = event.target.value;
 	for(i=0;i<resourceNames.length;i++)
@@ -190,7 +213,7 @@ function getResourceDetails(event)
 					$("#id_resource-unit_of_quantity").val(unit);
 					$("#id_resource-unit_of_quantity").attr("disabled", true);
 					$("#name-comment").html("Existing Resource which you may re-use");
-					$("#submit_new_resource").attr("value", "Re-use in this cluster");
+					$("#submit-new-resource").attr("value", "Re-use in this cluster");
 				});
 			var jsonUrl = encodeURI("/clusters/jsonresourceaspect/" + name + "/" + {{ cluster.community.id }} + "/");
 			$.get(jsonUrl,
