@@ -1312,7 +1312,7 @@ def json_resource_aspect(request, name, community_id):
 def json_function_aspect(request, function_name, cluster_id):
     #import pdb; pdb.set_trace()
     cluster = get_object_or_404(Cluster, id=cluster_id)
-    qs = EconomicFunction.objects.filter(cluster=cluster, name=name)
+    qs = EconomicFunction.objects.filter(cluster=cluster, name=function_name)
     data = serializers.serialize("json", qs, fields=('aspect',))
     return HttpResponse(data, mimetype="text/json-comment-filtered")
 
