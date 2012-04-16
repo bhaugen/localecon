@@ -979,21 +979,32 @@ def inline_new_function(request, cluster_id):
     return HttpResponseRedirect(next)
 
 @login_required 
-def inline_new_agent_functionX(request, cluster_id):
+def new_agent_function(request, cluster_id):
     if request.method == "POST":
         next = request.POST.get("next")
         cluster = get_object_or_404(Cluster, pk=cluster_id)
-        form = AgentFunctionForm(request.POST, prefix="function")
+        form = InlineAgentFunctionForm(request.POST, cluster=cluster, prefix="function")
         #import pdb; pdb.set_trace()
         if form.is_valid():
             data = form.cleaned_data
             agent = data["agent"]
             fname = data["name"]
             aspect = data["aspect"]
-            fun = EconomicFunction(
-                name=name,
-                cluster=cluster)
-            fun.save()
+            funs = EconomicFunction.objects.filter(
+                cluster=cluster,
+                name=name)
+            if funs:
+                fun = funs[0]
+                if aspect:
+                    if aspect != fun.aspect:
+                        fun.aspect = aspect
+                        fun.save()
+            else:
+                fun = EconomicFunction(
+                    name=name,
+                    cluster=cluster,
+                    aspect=aspect)
+                fun.save()
             af = AgentFunction(
                 agent=agent,
                 function=fun)

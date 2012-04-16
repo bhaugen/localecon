@@ -31,7 +31,7 @@ th {white-space: nowrap;}
 <div>
 	
 	<table>
-		<form action="{% url inline_new_agent_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
+		<form action="{% url new_agent_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
 				<th style="text-align: right; " >New Function:</th>
 				<td>{{ new_function_form.name }}</td>
