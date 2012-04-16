@@ -983,7 +983,7 @@ def new_agent_function(request, cluster_id):
     if request.method == "POST":
         next = request.POST.get("next")
         cluster = get_object_or_404(Cluster, pk=cluster_id)
-        form = InlineAgentFunctionForm(request.POST, cluster=cluster, prefix="function")
+        form = InlineAgentFunctionForm(data=request.POST, cluster=cluster, prefix="function")
         #import pdb; pdb.set_trace()
         if form.is_valid():
             data = form.cleaned_data
