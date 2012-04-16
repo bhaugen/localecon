@@ -85,17 +85,14 @@ p {font-size:0.7875em}
 			<tr>
 				<th style="text-align: right;" >New Resource:</th>
 				<td>{{ new_resource_form.name }}</td>
-				{% if not resource_aspect_name %}
-					<td><input id="submit_new_resource" type="submit" name="submit_new_resource" value="Add" /></td>
-				{% endif %}
-			</tr>
-			{% if resource_aspect_name %}
-				<tr>
+				{% if resource_aspect_name %}
 					<th style="text-align: right;" >{{ resource_aspect_name }}:</th>
 					<td>{{ new_resource_form.aspect }}</td>
-				<td><input id="submit_new_resource" type="submit" name="submit_new_resource" value="Add" /></td>
-				</tr>
-			{% endif %}
+				{% endif %}
+				<th style="text-align: right;" >Unit of qty:</th>
+				<td>{{ new_resource_form.unit_of_quantity }}</td>
+				<td><input id="submit-new-resource" type="submit" name="submit" value="Add" /></td>
+			</tr>
 			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
 		</form>
 	</table>
@@ -151,6 +148,47 @@ p {font-size:0.7875em}
 	
     var data = "{{ resource_names }}".split(";");
 	$("#id_resource-name").autocomplete(data, {matchContains: true});
+	$("#id_resource-name").blur(getResourceDetails);
+	
+function getResourceDetails(event)
+{
+	$("#id_resource-unit_of_quantity").attr("disabled", false);
+	$("#id_resource-aspect").attr("disabled", false);
+	$("#name-comment").html("");
+	$("#submit-new-resource").attr("value", "Add");
+	
+	var name = event.target.value;
+	for(i=0;i<resourceNames.length;i++)
+	{
+		if(resourceNames[i]==name)
+		{
+			var jsonUrl = encodeURI("/clusters/jsonresourceunit/" + name + "/");
+			$.get(jsonUrl,
+				function(data){
+					var unit = eval(data)[0].fields.unit_of_quantity;
+					$("#id_resource-unit_of_quantity").val(unit);
+					$("#id_resource-unit_of_quantity").attr("disabled", true);
+					$("#name-comment").html("Existing Resource which you may re-use");
+					$("#submit-new-resource").attr("value", "Re-use in this cluster");
+				});
+			var jsonUrl = encodeURI("/clusters/jsonresourceaspect/" + name + "/" + {{ cluster.community.id }} + "/");
+			$.get(jsonUrl,
+				function(data){
+					if(data.length > 0)
+					{
+						var aspect = eval(data)[0].fields.aspect;
+						if (aspect.length > 0)
+						{
+							$("#id_resource-aspect").val(aspect);
+							$("#id_resource-aspect").attr("disabled", true);
+						}
+					}
+				});
+			break;
+		}
+
+	}
+}
 	
 	$(document).ajaxSend(function(event, xhr, settings) {
     function getCookie(name) {
