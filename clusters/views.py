@@ -212,9 +212,10 @@ def cluster_agents(request, cluster_id):
 @login_required
 def edit_cluster_functions(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    community = cluster.community
     symbol = "$"
     try:
-        symbol = cluster.community.unit_of_value.symbol
+        symbol = community.unit_of_value.symbol
     except:
         pass
     new_function_form = EconomicFunctionForm(prefix="function")
@@ -228,8 +229,10 @@ def edit_cluster_functions(request, cluster_id):
     for res in resources:
         res.my_consumers = res.cluster_consumers(cluster)
         res.my_producers = res.cluster_producers(cluster)
-        
-    resource_names = ';'.join([res.name for res in EconomicResourceType.objects.all()])
+       
+    used = [cr.resource_type.id for cr in community.resources.all()]
+    resource_names = ';'.join([
+        res.name for res in EconomicResourceType.objects.all().exclude(id__in="used")])
     template_params = network_params(cluster, "qty")
     template_params["symbol"] = symbol
     template_params["functions"] = functions
