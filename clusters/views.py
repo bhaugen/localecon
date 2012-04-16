@@ -988,7 +988,7 @@ def new_agent_function(request, cluster_id):
         if form.is_valid():
             data = form.cleaned_data
             agent = data["agent"]
-            fname = data["name"]
+            name = data["name"]
             aspect = data["aspect"]
             funs = EconomicFunction.objects.filter(
                 cluster=cluster,
