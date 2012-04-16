@@ -242,7 +242,7 @@ var functionNames = html_unescape("{{ function_names }}").split("~");
 
 	
 $(document).ready(function(){
-	$("#id_resource-name").autocomplete(resourceNames, {matchContains: true});
+	$(".resource-name").autocomplete(resourceNames, {matchContains: true});
 	$("#id_function-name").autocomplete(functionNames, {matchContains: true});
 	$("#id_function-name").blur(getFunctionDetails);
 	
