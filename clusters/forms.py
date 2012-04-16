@@ -16,7 +16,7 @@ class InlineAgentFunctionForm(forms.ModelForm):
         
     def __init__(self, cluster, *args, **kwargs):
         super(InlineAgentFunctionForm, self).__init__(*args, **kwargs)
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         self.fields["agent"].choices = [('', '----------')] + [
             (agt.id, agt.name) for agt in cluster.agents()
         ]
