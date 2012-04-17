@@ -90,7 +90,7 @@ admin.site.register(EconomicResourceType, EconomicResourceTypeAdmin)
 
 
 class CommunityResourceTypeAdmin(admin.ModelAdmin):
-    list_display = ('community', 'resource_type')
+    list_display = ('community', 'resource_type', 'aspect')
     list_filter = ['community']
     list_editable = ['aspect',]
     search_fields = ['community__name', 'resource_type__name']
