@@ -41,7 +41,7 @@ th {white-space: nowrap;}
 				{% endif %}
 				<th style="text-align: right;" >Agent:</th>
 				<td>{{ new_function_form.agent }}</td>
-				<td><input id="submit-new-function" type="submit" name="submit" value="Add" /></td>
+				<td><input id="submit-new-function" type="submit" name="submit" value="Add Function" /></td>
 			</tr>
 			<tr><td colspan="4"><span id="function-comment" style="color:green;" ></span></td></tr>
 			<input type="hidden" name="next" value="{% url edit_agent_flows cluster_id=cluster.id %}" />
@@ -62,7 +62,7 @@ th {white-space: nowrap;}
 				{% endif %}
 				<th style="text-align: right;" >Unit of qty:</th>
 				<td>{{ new_resource_form.unit_of_quantity }}</td>
-				<td><input id="submit-new-resource" type="submit" name="submit" value="Add" /></td>
+				<td><input id="submit-new-resource" type="submit" name="submit" value="Add Resource" /></td>
 			</tr>
 			<tr><td colspan="4"><span id="name-comment" style="color:green;" ></span></td></tr>
 			<input type="hidden" name="next" value="{% url edit_agent_flows cluster_id=cluster.id %}" />
@@ -174,7 +174,7 @@ function getFunctionDetails(event)
 {
 	$("#id_function-aspect").attr("disabled", false);
 	$("#function-comment").html("");
-	$("#submit-new-function").attr("value", "Add");
+	$("#submit-new-function").attr("value", "Add Function");
 	
 	var name = event.target.value;
 	for(i=0;i<functionNames.length;i++)
@@ -201,7 +201,7 @@ function getResourceDetails(event)
 	$("#id_resource-unit_of_quantity").attr("disabled", false);
 	$("#id_resource-aspect").attr("disabled", false);
 	$("#name-comment").html("");
-	$("#submit-new-resource").attr("value", "Add");
+	$("#submit-new-resource").attr("value", "Add Resource");
 	
 	var name = event.target.value;
 	for(i=0;i<resourceNames.length;i++)
