@@ -30,9 +30,10 @@ class OutgoingFunctionResourceFlowInline(admin.TabularInline):
 
 
 class EconomicFunctionAdmin(admin.ModelAdmin):
-    list_display = ('name', 'cluster')
+    list_display = ('name', 'cluster', 'aspect')
     list_filter = ['cluster',]
     search_fields = ['name', 'cluster__name']
+    list_editable = ['aspect',]
     inlines = [ 
                FunctionResourceInline,
                IncomingFunctionResourceFlowInline,
@@ -91,6 +92,7 @@ admin.site.register(EconomicResourceType, EconomicResourceTypeAdmin)
 class CommunityResourceTypeAdmin(admin.ModelAdmin):
     list_display = ('community', 'resource_type')
     list_filter = ['community']
+    list_editable = ['aspect',]
     search_fields = ['community__name', 'resource_type__name']
 
 admin.site.register(CommunityResourceType, CommunityResourceTypeAdmin)
