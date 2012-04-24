@@ -65,9 +65,7 @@ class OutgoingAgentResourceFlowInline(admin.TabularInline):
 class EconomicAgentAdmin(admin.ModelAdmin):
     list_display = ('name', 'address')
     search_fields = ['name', 'address']
-    inlines = [ AgentFunctionInline, 
-               AgentResourceInline,
-               ]
+    inlines = [AgentFunctionInline,]
     
 admin.site.register(EconomicAgent, EconomicAgentAdmin)
 
