@@ -45,8 +45,8 @@ admin.site.register(EconomicFunction, EconomicFunctionAdmin)
 class AgentFunctionInline(admin.TabularInline):
     model = AgentFunction
 
-class AgentResourceInline(admin.TabularInline):
-    model = AgentResourceType
+class AgentFunctionResourceInline(admin.TabularInline):
+    model = AgentFunctionResourceType
 
 
 class IncomingAgentResourceFlowInline(admin.TabularInline):
@@ -74,7 +74,8 @@ admin.site.register(EconomicAgent, EconomicAgentAdmin)
 
 class AgentFunctionAdmin(admin.ModelAdmin):
     list_display = ('agent', 'function')
-    inlines = [IncomingAgentResourceFlowInline,
+    inlines = [AgentFunctionResourceInline,
+               IncomingAgentResourceFlowInline,
                OutgoingAgentResourceFlowInline,
                ]
     
