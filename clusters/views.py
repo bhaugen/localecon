@@ -496,10 +496,10 @@ def agent_network_params(cluster, toggle):
             
     for edge in edges:
         width = 1
-        print "total:", total
         if total > 0:
             width = round((edge.quantity / total), 2) * 50
             width = int(width)
+            print "edge.quantity:", edge.quantity, "Width:", width
         edge.width = width
     nodes.extend(list(set(rtypes)))
     template_params =  {
