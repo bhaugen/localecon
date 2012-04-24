@@ -445,7 +445,7 @@ def agent_network_params(cluster, toggle):
                     value = v.get_value()
                     total += value
                     val_string = "".join([symbol, splitthousands(value)])
-                    edges.append(Edge(v.resource_type, fn, value, val_string))
+                    edges.append(Edge(v.resource_type, agt, value, val_string))
                 elif toggle == "price":
                     total += v.price
                     p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
@@ -460,11 +460,11 @@ def agent_network_params(cluster, toggle):
                     value = v.get_value()
                     total += value
                     val_string = "".join([symbol, splitthousands(value)])
-                    edges.append(Edge(fn, v.resource_type, value, val_string))
+                    edges.append(Edge(agt, v.resource_type, value, val_string))
                 elif toggle == "price":
                     total += v.price
                     p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
-                    edges.append(Edge(v.resource_type, agt, v.price, p_string))
+                    edges.append(Edge(agt, v.resource_type, v.price, p_string))
                 else:
                     total += v.quantity
                     qty_string = splitthousands(v.quantity)
@@ -533,7 +533,7 @@ def group_network_params(cluster, toggle):
                     value = v.get_value()
                     total += value
                     val_string = "".join([symbol, splitthousands(value)])
-                    edges.append(Edge(v.resource_type, fn, value, val_string))
+                    edges.append(Edge(v.resource_type, agt, value, val_string))
                 elif toggle == "price":
                     total += v.price
                     p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
@@ -548,11 +548,11 @@ def group_network_params(cluster, toggle):
                     value = v.get_value()
                     total += value
                     val_string = "".join([symbol, splitthousands(value)])
-                    edges.append(Edge(fn, v.resource_type, value, val_string))
+                    edges.append(Edge(agt, v.resource_type, value, val_string))
                 elif toggle == "price":
                     total += v.price
                     p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
-                    edges.append(Edge(v.resource_type, agt, v.price, p_string))
+                    edges.append(Edge(agt, v.resource_type, v.price, p_string))
                 else:
                     total += v.quantity
                     qty_string = splitthousands(v.quantity)
