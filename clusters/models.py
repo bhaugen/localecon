@@ -678,7 +678,7 @@ class Cluster(models.Model):
                                 flow.from_function.function,
                                 flow.to_function.function,
                                 flow.resource_type,
-                                0.0, 0.0)
+                                0.0, Decimal("0.00"), 0.0)
                         rt = fn.flow_dict[flowkey]
                         rt.quantity += flow.quantity
                         rt.price += flow.price
