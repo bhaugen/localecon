@@ -553,7 +553,7 @@ def network_params(cluster, toggle):
     edges = []
     rtypes = []
     if toggle == "price":
-        total = Decimal("0.0")
+        total = Decimal("0.00")
     else:
         total = 0
     if frts:
