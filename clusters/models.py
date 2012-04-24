@@ -825,6 +825,13 @@ class FunctionResourceType(models.Model):
                 crt = CommunityResourceType(community=community, resource_type=rt).save()
         super(FunctionResourceType, self).save(*args, **kwargs)
         
+    def get_value(self):
+        if self.value:
+            return self.value
+        if self.quantity and self.price:
+            return int((self.quantity * self.price).quantize(Decimal('.01'), rounding=ROUND_UP))
+        return 0
+        
     def agent_resources(self):
         answer = []
         function_agents = self.function.agents.all()
@@ -884,6 +891,13 @@ class FunctionResourceFlow(models.Model):
     
     def __unicode__(self):
         return " ".join(["from", self.from_function.name, "to", self.to_function.name, str(self.quantity), self.resource_type.name])
+    
+    def get_value(self):
+        if self.value:
+            return self.value
+        if self.quantity and self.price:
+            return int((self.quantity * self.price).quantize(Decimal('.01'), rounding=ROUND_UP))
+        return 0
 
     
 class EconomicAgent(models.Model):
@@ -1005,6 +1019,13 @@ class AgentResourceType(models.Model):
     
     def __unicode__(self):
         return " ".join([self.agent.name, self.role, self.resource_type.name])
+    
+    def get_value(self):
+        if self.value:
+            return self.value
+        if self.quantity and self.price:
+            return int((self.quantity * self.price).quantize(Decimal('.01'), rounding=ROUND_UP))
+        return 0
     
 
 class AgentFunctionResourceType(models.Model):
