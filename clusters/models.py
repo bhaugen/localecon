@@ -252,12 +252,20 @@ class AggregateFunctionResource(object):
 
    
 class AgentGroupFlow(object):
-    def __init__(self, from_function, to_function, resource_type, quantity, value):
+    def __init__(self, from_function, to_function, resource_type, quantity, price, value):
         self.from_function = from_function
         self.to_function = to_function
         self.resource_type = resource_type
         self.quantity = quantity
+        self.price = price
         self.value = value
+        
+    def get_value(self):
+        if self.value:
+            return self.value
+        if self.quantity and self.price:
+            return int((self.quantity * self.price).quantize(Decimal('.01'), rounding=ROUND_UP))
+        return 0
 
    
 class AgentGroupFunction(object):
@@ -673,6 +681,7 @@ class Cluster(models.Model):
                                 0.0, 0.0)
                         rt = fn.flow_dict[flowkey]
                         rt.quantity += flow.quantity
+                        rt.price += flow.price
                         rt.value += flow.value
         group_flows = []
         for grp in groups.values():

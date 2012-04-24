@@ -722,7 +722,7 @@ def group_flow_params(cluster, toggle):
     for flow in flows:
         nodes.extend([flow.from_function, flow.to_function])
         if toggle == "val":
-            total += flow.value
+            total += flow.get_value()
         elif toggle == "price":
             total += flow.price
         else:
@@ -738,14 +738,14 @@ def group_flow_params(cluster, toggle):
         if prev_match:
             edge.label = ";".join([edge.label, flow.resource_type.name])
             if toggle == "val":
-                edge.quantity += flow.value
+                edge.quantity += flow.get_value()
             elif toggle == "price":
                 edge.quantity += flow.price
             else:
                 edge.quantity += flow.quantity
         else:
             if toggle == "val":
-                nbr = flow.value
+                nbr = flow.get_value()
             elif toggle == "price":
                 nbr = flow.price
             else:
@@ -778,7 +778,7 @@ def agent_flow_params(cluster, toggle):
     for flow in flows:
         nodes.extend([flow.from_function, flow.to_function])
         if toggle == "val":
-            total += flow.value
+            total += flow.get_value()
         elif toggle == "price":
             total += flow.price
         else:
@@ -794,14 +794,14 @@ def agent_flow_params(cluster, toggle):
         if prev_match:
             edge.label = ";".join([edge.label, flow.resource_type.name])
             if toggle == "val":
-                edge.quantity += flow.value
+                edge.quantity += flow.get_value()
             elif toggle == "price":
                 edge.quantity += flow.price
             else:
                 edge.quantity += flow.quantity
         else:
             if toggle == "val":
-                nbr = flow.value
+                nbr = flow.get_value()
             elif toggle == "price":
                 nbr = flow.price
             else:
@@ -834,7 +834,7 @@ def flow_params(cluster, toggle):
     for flow in flows:
         nodes.extend([flow.from_function, flow.to_function])
         if toggle == "val":
-            total += flow.value
+            total += flow.get_value()
         elif toggle == "price":
             total += flow.price
         else:
@@ -850,14 +850,14 @@ def flow_params(cluster, toggle):
         if prev_match:
             edge.label = ";".join([edge.label, flow.resource_type.name])
             if toggle == "val":
-                edge.quantity += flow.value
+                edge.quantity += flow.get_value()
             elif toggle == "price":
                 edge.quantity += flow.price
             else:
                 edge.quantity += flow.quantity
         else:
             if toggle == "val":
-                nbr = flow.value
+                nbr = flow.get_value()
             elif toggle == "price":
                 nbr = flow.price
             else:
