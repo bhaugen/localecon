@@ -435,7 +435,7 @@ def agent_network_params(cluster, toggle):
     if toggle == "price":
         total = Decimal("0.00")
     else:
-        total = 0
+        total = 0.0
     if frts:
         nodes = list(cluster.agents())
         for agt in nodes:
@@ -524,7 +524,7 @@ def group_network_params(cluster, toggle):
     if toggle == "price":
         total = Decimal("0.00")
     else:
-        total = 0
+        total = 0.0
     if groups:
         nodes = groups
         for agt in nodes:
@@ -588,7 +588,7 @@ def network_params(cluster, toggle):
     if toggle == "price":
         total = Decimal("0.00")
     else:
-        total = 0
+        total = 0.0
     if frts:
         nodes = list(cluster.functions.all())
         for fn in nodes:
