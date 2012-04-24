@@ -1,9 +1,10 @@
-from django.db import models
-
-from django.core.urlresolvers import reverse
-
-from django.template.defaultfilters import slugify
 import re
+from decimal import *
+
+from django.db import models
+from django.core.urlresolvers import reverse
+from django.template.defaultfilters import slugify
+
 def unique_slugify(instance, value, slug_field_name='slug', queryset=None,
                    slug_separator='-'):
     """
@@ -804,6 +805,8 @@ class FunctionResourceType(models.Model):
     resource_type = models.ForeignKey(EconomicResourceType, related_name='functions')
     role = models.CharField(max_length=12, choices=ROLE_CHOICES)
     quantity = models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0),
+        help_text='If you enter Price and Quantity but not Value, Value will be computed as needed.')
     value = models.IntegerField(default=0)
     
     class Meta:
@@ -872,6 +875,8 @@ class FunctionResourceFlow(models.Model):
     to_function = models.ForeignKey(EconomicFunction, related_name='incoming_flows')
     resource_type = models.ForeignKey(EconomicResourceType, related_name='function_flows')
     quantity = models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0),
+        help_text='If you enter Price and Quantity but not Value, Value will be computed as needed.')
     value = models.IntegerField(default=0)
     
     class Meta:
@@ -991,6 +996,8 @@ class AgentResourceType(models.Model):
     resource_type = models.ForeignKey(EconomicResourceType, related_name='agents')
     role = models.CharField(max_length=12, choices=ROLE_CHOICES)
     quantity = models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0),
+        help_text='If you enter Price and Quantity but not Value, Value will be computed as needed.')
     value = models.IntegerField(default=0)
     
     class Meta:
@@ -1005,6 +1012,8 @@ class AgentFunctionResourceType(models.Model):
     resource_type = models.ForeignKey(EconomicResourceType, related_name='agent_functions')
     role = models.CharField(max_length=12, choices=ROLE_CHOICES)
     quantity = models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0),
+        help_text='If you enter Price and Quantity but not Value, Value will be computed as needed.')
     value = models.IntegerField(default=0)
     
     class Meta:
