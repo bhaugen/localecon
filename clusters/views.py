@@ -715,11 +715,16 @@ def group_flow_params(cluster, toggle):
     template_params = {}
     flows = cluster.group_flows()
     nodes = []
-    total = 0.0
+    if toggle == "price":
+        total = Decimal("0.00")
+    else:
+        total = 0.0
     for flow in flows:
         nodes.extend([flow.from_function, flow.to_function])
         if toggle == "val":
             total += flow.value
+        elif toggle == "price":
+            total += flow.price
         else:
             total += flow.quantity
     nodes = list(set(nodes))
@@ -734,11 +739,15 @@ def group_flow_params(cluster, toggle):
             edge.label = ";".join([edge.label, flow.resource_type.name])
             if toggle == "val":
                 edge.quantity += flow.value
+            elif toggle == "price":
+                edge.quantity += flow.price
             else:
                 edge.quantity += flow.quantity
         else:
             if toggle == "val":
                 nbr = flow.value
+            elif toggle == "price":
+                nbr = flow.price
             else:
                 nbr = flow.quantity
             edge = FlowEdge(flow.from_function, flow.to_function, flow.resource_type.name, nbr)
@@ -762,11 +771,16 @@ def agent_flow_params(cluster, toggle):
     flows = AgentResourceFlow.objects.filter(
         from_function__function__cluster=cluster)
     nodes = []
-    total = 0.0
+    if toggle == "price":
+        total = Decimal("0.00")
+    else:
+        total = 0.0
     for flow in flows:
         nodes.extend([flow.from_function, flow.to_function])
         if toggle == "val":
             total += flow.value
+        elif toggle == "price":
+            total += flow.price
         else:
             total += flow.quantity
     nodes = list(set(nodes))
@@ -781,11 +795,15 @@ def agent_flow_params(cluster, toggle):
             edge.label = ";".join([edge.label, flow.resource_type.name])
             if toggle == "val":
                 edge.quantity += flow.value
+            elif toggle == "price":
+                edge.quantity += flow.price
             else:
                 edge.quantity += flow.quantity
         else:
             if toggle == "val":
                 nbr = flow.value
+            elif toggle == "price":
+                nbr = flow.price
             else:
                 nbr = flow.quantity
             edge = FlowEdge(flow.from_function, flow.to_function, flow.resource_type.name, nbr)
