@@ -568,7 +568,7 @@ def network_params(cluster, toggle):
                     edges.append(Edge(v.resource_type, fn, value, val_string))
                 elif toggle == "price":
                     total += v.price
-                    p_string = "".join([symbol, str(v.price)])
+                    p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
                     edges.append(Edge(v.resource_type, fn, v.price, p_string))
                 else:
                     total += v.quantity
@@ -583,7 +583,7 @@ def network_params(cluster, toggle):
                     edges.append(Edge(fn, v.resource_type, value, val_string))
                 elif toggle == "price":
                     total += v.price
-                    p_string = "".join([symbol, str(v.price)])
+                    p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
                     edges.append(Edge(v.resource_type, fn, v.price, p_string))
                 else:
                     total += v.quantity
@@ -604,7 +604,7 @@ def network_params(cluster, toggle):
                 edges.append(Edge(flow.resource_type, flow.to_function, value, val_string))
             elif toggle == "price":
                 total += v.price
-                p_string = "".join([symbol, str(v.price)])
+                p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
                 edges.append(Edge(flow.from_function, flow.resource_type, v.price, p_string))
                 edges.append(Edge(flow.resource_type, flow.to_function, v.price, p_string))
             else:
