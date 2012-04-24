@@ -235,12 +235,20 @@ class Community(models.Model):
 
 
 class AggregateFunctionResource(object):
-    def __init__(self, function, resource_type, role, quantity, value):
+    def __init__(self, function, resource_type, role, quantity, price, value):
         self.function = function
         self.resource_type = resource_type
         self.role = role
         self.quantity = quantity
+        self.price = price
         self.value = value
+        
+    def get_value(self):
+        if self.value:
+            return self.value
+        if self.quantity and self.price:
+            return int((self.quantity * self.price).quantize(Decimal('.01'), rounding=ROUND_UP))
+        return 0
 
    
 class AgentGroupFlow(object):
@@ -593,9 +601,10 @@ class Cluster(models.Model):
                         reskey = "".join([str(afrt.resource_type.id), afrt.role])
                         if not reskey in fn.resource_dict:
                             fn.resource_dict[reskey] = AggregateFunctionResource(
-                                af.function, afrt.resource_type, afrt.role, 0.0, 0.0)
+                                af.function, afrt.resource_type, afrt.role, 0.0, Decimal("0.00"), 0.0)
                         rt = fn.resource_dict[reskey]
                         rt.quantity += afrt.quantity
+                        rt.price += afrt.price
                         rt.value += afrt.value
         return areas.values()
     
@@ -623,9 +632,10 @@ class Cluster(models.Model):
                         reskey = "".join([str(afrt.resource_type.id), afrt.role])
                         if not reskey in fn.resource_dict:
                             fn.resource_dict[reskey] = AggregateFunctionResource(
-                                af.function, afrt.resource_type, afrt.role, 0, 0)
+                                af.function, afrt.resource_type, afrt.role, 0, Decimal("0.00"), 0)
                         rt = fn.resource_dict[reskey]
                         rt.quantity += afrt.quantity
+                        rt.price += afrt.price
                         rt.value += afrt.value
         return groups.values()
     
