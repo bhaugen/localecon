@@ -1042,6 +1042,8 @@ class AgentResourceFlow(models.Model):
     to_function = models.ForeignKey(AgentFunction, related_name='incoming_flows')
     resource_type = models.ForeignKey(EconomicResourceType, related_name='agent_flows')
     quantity = models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0),
+        help_text='If you enter Price and Quantity but not Value, Value will be computed as needed.')
     value = models.IntegerField(default=0)
     
     class Meta:
