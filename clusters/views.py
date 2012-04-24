@@ -448,7 +448,7 @@ def agent_network_params(cluster, toggle):
                 elif toggle == "price":
                     total += v.price
                     p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
-                    edges.append(Edge(v.resource_type, fn, v.price, p_string))
+                    edges.append(Edge(v.resource_type, agt, v.price, p_string))
                 else:
                     total += v.quantity
                     qty_string = splitthousands(v.quantity)
@@ -462,7 +462,7 @@ def agent_network_params(cluster, toggle):
                 elif toggle == "price":
                     total += v.price
                     p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
-                    edges.append(Edge(v.resource_type, fn, v.price, p_string))
+                    edges.append(Edge(v.resource_type, agt, v.price, p_string))
                 else:
                     total += v.quantity
                     qty_string = splitthousands(v.quantity)
@@ -533,7 +533,7 @@ def group_network_params(cluster, toggle):
                 elif toggle == "price":
                     total += v.price
                     p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
-                    edges.append(Edge(v.resource_type, fn, v.price, p_string))
+                    edges.append(Edge(v.resource_type, agt, v.price, p_string))
                 else:
                     total += v.quantity
                     qty_string = splitthousands(v.quantity)
@@ -547,7 +547,7 @@ def group_network_params(cluster, toggle):
                 elif toggle == "price":
                     total += v.price
                     p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
-                    edges.append(Edge(v.resource_type, fn, v.price, p_string))
+                    edges.append(Edge(v.resource_type, agt, v.price, p_string))
                 else:
                     total += v.quantity
                     qty_string = splitthousands(v.quantity)
