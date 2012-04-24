@@ -545,7 +545,7 @@ def network_params(cluster, toggle):
     frts = FunctionResourceType.objects.filter(
         function__cluster=cluster)
     symbol = "$"
-    if toggle == "val":
+    if toggle == "val" or toggle == "price":
         try:
             symbol = cluster.community.unit_of_value.symbol
         except:

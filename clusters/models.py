@@ -1035,6 +1035,13 @@ class AgentFunctionResourceType(models.Model):
             if self.resource_type.is_child_of(r):
                 return False
         return True
+    
+    def get_value(self):
+        if self.value:
+            return self.value
+        if self.quantity and self.price:
+            return int((self.quantity * self.price).quantize(Decimal('.01'), rounding=ROUND_UP))
+        return 0
 
     
 class AgentResourceFlow(models.Model):
