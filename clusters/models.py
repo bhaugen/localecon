@@ -1097,7 +1097,20 @@ class AgentResourceFlow(models.Model):
         ordering = ('from_function', 'to_function', 'resource_type',)
     
     def __unicode__(self):
-        return " ".join(["from", self.from_function.agent.name, "to", self.to_function.agent.name, str(self.quantity), self.resource_type.name])
+        return " ".join([
+            "from", 
+            self.from_function.agent.name, 
+            "to", 
+            self.to_function.agent.name, 
+            str(self.quantity), 
+            self.resource_type.name])
+        
+    def get_value(self):
+        if self.value:
+            return self.value
+        if self.quantity and self.price:
+            return int((self.quantity * self.price).quantize(Decimal('.01'), rounding=ROUND_UP))
+        return 0
 
 
 class SiteSettings(models.Model):
