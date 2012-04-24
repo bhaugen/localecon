@@ -241,6 +241,7 @@ class EmailForm(forms.Form):
     
 TOGGLE_CHOICES = (
     ('qty', 'Quantity or'),
+    ('price', 'Price or'),
     ('val', 'Value'),
 ) 
 
