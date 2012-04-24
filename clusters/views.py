@@ -442,9 +442,10 @@ def agent_network_params(cluster, toggle):
             for v in agt.function_inputs(cluster):
                 rtypes.append(v.resource_type)
                 if toggle == "val":
-                    total += v.value
-                    val_string = "".join([symbol, splitthousands(v.value)])
-                    edges.append(Edge(v.resource_type, agt, v.value, val_string))
+                    value = v.get_value()
+                    total += value
+                    val_string = "".join([symbol, splitthousands(value)])
+                    edges.append(Edge(v.resource_type, fn, value, val_string))
                 elif toggle == "price":
                     total += v.price
                     p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
@@ -456,9 +457,10 @@ def agent_network_params(cluster, toggle):
             for v in agt.function_outputs(cluster):
                 rtypes.append(v.resource_type)
                 if toggle == "val":
-                    total += v.value
-                    val_string = "".join([symbol, splitthousands(v.value)])
-                    edges.append(Edge(agt, v.resource_type, v.value, val_string))
+                    value = v.get_value()
+                    total += value
+                    val_string = "".join([symbol, splitthousands(value)])
+                    edges.append(Edge(fn, v.resource_type, value, val_string))
                 elif toggle == "price":
                     total += v.price
                     p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
@@ -475,10 +477,11 @@ def agent_network_params(cluster, toggle):
         for flow in flows:
             nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
             if toggle == "val":
-                total += flow.value
-                val_string = "".join([symbol, splitthousands(v.value)])
-                edges.append(Edge(flow.from_function, flow.resource_type, flow.value, val_string))
-                edges.append(Edge(flow.resource_type, flow.to_function, flow.value, val_string))
+                value = flow.get_value()
+                total += value
+                val_string = "".join([symbol, splitthousands(value)])
+                edges.append(Edge(flow.from_function, flow.resource_type, value, val_string))
+                edges.append(Edge(flow.resource_type, flow.to_function, value, val_string))
             elif toggle == "price":
                 total += v.price
                 p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
@@ -527,9 +530,10 @@ def group_network_params(cluster, toggle):
             for v in agt.function_inputs():
                 rtypes.append(v.resource_type)
                 if toggle == "val":
-                    total += v.value
-                    val_string = "".join([symbol, splitthousands(v.value)])
-                    edges.append(Edge(v.resource_type, agt, v.value, val_string))
+                    value = v.get_value()
+                    total += value
+                    val_string = "".join([symbol, splitthousands(value)])
+                    edges.append(Edge(v.resource_type, fn, value, val_string))
                 elif toggle == "price":
                     total += v.price
                     p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
@@ -541,9 +545,10 @@ def group_network_params(cluster, toggle):
             for v in agt.function_outputs():
                 rtypes.append(v.resource_type)
                 if toggle == "val":
-                    total += v.value
-                    val_string = "".join([symbol, splitthousands(v.value)])
-                    edges.append(Edge(agt, v.resource_type, v.value, val_string))
+                    value = v.get_value()
+                    total += value
+                    val_string = "".join([symbol, splitthousands(value)])
+                    edges.append(Edge(fn, v.resource_type, value, val_string))
                 elif toggle == "price":
                     total += v.price
                     p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
