@@ -1525,7 +1525,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             name = data['name']
             role = data['role']
             quantity = data['quantity']
-            value = data['value']
+            price = data['price']
             agent_function_id = data['agent_function_id']
             new_resource = True
             
@@ -1551,7 +1551,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
                 agent_function=agent_function, 
                 role=role, 
                 quantity=quantity,
-                value=value).save()
+                price=price).save()
             crt, created = CommunityResourceType.objects.get_or_create(community=cluster.community, resource_type=resource)
     return HttpResponseRedirect('/%s/%s/%s/'
        % ('clusters/editclusteragent', cluster_id, agent.id))
