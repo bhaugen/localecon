@@ -135,7 +135,7 @@ class FunctionResourceTypeFormX(forms.ModelForm):
         
 class FunctionResourceTypeForm(forms.ModelForm):
     quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
-    value = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+    price = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
     role = forms.ChoiceField(choices=ROLE_CHOICES)
     
     def __init__(self, community, *args, **kwargs):
@@ -146,7 +146,7 @@ class FunctionResourceTypeForm(forms.ModelForm):
         
     class Meta:
         model = FunctionResourceType
-        fields = ('resource_type', 'role', 'quantity', 'value')
+        fields = ('resource_type', 'role', 'quantity', 'price')
 
         
 class FunctionResourceFlowForm(forms.ModelForm):
