@@ -221,7 +221,7 @@ class AgentFunctionResourceForm(forms.ModelForm):
     agent_function_id = forms.IntegerField(widget=forms.HiddenInput)
     name = forms.CharField(widget=forms.TextInput(attrs={'size': '16', 'class': 'resource-name'}))
     quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '7', 'value': '0'}))
-    value = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '7', 'value': '0'}))
+    price = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '7', 'value': '0'}))
     
     def __init__(self, function_resource=None, *args, **kwargs):
         super(AgentFunctionResourceForm, self).__init__(*args, **kwargs)
@@ -230,7 +230,7 @@ class AgentFunctionResourceForm(forms.ModelForm):
     
     class Meta:
         model = AgentFunctionResourceType
-        fields = ('role', 'quantity', 'value')
+        fields = ('role', 'quantity', 'price')
 
         
 class EmailForm(forms.Form):

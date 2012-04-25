@@ -62,7 +62,7 @@ p {font-size:0.7875em}
 				<th>Function Resources:</th>
 				<th>Resource</th>
 				<th>Quantity</th>
-				<th style="text-align: right;" >Price</th>
+				<th>Price</th>
 			</tr>
 			{% if fun.rsrcs %}
 				{% for res in fun.rsrcs %}
@@ -73,7 +73,7 @@ p {font-size:0.7875em}
 						<td>&nbsp;</td>
 						<td style="background: #EAF2D3;" > {{ res.role }} {{ res.resource_type }}</td>
 						<td style="text-align: right; background: #EAF2D3;" >{{ res.quantity|intcomma }}</td>
-						<td style="text-align: right; background: #EAF2D3;" >{{ res.value|intcomma }}</td>
+						<td style="text-align: right; background: #EAF2D3;" >{{ res.price }}</td>
 					</tr>
 					{% for agent_res in res.agent_resource_list %}
 						<tr>
@@ -113,7 +113,7 @@ p {font-size:0.7875em}
 						<th>Other Resources:</th>
 						<th>Resource</th>
 						<th>Quantity</th>
-						<th style="text-align: right;" >Price</th>
+						<th>Price</th>
 					</tr>
 					{% for agent_res in fun.outliers %}
 						 <tr>
@@ -163,7 +163,7 @@ p {font-size:0.7875em}
 							{{ fun.agent_resource_form.name }}
 						</td>					
 						<td>{{ fun.agent_resource_form.quantity }}</td>
-						<td>{{ fun.agent_resource_form.value }}</td>
+						<td>{{ fun.agent_resource_form.price }}</td>
 						<td><input type="submit" name="submit" value="Add" /></td>
 					</form>
 				</tr>
