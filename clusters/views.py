@@ -1461,7 +1461,7 @@ def change_agent_function_resource_value(request):
 
 def change_agent_function_resource_price(request):
     id = request.POST.get("id")
-    value = request.POST.get("price")
+    price = request.POST.get("price")
     frt = get_object_or_404(AgentFunctionResourceType, pk=id)
     #import pdb; pdb.set_trace()
     price = int(price)
