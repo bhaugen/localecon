@@ -52,7 +52,7 @@ p {font-size:0.7875em}
 			<tr>
 				<th style="text-align: left; font-size: 110%; " colspan="2" >{{ fun.name }}</th>
 				<th>Qty</th>
-				<th>Value</th>
+				<th>Price</th>
 			</tr>
 			{% if fun.inputs %}
 					{% for resource in fun.inputs %}
@@ -66,7 +66,7 @@ p {font-size:0.7875em}
 								<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
 							</td>
 							<td style="text-align: right; ">
-								<input class="value" id="{{ resource.id }}" type="text" size="6" value="{{ resource.value }}" />
+								<input class="price" id="{{ resource.id }}" type="text" size="6" value="{{ resource.price }}" />
 							</td>
 							<td>
 								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
@@ -85,7 +85,7 @@ p {font-size:0.7875em}
 									<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
 								</td>
 								<td style="text-align: right; ">
-									<input class="value" id="{{ resource.id }}" type="text" size="6" value="{{ resource.value }}" />
+									<input class="price" id="{{ resource.id }}" type="text" size="6" value="{{ resource.price }}" />
 								</td>
 								<td>
 								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
@@ -109,7 +109,7 @@ p {font-size:0.7875em}
 								<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
 							</td>
 							<td style="text-align: right; ">
-								<input class="value" id="{{ resource.id }}" type="text" size="6" value="{{ resource.value }}" />
+								<input class="price" id="{{ resource.id }}" type="text" size="6" value="{{ resource.price }}" />
 							</td>
 							<td>
 								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
@@ -128,7 +128,7 @@ p {font-size:0.7875em}
 									<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
 								</td>
 								<td style="text-align: right; ">
-									<input class="value" id="{{ resource.id }}" type="text" size="6" value="{{ resource.value }}" />
+									<input class="price" id="{{ resource.id }}" type="text" size="6" value="{{ resource.price }}" />
 								</td>
 								<td>
 								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
@@ -263,7 +263,7 @@ p {font-size:0.7875em}
 			}
 		});
 	
-		$(".value").blur(function() 
+		$(".price").blur(function() 
 		{
 			var quantity = this.value;
 			var intQuantity = parseInt(quantity);
@@ -272,7 +272,7 @@ p {font-size:0.7875em}
 				if (intQuantity == parseFloat(quantity))
 				{
 					var id = this.id;
-					$.post("{% url change_function_resource_value %}",  { id: id, value: quantity });
+					$.post("{% url change_function_resource_price %}",  { id: id, price: quantity });
 				}
 				else
 				{

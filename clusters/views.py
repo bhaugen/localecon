@@ -1435,6 +1435,18 @@ def change_function_resource_value(request):
     data = "ok"
     return HttpResponse(data, mimetype="text/plain")
 
+def change_function_resource_price(request):
+    id = request.POST.get("id")
+    price = request.POST.get("price")
+    frt = get_object_or_404(FunctionResourceType, pk=id)
+    #import pdb; pdb.set_trace()
+    price = int(price)
+    if price != frt.price:
+        frt.price = price
+        frt.save()
+    data = "ok"
+    return HttpResponse(data, mimetype="text/plain")
+
 def change_agent_function_resource_amount(request):
     id = request.POST.get("id")
     quantity = request.POST.get("quantity")
