@@ -285,7 +285,7 @@ def edit_flows(request, cluster_id):
         res.name for res in EconomicResourceType.objects.all().exclude(id__in=used)])
     
     if request.method == "POST":
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         for form in formset.forms:
             if form.is_valid():
                 delete = form.cleaned_data["DELETE"]
