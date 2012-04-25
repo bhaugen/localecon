@@ -55,6 +55,7 @@ p {font-size:0.7875em}
 				<tr>
 					<th>Function Resources:</th>
 					<th>Resource</th>
+					<th>Price</th>
 					<th>Quantity</th>
 					<th style="text-align: right;" >Value</th>
 				</tr>
@@ -63,7 +64,8 @@ p {font-size:0.7875em}
 						<td>&nbsp;</td>
 						<td style="background: #EAF2D3;" > {{ res.role }} {{ res.resource_type }}</td>
 						<td style="text-align: right; background: #EAF2D3;" >{{ res.quantity|intcomma }}</td>
-						<td style="text-align: right; background: #EAF2D3;" >{{ res.value|intcomma }}</td>
+						<td style="text-align: right; background: #EAF2D3;" >{{ res.price }}</td>
+						<td style="text-align: right; background: #EAF2D3;" >{{ res.get_value|intcomma }}</td>
 					</tr>
 					{% for agent_res in res.agent_resource_list %}
 						<tr>
@@ -73,7 +75,10 @@ p {font-size:0.7875em}
 								{{ agent_res.quantity|intcomma }}
 							</td>
 							<td style="text-align: right;" >
-								{{ agent_res.value|intcomma }}
+								{{ agent_res.price }}
+							</td>
+							<td style="text-align: right;" >
+								{{ agent_res.get_value|intcomma }}
 							</td>
 						</tr>
 					{% endfor %}
@@ -84,6 +89,7 @@ p {font-size:0.7875em}
 						<th>Agent Resources:</th>
 						<th>Resource</th>
 						<th>Quantity</th>
+						<th>Price</th>
 						<th style="text-align: right;" >Value</th>
 					</tr>
 					{% for agent_res in fun.outliers %}
@@ -94,7 +100,10 @@ p {font-size:0.7875em}
 								{{ agent_res.quantity|intcomma }}
 							</td>
 							<td style="text-align: right;" >
-								{{ agent_res.value|intcomma }}
+								{{ agent_res.price }}
+							</td>
+							<td style="text-align: right;" >
+								{{ agent_res.get_value|intcomma }}
 							</td>
 						</tr>
 					{% endfor %}
