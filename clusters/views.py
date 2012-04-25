@@ -664,7 +664,7 @@ def network_params(cluster, toggle):
 
 def network(request, cluster_id, toggle="qty", level="fn"):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    toggle_form = QuantityValueForm(
+    toggle_form = QuantityPriceValueForm(
         initial={"toggle": toggle,},
         data=request.POST or None)
     level_form = None
@@ -880,7 +880,7 @@ def flow_params(cluster, toggle):
     
 def flows(request, cluster_id, toggle="qty", level="fn"):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    toggle_form = QuantityValueForm(
+    toggle_form = QuantityPriceValueForm(
         initial={"toggle": toggle,},
         data=request.POST or None)
     level_form = None

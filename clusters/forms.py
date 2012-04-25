@@ -245,8 +245,16 @@ TOGGLE_CHOICES = (
     ('val', 'Value'),
 ) 
 
-class QuantityValueForm(forms.Form):
+class QuantityPriceValueForm(forms.Form):
     toggle = forms.ChoiceField(choices=TOGGLE_CHOICES, widget=forms.RadioSelect(attrs={'class': 'tog'}))
+    
+LESS_TOGGLE_CHOICES = (
+    ('qty', 'Quantity or'),
+    ('val', 'Value'),
+) 
+
+class QuantityValueForm(forms.Form):
+    toggle = forms.ChoiceField(choices=LESS_TOGGLE_CHOICES, widget=forms.RadioSelect(attrs={'class': 'tog'}))
     
 LEVEL_CHOICES = (
     ('fn', 'Functions or'),
