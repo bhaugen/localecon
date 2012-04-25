@@ -58,6 +58,7 @@ td
 			<tr>
 				<th style="text-align: left; font-size: 110%; " colspan="2" >{{ fun.name }}</th>
 				<th style="text-align: right;" >Qty</th>
+				<th style="text-align: right;" >Price</th>
 				<th style="text-align: right;" >Value</th>
 			</tr>
 			{% if fun.inputs %}
@@ -72,7 +73,10 @@ td
 								{{ resource.quantity|intcomma }}
 							</td>
 							<td style="text-align: right; ">
-								{{ resource.value|intcomma }}
+								{{ resource.price }}
+							</td>
+							<td style="text-align: right; ">
+								{{ resource.get_value|intcomma }}
 							</td>
 						{% else %}
 							<tr>
@@ -84,7 +88,10 @@ td
 									{{ resource.quantity|intcomma }}
 								</td>
 								<td style="text-align: right; ">
-									{{ resource.value|intcomma }}
+									{{ resource.price }}
+								</td>
+								<td style="text-align: right; ">
+									{{ resource.get_value|intcomma }}
 								</td>
 							</tr>
 						{% endif %}
@@ -103,7 +110,10 @@ td
 								{{ resource.quantity|intcomma }}
 							</td>
 							<td style="text-align: right; ">
-								{{ resource.value|intcomma }}
+								{{ resource.price }}
+							</td>
+							<td style="text-align: right; ">
+								{{ resource.get_value|intcomma }}
 							</td>
 						{% else %}
 							<tr>
@@ -115,7 +125,10 @@ td
 									{{ resource.quantity|intcomma }}
 								</td>
 								<td style="text-align: right; ">
-									{{ resource.value|intcomma }}
+									{{ resource.price }}
+								</td>
+								<td style="text-align: right; ">
+									{{ resource.get_value|intcomma }}
 								</td>
 							</tr>
 						{% endif %}
@@ -165,6 +178,7 @@ td
 			<th>To Function</th>
 			<th>Resource</th>
 			<th style="text-align: right;" >Quantity</th>
+			<th style="text-align: right;" >Price</th>
 			<th style="text-align: right;" >Value</th>
 		</tr>
 		{% for flow in flows %}
@@ -173,7 +187,8 @@ td
 				<td>{{ flow.to_function.name }}</td>
 				<td>{{ flow.resource_type.name }}</td>
 				<td style="text-align: right;" >{{ flow.quantity|intcomma }}</td>
-				<td style="text-align: right;" >{{ flow.value|intcomma }}</td>
+				<td style="text-align: right;" >{{ flow.price }}</td>
+				<td style="text-align: right;" >{{ flow.get_value|intcomma }}</td>
 			</tr>
 		{% endfor %}
 	</table>
