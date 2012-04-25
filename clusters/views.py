@@ -1459,6 +1459,18 @@ def change_agent_function_resource_value(request):
     data = "ok"
     return HttpResponse(data, mimetype="text/plain")
 
+def change_agent_function_resource_price(request):
+    id = request.POST.get("id")
+    value = request.POST.get("price")
+    frt = get_object_or_404(AgentFunctionResourceType, pk=id)
+    #import pdb; pdb.set_trace()
+    price = int(price)
+    if price != frt.price:
+        frt.price = price
+        frt.save()
+    data = "ok"
+    return HttpResponse(data, mimetype="text/plain")
+
 def delete_function_resource(request, id):
     frt = get_object_or_404(FunctionResourceType, pk=id)
     cluster = frt.function.cluster
