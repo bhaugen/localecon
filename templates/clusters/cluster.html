@@ -96,7 +96,7 @@ var infoWin = new google.maps.InfoWindow({});
 
 			var location = new google.maps.LatLng({{ agent.lat_lng }});
 			
-			var name = "{{ agent.name }}";
+			var name = "{{ agent.name|safe }}";
 	
 			addMarker(map, location, name, contentString);		
 	
