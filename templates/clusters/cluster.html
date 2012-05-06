@@ -37,11 +37,23 @@ var infoWin = new google.maps.InfoWindow({});
 	
 	function addMarker(map, location, name, contentString)
 	{
-		
+		var image = new google.maps.MarkerImage('/site_media/images/mm_20_green.png',
+		new google.maps.Size(12, 20),
+		new google.maps.Point(0,0),
+		new google.maps.Point(0, 6));
+	
+		var shadow = new google.maps.MarkerImage('/site_media/images/mm_20_shadow.png',
+		// The shadow image is larger in the horizontal dimension
+		// while the position and offset are the same as for the main image.
+		new google.maps.Size(22, 20),
+		new google.maps.Point(0,0),
+		new google.maps.Point(0, 6));
 	
 		var marker = new google.maps.Marker({
 			position: location,
 			map: map,
+			shadow: shadow,
+			icon: image,
 			title: name
 		});
 	
