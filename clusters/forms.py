@@ -5,6 +5,7 @@ from clusters.models import *
 from clusters.fields import *
 
 class EconomicFunctionForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput(attrs={'size': '24', 'class': 'function-name'}))
     aspect = forms.CharField(required=False)
     color = forms.ChoiceField(choices=settings.COLOR_CHOICES)
     
