@@ -1026,9 +1026,10 @@ def economic_function(request, function_id):
 def edit_function(request, function_id):
     fn = get_object_or_404(EconomicFunction, pk=function_id)
     function_form = EconomicFunctionForm(data=request.POST or None, instance=fn)
-    
+    function_aspect_name = fn.cluster.function_aspect_name
     return render_to_response("clusters/edit_function.html",{ 
         "function": fn,
+        "function_aspect_name": function_aspect_name,
         "function_form": function_form,
     }, context_instance=RequestContext(request))
 
