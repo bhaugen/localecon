@@ -1028,6 +1028,11 @@ def edit_function(request, function_id):
     cluster = fn.cluster
     function_form = EconomicFunctionForm(data=request.POST or None, instance=fn)
     function_aspect_name = cluster.function_aspect_name
+    if request.method == "POST":
+        if function_form.is_valid():
+            function_form.save()
+            return HttpResponseRedirect('/%s/%s/'
+               % ('clusters/editclusterfunctions', cluster.id))
     return render_to_response("clusters/edit_function.html",{ 
         "function": fn,
         "cluster": cluster,
