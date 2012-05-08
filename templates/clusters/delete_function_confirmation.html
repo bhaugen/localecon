@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+     Delete Function {{ function.name }}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="functions">
+
+{% include "clusters/_cluster_nav.html" %}
+
+
+	<h3>Delete Function {{ function.name }}</h3>
+
+
+	<h3>Are you sure you want to delete this function?</h3>
+
+	<div style="margin-left: 2em; margin-bottom: 1em; ">
+		<form style="display: inline;" action="{% url delete_function function_id=function.id %}" method="POST">
+			{% csrf_token %}
+    			<input type="submit" value="Delete" />
+		</form>
+		<form style="display: inline;" action="{% url edit_cluster_functions cluster_id=cluster.id %}" method="GET">
+    			<input type="submit" value="Cancel" />
+		</form>
+	</div>
+
+</div>
+{% endblock %}

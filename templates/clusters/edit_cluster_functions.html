@@ -60,7 +60,7 @@ p {font-size:0.7875em}
 						{% csrf_token %}
 						<input type="submit" value="Edit" />
 					</form>
-					<form style="display: inline;" action="{% url delete_function function_id=fun.id %}" method="POST">
+					<form style="display: inline;" action="{% url delete_function_confirmation function_id=fun.id %}" method="POST">
 						{% csrf_token %}
 						<input type="submit" value="Del" />
 					</form>
