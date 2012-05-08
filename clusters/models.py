@@ -1022,9 +1022,11 @@ class AgentFunction(models.Model):
     def name(self):
         return self.agent.name
     
+    @property
     def color(self):
         return self.function.color
     
+    @property
     def cluster(self):
         return self.function.cluster
     
