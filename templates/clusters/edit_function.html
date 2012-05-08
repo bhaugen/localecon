@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-     Edit Economic Function {{ function }}
+     Edit Function {{ function.name }}
 {% endblock %}
 
 
@@ -12,7 +12,7 @@
 {% include "clusters/_cluster_nav.html" %}
 
 
-	<h3>Edit Economic Function {{ function }}</h3>
+	<h3>Edit Function {{ function.name }}</h3>
 
 	<form action="." method="POST">{% csrf_token %}
 		<table>
