@@ -939,6 +939,14 @@ class EconomicAgent(models.Model):
         unique_slugify(self, self.name)
         super(EconomicAgent, self).save(*args, **kwargs)
         
+    def color(self):
+        fns = self.functions.all()
+        if fns.count():
+            return fns[0].color
+        else:
+            return 'green'
+           
+        
     def address_is_editable(self):
         if self.communities.all().count()>1:
             return False
