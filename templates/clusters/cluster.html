@@ -37,7 +37,42 @@ var infoWin = new google.maps.InfoWindow({});
 	
 	function addMarker(map, location, name, contentString)
 	{
-		var image = new google.maps.MarkerImage('/site_media/images/mm_20_green.png',
+		switch(color)
+		{
+			case 'black':
+				var image_url = '/site_media/images/mm_20_black.png';
+				break;
+			case 'blue':
+				var image_url = '/site_media/images/mm_20_blue.png';
+				break;
+			case 'brown':
+				var image_url = '/site_media/images/mm_20_brown.png';
+				break;
+			case 'gray':
+				var image_url = '/site_media/images/mm_20_gray.png';
+				break;
+			case 'green':
+				var image_url = '/site_media/images/mm_20_green.png';
+				break;
+			case 'orange':
+				var image_url = '/site_media/images/mm_20_orange.png';
+				break;
+			case 'purple':
+				var image_url = '/site_media/images/mm_20_purple.png';
+				break;
+			case 'red':
+				var image_url = '/site_media/images/mm_20_red.png';
+				break;
+			case 'white':
+				var image_url = '/site_media/images/mm_20_white.png';
+				break;
+			case 'yellow':
+				var image_url = '/site_media/images/mm_20_yellow.png';
+				break;
+			default:
+				var image_url = '/site_media/images/mm_20_green.png';
+		}
+		var image = new google.maps.MarkerImage(image_url,
 		new google.maps.Size(12, 20),
 		new google.maps.Point(0,0),
 		new google.maps.Point(0, 6));
@@ -97,8 +132,9 @@ var infoWin = new google.maps.InfoWindow({});
 			var location = new google.maps.LatLng({{ agent.lat_lng }});
 			
 			var name = "{{ agent.name|safe }}";
+			var color = {{ agent.color }};
 	
-			addMarker(map, location, name, contentString);		
+			addMarker(map, location, name, color, contentString);		
 	
 		{% endfor %}
 	}

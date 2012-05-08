@@ -938,7 +938,8 @@ class EconomicAgent(models.Model):
     def save(self, *args, **kwargs):
         unique_slugify(self, self.name)
         super(EconomicAgent, self).save(*args, **kwargs)
-        
+
+    @property
     def color(self):
         fns = self.functions.all()
         if fns.count():
