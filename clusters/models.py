@@ -2,6 +2,7 @@ import re
 from decimal import *
 
 from django.db import models
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 
@@ -694,6 +695,8 @@ class EconomicFunction(models.Model):
     cluster = models.ForeignKey(Cluster, related_name="functions")
     name = models.CharField(max_length=128)
     aspect = models.CharField(max_length=128, blank=True)
+    color = models.CharField(max_length=12, choices=settings.COLOR_CHOICES,
+        default="green")
     slug = models.SlugField("Page name", editable=False)
     
     class Meta:
