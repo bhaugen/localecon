@@ -1,14 +1,16 @@
 from django import forms
+from django.conf import settings
 
 from clusters.models import *
 from clusters.fields import *
 
 class EconomicFunctionForm(forms.ModelForm):
     aspect = forms.CharField(required=False)
+    color = forms.ChoiceField(choices=settings.COLOR_CHOICES)
     
     class Meta:
         model = EconomicFunction
-        fields = ('name', 'aspect')
+        fields = ('name', 'aspect', 'color')
 
 class InlineAgentFunctionForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'size': '24', 'class': 'function-name'}))
