@@ -132,7 +132,7 @@ var infoWin = new google.maps.InfoWindow({});
 			var location = new google.maps.LatLng({{ agent.lat_lng }});
 			
 			var name = "{{ agent.name|safe }}";
-			var color = {{ agent.color }};
+			var color = "{{ agent.color }}";
 	
 			addMarker(map, location, name, color, contentString);		
 	
