@@ -7,6 +7,11 @@
 
 {% block content %}
 
+<div class="functions">
+
+{% include "clusters/_cluster_nav.html" %}
+
+
 	<h3>Edit Economic Function {{ function }}</h3>
 
 	<form action="." method="POST">{% csrf_token %}
@@ -32,5 +37,5 @@
 		</table>
 	</form>
 
-
+</div>
 {% endblock %}
