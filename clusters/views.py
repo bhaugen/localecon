@@ -1020,6 +1020,33 @@ def economic_function(request, function_id):
     return render_to_response("clusters/economic_functions.html",{ 
         "economic_function": ef,
     }, context_instance=RequestContext(request))
+    
+
+@login_required    
+def edit_function(request, function_id):
+    fn = get_object_or_404(EconomicFunction, pk=function_id)
+    
+    return render_to_response("clusters/economic_functions.html",{ 
+        "function": fn,
+    }, context_instance=RequestContext(request))
+
+@login_required    
+def delete_function(request, function_id):
+    fn = get_object_or_404(EconomicFunction, pk=function_id)
+    
+    return render_to_response("clusters/economic_functions.html",{ 
+        "function": fn,
+    }, context_instance=RequestContext(request))
+
+
+@login_required    
+def delete_function_confirmation(request, function_id):
+    fn = get_object_or_404(EconomicFunction, pk=function_id)
+    
+    return render_to_response("clusters/economic_functions.html",{ 
+        "function": fn,
+    }, context_instance=RequestContext(request))
+
 
 @login_required    
 def new_function(request, cluster_id):

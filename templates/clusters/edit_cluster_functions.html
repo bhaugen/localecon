@@ -54,7 +54,17 @@ p {font-size:0.7875em}
 
 		{% for fun in functions %}
 			<tr>
-				<th style="text-align: left; font-size: 110%; " colspan="2" >{{ fun.name }}</th>
+				<th style="text-align: left; font-size: 110%; " colspan="2" >
+					{{ fun.name }}
+					<form style="display: inline;" action="{% url edit_function function_id=fun.id %}" method="POST">
+						{% csrf_token %}
+						<input type="submit" value="Edit" />
+					</form>
+					<form style="display: inline;" action="{% url delete_function function_id=fun.id %}" method="POST">
+						{% csrf_token %}
+						<input type="submit" value="Del" />
+					</form>
+				</th>
 				<th>Qty</th>
 				<th>Price</th>
 			</tr>
