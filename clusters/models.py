@@ -1022,6 +1022,9 @@ class AgentFunction(models.Model):
     def name(self):
         return self.agent.name
     
+    def color(self):
+        return self.function.color
+    
     def produced_function_resources(self):
         answer = []
         for afrt in self.function_resources.all():
