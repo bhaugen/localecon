@@ -65,7 +65,7 @@ $(document).ready(function() {
 	{% endcomment %}
 	
 	{% for edge in edges %}
-		{% if edge.from_node.cluster %}
+		{% if edge.from_node.cluster %} // from_node is a function
 			g.addEdge( "{{ edge.from_node.node_id}}" , "{{ edge.to_node.node_id }}", 
 				{ 
 					directed : true, 
@@ -75,14 +75,14 @@ $(document).ready(function() {
 					fill : "{{ edge.from_node.color }}|{{ edge.width }}" 
 				} 
 			);
-		{% else %}
+		{% else %} // from_node is a resource
 			g.addEdge( "{{ edge.from_node.node_id}}" , "{{ edge.to_node.node_id }}", 
 				{ 
 					directed : true, 
 					label : "{{ edge.label }}",
 					weight: 1, 
-					stroke : "#008B8B" , 
-					fill : "#008B8B|{{ edge.width }}" 
+					stroke : "{{ edge.to_node.color }}" , 
+					fill : "{{ edge.to_node.color }}|{{ edge.width }}" 
 				} 
 			);	
 		{% endif %}
