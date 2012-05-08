@@ -1025,6 +1025,9 @@ class AgentFunction(models.Model):
     def color(self):
         return self.function.color
     
+    def cluster(self):
+        return self.function.cluster
+    
     def produced_function_resources(self):
         answer = []
         for afrt in self.function_resources.all():
