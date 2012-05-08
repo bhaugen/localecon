@@ -1029,6 +1029,7 @@ def edit_function(request, function_id):
     
     return render_to_response("clusters/edit_function.html",{ 
         "function": fn,
+        "function_form": function_form,
     }, context_instance=RequestContext(request))
 
 @login_required    
