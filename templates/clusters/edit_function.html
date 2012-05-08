@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+     Edit Economic Function {{ function }}
+{% endblock %}
+
+
+{% block content %}
+
+	<h3>Edit Economic Function {{ function }}</h3>
+
+	<form action="." method="POST">{% csrf_token %}
+		<table>
+			{{ function_form }}
+		</table>
+	</form>
+
+
+{% endblock %}
