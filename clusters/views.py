@@ -1061,6 +1061,7 @@ def delete_function_confirmation(request, function_id):
         consequences = True
     return render_to_response("clusters/economic_functions.html",{ 
         "function": fn,
+        "cluster": fn.cluster,
         "consequences": consequences,
         "function_resources": function_resources,
         "incoming_flows": incoming_flows,
