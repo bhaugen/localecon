@@ -1059,7 +1059,7 @@ def delete_function_confirmation(request, function_id):
     agent_functions = fn.agents.all()
     if function_resources or incoming_flows or outgoing_flows or agent_functions:
         consequences = True
-    return render_to_response("clusters/economic_functions.html",{ 
+    return render_to_response("clusters/delete_function_confirmation.html",{ 
         "function": fn,
         "cluster": fn.cluster,
         "consequences": consequences,
