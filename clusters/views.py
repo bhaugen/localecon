@@ -1052,9 +1052,20 @@ def delete_function(request, function_id):
 @login_required    
 def delete_function_confirmation(request, function_id):
     fn = get_object_or_404(EconomicFunction, pk=function_id)
-    
+    consequences = False
+    function_resources = fn.resources.all()
+    incoming_flows = fn.incoming_flows.all()
+    outgoing_flows = fn.outgoing_flows.all()
+    agent_functions = fn.agents.all()
+    if function_resources or incoming_flows or outgoing_flows or agent_functions:
+        consequences = True
     return render_to_response("clusters/economic_functions.html",{ 
         "function": fn,
+        "consequences": consequences,
+        "function_resources": function_resources,
+        "incoming_flows": incoming_flows,
+        "outgoing_flows": outgoing_flows,
+        "agent_functions": agent_functions,
     }, context_instance=RequestContext(request))
 
 

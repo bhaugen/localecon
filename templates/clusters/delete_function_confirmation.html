@@ -26,6 +26,61 @@
     			<input type="submit" value="Cancel" />
 		</form>
 	</div>
+	
+	{% if consequences %}
+	
+	<h3>The following items will also be deleted:</h3>
+
+		{% if function_resources %}
+			<h4>Function Resources:</h4>
+			{% for item in function_resources %}
+				<p>{{ item }}</p>	
+			{% endfor %}
+		{% endif %}
+	
+		{% if incoming_flows %}
+			<h4>Incoming Flows:</h4>
+			{% for item in incoming_flows %}
+				<p>{{ item }}</p>	
+			{% endfor %}
+		{% endif %}
+	
+		{% if outgoing_flows %}
+			<h4>Outgoing Flows:</h4>
+			{% for item in outgoing_flows %}
+				<p>{{ item }}</p>	
+			{% endfor %}
+		{% endif %}
+	
+		{% if agent_functions %}
+			<h4>Agent Functions:</h4>
+			{% for af in agent_functions %}
+				<p>{{ af }}</p>
+	
+				{% if af.function_resources.all %}
+					<h4>Function Resources:</h4>
+					{% for item in af.function_resources.all %}
+						<p>{{ item }}</p>	
+					{% endfor %}
+				{% endif %}
+
+				{% if af.incoming_flows.all %}
+					<h4>Incoming Flows:</h4>
+					{% for item in af.incoming_flows.all %}
+						<p>{{ item }}</p>	
+					{% endfor %}
+				{% endif %}
+	
+				{% if af.outgoing_flows.all %}
+					<h4>Outgoing Flows:</h4>
+					{% for item in af.outgoing_flows.all %}
+						<p>{{ item }}</p>	
+					{% endfor %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	
+	{% endif %}
 
 </div>
 {% endblock %}
