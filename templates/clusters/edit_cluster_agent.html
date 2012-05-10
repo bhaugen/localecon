@@ -275,24 +275,39 @@ function getFunctionDetails(event)
 		$(".price").blur(function() 
 		{
 			var quantity = this.value;
-			var fltQuantity = parseFloat(quantity);
+			var decimals = "";
+			if (quantity.indexOf(".") > -1)
+			{
+				var qtySplit = quantity.split(".");
+				wholeNbrs = qtySplit[0];
+				var cut = wholeNbrs.length - 6;
+				decimals = qtySplit[1];
+				var answer = parseFloat(wholeNbrs.substring(cut) + "." + decimals.slice(0,2));
+			}
+			else
+			{
+				var cut = quantity.length - 8;
+				var answer = parseInt(quantity.substring(cut))
+			}
+			
 			if ($.isNumeric(quantity))
 			{
-				//if (fltQuantity == parseFloat(quantity))
-				//{
+				
+				if (quantity.length<=9 && decimals.length<=2)
+				{
 					var id = this.id;
 					$.post("{% url change_agent_function_resource_price %}",  { id: id, price: quantity });
-				//}
-				//else
-				//{
-				//	alert(quantity + " must be an integer");
-				//	this.value = fltQuantity;
-				//}
+				}
+				else
+				{
+					alert(quantity + " can only have 8 overall digits with 2 decimal places.");
+					this.value = answer;
+				}
 			}
 			else
 			{
 				alert(quantity + " is not a number");
-				this.value = fltQuantity;
+				this.value = answer;
 			}
 		});
 	
