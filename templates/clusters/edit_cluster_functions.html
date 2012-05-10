@@ -285,6 +285,7 @@ p {font-size:0.7875em}
 			if (quantity.indexOf(".") > -1)
 			{
 				var qtySplit = quantity.split(".");
+				whole_nbrs = qtySplit[0];
 				decimals = qtySplit[1];
 				var answer = parseFloat(whole_nbrs.substring(cut) + "." + decimals(slice(0,1)));
 			}
