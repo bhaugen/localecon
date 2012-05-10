@@ -138,7 +138,8 @@ class FunctionResourceTypeFormX(forms.ModelForm):
         
 class FunctionResourceTypeForm(forms.ModelForm):
     quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
-    price = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+    price = forms.DecimalField(max_digits=8, decimal_places=2, required=False, 
+            widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
     role = forms.ChoiceField(choices=ROLE_CHOICES)
     
     def __init__(self, community, *args, **kwargs):
@@ -154,7 +155,8 @@ class FunctionResourceTypeForm(forms.ModelForm):
         
 class FunctionResourceFlowForm(forms.ModelForm):
     quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
-    price = forms.DecimalField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+    price = forms.DecimalField(max_digits=8, decimal_places=2, required=False, 
+            widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
 
         
     class Meta:
@@ -164,8 +166,8 @@ class FunctionResourceFlowForm(forms.ModelForm):
         
 class AgentResourceFlowForm(forms.ModelForm):
     quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
-    price = forms.DecimalField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
-
+    price = forms.DecimalField(max_digits=8, decimal_places=2, required=False, 
+            widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
         
     class Meta:
         model = AgentResourceFlow
@@ -226,7 +228,8 @@ class AgentFunctionResourceForm(forms.ModelForm):
     agent_function_id = forms.IntegerField(widget=forms.HiddenInput)
     name = forms.CharField(widget=forms.TextInput(attrs={'size': '16', 'class': 'resource-name'}))
     quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '7', 'value': '0'}))
-    price = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '7', 'value': '0'}))
+    price = forms.DecimalField(max_digits=8, decimal_places=2, required=False, 
+            widget=forms.TextInput(attrs={'size': '7', 'value': '0'}))
     
     def __init__(self, function_resource=None, *args, **kwargs):
         super(AgentFunctionResourceForm, self).__init__(*args, **kwargs)

@@ -275,24 +275,24 @@ function getFunctionDetails(event)
 		$(".price").blur(function() 
 		{
 			var quantity = this.value;
-			var intQuantity = parseInt(quantity);
+			var fltQuantity = parseFloat(quantity);
 			if ($.isNumeric(quantity))
 			{
-				if (intQuantity == parseFloat(quantity))
-				{
+				//if (fltQuantity == parseFloat(quantity))
+				//{
 					var id = this.id;
-					$.post("{% url change_agent_function_resource_price %}",  { id: id, price: quantity });
-				}
-				else
-				{
-					alert(quantity + " must be an integer");
-					this.value = intQuantity;
-				}
+					$.post("{% url change_function_resource_price %}",  { id: id, price: quantity });
+				//}
+				//else
+				//{
+				//	alert(quantity + " must be an integer");
+				//	this.value = fltQuantity;
+				//}
 			}
 			else
 			{
 				alert(quantity + " is not a number");
-				this.value = intQuantity;
+				this.value = fltQuantity;
 			}
 		});
 	
