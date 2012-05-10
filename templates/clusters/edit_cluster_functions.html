@@ -280,10 +280,22 @@ p {font-size:0.7875em}
 		$(".price").blur(function() 
 		{
 			var quantity = this.value;
-			if ($.isNumeric(quantity))
+			var cut = quantity.length - 9;
+			var decimals = "";
+			if (quantity.indexOf(".") > -1)
 			{
 				var qtySplit = quantity.split(".");
-				var decimals = qtySplit[1];
+				decimals = qtySplit[1];
+				var answer = parseFloat(whole_nbrs.substring(cut) + "." + decimals(slice(0,1)));
+			}
+			else
+			{
+				var answer = parseInt(quantity.substring(cut))
+			}
+			
+			if ($.isNumeric(quantity))
+			{
+				
 				if (quantity.length<=9 && decimals.length<=2)
 				{
 					var id = this.id;
@@ -292,19 +304,11 @@ p {font-size:0.7875em}
 				else
 				{
 					alert(quantity + " can only have 8 overall digits with 2 decimal places.");
-					var whole_nbrs = qtySplit[0];
-					var cut = quantity.length - 9;
-					var answer = parseFloat(whole_nbrs.substring(cut) + "." + decimals(slice(0,1)));
 					this.value = answer;
 				}
 			}
 			else
 			{
-				var qtySplit = quantity.split(".");
-				var decimals = qtySplit[1];
-				var whole_nbrs = qtySplit[0];
-				var cut = quantity.length - 9;
-				var answer = parseFloat(whole_nbrs.substring(cut) + "." + decimals(slice(0,1)));
 				alert(quantity + " is not a number");
 				this.value = answer;
 			}
