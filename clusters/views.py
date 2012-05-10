@@ -1530,7 +1530,7 @@ def change_agent_function_resource_price(request):
     price = request.POST.get("price")
     frt = get_object_or_404(AgentFunctionResourceType, pk=id)
     #import pdb; pdb.set_trace()
-    price = int(price)
+    price = Decimal(price)
     if price != frt.price:
         frt.price = price
         frt.save()
