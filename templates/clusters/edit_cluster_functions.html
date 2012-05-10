@@ -315,6 +315,40 @@ p {font-size:0.7875em}
 				this.value = answer;
 			}
 		});
+				
+		$(".new-price").blur(function() 
+		{
+			var quantity = this.value;
+			var decimals = "";
+			if (quantity.indexOf(".") > -1)
+			{
+				var qtySplit = quantity.split(".");
+				wholeNbrs = qtySplit[0];
+				var cut = wholeNbrs.length - 6;
+				decimals = qtySplit[1];
+				var answer = parseFloat(wholeNbrs.substring(cut) + "." + decimals.slice(0,2));
+			}
+			else
+			{
+				var cut = quantity.length - 8;
+				var answer = parseInt(quantity.substring(cut))
+			}
+			
+			if ($.isNumeric(quantity))
+			{
+				
+				if (quantity.length>9 && decimals.length>2)
+				{
+					alert(quantity + " can only have 8 overall digits with 2 decimal places.");
+					this.value = answer;
+				}
+			}
+			else
+			{
+				alert(quantity + " is not a number");
+				this.value = answer;
+			}
+		});
 	
     var data = "{{ resource_names }}".split(";");
 	$("#id_resource-name").autocomplete(data, {matchContains: true});
