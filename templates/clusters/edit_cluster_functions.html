@@ -283,11 +283,11 @@ p {font-size:0.7875em}
 			var decimals = "";
 			if (quantity.indexOf(".") > -1)
 			{
-				var cut = quantity.length - 9;
 				var qtySplit = quantity.split(".");
-				whole_nbrs = qtySplit[0];
+				wholeNbrs = qtySplit[0];
+				var cut = wholeNbrs.length - 6;
 				decimals = qtySplit[1];
-				var answer = parseFloat(whole_nbrs.substring(cut) + "." + decimals.slice(0,2));
+				var answer = parseFloat(wholeNbrs.substring(cut) + "." + decimals.slice(0,2));
 			}
 			else
 			{
