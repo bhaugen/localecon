@@ -280,10 +280,10 @@ p {font-size:0.7875em}
 		$(".price").blur(function() 
 		{
 			var quantity = this.value;
-			var cut = quantity.length - 9;
 			var decimals = "";
 			if (quantity.indexOf(".") > -1)
 			{
+				var cut = quantity.length - 8;
 				var qtySplit = quantity.split(".");
 				whole_nbrs = qtySplit[0];
 				decimals = qtySplit[1];
@@ -291,6 +291,7 @@ p {font-size:0.7875em}
 			}
 			else
 			{
+				var cut = quantity.length - 7;
 				var answer = parseInt(quantity.substring(cut))
 			}
 			
