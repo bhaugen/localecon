@@ -724,7 +724,7 @@ class EconomicFunction(models.Model):
     def out_edge_with(self, resource_type):
         try:
             return self.resources.get(
-                role="producer", 
+                role="produces", 
                 resource_type=resource_type)
         except FunctionResourceType.DoesNotExist:
             return None
