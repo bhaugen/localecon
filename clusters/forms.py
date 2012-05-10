@@ -229,7 +229,7 @@ class AgentFunctionResourceForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'size': '16', 'class': 'resource-name'}))
     quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '7', 'value': '0'}))
     price = forms.DecimalField(max_digits=8, decimal_places=2, required=False, 
-            widget=forms.TextInput(attrs={'size': '7', 'value': '0'}))
+            widget=forms.TextInput(attrs={'class': 'new-price', 'size': '7', 'value': '0'}))
     
     def __init__(self, function_resource=None, *args, **kwargs):
         super(AgentFunctionResourceForm, self).__init__(*args, **kwargs)
