@@ -722,9 +722,12 @@ class EconomicFunction(models.Model):
         return self.outputs()
     
     def out_edge_with(self, resource_type):
-        return self.resources.filter(
-            role="producer", 
-            resource_type=resource_type)
+        try:
+            return self.resources.get(
+                role="producer", 
+                resource_type=resource_type)
+        except FunctionResourceType.DoesNotExist:
+            return None
     
     def from_nodes(self, cluster):
         # cluster is here only for duck typing
@@ -785,8 +788,11 @@ class EconomicResourceType(models.Model):
         return self.cluster_consumers(cluster)
     
     def out_edge_with(self, function):
-        return self.functions.filter(role="consumes", function=function)
-    
+        try:
+            return self.functions.get(role="consumes", function=function)
+        except FunctionResourceType.DoesNotExist:
+            return None
+               
     def cluster_producers(self, cluster):
         return self.functions.filter(role="produces", function__cluster=cluster)
     
