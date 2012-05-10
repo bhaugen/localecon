@@ -12,6 +12,7 @@ from django.core.mail import send_mail
 from django.core import serializers
 from django.conf import settings
 
+from decimal import *
 from datetime import datetime, timedelta
 
 from clusters.models import *
@@ -1493,7 +1494,7 @@ def change_function_resource_price(request):
     price = request.POST.get("price")
     frt = get_object_or_404(FunctionResourceType, pk=id)
     #import pdb; pdb.set_trace()
-    price = int(price)
+    price = Decimal(price)
     if price != frt.price:
         frt.price = price
         frt.save()

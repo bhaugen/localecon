@@ -281,7 +281,7 @@ function getFunctionDetails(event)
 				//if (fltQuantity == parseFloat(quantity))
 				//{
 					var id = this.id;
-					$.post("{% url change_function_resource_price %}",  { id: id, price: quantity });
+					$.post("{% url change_agent_function_resource_price %}",  { id: id, price: quantity });
 				//}
 				//else
 				//{
