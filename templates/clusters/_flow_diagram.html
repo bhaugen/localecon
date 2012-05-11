@@ -74,7 +74,12 @@ $(document).ready(function() {
 			//var color = colors[Math.floor(Math.random()*7)];
 			var color = "{{ edge.from_node.color }}";
 			g.addEdge( "{{ edge.from_node.node_id }}" , "{{ edge.to_node.node_id }}", 
-				{ directed : true, label : label, weight: 1, stroke : color , fill : color + "|{{ edge.width }}" } );
+				{ directed : true, 
+				label : label, 
+				weight: 1, 
+				font_size: 10px,
+				stroke : color , 
+				fill : color + "|{{ edge.width }}" } );
 	{% endfor %}
  
     /* layout the graph using the Spring layout implementation */
