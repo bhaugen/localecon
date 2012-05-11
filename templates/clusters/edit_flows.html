@@ -133,12 +133,7 @@ p {font-size:0.7875em}
 			intQuantity = parseInt(quantity);
 			if ($.isNumeric(quantity))
 			{
-				if (intQuantity == parseFloat(quantity))
-				{
-					var id = this.id;
-					$.post("{% url change_function_resource_amount %}",  { id: id, quantity: quantity });
-				}
-				else
+				if (intQuantity != parseFloat(quantity))
 				{
 					alert(quantity + " must be an integer");
 					this.value = intQuantity;
@@ -148,6 +143,40 @@ p {font-size:0.7875em}
 			{
 				alert(quantity + " is not a number");
 				this.value = intQuantity;
+			}
+		});
+	
+		$(".new-price").blur(function() 
+		{
+			var quantity = this.value;
+			var decimals = "";
+			if (quantity.indexOf(".") > -1)
+			{
+				var qtySplit = quantity.split(".");
+				wholeNbrs = qtySplit[0];
+				var cut = wholeNbrs.length - 6;
+				decimals = qtySplit[1];
+				var answer = parseFloat(wholeNbrs.substring(cut) + "." + decimals.slice(0,2));
+			}
+			else
+			{
+				var cut = quantity.length - 8;
+				var answer = parseInt(quantity.substring(cut))
+			}
+			
+			if ($.isNumeric(quantity))
+			{
+				
+				if (quantity.length>9 && decimals.length>2)
+				{
+					alert(quantity + " can only have 8 overall digits with 2 decimal places.");
+					this.value = answer;
+				}
+			}
+			else
+			{
+				alert(quantity + " is not a number");
+				this.value = answer;
 			}
 		});
 	

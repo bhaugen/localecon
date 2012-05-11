@@ -154,9 +154,10 @@ class FunctionResourceTypeForm(forms.ModelForm):
 
         
 class FunctionResourceFlowForm(forms.ModelForm):
-    quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+    quantity = forms.IntegerField(required=False, widget=forms.TextInput(
+            attrs={'class': 'quantity', 'size': '6', 'value': '0'}))
     price = forms.DecimalField(max_digits=8, decimal_places=2, required=False, 
-            widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+            widget=forms.TextInput(attrs={'class': 'new-price', 'size': '6', 'value': '0'}))
 
         
     class Meta:
