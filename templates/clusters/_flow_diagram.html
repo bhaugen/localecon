@@ -68,7 +68,7 @@ $(document).ready(function() {
 	
 	{% for edge in edges %}
 			var label = "{{ edge.label }}";
-			label = label.replace(";", "\n");
+			label = label.replace(/;/g, "\n");
 	
 			var x = {{ forloop.counter }};
 			var color = colors[Math.floor(Math.random()*7)];
