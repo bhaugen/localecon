@@ -77,7 +77,8 @@ $(document).ready(function() {
 				{ directed : true, 
 				label : label, 
 				weight: 1, 
-				"font-size": "10px",
+				"font-size": "10px;",
+				"label-style": "white-space:nowrap;",
 				stroke : color , 
 				fill : color + "|{{ edge.width }}" } );
 	{% endfor %}
