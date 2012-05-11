@@ -870,20 +870,20 @@ def flow_params(cluster, toggle):
                     flow.resource_type.name,
                     ": ",
                     "$",
-                    nbr])
+                    str(nbr)])
             elif toggle == "price":
                 nbr = flow.price
                 label = "".join([
                     flow.resource_type.name,
                     ": ",
                     "$",
-                    nbr])
+                    str(nbr)])
             else:
                 nbr = flow.quantity
                 label = "".join([
                     flow.resource_type.name,
                     ": ",
-                    nbr])
+                    str(nbr)])
             edge = FlowEdge(flow.from_function, flow.to_function, label, nbr)
             edges.append(edge)
         prev = flow                  
