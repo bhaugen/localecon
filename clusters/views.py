@@ -849,21 +849,42 @@ def flow_params(cluster, toggle):
         else:
             prev_match=False
         if prev_match:
-            edge.label = ";".join([edge.label, flow.resource_type.name])
             if toggle == "val":
                 edge.quantity += flow.get_value()
+                label_nbr = "".join(["$", str(flow.get_value())])
             elif toggle == "price":
                 edge.quantity += flow.price
+                label_nbr = "".join(["$", str(flow.price)])
             else:
                 edge.quantity += flow.quantity
+                label_nbr = str(flow.quantity)
+            edge.label = ";".join([
+                edge.label, 
+                flow.resource_type.name,
+                ": ",
+                label_nbr])
         else:
             if toggle == "val":
                 nbr = flow.get_value()
+                label = "".join([
+                    flow.resource_type.name,
+                    ": ",
+                    "$",
+                    nbr])
             elif toggle == "price":
                 nbr = flow.price
+                label = "".join([
+                    flow.resource_type.name,
+                    ": ",
+                    "$",
+                    nbr])
             else:
                 nbr = flow.quantity
-            edge = FlowEdge(flow.from_function, flow.to_function, flow.resource_type.name, nbr)
+                label = "".join([
+                    flow.resource_type.name,
+                    ": ",
+                    nbr])
+            edge = FlowEdge(flow.from_function, flow.to_function, label, nbr)
             edges.append(edge)
         prev = flow                  
     for edge in edges:
