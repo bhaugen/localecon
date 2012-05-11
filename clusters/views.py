@@ -263,7 +263,7 @@ def edit_flows(request, cluster_id):
         FunctionResourceFlow,
         form=FunctionResourceFlowForm,
         can_delete=True,
-        extra=3,
+        extra=4,
         )
     formset = FlowFormSet(
         queryset=FunctionResourceFlow.objects.filter(
