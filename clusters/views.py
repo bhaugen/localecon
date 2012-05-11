@@ -867,11 +867,11 @@ def flow_params(cluster, toggle):
             else:
                 edge.quantity += flow.quantity
                 label_nbr = splitthousands(flow.quantity)
-            edge.label = ";".join([
-                edge.label, 
+            new_label = "".join([
                 flow.resource_type.name,
                 " ",
                 label_nbr])
+            edge.label = ";".join([edge.label, new_label])
         else:
             if toggle == "val":
                 nbr = flow.get_value()
