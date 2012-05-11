@@ -861,28 +861,28 @@ def flow_params(cluster, toggle):
             edge.label = ";".join([
                 edge.label, 
                 flow.resource_type.name,
-                ": ",
+                ":",
                 label_nbr])
         else:
             if toggle == "val":
                 nbr = flow.get_value()
                 label = "".join([
                     flow.resource_type.name,
-                    ": ",
+                    ":",
                     "$",
                     str(nbr)])
             elif toggle == "price":
                 nbr = flow.price
                 label = "".join([
                     flow.resource_type.name,
-                    ": ",
+                    ":",
                     "$",
                     str(nbr)])
             else:
                 nbr = flow.quantity
                 label = "".join([
                     flow.resource_type.name,
-                    ": ",
+                    ":",
                     str(nbr)])
             edge = FlowEdge(flow.from_function, flow.to_function, label, nbr)
             edges.append(edge)
