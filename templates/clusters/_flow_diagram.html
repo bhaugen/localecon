@@ -38,12 +38,14 @@ $(document).ready(function() {
 	
 	   var render = function(r, n) {
             /* the Raphael set is obligatory, containing all you want to display */
+			/*
 			if(n.label)
 			{
 				var lbl = n.label;
 				lbl = lbl.split(' ').join('\n');
 				n.label = lbl;
 			}
+			*/
 			if(n.id.indexOf("Function") >= 0)
 			{
 				var set = r.set().push(
