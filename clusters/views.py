@@ -856,7 +856,7 @@ def flow_params(cluster, toggle):
             prev_match=False
         if prev_match:
             if toggle == "val":
-                value = v.get_value()
+                value = flow.get_value()
                 label_nbr = "".join([symbol, splitthousands(value)])
                 edge.quantity += value
             elif toggle == "price":
