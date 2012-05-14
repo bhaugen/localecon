@@ -1752,8 +1752,9 @@ def object_filter(request, cluster_id=None, model=None, queryset=None, template_
 def value_added_report(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     form = ValueAddedSelectionForm(cluster=cluster, data=request.POST or None)
-    
+    resource_aspect_name = cluster.community.resource_aspect_name
     return render_to_response("clusters/value_added.html",{ 
         "cluster": cluster,
         "form": form,
+        "resource_aspect_name": resource_aspect_name,
     }, context_instance=RequestContext(request))

@@ -31,8 +31,24 @@
 
 {% include "clusters/_cluster_nav.html" %}
 
+	<form action="." method="POST" >{% csrf_token %}
 	<table>
-		{{ form.as_table }}	
+		<tr>
+			<th style="text-align: right;" >Starting Function:</th>
+			<td>{{ form.starting_function }}</td>
+		</tr>
+		<tr>
+			<th style="text-align: right;" >Starting Function:</th>
+			<td>{{ form.starting_function }}</td>
+		</tr>
+		{% if resource_aspect_name %}
+			<tr>
+				<th style="text-align: right;" >{{ resource_aspect_name }}:</th>
+				<td>{{ form.resource_aspect }}</td>
+			</tr>
+		{% endif %}
 	</table>
+	<input id="submit" type="submit" value="Go" />
+	</form>
 
 {% endblock %} 
