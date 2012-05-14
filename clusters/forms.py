@@ -303,7 +303,7 @@ class ValueAddedSelectionForm(forms.Form):
         super(ValueAddedSelectionForm, self).__init__(*args, **kwargs)
         self.fields["starting_function"].choices = [
             (fun.id, fun.name) for fun in cluster.functions.all()]
-        resources = cluster_resources()
+        resources = cluster.resources()
         crs = []
         for r in resources:
             crs.append(r.communities.get(community=cluster.community))
