@@ -55,5 +55,11 @@
 		{% endif %}
 	</table>
 	</form>
+	
+	{% if rows %}
+		{% for row in rows %}
+			<p>{{ row }}</p>
+		{% endfor %}
+	{% endif %}
 
 {% endblock %} 

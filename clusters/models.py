@@ -538,10 +538,6 @@ class Cluster(models.Model):
                     report.append(og)
         return report
                         
-                        
-                        
-                
-    
     def function_agent_diffs(self):
         #import pdb; pdb.set_trace()
         funs = self.functions.all()
@@ -697,6 +693,36 @@ class Cluster(models.Model):
             for fn in grp.all_functions():
                 group_flows.extend(fn.flows())
         return group_flows
+    
+    def flow_bfs(self, start):
+        visited=set([start])
+        edges = []
+        order = [start]
+        stack=[(start, iter(start.outflow_functions()))]
+        while stack:
+            parent, children = stack[0]
+            try:
+                child = next(children)
+                if child not in visited:
+                    edges.append((parent, child))
+                    visited.add(child)
+                    order.append(child)
+                    stack.append((child, iter(child.outflow_functions())))
+            except StopIteration:
+                stack.pop(0)
+        return [edges, order]
+    
+    def value_added_rows(self, start):
+        edges, order = self.flow_bfs(start)
+        rows = []
+        for fn in order:
+            rows.append(fn)
+            costs, income, margin = fn.value_summary()
+            rows.append("".join(["Costs: $", costs]))
+            rows.append("".join(["Income: $", income]))
+            rows.append("".join(["margin: $", margin]))
+            rows.append("".join(["margin percent: ", margin, "%"]))
+        return rows
 
 
 class EconomicFunction(models.Model):
@@ -716,6 +742,13 @@ class EconomicFunction(models.Model):
     def save(self, *args, **kwargs):
         unique_slugify(self, self.name)
         super(EconomicFunction, self).save(*args, **kwargs)
+        
+    def value_summary(self):
+        costs = sum(input.get_value() for input in self.incoming_flows.all())
+        income = sum(input.get_value() for input in self.outgoing_flows.all())
+        margin = income - costs
+        margin_percent = float(margin / income) * 100
+        return costs, income, margin, margin_percent
         
     def node_id(self):
         return "".join([ type(self).__name__, "-", self.slug])

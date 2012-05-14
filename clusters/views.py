@@ -1751,10 +1751,18 @@ def object_filter(request, cluster_id=None, model=None, queryset=None, template_
 
 def value_added_report(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    form = ValueAddedSelectionForm(cluster=cluster, data=request.POST or None)
     resource_aspect_name = cluster.community.resource_aspect_name
+    form = ValueAddedSelectionForm(cluster=cluster, data=request.POST or None)
+    rows = []
+    if request.method == "POST":
+        if form.is_valid():
+            data = form.cleaned_data
+            start = data["starting_function"]
+            rows = cluster.value_added_rows(start)
+    
     return render_to_response("clusters/value_added.html",{ 
         "cluster": cluster,
         "form": form,
         "resource_aspect_name": resource_aspect_name,
+        "rows": rows,
     }, context_instance=RequestContext(request))
