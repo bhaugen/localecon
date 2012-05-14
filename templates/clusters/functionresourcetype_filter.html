@@ -1,0 +1,21 @@
+
+
+<style>
+	th{text-align: right;}
+</style>
+
+<form action="" method="get">
+	<table>
+		{{ filter.form.as_table }}
+		<tr>
+			<td>&nbsp;</td>
+			<td><input type="submit" /></td>
+		</tr>
+	</table>
+</form>
+
+<div>
+{% for item in filter.qs %}
+    <p>{{ item.function.name }} {{ item.role }} {{ item.quantity }} {{ item.resource_type.name }}</p>
+{% endfor %}
+</div>

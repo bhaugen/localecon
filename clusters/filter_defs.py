@@ -56,3 +56,34 @@ class AgentFunctionResourceTypeFilterSet(django_filters.FilterSet):
     def queryset(cls, cluster):
         return AgentFunctionResourceType.objects.select_related().filter(
                     agent_function__function__cluster=cluster)
+        
+        
+class FunctionResourceTypeFilterSet(django_filters.FilterSet):
+    function__name = django_filters.CharFilter(label="Function Name", lookup_type='contains')
+    resource_type__name = django_filters.CharFilter(label="Resource Name", lookup_type='contains')
+    function__aspect = django_filters.CharFilter(label="Function Aspect", lookup_type='contains')
+    resource_type__communities__aspect = django_filters.CharFilter(label="Resource Aspect", lookup_type='contains')
+
+
+    class Meta:
+        model = FunctionResourceType
+        fields = ('function', 'resource_type',)
+        
+    #def __init__(self, *args, **kwargs):
+    #        super(FunctionResourceTypeFilterSet, self).__init__(*args, **kwargs)
+    #        qs = kwargs['queryset']
+    #        rtids = list(set(qs.values_list('resource_type', flat=True)))
+    #        rts = EconomicResourceType.objects.filter(id__in=rtids)
+    #        fnids = list(set(qs.values_list('agent_function__function', flat=True)))
+    #        fns = EconomicFunction.objects.filter(id__in=fnids)
+    #        self.filters['resource_type'].field.choices = [('', '----------')] + [(rt.id, rt.name) for rt in rts]
+    #        self.filters['agent_function__function'].field.choices = [('', '----------')] + [(fn.id, fn.name) for fn in fns]
+
+    @classmethod
+    def queryset(cls):
+        return FunctionResourceType.objects.select_related().all()
+    
+    @classmethod
+    def queryset(cls, cluster):
+        return FunctionResourceType.objects.select_related().filter(
+                    function__cluster=cluster)

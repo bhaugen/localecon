@@ -92,5 +92,8 @@ urlpatterns = patterns('',
     url(r'^agentfunctionreport/(?P<cluster_id>\d+)/$', 
          'clusters.views.object_filter',
          {'model': AgentFunctionResourceType, 'filter_class': AgentFunctionResourceTypeFilterSet}),
+    url(r'^functionresourcereport/(?P<cluster_id>\d+)/$', 
+         'clusters.views.object_filter',
+         {'model': FunctionResourceType, 'filter_class': FunctionResourceTypeFilterSet}),
 )
 
