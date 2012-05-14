@@ -38,17 +38,22 @@
 			<td>{{ form.starting_function }}</td>
 		</tr>
 		<tr>
-			<th style="text-align: right;" >Starting Function:</th>
-			<td>{{ form.starting_function }}</td>
+			<th style="text-align: right;" >Resource Name contains:</th>
+			<td>{{ form.resource_name_contains }}</td>
 		</tr>
 		{% if resource_aspect_name %}
 			<tr>
 				<th style="text-align: right;" >{{ resource_aspect_name }}:</th>
 				<td>{{ form.resource_aspect }}</td>
+				<td><input id="submit" type="submit" value="Go" /></td>
+			</tr>
+		{% else %}
+			<tr>
+				<td>&nbsp;</td>
+				<td><input id="submit" type="submit" value="Go" /></td>
 			</tr>
 		{% endif %}
 	</table>
-	<input id="submit" type="submit" value="Go" />
 	</form>
 
 {% endblock %} 
