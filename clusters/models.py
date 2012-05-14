@@ -722,7 +722,6 @@ class Cluster(models.Model):
             rows.append(("", "Income:", str(income)))
             rows.append(("", "Margin:", str(margin)))
             rows.append(("", "Margin percent:", "".join([str(margin_percent), "%"])))
-            rows.append(("", "", ""))
         return rows
 
 

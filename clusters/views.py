@@ -1749,6 +1749,12 @@ def object_filter(request, cluster_id=None, model=None, queryset=None, template_
     
     return render_to_response(template_name, c)
 
+def reports(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    return render_to_response("clusters/reports.html",{ 
+        "cluster": cluster,
+    }, context_instance=RequestContext(request))
+
 def value_added_report(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     resource_aspect_name = cluster.community.resource_aspect_name

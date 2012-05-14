@@ -83,6 +83,7 @@ urlpatterns = patterns('',
         name="change_agent_function_resource_price"),
         
     #reports
+    url(r'^reports/(?P<cluster_id>\d+)/$', 'clusters.views.reports', name="reports"),
     url(r'^agentreport/$', 
          'clusters.views.object_filter',
          {'model': EconomicAgent, 'filter_class': AgentFilterSet, 'queryset': AgentFilterSet.queryset() }),

@@ -33,7 +33,7 @@ div.radial li.radial,
 div.network li.network, 
 div.flows li.flows, 
 div.frt li.frt, 
-div.diagnostics li.diagnostics, 
+div.reports li.reports, 
 div.all li.all
 
 { /* settings for selected tab */
@@ -49,7 +49,7 @@ div.radial li.radial a,
 div.network li.network a, 
 div.flows li.flows a, 
 div.frt li.frt a, 
-div.diagnostics li.diagnostics a, 
+div.reports li.reports a, 
 div.all li.all a
 
 { /* settings for selected tab link */
@@ -99,7 +99,7 @@ ul#tabnav a:hover
 		{% if cluster.has_function_resources %}
 			<li class="frt" ><a href="{% url fr_table cluster_id=cluster.id %}">Function-Resource Table</a></li>
 		{% endif %}
-		<li class="diagnostics" ><a href="{% url diagnostics cluster_id=cluster.id %}">Diagnostics</a></li>
+		<li class="reports" ><a href="{% url reports cluster_id=cluster.id %}">Reports</a></li>
 		<li class="all" ><a href="{% url clusters %}">All Clusters</a></li>
 	</ul>
 </div>
