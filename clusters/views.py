@@ -1135,7 +1135,7 @@ def inline_new_function(request, cluster_id):
         next = request.POST.get("next")
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = EconomicFunctionForm(request.POST, prefix="function")
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         if form.is_valid():
             fun = form.save(commit=False)
             fun.cluster = cluster
