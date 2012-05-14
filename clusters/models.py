@@ -728,6 +728,14 @@ class EconomicFunction(models.Model):
                 resource_type=resource_type)
         except FunctionResourceType.DoesNotExist:
             return None
+        
+    def outflow_functions(self):
+        flows = self.outgoing_flows.all()
+        fns = []
+        for flow in flows:
+            if flow.to_function not in fns:
+                fns.append(flow.to_function)
+        return fns
     
     def from_nodes(self, cluster):
         # cluster is here only for duck typing
