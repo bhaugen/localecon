@@ -61,11 +61,11 @@
 		{% for a, b, c in rows %}
 			<tr>
 				{% if a == "Function:" %}
-					<td style="text-align: right;" >{{ a }}</td>
-					<td style="text-align: left;" >{{ b }}</td>
+					<th style="text-align: right; font-strength: bold; " >{{ a }}</th>
+					<th style="text-align: left; font-strength: bold;" >{{ b }}</th>
 				{% else %}
-					<td style="text-align: right;" >{{ a }}</td>
-					<td style="text-align: right;" >{{ b }}</td>
+					<td>{{ a }}</td>
+					<th style="text-align: right;" >{{ b }}</th>
 				{% endif %}
 				<td style="text-align: right;" >{{ c }}</td>
 			</tr>
