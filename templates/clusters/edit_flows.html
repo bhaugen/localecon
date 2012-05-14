@@ -53,8 +53,9 @@ p {font-size:0.7875em}
 	</table>
 
 	<h3>Add or change flows</h3>
-	<input type="submit" name="submit_flows" value="Save flow changes" />
+	
 	<form method="post" action="">{% csrf_token %}
+		<input type="submit" name="submit_flows" value="Save flow changes" />
 		<table>
 			<thead>
 				<th>From Function</th>
