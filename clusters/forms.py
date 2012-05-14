@@ -303,7 +303,11 @@ class ValueAddedSelectionForm(forms.Form):
         super(ValueAddedSelectionForm, self).__init__(*args, **kwargs)
         self.fields["starting_function"].choices = [
             (fun.id, fun.name) for fun in cluster.functions.all()]
-        aspects = [r.aspect for r in cluster.resources()]
+        resources = cluster_resources()
+        crs = []
+        for r in resources:
+            crs.append(r.communities.get(community=cluster.community))
+        aspects = [cr.aspect for cr in crs()]
         self.fields["starting_function"].choices = [('', '----------')] + [
             (aspect, aspect) for aspect in aspects.sort()]
 
