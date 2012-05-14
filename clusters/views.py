@@ -1705,7 +1705,7 @@ def send_email(request):
 
 def object_filter(request, cluster_id=None, model=None, queryset=None, template_name=None, extra_context=None,
     context_processors=None, filter_class=None, page_length=None, page_variable="p"):
-    #import pdb; pdb.set_trace()
+    import pdb; pdb.set_trace()
     if cluster_id:
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         queryset = filter_class.queryset(cluster)
