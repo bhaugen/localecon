@@ -717,11 +717,11 @@ class Cluster(models.Model):
         rows = []
         for fn in order:
             rows.append(fn)
-            costs, income, margin = fn.value_summary()
+            costs, income, margin, margin_percent = fn.value_summary()
             rows.append("".join(["Costs: $", costs]))
             rows.append("".join(["Income: $", income]))
             rows.append("".join(["margin: $", margin]))
-            rows.append("".join(["margin percent: ", margin, "%"]))
+            rows.append("".join(["margin percent: ", margin_percent, "%"]))
         return rows
 
 
