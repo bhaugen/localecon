@@ -676,6 +676,7 @@ class EconomicFunction(models.Model):
             margin_percent = float(margin / income) * 100
         else:
             margin_percent = 0
+        print "margin:", margin, "income:", income, "margin_percent:", margin_percent
         return costs, income, margin, margin_percent
         
     def node_id(self):
