@@ -59,7 +59,7 @@ class AgentFunctionResourceTypeFilterSet(django_filters.FilterSet):
         
         
 class FunctionResourceTypeFilterSet(django_filters.FilterSet):
-    function__name = django_filters.CharFilter(label="Function Name", lookup_type='contains')
+    function = django_filters.ChoiceFilter(label="Starting Function",)
     resource_type__name = django_filters.CharFilter(label="Resource Name", lookup_type='contains')
     function__aspect = django_filters.CharFilter(label="Function Aspect", lookup_type='contains')
     resource_type__communities__aspect = django_filters.CharFilter(label="Resource Aspect", lookup_type='contains')
@@ -67,17 +67,14 @@ class FunctionResourceTypeFilterSet(django_filters.FilterSet):
 
     class Meta:
         model = FunctionResourceType
-        exclude = ('function', 'resource_type', 'role', 'quantity', 'price', 'value')
+        exclude = ('resource_type', 'role', 'quantity', 'price', 'value')
         
-    #def __init__(self, *args, **kwargs):
-    #        super(FunctionResourceTypeFilterSet, self).__init__(*args, **kwargs)
-    #        qs = kwargs['queryset']
-    #        rtids = list(set(qs.values_list('resource_type', flat=True)))
-    #        rts = EconomicResourceType.objects.filter(id__in=rtids)
-    #        fnids = list(set(qs.values_list('agent_function__function', flat=True)))
-    #        fns = EconomicFunction.objects.filter(id__in=fnids)
-    #        self.filters['resource_type'].field.choices = [('', '----------')] + [(rt.id, rt.name) for rt in rts]
-    #        self.filters['agent_function__function'].field.choices = [('', '----------')] + [(fn.id, fn.name) for fn in fns]
+    def __init__(self, *args, **kwargs):
+            super(FunctionResourceTypeFilterSet, self).__init__(*args, **kwargs)
+            qs = kwargs['queryset']
+            fnids = list(set(qs.values_list('function', flat=True)))
+            fns = EconomicFunction.objects.filter(id__in=fnids)
+            self.filters['function'].field.choices = [('', '----------')] + [(fn.id, fn.name) for fn in fns]
 
     @classmethod
     def queryset(cls):
