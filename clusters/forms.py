@@ -296,20 +296,20 @@ class AgentAreaForm(forms.Form):
         
 class ValueAddedSelectionForm(forms.Form):
     starting_function = forms.ChoiceField()
-    resource_name = forms.CharField(required=False)
-    resource_aspect_name = forms.ChoiceField(required=False)
+    resource_name_contains = forms.CharField(required=False)
+    resource_aspect = forms.ChoiceField(required=False)
     
     def __init__(self, cluster, *args, **kwargs):
         super(ValueAddedSelectionForm, self).__init__(*args, **kwargs)
         self.fields["starting_function"].choices = [
             (fun.id, fun.name) for fun in cluster.functions.all()]
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         community = cluster.community
         if community.resource_aspect_name:
             crs = cluster.community_resources()
             aspects = [cr.aspect for cr in crs]
             aspects = list(set(aspects))
             if aspects:
-                self.fields["starting_function"].choices = [('', '----------')] + [
+                self.fields["resource_aspect"].choices = [('', '----------')] + [
                     (aspect, aspect) for aspect in aspects]
 
