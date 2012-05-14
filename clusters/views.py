@@ -1759,7 +1759,8 @@ def value_added_report(request, cluster_id):
             data = form.cleaned_data
             fn_id = data["starting_function"]
             start = EconomicFunction.objects.get(pk=fn_id)
-            rows = cluster.value_added_rows(start)
+            resource_filter = data["resource_name_contains"] or None
+            rows = cluster.value_added_rows(start, resource_filter)
     
     return render_to_response("clusters/value_added.html",{ 
         "cluster": cluster,

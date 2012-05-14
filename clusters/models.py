@@ -694,11 +694,11 @@ class Cluster(models.Model):
                 group_flows.extend(fn.flows())
         return group_flows
     
-    def flow_bfs(self, start):
+    def flow_bfs(self, start, resource_filter=None):
         visited=set([start])
         edges = []
         order = [start]
-        stack=[(start, iter(start.outflow_functions()))]
+        stack=[(start, iter(start.outflow_functions(resource_filter)))]
         while stack:
             parent, children = stack[0]
             try:
@@ -707,13 +707,13 @@ class Cluster(models.Model):
                     edges.append((parent, child))
                     visited.add(child)
                     order.append(child)
-                    stack.append((child, iter(child.outflow_functions())))
+                    stack.append((child, iter(child.outflow_functions(resource_filter))))
             except StopIteration:
                 stack.pop(0)
         return [edges, order]
     
-    def value_added_rows(self, start):
-        edges, order = self.flow_bfs(start)
+    def value_added_rows(self, start, resource_filter=None):
+        edges, order = self.flow_bfs(start, resource_filter)
         rows = []
         for fn in order:
             rows.append(fn)
@@ -773,8 +773,12 @@ class EconomicFunction(models.Model):
         except FunctionResourceType.DoesNotExist:
             return None
         
-    def outflow_functions(self):
-        flows = self.outgoing_flows.all()
+    def outflow_functions(self, resource_filter=None):
+        if resource_filter:
+            flows = self.outgoing_flows.filter(
+                resource_type__name__icontains=resource_filter)
+        else:
+            flows = self.outgoing_flows.all()
         fns = []
         for flow in flows:
             if flow.to_function not in fns:
