@@ -673,7 +673,7 @@ class EconomicFunction(models.Model):
         income = sum(input.get_value() for input in self.outgoing_flows.all())
         margin = income - costs
         if income:
-            margin_percent = (float(margin) / income) * 100
+            margin_percent = round(((float(margin) / income) * 100), 2)
         else:
             margin_percent = 0
         #print "margin:", margin, "income:", income, "margin_percent:", margin_percent
