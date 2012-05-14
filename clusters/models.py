@@ -747,7 +747,10 @@ class EconomicFunction(models.Model):
         costs = sum(input.get_value() for input in self.incoming_flows.all())
         income = sum(input.get_value() for input in self.outgoing_flows.all())
         margin = income - costs
-        margin_percent = float(margin / income) * 100
+        if income:
+            margin_percent = float(margin / income) * 100
+        else:
+            margin_percent = 0
         return costs, income, margin, margin_percent
         
     def node_id(self):
