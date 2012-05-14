@@ -17,6 +17,7 @@ from datetime import datetime, timedelta
 
 from clusters.models import *
 from clusters.forms import *
+from clusters.utils import *
 
 def cluster_params(cluster):
     template_params = {}
@@ -407,11 +408,6 @@ def radial_graph(request, cluster_id):
     return render_to_response("clusters/radial_graph.html", 
         template_params,
         context_instance=RequestContext(request))
-    
-def splitthousands(n, sep=','):
-    s = str(n)
-    if len(s) <= 3: return s  
-    return splitthousands(s[:-3], sep) + sep + s[-3:]
    
 class Edge(object):
      def __init__(self, from_node, to_node, quantity, label, width=1):
@@ -445,7 +441,7 @@ def agent_network_params(cluster, toggle):
                 if toggle == "val":
                     value = v.get_value()
                     total += value
-                    val_string = "".join([symbol, splitthousands(value)])
+                    val_string = "".join([symbol, split_thousands(value)])
                     edges.append(Edge(v.resource_type, agt, value, val_string))
                 elif toggle == "price":
                     total += v.price
@@ -453,14 +449,14 @@ def agent_network_params(cluster, toggle):
                     edges.append(Edge(v.resource_type, agt, v.price, p_string))
                 else:
                     total += v.quantity
-                    qty_string = splitthousands(v.quantity)
+                    qty_string = split_thousands(v.quantity)
                     edges.append(Edge(v.resource_type, agt, v.quantity, qty_string))
             for v in agt.function_outputs(cluster):
                 rtypes.append(v.resource_type)
                 if toggle == "val":
                     value = v.get_value()
                     total += value
-                    val_string = "".join([symbol, splitthousands(value)])
+                    val_string = "".join([symbol, split_thousands(value)])
                     edges.append(Edge(agt, v.resource_type, value, val_string))
                 elif toggle == "price":
                     total += v.price
@@ -468,7 +464,7 @@ def agent_network_params(cluster, toggle):
                     edges.append(Edge(agt, v.resource_type, v.price, p_string))
                 else:
                     total += v.quantity
-                    qty_string = splitthousands(v.quantity)
+                    qty_string = split_thousands(v.quantity)
                     edges.append(Edge(agt, v.resource_type, v.quantity, qty_string))
     else:
         flows = AgentResourceFlow.objects.filter(
@@ -480,7 +476,7 @@ def agent_network_params(cluster, toggle):
             if toggle == "val":
                 value = flow.get_value()
                 total += value
-                val_string = "".join([symbol, splitthousands(value)])
+                val_string = "".join([symbol, split_thousands(value)])
                 edges.append(Edge(flow.from_function, flow.resource_type, value, val_string))
                 edges.append(Edge(flow.resource_type, flow.to_function, value, val_string))
             elif toggle == "price":
@@ -490,7 +486,7 @@ def agent_network_params(cluster, toggle):
                 edges.append(Edge(flow.resource_type, flow.to_function, v.price, p_string))
             else:
                 total += flow.quantity
-                qty_string = splitthousands(v.quantity)
+                qty_string = split_thousands(v.quantity)
                 edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity, qty_string))
                 edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity, qty_string))
         nodes = list(set(nodes))
@@ -534,7 +530,7 @@ def group_network_params(cluster, toggle):
                 if toggle == "val":
                     value = v.get_value()
                     total += value
-                    val_string = "".join([symbol, splitthousands(value)])
+                    val_string = "".join([symbol, split_thousands(value)])
                     edges.append(Edge(v.resource_type, agt, value, val_string))
                 elif toggle == "price":
                     total += v.price
@@ -542,14 +538,14 @@ def group_network_params(cluster, toggle):
                     edges.append(Edge(v.resource_type, agt, v.price, p_string))
                 else:
                     total += v.quantity
-                    qty_string = splitthousands(v.quantity)
+                    qty_string = split_thousands(v.quantity)
                     edges.append(Edge(v.resource_type, agt, v.quantity, qty_string))
             for v in agt.function_outputs():
                 rtypes.append(v.resource_type)
                 if toggle == "val":
                     value = v.get_value()
                     total += value
-                    val_string = "".join([symbol, splitthousands(value)])
+                    val_string = "".join([symbol, split_thousands(value)])
                     edges.append(Edge(agt, v.resource_type, value, val_string))
                 elif toggle == "price":
                     total += v.price
@@ -557,7 +553,7 @@ def group_network_params(cluster, toggle):
                     edges.append(Edge(agt, v.resource_type, v.price, p_string))
                 else:
                     total += v.quantity
-                    qty_string = splitthousands(v.quantity)
+                    qty_string = split_thousands(v.quantity)
                     edges.append(Edge(agt, v.resource_type, v.quantity, qty_string))
             
     for edge in edges:
@@ -598,7 +594,7 @@ def network_params(cluster, toggle):
                 if toggle == "val":
                     value = v.get_value()
                     total += value
-                    val_string = "".join([symbol, splitthousands(value)])
+                    val_string = "".join([symbol, split_thousands(value)])
                     edges.append(Edge(v.resource_type, fn, value, val_string))
                 elif toggle == "price":
                     total += v.price
@@ -606,14 +602,14 @@ def network_params(cluster, toggle):
                     edges.append(Edge(v.resource_type, fn, v.price, p_string))
                 else:
                     total += v.quantity
-                    qty_string = splitthousands(v.quantity)
+                    qty_string = split_thousands(v.quantity)
                     edges.append(Edge(v.resource_type, fn, v.quantity, qty_string))
             for v in fn.outputs():
                 rtypes.append(v.resource_type)
                 if toggle == "val":
                     value = v.get_value()
                     total += value
-                    val_string = "".join([symbol, splitthousands(value)])
+                    val_string = "".join([symbol, split_thousands(value)])
                     edges.append(Edge(fn, v.resource_type, value, val_string))
                 elif toggle == "price":
                     total += v.price
@@ -621,7 +617,7 @@ def network_params(cluster, toggle):
                     edges.append(Edge(v.resource_type, fn, v.price, p_string))
                 else:
                     total += v.quantity
-                    qty_string = splitthousands(v.quantity)
+                    qty_string = split_thousands(v.quantity)
                     edges.append(Edge(fn, v.resource_type, v.quantity, qty_string))
     else:
         flows = FunctionResourceFlow.objects.filter(
@@ -633,7 +629,7 @@ def network_params(cluster, toggle):
             if toggle == "val":
                 value = flow.get_value()
                 total += value
-                val_string = "".join([symbol, splitthousands(value)])
+                val_string = "".join([symbol, split_thousands(value)])
                 edges.append(Edge(flow.from_function, flow.resource_type, value, val_string))
                 edges.append(Edge(flow.resource_type, flow.to_function, value, val_string))
             elif toggle == "price":
@@ -643,7 +639,7 @@ def network_params(cluster, toggle):
                 edges.append(Edge(flow.resource_type, flow.to_function, v.price, p_string))
             else:
                 total += flow.quantity
-                qty_string = splitthousands(flow.quantity)
+                qty_string = split_thousands(flow.quantity)
                 edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity, qty_string))
                 edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity, qty_string))
         nodes = list(set(nodes))
@@ -857,7 +853,7 @@ def flow_params(cluster, toggle):
         if prev_match:
             if toggle == "val":
                 value = flow.get_value()
-                label_nbr = "".join([symbol, splitthousands(value)])
+                label_nbr = "".join([symbol, split_thousands(value)])
                 edge.quantity += value
             elif toggle == "price":
                 edge.quantity += flow.price
@@ -866,7 +862,7 @@ def flow_params(cluster, toggle):
                     str(flow.price.quantize(Decimal(".01")))])
             else:
                 edge.quantity += flow.quantity
-                label_nbr = splitthousands(flow.quantity)
+                label_nbr = split_thousands(flow.quantity)
             new_label = "".join([
                 flow.resource_type.name,
                 " ",
@@ -879,7 +875,7 @@ def flow_params(cluster, toggle):
                     flow.resource_type.name,
                     " ",
                     symbol,
-                    splitthousands(nbr)])
+                    split_thousands(nbr)])
             elif toggle == "price":
                 nbr = flow.price
                 label = "".join([
@@ -892,7 +888,7 @@ def flow_params(cluster, toggle):
                 label = "".join([
                     flow.resource_type.name,
                     " ",
-                    splitthousands(nbr)])
+                    split_thousands(nbr)])
             edge = FlowEdge(flow.from_function, flow.to_function, label, nbr)
             edges.append(edge)
         prev = flow                  
