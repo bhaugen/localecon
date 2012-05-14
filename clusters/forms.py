@@ -307,7 +307,7 @@ class ValueAddedSelectionForm(forms.Form):
         crs = []
         for r in resources:
             crs.append(r.communities.get(community=cluster.community))
-        aspects = [cr.aspect for cr in crs()]
+        aspects = [cr.aspect for cr in crs]
         self.fields["starting_function"].choices = [('', '----------')] + [
             (aspect, aspect) for aspect in aspects.sort()]
 
