@@ -1,3 +1,6 @@
+import re
+from django.template.defaultfilters import slugify
+
 def split_thousands(n, sep=','):
     s = str(n)
     if len(s) <= 3: return s  
