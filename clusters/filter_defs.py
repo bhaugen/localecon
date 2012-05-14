@@ -67,7 +67,7 @@ class FunctionResourceTypeFilterSet(django_filters.FilterSet):
 
     class Meta:
         model = FunctionResourceType
-        #fields = ('function', 'resource_type',)
+        exclude = ('function', 'resource_type', 'role', 'quantity', 'price', 'value')
         
     #def __init__(self, *args, **kwargs):
     #        super(FunctionResourceTypeFilterSet, self).__init__(*args, **kwargs)
