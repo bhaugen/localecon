@@ -1757,7 +1757,8 @@ def value_added_report(request, cluster_id):
     if request.method == "POST":
         if form.is_valid():
             data = form.cleaned_data
-            start = data["starting_function"]
+            fn_id = data["starting_function"]
+            start = EconomicFunction.objects.get(pk=fn_id)
             rows = cluster.value_added_rows(start)
     
     return render_to_response("clusters/value_added.html",{ 
