@@ -307,7 +307,9 @@ class ValueAddedSelectionForm(forms.Form):
         community = cluster.community
         if community.resource_aspect_name:
             crs = cluster.community_resources()
-            aspects = list(set([cr.aspect for cr in crs])).sort()
-            self.fields["starting_function"].choices = [('', '----------')] + [
-                (aspect, aspect) for aspect in aspects]
+            aspects = [cr.aspect for cr in crs]
+            aspects = list(set(aspects))
+            if aspects:
+                self.fields["starting_function"].choices = [('', '----------')] + [
+                    (aspect, aspect) for aspect in aspects]
 
