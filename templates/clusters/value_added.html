@@ -57,9 +57,21 @@
 	</form>
 	
 	{% if rows %}
-		{% for row in rows %}
-			<p>{{ row }}</p>
+		<table>
+		{% for a, b, c in rows %}
+			<tr>
+				{% if a == "Function:"
+					<td style="text-align: right;" >{{ a }}</td>
+					<td style="text-align: left;" >{{ b }}</td>
+				{% else %}
+					<td style="text-align: right;" >{{ a }}</td>
+					<td style="text-align: right;" >{{ b }}</td>
+				{% endif %}
+				<td style="text-align: right;" >{{ c }}</td>
+			</tr>
 		{% endfor %}
+		</table>
 	{% endif %}
 
+</div>
 {% endblock %} 

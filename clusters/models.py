@@ -716,13 +716,13 @@ class Cluster(models.Model):
         edges, order = self.flow_bfs(start, resource_filter)
         rows = []
         for fn in order:
-            rows.append(fn)
+            rows.append("Function:", fn, "")
             costs, income, margin, margin_percent = fn.value_summary()
-            rows.append("".join([".............Costs: $", str(costs)]))
-            rows.append("".join(["............Income: $", str(income)]))
-            rows.append("".join(["............Margin: $", str(margin)]))
-            rows.append("".join(["....Margin percent: ", str(margin_percent), "%"]))
-            rows.append("<br />")
+            rows.append("", "Costs:", str(costs))
+            rows.append("", "Income:", str(income))
+            rows.append("", "Margin:", str(margin))
+            rows.append("", "Margin percent:", "".join([str(margin_percent), "%"]))
+            rows.append("", "", "")
         return rows
 
 
