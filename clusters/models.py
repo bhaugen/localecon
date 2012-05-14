@@ -671,7 +671,7 @@ class EconomicFunction(models.Model):
     def value_summary(self):
         costs = sum(input.get_value() for input in self.incoming_flows.all())
         income = sum(input.get_value() for input in self.outgoing_flows.all())
-        margin = income - costs
+        margin = (income - costs)
         if income:
             margin_percent = float(margin / income) * 100
         else:
