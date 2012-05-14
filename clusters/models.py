@@ -381,6 +381,14 @@ class Cluster(models.Model):
                 for afrt in af.function_resources.all():
                     answer.append(afrt.resource_type)
         return list(set(answer))
+    
+    def community_resources(self):
+        community = self.community
+        resources = self.resources()
+        crs = []
+        for r in resources:
+            crs.append(r.communities.get(community=community))
+        return crs
       
     def agents(self):
         answer = []
