@@ -303,6 +303,7 @@ class ValueAddedSelectionForm(forms.Form):
         super(ValueAddedSelectionForm, self).__init__(*args, **kwargs)
         self.fields["starting_function"].choices = [
             (fun.id, fun.name) for fun in cluster.functions.all()]
+        import pdb; pdb.set_trace()
         community = cluster.community
         if community.resource_aspect_name:
             crs = cluster.community_resources()
