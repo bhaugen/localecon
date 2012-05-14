@@ -292,3 +292,18 @@ class AgentAreaForm(forms.Form):
         super(AgentAreaForm, self).__init__(*args, **kwargs)
         self.fields["location"].choices = [
             ('agt', 'Agent or'),('area', community.agent_geographic_area_name)]
+
+        
+class ValueAddedSelectionForm(forms.Form):
+    starting_function = forms.ChoiceField()
+    resource_name = forms.CharField(required=False)
+    resource_aspect_name = forms.ChoiceField(required=False)
+    
+    def __init__(self, cluster, *args, **kwargs):
+        super(ValueAddedSelectionForm, self).__init__(*args, **kwargs)
+        self.fields["starting_function"].choices = [
+            (fun.id, fun.name) for fun in cluster.functions.all()]
+        aspects = [r.aspect for r in cluster.resources()]
+        self.fields["starting_function"].choices = [('', '----------')] + [
+            (aspect, aspect) for aspect in aspects.sort()]
+

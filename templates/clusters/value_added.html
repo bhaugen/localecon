@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block title %}
+     Function-Resource Table for {{ cluster }}
+{% endblock %}
+
+{% block extra_head %}
+<style>
+	ul
+	{
+		list-style-type: none;
+		display: inline;
+	    margin: 0;
+		padding: 0;
+	}
+	li
+	{
+		display: inline;
+	    margin: 0;
+		padding: 0;
+	}
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="reports">
+
+{% include "clusters/_cluster_nav.html" %}
+
+	<table>
+		{{ form.as_table }}	
+	</table>
+
+{% endblock %} 
