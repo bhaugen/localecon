@@ -96,9 +96,6 @@ ul#tabnav a:hover
 		{% if cluster.has_flows %}
 			<li class="flows" ><a href="{% url flows cluster_id=cluster.id %}">Flow Diagram</a></li>
 		{% endif %}
-		{% if cluster.has_function_resources %}
-			<li class="frt" ><a href="{% url fr_table cluster_id=cluster.id %}">Function-Resource Table</a></li>
-		{% endif %}
 		<li class="reports" ><a href="{% url reports cluster_id=cluster.id %}">Reports</a></li>
 		<li class="all" ><a href="{% url clusters %}">All Clusters</a></li>
 	</ul>

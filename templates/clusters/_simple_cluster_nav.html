@@ -8,8 +8,5 @@
 	{% if cluster.has_flows %}
 		<a href="{% url flows cluster_id=cluster.id %}">Flow Diagram</a>&nbsp;&nbsp;
 	{% endif %}
-	{% if cluster.has_function_resources %}
-		<a href="{% url fr_table cluster_id=cluster.id %}">Function-Resource Table</a>&nbsp;&nbsp;
-	{% endif %}
-	<a href="{% url diagnostics cluster_id=cluster.id %}">Diagnostics</a>
+	<a href="{% url diagnostics cluster_id=cluster.id %}">Reports</a>
 
