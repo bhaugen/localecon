@@ -60,14 +60,15 @@
 		<h4>Value-added Report for {{ cluster }}</h4>
 		<table>
 		{% for a, b, c in rows %}
-			<tr>
-				{% if a == "Function:" %}
+			{% if a == "Function:" %}
+				<tr style="padding-top: 4px;" >
 					<th style="text-align: right; font-strength: bold; " >{{ a }}</th>
 					<th style="text-align: left; font-strength: bold;" >{{ b }}</th>
-				{% else %}
+			{% else %}
+				<tr>
 					<td>{{ a }}</td>
 					<th style="text-align: right;" >{{ b }}</th>
-				{% endif %}
+			{% endif %}
 				<td style="text-align: right;" >{{ c }}</td>
 			</tr>
 		{% endfor %}
