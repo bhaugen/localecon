@@ -632,7 +632,8 @@ class Cluster(models.Model):
                     order.append(child)
                     #stack.append((child, iter(child.outflow_functions(resource_filter))))
                     stack.append((child, child.outflow_functions(resource_filter)))
-            except StopIteration:
+            #except StopIteration:
+            except IndexError:
                 stack.pop(0)
         return [edges, order]
     
