@@ -641,7 +641,7 @@ class Cluster(models.Model):
         except:
             pass
         for fn in order:
-            rows.append(("Function:", fn, ""))
+            rows.append(("Function:", fn.name, ""))
             costs, income, margin, margin_percent = fn.value_summary()
             rows.append(("", "Costs:", "".join([symbol, split_thousands(costs)])))
             rows.append(("", "Income:", "".join([symbol, split_thousands(income)])))
