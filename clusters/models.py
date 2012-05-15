@@ -618,16 +618,20 @@ class Cluster(models.Model):
         visited=set([start])
         edges = []
         order = [start]
-        stack=[(start, iter(start.outflow_functions(resource_filter)))]
+        # next(iter) lines commented out until locecon upgraded to python2.7
+        #stack=[(start, iter(start.outflow_functions(resource_filter)))]
+        stack=[(start, start.outflow_functions(resource_filter))]
         while stack:
             parent, children = stack[0]
             try:
-                child = next(children)
+                #child = next(children)
+                child = children.pop(0)
                 if child not in visited:
                     edges.append((parent, child))
                     visited.add(child)
                     order.append(child)
-                    stack.append((child, iter(child.outflow_functions(resource_filter))))
+                    #stack.append((child, iter(child.outflow_functions(resource_filter))))
+                    stack.append((child, child.outflow_functions(resource_filter)))
             except StopIteration:
                 stack.pop(0)
         return [edges, order]
