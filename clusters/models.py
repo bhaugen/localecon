@@ -951,8 +951,6 @@ class EconomicAgent(models.Model):
         fns = self.functions.all()
         answer = 'grey'
         not_green = ""
-        if fns.count():
-            return fns[0].color
         for fn in fns:
             if fns.color != 'green':
                 not_green = fns.color
