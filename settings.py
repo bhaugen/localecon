@@ -106,6 +106,8 @@ COLOR_CHOICES = (
     ("orange", 'Orange'),
     ("purple", 'Purple'),
     ("red", 'Red'),
+    ("yellow", 'Yellow'),
+    ("white", 'White'),
 )
 
 try:
