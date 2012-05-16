@@ -171,9 +171,22 @@ var infoWin = new google.maps.InfoWindow({});
 <p>
 	{{ cluster.description|urlize }}
 </p>
+<div style="float:left; width: 20%">
+	<h4>Legend:</h4>
+	<table>
+		{% for color, functions in color_functions %}
+		<tr>
+			<td><img src="/site_media/images/mm_20_{{ color }}.png"></img></td>
+			<td>{{ functions }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	
+</div>
+<div id="map_canvas" style="float: left; height: 600px; width: 75%;" ></div>
 
-<div id="map_canvas" style="height: 600px; width: 1000px;" ></div>
-
+<div style="clear: both;"></div>
+	
 </div>
 
 {% endblock %}

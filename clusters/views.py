@@ -172,6 +172,7 @@ def cluster(request, cluster_id, location="agt"):
                 function__cluster=cluster)
     else:
         agents = cluster.regions()
+    color_functions = cluster.function_colors()
     map_center = ",".join([str(community.latitude), str(community.longitude)])
     map_key = settings.GOOGLE_API_KEY   
     return render_to_response("clusters/cluster.html", {
@@ -181,6 +182,7 @@ def cluster(request, cluster_id, location="agt"):
         "map_key": map_key,
         "zoom_level": community.map_zoom_level,
         "location_form": location_form,
+        "color_functions": color_functions,
         }, context_instance=RequestContext(request))
     
 def cluster_agents(request, cluster_id):
