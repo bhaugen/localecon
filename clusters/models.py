@@ -236,9 +236,9 @@ class Region(object):
     def color(self):
         answer = "gray"
         not_green = ""
-        for fn in self.all_functions():
-            if fn.color != "green":
-                not_green = fn.color
+        for agfn in self.all_functions():
+            if agfn.function.color != "green":
+                not_green = agfn.function.color
         if not_green:
             answer = not_green
         else:
