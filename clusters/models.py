@@ -949,10 +949,18 @@ class EconomicAgent(models.Model):
     @property
     def color(self):
         fns = self.functions.all()
+        answer = 'grey'
+        not_green = ""
         if fns.count():
             return fns[0].color
+        for fn in fns:
+            if fns.color != 'green':
+                not_green = fns.color
+        if not_green:
+            answer = not_green
         else:
-            return 'green'
+            answer = 'green'
+        return answer
            
         
     def address_is_editable(self):
