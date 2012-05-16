@@ -102,7 +102,7 @@ COLOR_CHOICES = (
     ("blue", 'Blue'),
     ("brown", 'Brown'),
     ("green", 'Green'),
-    ("grey", 'Grey'),
+    ("gray", 'Gray'),
     ("orange", 'Orange'),
     ("purple", 'Purple'),
     ("red", 'Red'),
