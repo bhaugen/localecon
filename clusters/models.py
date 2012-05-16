@@ -670,15 +670,14 @@ class Cluster(models.Model):
     def function_colors(self):
         fns = self.functions.all()
         colors = {}
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         for fn in fns:
             if not fn.color in colors:
                 colors[fn.color] = ""
+            if colors[fn.color]:
+                colors[fn.color] = ", ".join([colors[fn.color], fn.name])
             else:
-                if colors[fn.color]:
-                    colors[fn.color] = ", ".join([colors[fn.color], fn.name])
-                else:
-                    colors[fn.color] = fn.name
+                colors[fn.color] = fn.name
         return colors
 
 
