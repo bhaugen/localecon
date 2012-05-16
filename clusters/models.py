@@ -672,8 +672,9 @@ class Cluster(models.Model):
         colors = {}
         for fn in fns:
             if not fn.color in colors:
-                colors[fn.color] = []
-            colors[fn.color].append(fn)
+                colors[fn.color] = fn.name
+            else:
+                ", ".join([colors[fn.color], fn.name])
         return colors
 
 
