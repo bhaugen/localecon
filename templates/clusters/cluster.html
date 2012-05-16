@@ -174,7 +174,7 @@ var infoWin = new google.maps.InfoWindow({});
 <div style="float:left; width: 20%">
 	<h4>Legend:</h4>
 	<table>
-		{% for color, functions in color_functions %}
+		{% for color, functions in color_functions.items %}
 		<tr>
 			<td><img src="/site_media/images/mm_20_{{ color }}.png"></img></td>
 			<td>{{ functions }}</td>
