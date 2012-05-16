@@ -952,8 +952,8 @@ class EconomicAgent(models.Model):
         answer = 'grey'
         not_green = ""
         for fn in fns:
-            if fns.color != 'green':
-                not_green = fns.color
+            if fn.color != 'green':
+                not_green = fn.color
         if not_green:
             answer = not_green
         else:
