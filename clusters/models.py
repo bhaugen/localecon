@@ -233,6 +233,19 @@ class Region(object):
     def lat_lng(self):
         return ",".join([str(self.lat), str(self.lng)])
     
+    def color(self):
+        answer = "gray"
+        not_green = ""
+        for fn in self.all_functions():
+            if fn.color != "green":
+                not_green = fn.color
+        if not_green:
+            answer = not_green
+        else:
+            answer = "green"
+        return answer
+            
+    
 class AgentGroup(object):
     def __init__(self, name, function_dict):
         self.name = name
