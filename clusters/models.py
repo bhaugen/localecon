@@ -666,6 +666,15 @@ class Cluster(models.Model):
             rows.append(("", "Margin:", "".join([symbol, split_thousands(margin)])))
             rows.append(("", "Margin percent:", "".join([str(margin_percent), "%"])))
         return rows
+    
+    def function_colors(self):
+        fns = self.functions.all()
+        colors = {}
+        for fn in fns:
+            if not fn.color in colors:
+                colors[color] = []
+            colors[color].append(fn)
+        return colors
 
 
 class EconomicFunction(models.Model):
