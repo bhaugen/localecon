@@ -29,6 +29,7 @@ urlpatterns = patterns('',
     url(r'^flows/(?P<cluster_id>\d+)/(?P<toggle>\w+)/$', 'clusters.views.flows', name="flows"),
     url(r'^flows/(?P<cluster_id>\d+)/(?P<toggle>\w+)/(?P<level>\w+)/$', 'clusters.views.flows', name="flows"),
     url(r'^explore/(?P<cluster_id>\d+)/$', 'clusters.views.explore', name="explore"),
+    url(r'^sankey/(?P<cluster_id>\d+)/$', 'clusters.views.sankey', name="sankey"),
 
 
     # agents

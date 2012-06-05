@@ -962,6 +962,13 @@ def explore(request, cluster_id):
     return render_to_response("clusters/explore.html", 
         template_params,
         context_instance=RequestContext(request))
+    
+def sankey(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    
+    return render_to_response("clusters/sankey.html", { 
+        "cluster": cluster,
+    }, context_instance=RequestContext(request))
 
     
 def diagnostics(request, cluster_id, level="fn"):
