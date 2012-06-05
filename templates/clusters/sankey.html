@@ -3,6 +3,8 @@
 {% block title %}
      Sankey Diagram: {{ cluster }}
 {% endblock %}
+{% block extra_head %}
+<style>
 
 #chart {
   height: 500px;
@@ -30,7 +32,8 @@
 }
 
 </style>
-<body>
+{% endblock %}
+{% block content %}
 
 <header>
   <aside>May 22, 2012</aside>
@@ -143,3 +146,4 @@ d3.json("/site_media/scripts/energy.json", function(energy) {
 });
 
 </script>
+{% endblock %}
