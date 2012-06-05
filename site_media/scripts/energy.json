@@ -1,23 +1,23 @@
 {"nodes":[
-{'name': 'Danish Seine'},0
- {'name': 'Export'},1
- {'name': 'Fishing Grounds'},2
- {'name': 'Gill Net'},3
- {'name': 'Hand Line'},4
- {'name': 'Import'},5
- {'name': 'Landfill'},6
- {'name': 'Longline'},7
- {'name': 'NS End Use'},8
- {'name': 'Otter Trawl'},9
- {'name': 'Process'},10
- {'name': 'Scottish Seine'},11
- {'name': 'Trap'},12
- {'name': 'Processed Groundfish'},13
- {'name': 'Grade A Groundfish'},14
- {'name': 'Grade B Groundfish'},15
- {'name': 'Habitat Destruction'},16
- {'name': 'Bycatch'},17
- {'name': 'Fish Waste'}18
+{'name': 'Danish Seine'},
+ {'name': 'Export'},
+ {'name': 'Fishing Grounds'},
+ {'name': 'Gill Net'},
+ {'name': 'Hand Line'},
+ {'name': 'Import'},
+ {'name': 'Landfill'},
+ {'name': 'Longline'},
+ {'name': 'NS End Use'},
+ {'name': 'Otter Trawl'},
+ {'name': 'Process'},
+ {'name': 'Scottish Seine'},
+ {'name': 'Trap'},
+ {'name': 'Processed Groundfish'},
+ {'name': 'Grade A Groundfish'},
+ {'name': 'Grade B Groundfish'},
+ {'name': 'Habitat Destruction'},
+ {'name': 'Bycatch'},
+ {'name': 'Fish Waste'}
 ],
 "links":[
 {'source': 0, 'target': 15, 'value': 5473},
