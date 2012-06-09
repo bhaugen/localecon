@@ -1004,7 +1004,7 @@ def sankey_params(cluster, toggle):
                 elif toggle == "price":
                     qty = v.price
                 else:
-                    qty = v.qty
+                    qty = v.quantity
                 from_node = link_nodes.index(v.resource_type)
                 to_node = link_nodes.index(fn)
                 edges.append(SankeyLink(from_node, to_node, qty))
