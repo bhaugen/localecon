@@ -1055,7 +1055,7 @@ def sankey(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     toggle = "qty"
     template_params = sankey_params(cluster, toggle)
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     return render_to_response("clusters/sankey.html", 
         template_params,
         context_instance=RequestContext(request))
