@@ -89,8 +89,28 @@ var sankey = d3.sankey()
     .size([width, height]);
 
 var path = sankey.link();
+	
 energy =
-{"nodes":[
+{
+	"nodes":
+	[
+		{% for node in net_nodes %}
+			{"name": {{ node.name }}}
+			{% if not forloop.last %},{% endif %}
+		{% endfor %}
+	],
+	"links":
+	[
+		{% for link in net_links %}
+			{"source":{{ link.source }}, 
+			"target":{{ link.target }}, 
+			"value":{{ link.value }}}
+			{% if not forloop.last %},{% endif %}
+		{% endfor %}
+	]
+};
+
+/*
 {"name":"Danish Seine"},
  {"name":"Export"},
  {"name":"Fishing Grounds"},
@@ -132,6 +152,8 @@ energy =
  {"source":11,  "target":15, "value":12065},
  {"source":12, "target":14, "value":287}
 ]};
+
+*/
 	
 //d3.json("/site_media/scripts/energy.json", function(energy) {
 

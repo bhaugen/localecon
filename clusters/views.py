@@ -963,6 +963,100 @@ def explore(request, cluster_id):
         template_params,
         context_instance=RequestContext(request))
     
+def graphify(cluster):
+    fns = list(cluster.functions.all())
+    rtypes = []
+    for fn in fns:
+        rtypes.extend([v.resource_type for v in fn.inputs()])
+        rtypes.extend([v.resource_type for v in fn.outputs()])
+    rtypes = list(set(rtypes))
+    fns.extend(rtypes)
+    return fns
+
+class SankeyLink(object):
+     def __init__(self, from_node, to_node, quantity, label):
+         self.from_node = from_node
+         self.to_node = to_node
+         self.quantity = quantity
+         self.label = label
+
+    
+def sankey_params(cluster, toggle):
+    template_params = {}
+    link_nodes = graphify(cluster)
+    frts = FunctionResourceType.objects.filter(
+        function__cluster=cluster)
+    symbol = "$"
+    if toggle == "val" or toggle == "price":
+        try:
+            symbol = cluster.community.unit_of_value.symbol
+        except:
+            pass
+    edges = []
+    rtypes = []
+    if frts:
+        nodes = list(cluster.functions.all())
+        for fn in nodes:
+            for v in fn.inputs():
+                rtypes.append(v.resource_type)
+                if toggle == "val":
+                    qty = v.get_value()
+                elif toggle == "price":
+                    qty = v.price
+                else:
+                    qty = v.qty
+                from_node = link_nodes.index(v.resource_type)
+                to_node = link_nodes.index(fn)
+                edges.append(SankeyLink(from_node, to_node, qty))
+            for v in fn.outputs():
+                rtypes.append(v.resource_type)
+                if toggle == "val":
+                    qty = v.get_value()
+                elif toggle == "price":
+                    qty = v.price
+                else:
+                    qty = v.quantity
+                to_node = link_nodes.index(v.resource_type)
+                from_node = link_nodes.index(fn)
+                edges.append(SankeyLink(from_node, to_node, qty))
+    else:
+        flows = FunctionResourceFlow.objects.filter(
+            from_function__cluster=cluster)
+        nodes = []
+        edges = []
+        for flow in flows:
+            nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
+            if toggle == "val":
+                value = flow.get_value()
+                total += value
+                val_string = "".join([symbol, split_thousands(value)])
+                edges.append(Edge(flow.from_function, flow.resource_type, value, val_string))
+                edges.append(Edge(flow.resource_type, flow.to_function, value, val_string))
+            elif toggle == "price":
+                total += v.price
+                p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
+                edges.append(Edge(flow.from_function, flow.resource_type, v.price, p_string))
+                edges.append(Edge(flow.resource_type, flow.to_function, v.price, p_string))
+            else:
+                total += flow.quantity
+                qty_string = split_thousands(flow.quantity)
+                edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity, qty_string))
+                edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity, qty_string))
+        nodes = list(set(nodes))
+            
+    for edge in edges:
+        width = 1
+        if total > 0:
+            width = round((edge.quantity / total), 2) * 50
+            width = int(width)
+        edge.width = width
+    template_params =  {
+        'cluster': cluster,
+        'net_nodes': link_nodes,
+        'net_links': edges,
+    }
+    return template_params
+    
 def sankey(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     
