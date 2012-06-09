@@ -22,6 +22,9 @@ urlpatterns = patterns('',
     url(r'^diagnostics/(?P<cluster_id>\d+)/$', 'clusters.views.diagnostics', name="diagnostics"),
     url(r'^diagnostics/(?P<cluster_id>\d+)/(?P<level>\w+)/$', 'clusters.views.diagnostics', name="diagnostics"),
     url(r'^modelerrors/(?P<cluster_id>\d+)/$', 'clusters.views.model_errors', name="model_errors"),
+    
+    # diagrams
+    url(r'^diagrams/(?P<cluster_id>\d+)/$', 'clusters.views.diagrams', name="diagrams"),
     url(r'^network/(?P<cluster_id>\d+)/$', 'clusters.views.network', name="network"),
     url(r'^network/(?P<cluster_id>\d+)/(?P<toggle>\w+)/$', 'clusters.views.network', name="network"),
     url(r'^network/(?P<cluster_id>\d+)/(?P<toggle>\w+)/(?P<level>\w+)/$', 'clusters.views.network', name="network"),

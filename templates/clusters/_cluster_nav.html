@@ -32,7 +32,8 @@ div.agents li.agents,
 div.radial li.radial, 
 div.network li.network, 
 div.flows li.flows, 
-div.frt li.frt, 
+div.frt li.frt,
+div.diagrams li.diagrams,
 div.reports li.reports, 
 div.all li.all
 
@@ -48,7 +49,8 @@ div.agents li.agents a,
 div.radial li.radial a, 
 div.network li.network a, 
 div.flows li.flows a, 
-div.frt li.frt a, 
+div.frt li.frt a,
+div.diagrams li.diagrams a,
 div.reports li.reports a, 
 div.all li.all a
 
@@ -89,13 +91,7 @@ ul#tabnav a:hover
 		<li class="map" ><a href="{% url cluster cluster_id=cluster.id %}">Map</a></li>
 		<li class="functions" ><a href="{% url economic_functions cluster_id=cluster.id %}">Functions</a></li>
 		<li class="agents" ><a href="{% url cluster_agents cluster_id=cluster.id %}">Agents</a></li>
-		{% if cluster.has_function_resources %}
-			<li class="radial" ><a href="{% url radial_graph cluster_id=cluster.id %}">Radial Graph</a></li>
-		{% endif %}
-		<li class="network" ><a href="{% url network cluster_id=cluster.id %}">Network Diagram</a></li>
-		{% if cluster.has_flows %}
-			<li class="flows" ><a href="{% url flows cluster_id=cluster.id %}">Flow Diagram</a></li>
-		{% endif %}
+		<li class="diagrams" ><a href="{% url diagrams cluster_id=cluster.id %}">Diagrams</a></li>
 		<li class="reports" ><a href="{% url reports cluster_id=cluster.id %}">Reports</a></li>
 		<li class="all" ><a href="{% url clusters %}">All Clusters</a></li>
 	</ul>

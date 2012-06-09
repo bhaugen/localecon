@@ -1843,6 +1843,12 @@ def object_filter(request, cluster_id=None, model=None, queryset=None, template_
     
     return render_to_response(template_name, c)
 
+def diagrams(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    return render_to_response("clusters/diagrams.html",{ 
+        "cluster": cluster,
+    }, context_instance=RequestContext(request))
+
 def reports(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     return render_to_response("clusters/reports.html",{ 
