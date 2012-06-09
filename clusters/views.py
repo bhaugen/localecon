@@ -1059,10 +1059,11 @@ def sankey_params(cluster, toggle):
     
 def sankey(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    
-    return render_to_response("clusters/sankey.html", { 
-        "cluster": cluster,
-    }, context_instance=RequestContext(request))
+    toggle = "qty"
+    template_params = sankey_params(cluster, toggle)
+    return render_to_response("clusters/sankey.html", 
+        template_params,
+        context_instance=RequestContext(request))
 
     
 def diagnostics(request, cluster_id, level="fn"):
