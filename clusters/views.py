@@ -1044,12 +1044,6 @@ def sankey_params(cluster, toggle):
                 edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity, qty_string))
         nodes = list(set(nodes))
             
-    for edge in edges:
-        width = 1
-        if total > 0:
-            width = round((edge.quantity / total), 2) * 50
-            width = int(width)
-        edge.width = width
     template_params =  {
         'cluster': cluster,
         'net_nodes': link_nodes,
