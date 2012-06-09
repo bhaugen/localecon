@@ -35,35 +35,19 @@
 {% endblock %}
 {% block content %}
 
-<header>
-  <aside>May 22, 2012</aside>
-  <a href="../" rel="author">Mike Bostock</a>
-</header>
+<div class="diagrams">
 
-<h1>Sankey Diagrams</h1>
+{% include "clusters/_cluster_nav.html" %}
+
+<div>
+	<span style="font-size: 130%;">Sankey Diagram: {{ cluster }}</span>
 
 <p id="chart">
 
 <aside>Drag to rearrange nodes.</aside>
 
-<p class="attribution">Source: <a href="http://www.decc.gov.uk/en/content/cms/tackling/2050/calculator_on/calculator_on.aspx">Department of Energy & Climate Change</a>, <a href="http://tamc.github.com/Sankey/">Tom Counsell</a>.
-
-<aside>Sankey diagrams are closely related to <a href="http://en.wikipedia.org/wiki/Alluvial_diagram">alluvial diagrams</a>, which show how network structure changes over time.</aside>
-
-<p><a href="http://en.wikipedia.org/wiki/Sankey_diagram">Sankey diagrams</a> visualize the magnitude of flow between nodes in a network. This intricate diagram shows a possible scenario for UK energy production and consumption in 2050: energy <b>supplies</b> are on the left, and <b>demands</b> are on the right. Intermediate nodes group related forms of production and show how energy is converted and transmitted before it is consumed (or lost!). The thickness of each link encodes the amount of flow from source to target.
-
-<p>This example is built with <a href="http://d3js.org">D3</a>’s <a href="https://github.com/d3/d3-plugins/tree/master/sankey">Sankey plugin</a>. The plugin takes as input the nodes and weighted links, computing positions via <a href="http://en.wikipedia.org/wiki/Gauss–Seidel_method">iterative relaxation</a>. After fixing the horizontal position of each node, the algorithm starts from the sources on the left, positioning downstream nodes so as to minimize link distance. A reverse pass is then made from right-to-left, and then the entire process is repeated several times. Overlapping nodes are shifted to avoid collision.
-
-<aside>The d3.sankey API is similar to D3’s <a href="http://mbostock.github.com/d3/ex/force.html">force-directed graph</a> layout, which is another type of network visualization.</aside>
-
-<p>The fully automatic layout is convenient for rapid visualization—positioning nodes manually is tedious! However, the algorithm is not perfect; links are drawn with partial transparency to highlight crossings. To improve readability and further disambiguate links, this example also lets you reposition nodes interactively. The algorithm could be improved in the future, say to minimize link crossing or to support loopback in cyclical networks.
-
-<p>Many thanks to Tom Counsell, whose <a href="http://tamc.github.com/Sankey/">Sankey library</a> provided inspiration for this example.
-
-<footer>
-  <aside>May 22, 2012</aside>
-  <a href="../" rel="author">Mike Bostock</a>
-</footer>
+</p>
+</div>
 
 <script src="http://d3js.org/d3.v2.min.js?2.9.1"></script>
 <script src="/site_media/scripts/sankey.js"></script>
@@ -110,52 +94,6 @@ energy =
 	]
 };
 
-/*
-{"name":"Danish Seine"},
- {"name":"Export"},
- {"name":"Fishing Grounds"},
- {"name":"Gill Net"},
- {"name":"Hand Line"},
- {"name":"Import"},
- {"name":"Landfill"},
- {"name":"Longline"},
- {"name":"NS End Use"},
- {"name":"Otter Trawl"},
- {"name":"Process"},
- {"name":"Scottish Seine"},
- {"name":"Trap"},
- {"name":"Processed Groundfish"},
- {"name":"Grade A Groundfish"},
- {"name":"Grade B Groundfish"},
- {"name":"Habitat Destruction"},
- {"name":"Bycatch"},
- {"name":"Fish Waste"}
-],
-"links":[
-{"source":0, "target":15, "value":5473},
- {"source":13, "target":1, "value":21089616},
- {"source":17, "target":2, "value":3700000},
- {"source":16,  "target":2,  "value":3000000},
- {"source":3, "target":15, "value":761707},
- {"source":4, "target":14, "value":19948},
- {"source":5, "target":13, "value":6489064},
- {"source":18, "target":6, "value":10000000},
- {"source":7, "target":14, "value":7193558},
- {"source":13, "target":8, "value":20000000},
- {"source":9, "target":17, "value":3700000},
- {"source":9,  "target":15, "value":27135649},
- {"source":9,"target":16,"value":3000000},
- {"source":14, "target":10, "value":7213693},
- {"source":15, "target":10, "value":27914894},
- {"source":10, "target":18,"value":10000000},
- {"source":10, "target":13, "value":35000000},
- {"source":11,  "target":15, "value":12065},
- {"source":12, "target":14, "value":287}
-]};
-
-*/
-	
-//d3.json("/site_media/scripts/energy.json", function(energy) {
 
   sankey
       .nodes(energy.nodes)
@@ -207,7 +145,6 @@ energy =
     sankey.relayout();
     link.attr("d", path);
   }
-//});
 
 </script>
 {% endblock %}
