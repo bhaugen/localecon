@@ -974,7 +974,7 @@ def graphify(cluster):
     return fns
 
 class SankeyLink(object):
-     def __init__(self, from_node, to_node, quantity, label):
+     def __init__(self, from_node, to_node, quantity, label=None):
          self.from_node = from_node
          self.to_node = to_node
          self.quantity = quantity
