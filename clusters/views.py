@@ -974,10 +974,10 @@ def graphify(cluster):
     return fns
 
 class SankeyLink(object):
-     def __init__(self, from_node, to_node, quantity, label=None):
-         self.from_node = from_node
-         self.to_node = to_node
-         self.quantity = quantity
+     def __init__(self, source, target, value, label=None):
+         self.source = source
+         self.target = target
+         self.value = value
          self.label = label
 
     
