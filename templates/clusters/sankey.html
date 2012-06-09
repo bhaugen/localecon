@@ -95,7 +95,7 @@ energy =
 	"nodes":
 	[
 		{% for node in net_nodes %}
-			{"name": "{{ node.name }}}"
+			{"name": "{{ node.name }}"}
 			{% if not forloop.last %},{% endif %}
 		{% endfor %}
 	],
