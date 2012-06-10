@@ -1,5 +1,3 @@
-#from IPython.Debugger import Tracer; debug_here = Tracer()
-
 def strongly_connected_components(graph):
     """
     Tarjan's Algorithm (named for its discoverer, Robert Tarjan) is a graph theory algorithm
@@ -15,7 +13,6 @@ def strongly_connected_components(graph):
     result = []
 
     def strongconnect(node):
-        #debug_here()
         # set the depth index for this node to the smallest unused index
         index[node] = index_counter[0]
         lowlinks[node] = index_counter[0]

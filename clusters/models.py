@@ -652,8 +652,9 @@ class Cluster(models.Model):
     
     def has_cycles(self):
         gc = graphify(self)
+        graph = {}
         for node in gc:
-            node.successors = node.to_nodes(self)
+            graph[node] = node.to_nodes(self)
         import pdb; pdb.set_trace()
         scc = strongly_connected_components(gc)
         for sc in scc:
