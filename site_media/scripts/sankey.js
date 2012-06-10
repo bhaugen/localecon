@@ -111,17 +111,22 @@ d3.sankey = function() {
     var remainingNodes = nodes,
         nextNodes,
         x = 0;
+	var visited = [];
+	var dups = [];
     while (remainingNodes.length) {
       nextNodes = [];
       remainingNodes.forEach(function(node) {
+      	if (visited.indexOf(node)>-1)
+        {
+       		dups.push(node);
+       	}
+       	else
+       	{
+       		visited.push(node);
+       	}
         node.x = x;
         node.dx = nodeWidth;
         node.sourceLinks.forEach(function(link) {
-        	if (visited.indexOf(link.target)>-1)
-        	{
-        		dups.push(link.target);
-        	}
-        	visited.push(link.target);
           nextNodes.push(link.target);
         });
       });
