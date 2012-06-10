@@ -83,30 +83,11 @@ d3.sankey = function() {
       node.sourceLinks = [];
       node.targetLinks = [];
     });
-    var visitedLinks = [];
-    var visitedSources = [];
-    var visitedTargets = [];
-    var dups = []
     links.forEach(function(link) {
-    	if (visitedLinks.indexOf(link)>-1)
-    	{ 
-    		dups.push(link);
-    	}
-    	visitedLinks.push(link);
       var source = link.source,
           target = link.target;
       if (typeof source === "number") source = link.source = nodes[link.source];
       if (typeof target === "number") target = link.target = nodes[link.target];
-      if (visitedSources.indexOf(source)>-1)
-      { 
-      	dups.push(source);
-      }
-      if (visitedTargets.indexOf(target)>-1)
-      { 
-      	dups.push(target);
-      }
-      visitedSources.push(source);
-      visitedTargets.push(target);
       source.sourceLinks.push(link);
       target.targetLinks.push(link);
     });
@@ -130,13 +111,18 @@ d3.sankey = function() {
     var remainingNodes = nodes,
         nextNodes,
         x = 0;
-
+	visited = [];
+	dups = [];
     while (remainingNodes.length) {
       nextNodes = [];
       remainingNodes.forEach(function(node) {
         node.x = x;
         node.dx = nodeWidth;
         node.sourceLinks.forEach(function(link) {
+        	if (visited.indexOf(link.target)>-1)
+        	{
+        		dups.push(link.target);
+        	}
           nextNodes.push(link.target);
         });
       });
