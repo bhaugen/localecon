@@ -672,7 +672,7 @@ class Cluster(models.Model):
         colors = {}
         #import pdb; pdb.set_trace()
         for fn in fns:
-            if fns.agents.all():
+            if fn.agents.all():
                 if not fn.color in colors:
                     colors[fn.color] = ""
                 if colors[fn.color]:
