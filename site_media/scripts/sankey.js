@@ -89,12 +89,12 @@ d3.sankey = function() {
           target = link.target;
       if (typeof source === "number") source = link.source = nodes[link.source];
       if (typeof target === "number") target = link.target = nodes[link.target];
-      source.sourceLinks.push(link);
-      if (visited.indexOf(target)>-1)
+      if (visited.indexOf(source)>-1)
       {
-      	target.targetLinks.push(link);
-      	visited.push(target);
+      	source.sourceLinks.push(link);
+      	visited.push(source);
       }
+      target.targetLinks.push(link);
     });
   }
 
