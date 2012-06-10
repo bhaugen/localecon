@@ -86,12 +86,25 @@ d3.sankey = function() {
     var visitedLinks = [];
     var visitedSources = [];
     var visitedTargets = [];
+    var dups = []
     links.forEach(function(link) {
+    	if (visitedLinks.indexOf(link)>-1)
+    	{ 
+    		dups.push(link);
+    	}
     	visitedLinks.push(link);
       var source = link.source,
           target = link.target;
       if (typeof source === "number") source = link.source = nodes[link.source];
       if (typeof target === "number") target = link.target = nodes[link.target];
+      if (visitedSources.indexOf(source)>-1)
+      { 
+      	dups.push(source);
+      }
+      if (visitedTargets.indexOf(target)>-1)
+      { 
+      	dups.push(target);
+      }
       visitedSources.push(source);
       visitedTargets.push(target);
       source.sourceLinks.push(link);
