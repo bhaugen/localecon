@@ -962,16 +962,6 @@ def explore(request, cluster_id):
     return render_to_response("clusters/explore.html", 
         template_params,
         context_instance=RequestContext(request))
-    
-def graphify(cluster):
-    fns = list(cluster.functions.all())
-    rtypes = []
-    for fn in fns:
-        rtypes.extend([v.resource_type for v in fn.inputs()])
-        rtypes.extend([v.resource_type for v in fn.outputs()])
-    rtypes = list(set(rtypes))
-    fns.extend(rtypes)
-    return fns
 
 class SankeyLink(object):
      def __init__(self, source, target, value, label=None):

@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from clusters.utils import *
-
+from clusters.tarjan import strongly_connected_components
 
 class InputOutputCell(object):
     def __init__(self, producer, consumer, resource):
@@ -649,6 +649,17 @@ class Cluster(models.Model):
             except IndexError:
                 stack.pop(0)
         return [edges, order]
+    
+    def has_cycles(self):
+        gc = graphify(self)
+        for node in gc:
+            node.successors = node.to_nodes(self)
+        scc = strongly_connected_components(gc)
+        for sc in scc:
+            if len(sc) > 1:
+                return True
+                break
+        return False
     
     def value_added_rows(self, start, resource_filter=None):
         edges, order = self.flow_bfs(start, resource_filter)

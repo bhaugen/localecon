@@ -87,3 +87,13 @@ def parents_and_kids():
     for parent, child in pairlist:
         children.setdefault(parent, []).append(child)
     return children
+
+def graphify(cluster):
+    fns = list(cluster.functions.all())
+    rtypes = []
+    for fn in fns:
+        rtypes.extend([v.resource_type for v in fn.inputs()])
+        rtypes.extend([v.resource_type for v in fn.outputs()])
+    rtypes = list(set(rtypes))
+    fns.extend(rtypes)
+    return fns
