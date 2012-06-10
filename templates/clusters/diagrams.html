@@ -26,7 +26,12 @@
 		<p><a href="{% url network cluster_id=cluster.id %}">Network Diagram</a></p>
 		{% if cluster.has_function_resources %}
 			<p></p><a href="{% url radial_graph cluster_id=cluster.id %}">Radial Graph</a></p>
-			<p><a href="{% url sankey cluster_id=cluster.id %}">Sankey Diagram</a></p>
+			{% if cluster.has_cycles %}
+				<h4>This diagram does not currently work with clusters that have cycles:</h4>
+				<p>Sankey Diagram</p>
+			{% else %}
+				<p><a href="{% url sankey cluster_id=cluster.id %}">Sankey Diagram</a></p>
+			{% endif %}
 		{% else %}
 			<h4>These diagrams require functions with resource consumption and production:</h4>
 			<p>Radial Graph</a></p>
