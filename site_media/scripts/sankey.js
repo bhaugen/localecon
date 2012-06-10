@@ -83,13 +83,18 @@ d3.sankey = function() {
       node.sourceLinks = [];
       node.targetLinks = [];
     });
+    var visited = []
     links.forEach(function(link) {
       var source = link.source,
           target = link.target;
       if (typeof source === "number") source = link.source = nodes[link.source];
       if (typeof target === "number") target = link.target = nodes[link.target];
       source.sourceLinks.push(link);
-      target.targetLinks.push(link);
+      if (visited.indexOf(target)>-1)
+      {
+      	target.targetLinks.push(link);
+      	visited.push(target);
+      }
     });
   }
 
