@@ -111,8 +111,8 @@ d3.sankey = function() {
     var remainingNodes = nodes,
         nextNodes,
         x = 0;
-	visited = [];
-	dups = [];
+	var visited = [];
+	var dups = [];
     while (remainingNodes.length) {
       nextNodes = [];
       remainingNodes.forEach(function(node) {
@@ -123,6 +123,7 @@ d3.sankey = function() {
         	{
         		dups.push(link.target);
         	}
+        	visited.push(link.target);
           nextNodes.push(link.target);
         });
       });
