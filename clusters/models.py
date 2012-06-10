@@ -654,6 +654,7 @@ class Cluster(models.Model):
         gc = graphify(self)
         for node in gc:
             node.successors = node.to_nodes(self)
+        import pdb; pdb.set_trace()
         scc = strongly_connected_components(gc)
         for sc in scc:
             if len(sc) > 1:
