@@ -529,6 +529,26 @@ class Cluster(models.Model):
         else:
             return False
         
+    def fr_graph_nodes(self):
+        fns = list(self.functions.all())
+        rtypes = []
+        for fn in fns:
+            rtypes.extend([v.resource_type for v in fn.inputs()])
+            rtypes.extend([v.resource_type for v in fn.outputs()])
+            rtypes = list(set(rtypes))
+            fns.extend(rtypes)
+        return fns
+        
+    def flow_graph_nodes(self):
+        flows = self.function_flows()
+        nodes = []
+        for flow in flows:
+            nodes.append(flow.from_function)
+            nodes.append(flow.to_function)
+            nodes.append(flow.resource_type)
+        nodes = list(set(nodes))
+        return nodes
+        
     def regions(self):
         areas = {}
         agents = self.agents()
