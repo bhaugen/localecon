@@ -531,12 +531,12 @@ class Cluster(models.Model):
         
     def fr_graph_nodes(self):
         fns = list(self.functions.all())
-        rtypes = []
+        nodes = []
         for fn in fns:
             rtypes.extend([v.resource_type for v in fn.inputs()])
             rtypes.extend([v.resource_type for v in fn.outputs()])
-            rtypes = list(set(rtypes))
-            fns.extend(rtypes)
+        rtypes = list(set(rtypes))
+        fns.extend(rtypes)
         return fns
         
     def flow_graph_nodes(self):
