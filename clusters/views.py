@@ -1048,7 +1048,7 @@ def sankey_params(cluster, toggle):
                 for prev in edges:
                     if from_index == prev.source and resource_index == prev.target:
                         prev_match = prev
-                    if resource_index == prev.source and to_indes == prev.target:
+                    if resource_index == prev.source and to_index == prev.target:
                         prev_match = prev
             if prev_match:
                 prev_match.value += nbr
