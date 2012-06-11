@@ -531,7 +531,7 @@ class Cluster(models.Model):
         
     def fr_graph_nodes(self):
         fns = list(self.functions.all())
-        nodes = []
+        rtypes = []
         for fn in fns:
             rtypes.extend([v.resource_type for v in fn.inputs()])
             rtypes.extend([v.resource_type for v in fn.outputs()])
