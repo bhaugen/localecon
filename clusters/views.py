@@ -855,16 +855,25 @@ def flow_params(cluster, toggle):
         if prev_match:
             if toggle == "val":
                 value = flow.get_value()
-                label_nbr = "".join([symbol, split_thousands(value)])
+                if value:
+                    label_nbr = "".join([symbol, split_thousands(value)])
+                else:
+                    label_nbr = ""
                 edge.quantity += value
             elif toggle == "price":
                 edge.quantity += flow.price
-                label_nbr = "".join([
-                    symbol, 
-                    str(flow.price.quantize(Decimal(".01")))])
+                if flow.price:
+                    label_nbr = "".join([
+                        symbol, 
+                        str(flow.price.quantize(Decimal(".01")))])
+                else:
+                    label_nbr = ""
             else:
                 edge.quantity += flow.quantity
-                label_nbr = split_thousands(flow.quantity)
+                if flow.quantity:
+                    label_nbr = split_thousands(flow.quantity)
+                else:
+                    label_nbr = ""
             new_label = "".join([
                 flow.resource_type.name,
                 " ",
@@ -873,24 +882,33 @@ def flow_params(cluster, toggle):
         else:
             if toggle == "val":
                 nbr = flow.get_value()
-                label = "".join([
-                    flow.resource_type.name,
-                    " ",
-                    symbol,
-                    split_thousands(nbr)])
+                if nbr:     
+                    label = "".join([
+                        flow.resource_type.name,
+                        " ",
+                        symbol,
+                        split_thousands(nbr)])
+                else: 
+                    label = flow.resource_type.name
             elif toggle == "price":
                 nbr = flow.price
-                label = "".join([
-                    flow.resource_type.name,
-                    " ",
-                    symbol,
-                    str(nbr.quantize(Decimal(".01")))])
+                if nbr:
+                    label = "".join([
+                        flow.resource_type.name,
+                        " ",
+                        symbol,
+                        str(nbr.quantize(Decimal(".01")))])
+                else: 
+                    label = flow.resource_type.name
             else:
                 nbr = flow.quantity
-                label = "".join([
-                    flow.resource_type.name,
-                    " ",
-                    split_thousands(nbr)])
+                if nbr:
+                    label = "".join([
+                        flow.resource_type.name,
+                        " ",
+                        split_thousands(nbr)])
+                else: 
+                    label = flow.resource_type.name
             edge = FlowEdge(flow.from_function, flow.to_function, label, nbr)
             edges.append(edge)
         prev = flow                  
