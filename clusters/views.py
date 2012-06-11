@@ -991,7 +991,6 @@ class SankeyLink(object):
     
 def sankey_params(cluster, toggle):
     template_params = {}
-    link_nodes = graphify(cluster)
     frts = FunctionResourceType.objects.filter(
         function__cluster=cluster)
     symbol = "$"
@@ -1003,6 +1002,7 @@ def sankey_params(cluster, toggle):
     edges = []
     rtypes = []
     if frts:
+        link_nodes = cluster.fr_graph_nodes()
         nodes = list(cluster.functions.all())
         for fn in nodes:
             for v in fn.inputs():
@@ -1028,6 +1028,7 @@ def sankey_params(cluster, toggle):
                 from_node = link_nodes.index(fn)
                 edges.append(SankeyLink(from_node, to_node, qty))
     else:
+        link_nodes = cluster.flow_graph_nodes()
         flows = FunctionResourceFlow.objects.filter(
             from_function__cluster=cluster)
         nodes = []
@@ -1037,19 +1038,37 @@ def sankey_params(cluster, toggle):
             if toggle == "val":
                 value = flow.get_value()
                 total += value
-                val_string = "".join([symbol, split_thousands(value)])
-                edges.append(Edge(flow.from_function, flow.resource_type, value, val_string))
-                edges.append(Edge(flow.resource_type, flow.to_function, value, val_string))
+                #val_string = "".join([symbol, split_thousands(value)])
+                edges.append(SankeyLink(
+                    link_nodes.index(flow.from_function),
+                    link_nodes.index(flow.resource_type), 
+                    value,))
+                edges.append(SankeyLink(
+                    link_nodes.index(flow.resource_type), 
+                    link_nodes.index(flow.to_function), 
+                    value,))
             elif toggle == "price":
                 total += v.price
-                p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
-                edges.append(Edge(flow.from_function, flow.resource_type, v.price, p_string))
-                edges.append(Edge(flow.resource_type, flow.to_function, v.price, p_string))
+                #p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
+                edges.append(SankeyLink(
+                    link_nodes.index(flow.from_function), 
+                    link_nodes.index(flow.resource_type), 
+                    v.price,))
+                edges.append(SankeyLink(
+                    link_nodes.index(flow.resource_type), 
+                    link_nodes.index(flow.to_function), 
+                    v.price,))
             else:
                 total += flow.quantity
-                qty_string = split_thousands(flow.quantity)
-                edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity, qty_string))
-                edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity, qty_string))
+                #qty_string = split_thousands(flow.quantity)
+                edges.append(SankeyLink(
+                    link_nodes.index(flow.from_function), 
+                    link_nodes.index(flow.resource_type), 
+                    flow.quantity,))
+                edges.append(SankeyLink(
+                    link_nodes.index(flow.resource_type), 
+                    link_nodes.index(flow.to_function), 
+                    flow.quantity,))
         nodes = list(set(nodes))
             
     template_params =  {
