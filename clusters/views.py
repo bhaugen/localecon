@@ -1028,46 +1028,33 @@ def sankey_params(cluster, toggle):
                 from_node = link_nodes.index(fn)
                 edges.append(SankeyLink(from_node, to_node, qty))
     else:
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         link_nodes = cluster.flow_graph_nodes()
         flows = FunctionResourceFlow.objects.filter(
             from_function__cluster=cluster)
-        #nodes = []
         edges = []
         for flow in flows:
-            #nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
             if toggle == "val":
-                value = flow.get_value()
-                #val_string = "".join([symbol, split_thousands(value)])
-                edges.append(SankeyLink(
-                    link_nodes.index(flow.from_function),
-                    link_nodes.index(flow.resource_type), 
-                    value,))
-                edges.append(SankeyLink(
-                    link_nodes.index(flow.resource_type), 
-                    link_nodes.index(flow.to_function), 
-                    value,))
+                nbr = flow.get_value()
             elif toggle == "price":
-                #p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
-                edges.append(SankeyLink(
-                    link_nodes.index(flow.from_function), 
-                    link_nodes.index(flow.resource_type), 
-                    v.price,))
-                edges.append(SankeyLink(
-                    link_nodes.index(flow.resource_type), 
-                    link_nodes.index(flow.to_function), 
-                    v.price,))
+                nbr = flow.price
             else:
-                #qty_string = split_thousands(flow.quantity)
-                edges.append(SankeyLink(
-                    link_nodes.index(flow.from_function), 
-                    link_nodes.index(flow.resource_type), 
-                    flow.quantity,))
-                edges.append(SankeyLink(
-                    link_nodes.index(flow.resource_type), 
-                    link_nodes.index(flow.to_function), 
-                    flow.quantity,))
-        #nodes = list(set(nodes))
+                nbr = flow.quantity
+            prev_match = None
+            from_index = link_nodes.index(flow.from_function)
+            to_index = link_nodes.index(flow.to_function)
+            resource_index = link_nodes.index(flow.resource_type)
+            if edges:
+                for prev in edges:
+                    if from_index == prev.source and resource_index == prev.target:
+                        prev_match = prev
+                    if resource_index == prev.source and to_indes == prev.target:
+                        prev_match = prev
+            if prev_match:
+                prev_match.value += nbr
+            else:
+                edges.append(SankeyLink(from_index, resource_index, nbr))
+                edges.append(SankeyLink(resource_index, to_index, nbr))
             
     template_params =  {
         'cluster': cluster,
