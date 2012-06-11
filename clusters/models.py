@@ -510,6 +510,14 @@ class Cluster(models.Model):
         else:
             return False
         
+    def function_flows(self):
+        return FunctionResourceFlow.objects.filter(
+            from_function__cluster=self)
+        
+    def agent_flows(self):
+        return AgentResourceFlow.objects.filter(
+            from_function__function__cluster=self)
+        
     def has_function_resources(self):
         frts = FunctionResourceType.objects.filter(
             function__cluster=self)
