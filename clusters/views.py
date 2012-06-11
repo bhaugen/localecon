@@ -1028,13 +1028,14 @@ def sankey_params(cluster, toggle):
                 from_node = link_nodes.index(fn)
                 edges.append(SankeyLink(from_node, to_node, qty))
     else:
+        import pdb; pdb.set_trace()
         link_nodes = cluster.flow_graph_nodes()
         flows = FunctionResourceFlow.objects.filter(
             from_function__cluster=cluster)
-        nodes = []
+        #nodes = []
         edges = []
         for flow in flows:
-            nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
+            #nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
             if toggle == "val":
                 value = flow.get_value()
                 #val_string = "".join([symbol, split_thousands(value)])
@@ -1066,7 +1067,7 @@ def sankey_params(cluster, toggle):
                     link_nodes.index(flow.resource_type), 
                     link_nodes.index(flow.to_function), 
                     flow.quantity,))
-        nodes = list(set(nodes))
+        #nodes = list(set(nodes))
             
     template_params =  {
         'cluster': cluster,
