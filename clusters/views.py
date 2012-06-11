@@ -1013,8 +1013,10 @@ def sankey_params(cluster, toggle):
                     qty = v.price
                 else:
                     qty = v.quantity
-                from_node = link_nodes.index(v.resource_type)
-                to_node = link_nodes.index(fn)
+                #from_node = link_nodes.index(v.resource_type)
+                #to_node = link_nodes.index(fn)
+                from_node = v.resource_type
+                to_node = fn
                 edges.append(SankeyLink(from_node, to_node, qty))
             for v in fn.outputs():
                 rtypes.append(v.resource_type)
@@ -1024,8 +1026,10 @@ def sankey_params(cluster, toggle):
                     qty = v.price
                 else:
                     qty = v.quantity
-                to_node = link_nodes.index(v.resource_type)
-                from_node = link_nodes.index(fn)
+                #to_node = link_nodes.index(v.resource_type)
+                #from_node = link_nodes.index(fn)
+                to_node = v.resource_type
+                from_node = fn
                 edges.append(SankeyLink(from_node, to_node, qty))
     else:
         flows = FunctionResourceFlow.objects.filter(
