@@ -1037,7 +1037,6 @@ def sankey_params(cluster, toggle):
             nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
             if toggle == "val":
                 value = flow.get_value()
-                total += value
                 #val_string = "".join([symbol, split_thousands(value)])
                 edges.append(SankeyLink(
                     link_nodes.index(flow.from_function),
@@ -1048,7 +1047,6 @@ def sankey_params(cluster, toggle):
                     link_nodes.index(flow.to_function), 
                     value,))
             elif toggle == "price":
-                total += v.price
                 #p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
                 edges.append(SankeyLink(
                     link_nodes.index(flow.from_function), 
@@ -1059,7 +1057,6 @@ def sankey_params(cluster, toggle):
                     link_nodes.index(flow.to_function), 
                     v.price,))
             else:
-                total += flow.quantity
                 #qty_string = split_thousands(flow.quantity)
                 edges.append(SankeyLink(
                     link_nodes.index(flow.from_function), 
