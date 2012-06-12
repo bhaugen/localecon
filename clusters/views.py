@@ -1048,10 +1048,16 @@ def sankey_params(cluster, toggle):
                 for prev in edges:
                     if from_index == prev.source and resource_index == prev.target:
                         prev_match = prev
+                        prev_match.value += nbr
+                    else:
+                        edges.append(SankeyLink(from_index, resource_index, nbr))
                     if resource_index == prev.source and to_index == prev.target:
                         prev_match = prev
+                        prev_match.value += nbr
+                    else:
+                        edges.append(SankeyLink(resource_index, to_index, nbr))                        
             if prev_match:
-                prev_match.value += nbr
+                continue
             else:
                 edges.append(SankeyLink(from_index, resource_index, nbr))
                 edges.append(SankeyLink(resource_index, to_index, nbr))
