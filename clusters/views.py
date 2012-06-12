@@ -1055,7 +1055,9 @@ def sankey_params(cluster, toggle):
                         prev_match = prev
                         prev_match.value += nbr
                     else:
-                        edges.append(SankeyLink(resource_index, to_index, nbr))                        
+                        edges.append(SankeyLink(resource_index, to_index, nbr))
+                    if prev_match:
+                        break                      
             if prev_match:
                 continue
             else:
