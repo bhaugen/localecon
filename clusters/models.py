@@ -687,7 +687,7 @@ class Cluster(models.Model):
             for node in gc:
                 graph[node] = node.to_nodes(self)
         else:
-            flows = cluster.function_flows()
+            flows = self.function_flows()
             for flow in flows:
                 if not flow.from_function in graph:
                     graph[flow.from_function] = []
