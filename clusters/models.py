@@ -679,10 +679,23 @@ class Cluster(models.Model):
         return [edges, order]
     
     def has_cycles(self):
-        gc = graphify(self)
+        frts = FunctionResourceType.objects.filter(
+            function__cluster=self)
         graph = {}
-        for node in gc:
-            graph[node] = node.to_nodes(self)
+        if frts:
+            gc = self.fr_graph_nodes()
+            for node in gc:
+                graph[node] = node.to_nodes(self)
+        else:
+            flows = cluster.function_flows()
+            for flow in flows:
+                if not flow.from_function in graph:
+                    graph[flow.from_function] = []
+                graph[flow.from_function].append(flow.resource_type)
+                if not flow.resource_type in graph:
+                    graph[flow.resource_type] = []
+                graph[flow.resource_type].append(flow.to_function)
+
         #import pdb; pdb.set_trace()
         scc = strongly_connected_components(graph)
         for sc in scc:
