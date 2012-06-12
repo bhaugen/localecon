@@ -1040,28 +1040,26 @@ def sankey_params(cluster, toggle):
                 nbr = flow.price
             else:
                 nbr = flow.quantity
-            prev_match = None
             from_index = link_nodes.index(flow.from_function)
             to_index = link_nodes.index(flow.to_function)
             resource_index = link_nodes.index(flow.resource_type)
             if edges:
+                prev_match_from = None
+                prev_match_to = None
                 for prev in edges:
-                    if from_index == prev.source and resource_index == prev.target:
-                        prev_match = prev
-                        prev_match.value += nbr
-                    else:
-                        edges.append(SankeyLink(from_index, resource_index, nbr))
-                    if resource_index == prev.source and to_index == prev.target:
-                        prev_match = prev
-                        prev_match.value += nbr
-                    else:
-                        edges.append(SankeyLink(resource_index, to_index, nbr))
-                    if prev_match:
+                    if not prev_match_from:
+                        if from_index == prev.source and resource_index == prev.target:
+                            prev_match_from = prev
+                            prev.value += nbr
+                    if not prev_match_to:
+                        if resource_index == prev.source and to_index == prev.target:
+                            prev_match_to = prev
+                            prev.value += nbr
+                    if prev_match_from and prev_match_to:
                         break                      
-            if prev_match:
-                continue
-            else:
+            if not prev_match_from:
                 edges.append(SankeyLink(from_index, resource_index, nbr))
+            if not prev_match_to:
                 edges.append(SankeyLink(resource_index, to_index, nbr))
             
     template_params =  {
