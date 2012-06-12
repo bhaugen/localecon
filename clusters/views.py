@@ -1043,9 +1043,9 @@ def sankey_params(cluster, toggle):
             from_index = link_nodes.index(flow.from_function)
             to_index = link_nodes.index(flow.to_function)
             resource_index = link_nodes.index(flow.resource_type)
+            prev_match_from = None
+            prev_match_to = None
             if edges:
-                prev_match_from = None
-                prev_match_to = None
                 for prev in edges:
                     if not prev_match_from:
                         if from_index == prev.source and resource_index == prev.target:
