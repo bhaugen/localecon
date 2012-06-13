@@ -115,7 +115,7 @@ var infoWin = new google.maps.InfoWindow({});
 				'</div>'+
 				'<h2 id="firstHeading" class="firstHeading">{{ agent.name }}</h2>'+
 				'<div id="bodyContent">'+
-				<p>{{ agent.description|linebreaks }}</p>
+				'<p>{{ agent.description|linebreaks }}</p>'+
 				{% for af in agent.all_functions %}
 					{% if af.produced_function_resources %}
 					'<h4 style="margin: 0;">{{ af.function.name }} Production:</h4>'+
