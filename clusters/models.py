@@ -1012,6 +1012,7 @@ class FunctionResourceFlow(models.Model):
     
 class EconomicAgent(models.Model):
     name = models.CharField(max_length=128)
+    description = models.TextField( blank=True, null=True)
     address = models.CharField(max_length=255, blank=True)
     latitude = models.FloatField(default=0.0, blank=True, null=True)
     longitude = models.FloatField(default=0.0, blank=True, null=True)
