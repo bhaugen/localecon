@@ -115,7 +115,7 @@ var infoWin = new google.maps.InfoWindow({});
 				'</div>'+
 				'<h2 id="firstHeading" class="firstHeading">{{ agent.name }}</h2>'+
 				'<div id="bodyContent">'+
-				{% if agent.description }}
+				{% if agent.description }
 				'<p>{{ agent.description|linebreaks }}</p>'+
 				{% endif %}
 				{% for af in agent.all_functions %}
