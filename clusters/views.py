@@ -1061,6 +1061,9 @@ def sankey_params(cluster, toggle):
                 edges.append(SankeyLink(from_index, resource_index, nbr))
             if not prev_match_to:
                 edges.append(SankeyLink(resource_index, to_index, nbr))
+    for edge in edges:
+        if not edge.value:
+            edge.value = 1
             
     template_params =  {
         'cluster': cluster,
