@@ -1033,11 +1033,11 @@ def sankey_params_old(cluster, toggle):
         #flows = FunctionResourceFlow.objects.filter(
         #    from_function__cluster=cluster)
         edges = []
-        nodes = []
+        link_nodes = []
         tops = cluster.toposort_flows()
         for top in tops:
             if not top in nodes:
-                nodes.append(top)
+                link_nodes.append(top)
                 for flow in top.outgoing_flows.all():
                     if toggle == "val":
                         nbr = flow.get_value()
@@ -1046,21 +1046,22 @@ def sankey_params_old(cluster, toggle):
                     else:
                         nbr = flow.quantity
                     rtype = ";".join([flow.from_function.name,flow.resource_type.name])
-                    if not rtype in nodes:
-                        nodes.append(rtype)
+                    if not rtype in link_nodes:
+                        link_nodes.append(rtype)
                     edges.append(SankeyLink(
-                        nodes.index(flow.from_function), 
-                        nodes.index(rtype), 
+                        link_nodes.index(flow.from_function), 
+                        link_nodes.index(rtype), 
                         nbr))
-                    if not flow.to_function in nodes:
-                        nodes.append(flow.to_function)
+                    if not flow.to_function in link_nodes:
+                        link_nodes.append(flow.to_function)
                     edges.append(SankeyLink(
-                        nodes.index(rtype), 
-                        nodes.index(flow.to_function),
+                        link_nodes.index(rtype), 
+                        link_nodes.index(flow.to_function),
                         nbr))
-        for node in nodes:
+        for i in range(0, len(nodes)):
             try:
-                nodes2.append(node.split(";")[1])
+                node = nodes[i]
+                node[i] = node.split(";")[1]
             except AttributeError:
                 continue
     for edge in edges:  
