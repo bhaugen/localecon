@@ -1036,7 +1036,7 @@ def sankey_params_old(cluster, toggle):
         link_nodes = []
         tops = cluster.toposort_flows()
         for top in tops:
-            if not top in nodes:
+            if not top in link_nodes:
                 link_nodes.append(top)
                 for flow in top.outgoing_flows.all():
                     if toggle == "val":
@@ -1058,10 +1058,10 @@ def sankey_params_old(cluster, toggle):
                         link_nodes.index(rtype), 
                         link_nodes.index(flow.to_function),
                         nbr))
-        for i in range(0, len(nodes)):
+        for i in range(0, len(link_nodes)):
             try:
-                node = nodes[i]
-                node[i] = node.split(";")[1]
+                node = link_nodes[i]
+                link_nodes[i] = node.split(";")[1]
             except AttributeError:
                 continue
     for edge in edges:  
