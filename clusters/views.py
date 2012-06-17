@@ -1034,7 +1034,7 @@ def sankey_params(cluster, toggle):
                 from_node = link_nodes.index(fn)
                 edges.append(SankeyLink(from_node, to_node, qty))
     else:
-        #import pdb; pdb.set_trace()
+        import pdb; pdb.set_trace()
         edges = []
         link_nodes = []
         tops = cluster.toposort_flows()
