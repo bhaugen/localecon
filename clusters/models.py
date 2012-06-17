@@ -690,7 +690,7 @@ class Cluster(models.Model):
         for u in G:
             u.preds = [flow.from_function for flow in u.incoming_flows.all()]
             u.next = [flow.to_function for flow in u.outgoing_flows.all()]
-        Q = [fun for fun in functions if not fun.incoming_flows.all()]
+        Q = [u for u in G if not u.preds]
         return toposort(G, Q)
     
     def toposort_frs(self):
