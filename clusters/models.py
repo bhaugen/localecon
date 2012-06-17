@@ -714,10 +714,11 @@ class Cluster(models.Model):
             for flow in flows:
                 if not flow.from_function in graph:
                     graph[flow.from_function] = []
-                graph[flow.from_function].append(flow.resource_type)
-                if not flow.resource_type in graph:
-                    graph[flow.resource_type] = []
-                graph[flow.resource_type].append(flow.to_function)
+                rtype = ";".join([flow.from_function.name,flow.resource_type.name])
+                graph[flow.from_function].append(rtype)
+                if not rtype in graph:
+                    graph[rtype] = []
+                graph[rtype].append(flow.to_function)
 
         #import pdb; pdb.set_trace()
         scc = strongly_connected_components(graph)
