@@ -989,6 +989,91 @@ class SankeyLink(object):
          self.label = label
 
     
+def sankey_params_old(cluster, toggle):
+    template_params = {}
+    frts = FunctionResourceType.objects.filter(
+        function__cluster=cluster)
+    symbol = "$"
+    if toggle == "val" or toggle == "price":
+        try:
+            symbol = cluster.community.unit_of_value.symbol
+        except:
+            pass
+    edges = []
+    rtypes = []
+    if frts:
+        link_nodes = cluster.fr_graph_nodes()
+        nodes = list(cluster.functions.all())
+        for fn in nodes:
+            for v in fn.inputs():
+                rtypes.append(v.resource_type)
+                if toggle == "val":
+                    qty = v.get_value()
+                elif toggle == "price":
+                    qty = v.price
+                else:
+                    qty = v.quantity
+                from_node = link_nodes.index(v.resource_type)
+                to_node = link_nodes.index(fn)
+                edges.append(SankeyLink(from_node, to_node, qty))
+            for v in fn.outputs():
+                rtypes.append(v.resource_type)
+                if toggle == "val":
+                    qty = v.get_value()
+                elif toggle == "price":
+                    qty = v.price
+                else:
+                    qty = v.quantity
+                to_node = link_nodes.index(v.resource_type)
+                from_node = link_nodes.index(fn)
+                edges.append(SankeyLink(from_node, to_node, qty))
+    else:
+        #import pdb; pdb.set_trace()
+        #link_nodes = cluster.flow_graph_nodes()
+        #flows = FunctionResourceFlow.objects.filter(
+        #    from_function__cluster=cluster)
+        edges = []
+        nodes = []
+        tops = cluster.toposort_flows()
+        for top in tops:
+            if not top in nodes:
+                nodes.append(top)
+                for flow in top.outgoing_flows.all():
+                    if toggle == "val":
+                        nbr = flow.get_value()
+                    elif toggle == "price":
+                        nbr = flow.price
+                    else:
+                        nbr = flow.quantity
+                    rtype = ";".join([flow.from_function.name,flow.resource_type.name])
+                    if not rtype in nodes:
+                        nodes.append(rtype)
+                    edges.append(SankeyLink(
+                        nodes.index(flow.from_function), 
+                        nodes.index(rtype), 
+                        nbr))
+                    if not flow.to_function in nodes:
+                        nodes.append(flow.to_function)
+                    edges.append(SankeyLink(
+                        nodes.index(rtype), 
+                        nodes.index(flow.to_function),
+                        nbr))
+        for node in nodes:
+            try:
+                nodes2.append(node.split(";")[1])
+            except AttributeError:
+                continue
+    for edge in edges:  
+        if not edge.value:
+            edge.value = 1
+            
+    template_params =  {
+        'cluster': cluster,
+        'net_nodes': link_nodes,
+        'net_links': edges,
+    }
+    return template_params
+
 def sankey_params(cluster, toggle):
     template_params = {}
     frts = FunctionResourceType.objects.filter(

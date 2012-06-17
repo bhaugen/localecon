@@ -30,13 +30,15 @@
 			<h4>This diagrams requires functions with resource consumption and production:</h4>
 			<p>Radial Graph</a></p>
 		{% endif %}
+		{% comment %}
 		{% if cluster.has_cycles %}
 			<h4>This diagram does not currently work with clusters that have cycles:</h4>
 			<p>Sankey Diagram</p>
 		{% else %}
 			<p><a href="{% url sankey cluster_id=cluster.id %}">Sankey Diagram</a></p>
 		{% endif %}
-		
+		{% endcomment %}
+		<p><a href="{% url sankey cluster_id=cluster.id %}">Sankey Diagram</a></p>
 		{% if cluster.has_flows %}
 			<p><a href="{% url flows cluster_id=cluster.id %}">Flow Diagram</a></p>
 		{% else %}
