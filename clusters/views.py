@@ -987,6 +987,12 @@ class SankeyLink(object):
          self.target = target
          self.value = value
          self.label = label
+         
+
+class ResourceAtStage(object):
+    def __init__(self, long_name):
+        self.long_name = long_name
+        self.name = long_name.split(";")[1]
 
 
 def sankey_params(cluster, toggle):
@@ -1042,7 +1048,7 @@ def sankey_params(cluster, toggle):
                         nbr = flow.price
                     else:
                         nbr = flow.quantity
-                    rtype = ";".join([flow.from_function.name,flow.resource_type.name])
+                    rtype = ResourceAtStage(";".join([flow.from_function.name,flow.resource_type.name]))
                     if not rtype in link_nodes:
                         link_nodes.append(rtype)
                     edges.append(SankeyLink(
@@ -1055,12 +1061,6 @@ def sankey_params(cluster, toggle):
                         link_nodes.index(rtype), 
                         link_nodes.index(flow.to_function),
                         nbr))
-        for i in range(0, len(link_nodes)):
-            try:
-                node = link_nodes[i]
-                link_nodes[i] = node.split(";")[1]
-            except AttributeError:
-                continue
     for edge in edges:  
         if not edge.value:
             edge.value = 1
