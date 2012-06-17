@@ -1041,26 +1041,26 @@ def sankey_params(cluster, toggle):
         for top in tops:
             if not top in link_nodes:
                 link_nodes.append(top)
-                for flow in top.outgoing_flows.all():
-                    if toggle == "val":
-                        nbr = flow.get_value()
-                    elif toggle == "price":
-                        nbr = flow.price
-                    else:
-                        nbr = flow.quantity
-                    rtype = ResourceAtStage(";".join([flow.from_function.name,flow.resource_type.name]))
-                    if not rtype in link_nodes:
-                        link_nodes.append(rtype)
-                    edges.append(SankeyLink(
-                        link_nodes.index(flow.from_function), 
-                        link_nodes.index(rtype), 
-                        nbr))
-                    if not flow.to_function in link_nodes:
-                        link_nodes.append(flow.to_function)
-                    edges.append(SankeyLink(
-                        link_nodes.index(rtype), 
-                        link_nodes.index(flow.to_function),
-                        nbr))
+            for flow in top.outgoing_flows.all():
+                if toggle == "val":
+                    nbr = flow.get_value()
+                elif toggle == "price":
+                    nbr = flow.price
+                else:
+                    nbr = flow.quantity
+                rtype = ResourceAtStage(";".join([flow.from_function.name,flow.resource_type.name]))
+                if not rtype in link_nodes:
+                    link_nodes.append(rtype)
+                edges.append(SankeyLink(
+                    link_nodes.index(flow.from_function), 
+                    link_nodes.index(rtype), 
+                    nbr))
+                if not flow.to_function in link_nodes:
+                    link_nodes.append(flow.to_function)
+                edges.append(SankeyLink(
+                    link_nodes.index(rtype), 
+                    link_nodes.index(flow.to_function),
+                    nbr))
     for edge in edges:  
         if not edge.value:
             edge.value = 1
