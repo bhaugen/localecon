@@ -691,7 +691,7 @@ class Cluster(models.Model):
             u.preds = [flow.from_function for flow in u.incoming_flows.all()]
             u.next = [flow.to_function for flow in u.outgoing_flows.all()]
         Q = [fun for fun in functions if not fun.incoming_flows.all()]
-        return toposort(Q)
+        return toposort(G, Q)
     
     def toposort_frs(self):
         G = graphify(self)
@@ -699,7 +699,7 @@ class Cluster(models.Model):
             u.preds = u.from_nodes(cluster)
             u.next = u.to_nodes(cluster)
         Q = [u for u in G if not u.preds]
-        return toposort(Q)
+        return toposort(G, Q)
     
     def has_cycles(self):
         frts = FunctionResourceType.objects.filter(

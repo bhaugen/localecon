@@ -98,14 +98,14 @@ def graphify(cluster):
     fns.extend(rtypes)
     return fns
 
-def toposort(Q):
+def toposort(graph, queue):
     S = []
-    while Q:
-        u = Q.pop()
+    while queue:
+        u = queue.pop()
         S.append(u)
         for v in u.next:
-            n = G[G.index(v)]
+            n = graph[graph.index(v)]
             n.preds.remove(u)
             if not n.preds:
-                Q.append(n)
+                queue.append(n)
     return S
