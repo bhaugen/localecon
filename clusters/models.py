@@ -678,6 +678,29 @@ class Cluster(models.Model):
                 stack.pop(0)
         return [edges, order]
     
+    def flows(self):
+        return FunctionResourceFlow.objects.filter(
+                from_function__cluster=self)
+        
+    def toposort_flows(self):
+        flows = self.flows()
+        functions = [flow.from_function for flow in flows]
+        functions.extend([flow.to_function for flow in flows])
+        G = list(set(functions))
+        for u in G:
+            u.preds = [flow.from_function for flow in u.incoming_flows.all()]
+            u.next = [flow.to_function for flow in u.outgoing_flows.all()]
+        Q = [fun for fun in functions if not fun.incoming_flows.all()]
+        return toposort(Q)
+    
+    def toposort_frs(self):
+        G = graphify(self)
+        for u in G:
+            u.preds = u.from_nodes(cluster)
+            u.next = u.to_nodes(cluster)
+        Q = [u for u in G if not u.preds]
+        return toposort(Q)
+    
     def has_cycles(self):
         frts = FunctionResourceType.objects.filter(
             function__cluster=self)

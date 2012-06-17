@@ -97,3 +97,15 @@ def graphify(cluster):
     rtypes = list(set(rtypes))
     fns.extend(rtypes)
     return fns
+
+def toposort(Q):
+    S = []
+    while Q:
+        u = Q.pop()
+        S.append(u)
+        for v in u.next:
+            n = G[G.index(v)]
+            n.preds.remove(u)
+            if not n.preds:
+                Q.append(n)
+    return S
