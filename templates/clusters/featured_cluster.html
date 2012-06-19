@@ -34,7 +34,7 @@ a {
 
 #container {
     width: 400px;
-    height: 500px;
+    height: 550px;
     margin:0 auto;
     position:relative;
 }
@@ -104,13 +104,13 @@ a {
 #infovis {
     position:relative;
     width:400px;
-    height:500px;
+    height:550px;
     margin:auto;
     overflow:hidden;
 }
 
 #chart {
-  height: 500px;
+  height: 550px;
 }
 
 .node rect {
@@ -194,9 +194,9 @@ var Log = {
 <div style="clear: both;" ></div>
 
 <script>
-	var margin = {top: 0, right: 0, bottom: 0, left: 0},
+	var margin = {top: 0, right: 0, bottom: 1, left: 0},
     width = 600 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 550 - margin.top - margin.bottom;
 </script>
 
 {% include "clusters/_sankey.html" %}
