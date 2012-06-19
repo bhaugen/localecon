@@ -193,6 +193,12 @@ var Log = {
 </div>
 <div style="clear: both;" ></div>
 
+<script>
+	var margin = {top: 1, right: 1, bottom: 6, left: 1},
+    width = 600 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
+</script>
+
 {% include "clusters/_sankey.html" %}
 
 {% endblock %} 
