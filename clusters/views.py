@@ -398,7 +398,8 @@ def featured_cluster(request):
     template_params = {}
     if cluster:
         template_params = cluster_params(cluster)
-    
+        toggle = "qty"
+        template_params.update(sankey_params(cluster, toggle))
     return render_to_response("clusters/featured_cluster.html", 
         template_params,
         context_instance=RequestContext(request))

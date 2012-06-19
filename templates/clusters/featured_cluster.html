@@ -160,12 +160,14 @@ var Log = {
 </p>
 <h3>Featured Cluster: {{ cluster }}</h3>
 	
-<div style=float:left; width: 48%;" >
-	<img src="/site_media/images/network.png" width="500px" height="450px" />
+<div id="chart" style="float:left; width: 60%;" >
 </div>
-<div style=float:left; width: 50%;>
+
+<div style=float:left; width: 30%;>
 {% include "clusters/_cluster.html" %}
 </div>
 <div style="clear: both;" ></div>
+
+{% include "clusters/_sankey.html" %}
 
 {% endblock %} 
