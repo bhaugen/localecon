@@ -74,7 +74,7 @@ var sankey = d3.sankey()
 
 var path = sankey.link();
 	
-energy =
+network =
 {
 	"nodes":
 	[
@@ -96,12 +96,12 @@ energy =
 
 
   sankey
-      .nodes(energy.nodes)
-      .links(energy.links)
+      .nodes(network.nodes)
+      .links(network.links)
       .layout(32);
 
   var link = svg.append("g").selectAll(".link")
-      .data(energy.links)
+      .data(network.links)
     .enter().append("path")
       .attr("class", "link")
       .attr("d", path)
@@ -112,7 +112,7 @@ energy =
       .text(function(d) { return d.source.name + " → " + d.target.name + "\n" + format(d.value); });
 
   var node = svg.append("g").selectAll(".node")
-      .data(energy.nodes)
+      .data(network.nodes)
     .enter().append("g")
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
