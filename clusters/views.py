@@ -1037,15 +1037,14 @@ def sankey_params(cluster, toggle):
         #import pdb; pdb.set_trace()
         edges = []
         link_nodes = []
-        #tops = cluster.toposort_flows()
         flows = cluster.flows()
         functions = [flow.from_function for flow in flows]
         functions.extend([flow.to_function for flow in flows])
-        tops = list(set(functions))
-        for top in tops:
-            if not top in link_nodes:
-                link_nodes.append(top)
-            for flow in top.outgoing_flows.all():
+        fns = list(set(functions))
+        for fn in fns:
+            if not fn in link_nodes:
+                link_nodes.append(fn)
+            for flow in fn.outgoing_flows.all():
                 if toggle == "val":
                     nbr = flow.get_value()
                 elif toggle == "price":
