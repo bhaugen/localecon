@@ -220,7 +220,7 @@ var Log = {
 
 </script>
 
-<div id="rightLinks" style="float: right; width: 10%;">
+<div id="rightLinks" style="float: right; width: 130px;">
 	{% if user.is_authenticated %}
 		{{ user }} <a class="regularLink" href="{% url acct_logout %}">Logout</a><br />
 		<a class="regularLink" href="/help/">Help</a><br />
@@ -236,7 +236,7 @@ var Log = {
 	{% endif %}
 </div>
 
-<div id="header" style: "float: left; width: 90%; margin-bottom: 0;" >
+<div id="header" style: "float: left; margin-bottom: 0;" >
 	<h2><span class="loceconLetters">Loc</span><span class="otherLetters">al </span><span class="loceconLetters">Econ</span><span class="otherLetters">omic Development</span></h2>
 	<h3 id="firstSubtitle">Communities, Clusters, Networks and Resources</h3>
 	<h3 id="secondSubtitle"><span id="arrow">&#8627;</span> Resource Maps, Network Flows, Gaps, Opportunities</h3>
