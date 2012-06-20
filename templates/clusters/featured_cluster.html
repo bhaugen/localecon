@@ -134,6 +134,64 @@ a {
   stroke-opacity: .5;
 }
 
+#header {
+	text-align: left;
+	margin: 0;
+	padding: 0;
+}
+#header h2 {
+	font-size: 3em;
+	margin: 0;
+	padding: 0;
+}
+#header h3 {
+	font-size: 1.5em;
+	margin: 0;
+	padding: 0;
+}
+.loceconLetters {
+	color: black;
+}
+.otherLetters {
+	color: #858585;
+}
+#firstSubtitle {
+	color: #660099;
+}
+#arrow {
+	color: #660099;
+	font-size: 120%;
+}
+#secondSubtitle {
+	color: #cc0000;
+	margin-bottom: .2em;
+}
+#rightLinks {
+	margin: 2px 70px 0 0;
+}
+#rightLinks ul {
+	list-style-type: none;
+	padding:0;
+}
+#rightLinks a:link,a:visited {
+	display:block;
+	font-weight:bold;
+	color:#FFFFFF;
+	text-align: left;
+	padding:4px 10px 4px 10px;
+	border-bottom: solid 2px #F2F2F2;
+	text-decoration:none;
+}
+#rightLinks a:hover,a:active {
+	background-color: black;
+}
+.hiliteLink { 
+	background-color: #e62e00;
+}
+.regularLink { 
+	background-color: #858585;
+}
+	
 </style>
 	
 	
@@ -159,30 +217,29 @@ var Log = {
 
 <div style="float: right; width: 10%;">
 	{% if user.is_authenticated %}
-		{{ user }} <a href="{% url acct_logout %}">Logout</a><br />
-		<a href="/help/">Help</a><br />
+		{{ user }} <a class="regularLink" href="{% url acct_logout %}">Logout</a><br />
+		<a class="regularLink" href="/help/">Help</a><br />
 		{% if user.is_staff %}
-			<a href="/admin">Admin</a><br />
+			<a class="regularLink" href="/admin">Admin</a><br />
 		{% endif %}
-		<a href="/about/">About</a><br />
-		<a href="{% url clusters %}">All Clusters</a>
+		<a class="regularLink" href="/about/">About</a><br />
+		<a class="hiliteLink" href="{% url clusters %}">View All Clusters</a>
 	{% else %}
-		<a href="{% url acct_login %}">Log in</a><br />
-		<a href="/about/">About</a><br />
-		<a href="{% url clusters %}">All Clusters</a>
+		<a class="regularLink" href="{% url acct_login %}">Log in</a><br />
+		<a class="regularLink" href="/about/">About</a><br />
+		<a class="hiliteLink" href="{% url clusters %}">View All Clusters</a>
 	{% endif %}
 </div>
 
 <div style: "float: left; width: 90%; margin-bottom: 0;" >
-	<h2>Local Economic Development</h2>
-	<h3>Communities, Clusters, Networks and Resources: Resource Maps, Network Flows, Gaps, Opportunities</h3>
-</div>
-<div style="clear: both;margin-bottom: 0;" ></div>
-
-<p style="font-size: 1em; width: 90%; margin-top: 0;">
+	<h2><span class="loceconLetters">Loc</span><span class="otherLetters">al </span><span class="loceconLetters">Econ</span><span class="otherLetters">omic Development</span></h2>
+	<h3 id="firstSubtitle">Communities, Clusters, Networks and Resources</h3>
+	<h3 id="secondSubtitle"><span id="arrow">&#8627;</span> Resource Maps, Network Flows, Gaps, Opportunities</h3>
+	<p style="font-size: 1em; width: 90%; margin-top: 1em; text-align: left;">
 	This site is now in collaborative development with invited communities.  
-	If you would like to participate, please <a href="{% url send_email %}" target="_blank">send us an email</a>.
+	If you would like to participate, please <a href="/sendemail/" target="_blank">send us an email</a>.
 </p>
+	
 <h3>Featured Cluster: {{ cluster }}</h3>
 	
 <div id="chart" style="float:left; width: 60%;" >
