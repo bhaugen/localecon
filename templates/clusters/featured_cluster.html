@@ -181,7 +181,6 @@ a {
     font-weight:bold;
     text-align: left;
     padding:4px 10px 4px 10px;
-	margin: 0;
     border-bottom: solid 2px #F5F5F5;
     text-decoration:none;
 }
@@ -222,19 +221,21 @@ var Log = {
 </script>
 
 <div id="rightLinks" style="float: right; width: 130px;">
+	<ul>
 	{% if user.is_authenticated %}
-		{{ user }} <a class="regularLink" href="{% url acct_logout %}">Logout</a><br />
-		<a class="regularLink" href="/help/">Help</a><br />
+		<li>{{ user }} <a class="regularLink" href="{% url acct_logout %}">Logout</a></li>
+		<li><a class="regularLink" href="/help/">Help</a></li>
 		{% if user.is_staff %}
-			<a class="regularLink" href="/admin">Admin</a><br />
+			<li><a class="regularLink" href="/admin">Admin</a></li>
 		{% endif %}
-		<a class="regularLink" href="/about/">About</a><br />
-		<a class="hiliteLink" href="{% url clusters %}">View All Clusters</a>
+		<li><a class="regularLink" href="/about/">About</a></li>
+		<li><a class="hiliteLink" href="{% url clusters %}">View All Clusters</a></li>
 	{% else %}
-		<a class="regularLink" href="{% url acct_login %}">Log in</a><br />
-		<a class="regularLink" href="/about/">About</a><br />
-		<a class="hiliteLink" href="{% url clusters %}">View All Clusters</a>
+		<li><a class="regularLink" href="{% url acct_login %}">Log in</a></li>
+		<li><a class="regularLink" href="/about/">About</a></li>
+		<li><a class="hiliteLink" href="{% url clusters %}">View All Clusters</a></li>
 	{% endif %}
+	</ul>
 </div>
 
 <div id="header" style: "float: left; margin-bottom: 0;" >
