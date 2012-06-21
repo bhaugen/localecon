@@ -337,6 +337,15 @@ class Cluster(models.Model):
         answer.sort(lambda x, y: cmp(x.name, y.name))
         return answer
     
+    def flow_connected_functions(self):
+        connected = []
+        flows = self.flows()
+        for flow in flows:
+            connected.append(flow.from_function)
+            connected.append(flow.to_function)
+        connected = list(set(connected))
+        
+    
     def disjoints(self):
         funs = self.functions.all().order_by("id")
         root = self.root_function
@@ -344,6 +353,8 @@ class Cluster(models.Model):
             if funs.count():
                 root = funs[0]
         connected = connected_functions(root, funs, [])
+        connected.extend(self.flow_connected_functions())
+        connected = list(set(connected))
         disjoint = []
         for fun in funs:
             if not fun in connected:
