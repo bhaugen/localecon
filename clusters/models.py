@@ -271,6 +271,11 @@ class AgentGroup(object):
             answer.extend(fn.function_outputs())
         return answer
         
+
+class ResourceAtStage(object):
+    def __init__(self, long_name):
+        self.long_name = long_name
+        self.name = long_name.split(";")[1]
       
 
 class Cluster(models.Model):
@@ -700,7 +705,7 @@ class Cluster(models.Model):
             u.next = u.to_nodes(cluster)
         Q = [u for u in G if not u.preds]
         return toposort(G, Q)
-    
+
     def cycles(self):
         frts = FunctionResourceType.objects.filter(
             function__cluster=self)
@@ -714,7 +719,7 @@ class Cluster(models.Model):
             for flow in flows:
                 if not flow.from_function in graph:
                     graph[flow.from_function] = []
-                rtype = ";".join([flow.from_function.name,flow.resource_type.name])
+                rtype = ResourceAtStage(";".join([flow.from_function.name,flow.resource_type.name]))
                 graph[flow.from_function].append(rtype)
                 if not rtype in graph:
                     graph[rtype] = []

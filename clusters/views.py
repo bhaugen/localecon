@@ -988,12 +988,6 @@ class SankeyLink(object):
          self.target = target
          self.value = value
          self.label = label
-         
-
-class ResourceAtStage(object):
-    def __init__(self, long_name):
-        self.long_name = long_name
-        self.name = long_name.split(";")[1]
 
 
 def sankey_params(cluster, toggle):
