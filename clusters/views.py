@@ -1124,7 +1124,7 @@ def diagnostics(request, cluster_id, level="fn"):
     
 def model_errors(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
-    import pdb; pdb.set_trace()    
+    #import pdb; pdb.set_trace()    
     disjoints = cluster.disjoints()
     missing_function_numbers = cluster.missing_function_numbers()
     missing_agent_numbers = cluster.missing_agent_numbers()
