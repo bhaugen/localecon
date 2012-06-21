@@ -43,7 +43,7 @@ $(document).ready(function() {
 			{
 				var set = r.set().push(
 					r.ellipse(n.point[0]-30, n.point[1]-13, 40, 25).attr({"fill": "#FFF8DC", "stroke-width": 2 })).push(
-					r.text(n.point[0]-30, n.point[1]-10, (n.label || n.id)).attr({"font-size": "medium", "color": "Black"}));	
+					r.text(n.point[0]-30, n.point[1]-10, (n.label || n.id)));	
 			}
             return set;
         };
