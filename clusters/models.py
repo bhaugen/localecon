@@ -729,7 +729,7 @@ class Cluster(models.Model):
         return cycles
     
     def has_cycles(self):
-         if self.cycles():
+        if self.cycles():
             return True
         else:
             return False
