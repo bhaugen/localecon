@@ -701,7 +701,7 @@ class Cluster(models.Model):
         Q = [u for u in G if not u.preds]
         return toposort(G, Q)
     
-    def has_cycles(self):
+    def cycles(self):
         frts = FunctionResourceType.objects.filter(
             function__cluster=self)
         graph = {}
@@ -722,11 +722,18 @@ class Cluster(models.Model):
 
         #import pdb; pdb.set_trace()
         scc = strongly_connected_components(graph)
+        cycles = []
         for sc in scc:
             if len(sc) > 1:
-                return True
-                break
-        return False
+                cycles.append(sc)
+        return cycles
+    
+    def has_cycles(self):
+        cycles = self.cycles()
+        if cycles.count():
+            return True
+        else:
+            return False
     
     def value_added_rows(self, start, resource_filter=None):
         edges, order = self.flow_bfs(start, resource_filter)
