@@ -32,9 +32,7 @@ p {font-size:0.7875em}
 	
 	{% for cycle in cycles %}
 	<ul>
-		{% for node in cycle %}
-		<li>{{ node.name }}</li>
-		{% endfor %}
+		<li>{{ cycle }}</li>
 	</ul>
 	{% endfor %}
 	
