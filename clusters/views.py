@@ -1135,7 +1135,7 @@ def model_errors(request, cluster_id):
         cyc = list(cyc)
         cyc.reverse()
         cyc.append(cyc[0])
-        cycles.append("-->".join([node.name for node in cyc])
+        cycles.append("-->".join([node.name for node in cyc]))
     
     return render_to_response("clusters/model_errors.html",{ 
         "cluster": cluster,
