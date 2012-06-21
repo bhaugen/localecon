@@ -22,11 +22,10 @@ p {font-size:0.7875em}
 {% block content %}
 
 <div class="reports">
+	
+{% include "clusters/_cluster_nav.html" %}
 
 <h3>Model Diagnostics for Cluster: {{ cluster }}</h3>
-
-
-{% include "clusters/_cluster_nav.html" %}
 	
 {% if cycles %}
 	<h3>Cycles:</h3>
