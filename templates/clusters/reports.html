@@ -20,7 +20,8 @@
 	{% if cluster.has_function_resources %}
 			<p><a href="{% url fr_table cluster_id=cluster.id %}">Function-Resource Table</a></p>
 	{% endif %}
-	<p><a href="{% url diagnostics cluster_id=cluster.id %}">Diagnostic Reports</a></p>
+	<p><a href="{% url diagnostics cluster_id=cluster.id %}">Economic Gaps</a></p>
+	<p><a href="{% url model_errors cluster_id=cluster.id %}">Model Diagnostics</a></p>
 	{% if cluster.has_flows %}
 		<p><a href="{% url value_added_report cluster_id=cluster.id %}">Value Added Report</a></p>
 	{% endif %}

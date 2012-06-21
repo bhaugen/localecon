@@ -1129,6 +1129,7 @@ def model_errors(request, cluster_id):
     missing_function_numbers = cluster.missing_function_numbers()
     missing_agent_numbers = cluster.missing_agent_numbers()
     function_agent_diffs = cluster.function_agent_diffs()
+    cycles = cluster.cycles()
     
     return render_to_response("clusters/model_errors.html",{ 
         "cluster": cluster,
@@ -1136,6 +1137,7 @@ def model_errors(request, cluster_id):
         "missing_function_numbers": missing_function_numbers,
         "missing_agent_numbers": missing_agent_numbers,
         "function_agent_diffs": function_agent_diffs,
+        "cycles": cycles,
     }, context_instance=RequestContext(request))
     
 def economic_functions(request, cluster_id):

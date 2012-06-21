@@ -3,7 +3,7 @@
 {% load humanize %}
 
 {% block title %}
-     Diagnostics for Cluster: {{ cluster }}
+     Economic Diagnostics for Cluster: {{ cluster }}
 {% endblock %}
 
 {% block extra_head %}
@@ -39,7 +39,7 @@ p {font-size:0.7875em}
 
 {% include "clusters/_cluster_nav.html" %}
 
-<h3>Diagnostics for Cluster: {{ cluster }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url model_errors cluster_id=cluster.id %}">Model Errors</a></h3>
+<h3>Economic Diagnostics for Cluster: {{ cluster }}</h3>
 
 <div style="float: left;">
 <h3>

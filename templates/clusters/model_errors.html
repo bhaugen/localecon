@@ -3,7 +3,7 @@
 {% load humanize %}
 
 {% block title %}
-     Model Errors for Cluster: {{ cluster }}
+     Model Diagnostics for Cluster: {{ cluster }}
 {% endblock %}
 
 {% block extra_head %}
@@ -23,10 +23,23 @@ p {font-size:0.7875em}
 
 <div class="reports">
 
-<h3>Model Errors for Cluster: {{ cluster }}</h3>
+<h3>Model Diagnostics for Cluster: {{ cluster }}</h3>
 
 
 {% include "clusters/_cluster_nav.html" %}
+	
+{% if cycles %}
+	<h3>Cycles:</h3>
+	
+	{% for cycle in cycles %}
+	<ul>
+		{% for node in cycle %}
+		<li>{{ node.name }}</li>
+		{% endfor %}
+	</ul>
+	{% endfor %}
+	
+{% endif %}
 
 {% if disjoints %}
 	<h3>Disconnected functions:</h3>
