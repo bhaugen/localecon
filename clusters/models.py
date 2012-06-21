@@ -344,7 +344,7 @@ class Cluster(models.Model):
             connected.append(flow.from_function)
             connected.append(flow.to_function)
         connected = list(set(connected))
-        
+        return connected
     
     def disjoints(self):
         funs = self.functions.all().order_by("id")
