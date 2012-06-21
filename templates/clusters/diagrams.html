@@ -31,9 +31,15 @@
 			<p>Radial Graph</a></p>
 		{% endif %}
 	
-		{% if cluster.has_cycles %}
+		{% if cycles %}
 			<h4>This diagram does not currently work with clusters that have cycles:</h4>
 			<p>Sankey Diagram</p>
+			<h4>Cycles:</h4>
+			{% for cycle in cycles %}
+				<ul>
+					<li>{{ cycle }}</li>
+				</ul>
+			{% endfor %}
 		{% else %}
 			<p><a href="{% url sankey cluster_id=cluster.id %}">Sankey Diagram</a></p>
 		{% endif %}

@@ -1873,8 +1873,16 @@ def object_filter(request, cluster_id=None, model=None, queryset=None, template_
 
 def diagrams(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    cycles = []
+    cycs = cluster.cycles()
+    for cyc in cycs:
+        cyc = list(cyc)
+        cyc.reverse()
+        cyc.append(cyc[0])
+        cycles.append("-->".join([node.name for node in cyc]))
     return render_to_response("clusters/diagrams.html",{ 
         "cluster": cluster,
+        "cycles": cycles,
     }, context_instance=RequestContext(request))
 
 def reports(request, cluster_id):
