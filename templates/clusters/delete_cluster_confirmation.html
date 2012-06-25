@@ -26,9 +26,10 @@
 	
 	<h3>The following items will also be deleted:</h3>
 
-		<h4>Functions:</h4>
+		<h3>Functions:</h3>
 		<ul>
 		{% for function in functions %}
+			<li><h4>Function:</h4></li>
 			<li>{{ function }}</li>	
 
 			{% if function.resources.all %}
