@@ -1192,6 +1192,26 @@ def edit_function(request, function_id):
         "function_aspect_name": function_aspect_name,
         "function_form": function_form,
     }, context_instance=RequestContext(request))
+    
+@login_required    
+def delete_cluster(request, cluster_id):
+    if request.method == "POST":
+        cluster = get_object_or_404(Cluster, pk=cluster_id)
+        cluster.delete()
+        return HttpResponseRedirect('/%s/'
+            % ('clusters/clusters'))
+    return render_to_response("clusters/clusters.html",{ 
+    }, context_instance=RequestContext(request))
+
+
+@login_required    
+def delete_cluster_confirmation(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    functions = cluster.functions.all()
+    return render_to_response("clusters/delete_cluster_confirmation.html",{ 
+        "functions": functions,
+        "cluster": cluster,
+    }, context_instance=RequestContext(request))
 
 @login_required    
 def delete_function(request, function_id):

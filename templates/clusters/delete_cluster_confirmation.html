@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}
+     Delete Function {{ function.name }}
+{% endblock %}
+
+
+{% block content %}
+
+	<h3>Delete Cluster {{ cluster.name }}</h3>
+
+
+	<h3>Are you sure you want to delete this cluster?</h3>
+
+	<div style="margin-left: 2em; margin-bottom: 1em; ">
+		<form style="display: inline;" action="{% url delete_cluster cluster_id=cluster.id %}" method="POST">
+			{% csrf_token %}
+    			<input type="submit" value="Delete" />
+		</form>
+		<form style="display: inline;" action="{% url clusters %}" method="GET">
+    			<input type="submit" value="Cancel" />
+		</form>
+	</div>
+	
+	{% if functions %}
+	
+	<h3>The following items will also be deleted:</h3>
+
+		<h4>Functions:</h4>
+		{% for item in functions %}
+			<p>{{ item.id }} {{ item }}</p>	
+		{% endfor %}
+
+		{% if function.resources.all %}
+			<h4>Function Resources:</h4>
+			{% for item in function.resources.all %}
+				<p>{{ item.id }} {{ item }}</p>	
+			{% endfor %}
+		{% endif %}
+	
+		{% if function.flows %}
+			<h4>Function Flows:</h4>
+			{% for item in function.flows %}
+				<p>{{ item.id }} {{ item }}</p>	
+			{% endfor %}
+		{% endif %}
+
+	
+		{% if function.agents.all %}
+			<h4>Agent Functions:</h4>
+			{% for af in function.agents.all %}
+				<p>{{ af.id }} {{ af }}</p>
+	
+				{% if af.function_resources.all %}
+					<h4>Agent Function Resources:</h4>
+					{% for item in af.function_resources.all %}
+						<p>{{ item.id }} {{ item }}</p>	
+					{% endfor %}
+				{% endif %}
+
+				{% if af.flows %}
+					<h4>Agent Function Flows:</h4>
+					{% for item in af.flows %}
+						<p>{{ item.id }} {{ item }}</p>	
+					{% endfor %}
+				{% endif %}
+
+			{% endfor %}
+		{% endif %}
+	
+	{% endif %}
+
+</div>
+{% endblock %}

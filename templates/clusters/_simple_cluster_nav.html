@@ -1,6 +1,11 @@
 	<a href="{% url cluster cluster_id=cluster.id %}">Cluster Map</a>&nbsp;&nbsp;
 	<a href="{% url economic_functions cluster_id=cluster.id %}">Functions</a>&nbsp;&nbsp;
 	<a href="{% url cluster_agents cluster_id=cluster.id %}">Agents</a>&nbsp;&nbsp;
-	<a href="{% url diagrams cluster_id=cluster.id %}">Diagrams</a>
+	<a href="{% url diagrams cluster_id=cluster.id %}">Diagrams</a>&nbsp;&nbsp;
 	<a href="{% url reports cluster_id=cluster.id %}">Reports</a>
-
+	{% if user.is_authenticated %}
+		&nbsp;&nbsp;
+		<form style="display:inline;" action="{% url delete_cluster cluster_id=cluster.id %}" method="POST">
+			<input type="submit" value="Delete" />
+		</form>
+	{% endif %}

@@ -51,15 +51,7 @@
 							<li>
 								{{ cluster.name }}</a> Cluster:&nbsp;&nbsp;
 								{% include "clusters/_simple_cluster_nav.html" %}
-								{% comment %}
-								<a href="{% url cluster cluster_id=cluster.id %}">View</a>&nbsp;&nbsp;
-								<a href="{% url radial_graph cluster_id=cluster.id %}">Diagram</a>&nbsp;&nbsp;
-								<a href="{% url edit_cluster cluster_id=cluster.id %}">Edit</a>&nbsp;&nbsp;
-								
-								<a href="{% url iotable cluster_id=cluster.id %}">Input-Output Table</a>
 
-								<a href="{% url fr_table cluster_id=cluster.id %}">Function-Resource Table</a>
-								{% endcomment %}
 							</li>
 						{% endfor %}
 					</ul>
