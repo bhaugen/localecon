@@ -27,50 +27,61 @@
 	<h3>The following items will also be deleted:</h3>
 
 		<h4>Functions:</h4>
+		<ul>
 		{% for function in functions %}
-			<p>{{ function.id }} {{ function }}</p>	
-
+			<li>{{ function }}</li>	
 
 			{% if function.resources.all %}
-				<h4>Function Resources:</h4>
+				<li><h4>Function Resources:</h4></li>
+				<ul>
 				{% for item in function.resources.all %}
-					<p>{{ item.id }} {{ item }}</p>	
+					<li>{{ item }}</li>	
 				{% endfor %}
+				</ul>
 			{% endif %}
-	
+			
+			
 			{% if function.flows %}
-				<h4>Function Flows:</h4>
+				<li><h4>Function Flows:</h4></li>
+				<ul>
 				{% for item in function.flows %}
-					<p>{{ item.id }} {{ item }}</p>	
+					<li>{{ item.id }} {{ item }}</li>	
 				{% endfor %}
+				</ul>
 			{% endif %}
 
 	
 			{% if function.agents.all %}
-				<h4>Agent Functions:</h4>
-
+				<li><h4>Agent Functions:</h4></li>
+				<ul>
 				{% for af in function.agents.all %}
-					<p>{{ af.id }} {{ af }}</p>
+					<li>{{ af.id }} {{ af }}</li>
 	
 					{% if af.function_resources.all %}
-						<h4>Agent Function Resources:</h4>
+						<li><h4>Agent Function Resources:</h4></li>
+						<ul>
 						{% for item in af.function_resources.all %}
-							<p>{{ item.id }} {{ item }}</p>	
+							<li>{{ item.id }} {{ item }}</li>	
 						{% endfor %}
+						</ul>
 					{% endif %}
 
 					{% if af.flows %}
-						<h4>Agent Function Flows:</h4>
+						<li><h4>Agent Function Flows:</h4></li>
+						<ul>
 						{% for item in af.flows %}
-							<p>{{ item.id }} {{ item }}</p>	
+							<li>{{ item.id }} {{ item }}</li>	
 						{% endfor %}
+						</ul>
 					{% endif %}
 
 				{% endfor %}
+				</ul>
 
 			{% endif %}
 
 		{% endfor %}
+		</ul>
 	
 	{% endif %}
 
