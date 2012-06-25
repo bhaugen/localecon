@@ -27,46 +27,50 @@
 	<h3>The following items will also be deleted:</h3>
 
 		<h4>Functions:</h4>
-		{% for item in functions %}
-			<p>{{ item.id }} {{ item }}</p>	
+		{% for function in functions %}
+			<p>{{ function.id }} {{ function }}</p>	
+
+
+			{% if function.resources.all %}
+				<h4>Function Resources:</h4>
+				{% for item in function.resources.all %}
+					<p>{{ item.id }} {{ item }}</p>	
+				{% endfor %}
+			{% endif %}
+	
+			{% if function.flows %}
+				<h4>Function Flows:</h4>
+				{% for item in function.flows %}
+					<p>{{ item.id }} {{ item }}</p>	
+				{% endfor %}
+			{% endif %}
+
+	
+			{% if function.agents.all %}
+				<h4>Agent Functions:</h4>
+
+				{% for af in function.agents.all %}
+					<p>{{ af.id }} {{ af }}</p>
+	
+					{% if af.function_resources.all %}
+						<h4>Agent Function Resources:</h4>
+						{% for item in af.function_resources.all %}
+							<p>{{ item.id }} {{ item }}</p>	
+						{% endfor %}
+					{% endif %}
+
+					{% if af.flows %}
+						<h4>Agent Function Flows:</h4>
+						{% for item in af.flows %}
+							<p>{{ item.id }} {{ item }}</p>	
+						{% endfor %}
+					{% endif %}
+
+				{% endfor %}
+
+			{% endif %}
+
 		{% endfor %}
-
-		{% if function.resources.all %}
-			<h4>Function Resources:</h4>
-			{% for item in function.resources.all %}
-				<p>{{ item.id }} {{ item }}</p>	
-			{% endfor %}
-		{% endif %}
-	
-		{% if function.flows %}
-			<h4>Function Flows:</h4>
-			{% for item in function.flows %}
-				<p>{{ item.id }} {{ item }}</p>	
-			{% endfor %}
-		{% endif %}
-
-	
-		{% if function.agents.all %}
-			<h4>Agent Functions:</h4>
-			{% for af in function.agents.all %}
-				<p>{{ af.id }} {{ af }}</p>
-	
-				{% if af.function_resources.all %}
-					<h4>Agent Function Resources:</h4>
-					{% for item in af.function_resources.all %}
-						<p>{{ item.id }} {{ item }}</p>	
-					{% endfor %}
-				{% endif %}
-
-				{% if af.flows %}
-					<h4>Agent Function Flows:</h4>
-					{% for item in af.flows %}
-						<p>{{ item.id }} {{ item }}</p>	
-					{% endfor %}
-				{% endif %}
-
-			{% endfor %}
-		{% endif %}
 	
 	{% endif %}
 
