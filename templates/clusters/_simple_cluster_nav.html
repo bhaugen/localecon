@@ -5,7 +5,7 @@
 	<a href="{% url cluster_agents cluster_id=cluster.id %}">Agents</a>&nbsp;&nbsp;
 	<a href="{% url diagrams cluster_id=cluster.id %}">Diagrams</a>&nbsp;&nbsp;
 	<a href="{% url reports cluster_id=cluster.id %}">Reports</a>
-	{% cluster_perms request.user.id delete cluster.id as can_delete %}
+	{% cluster_perms request.user delete cluster as can_delete %}
 	{% if can_delete %}
 		&nbsp;&nbsp;
 		<form style="display:inline;" action="{% url delete_cluster_confirmation cluster_id=cluster.id %}" method="POST">

@@ -6,16 +6,16 @@ from clusters.models import Cluster
 register = template.Library()
 
 class ClusterPermsNode(template.Node):
-    def __init__(self, user_id, perm_name, cluster_id, varname):
-        self.user_id = user_id
+    def __init__(self, user, perm_name, cluster, varname):
+        self.user = user
         self.perm_name = perm_name
-        self.cluster_id = cluster_id
+        self.cluster = cluster
         self.varname = varname
 
     def render(self, context):
         import pdb; pdb.set_trace()
-        user = User.objects.get(pk=self.user_id)
-        cluster = Cluster.objects.get(pk=self.cluster_id)        
+        user = template.Variable(user)
+        cluster = template.Variable(cluster)        
         context[self.varname] = cluster.permits(self.codename, user)
         return ''
 
