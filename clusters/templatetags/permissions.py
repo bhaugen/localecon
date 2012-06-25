@@ -11,7 +11,7 @@ class ClusterPermsNode(template.Node):
         self.varname = varname
 
     def render(self, context):
-        context[self.varname] = cluster.permits(self.codename, user)
+        context[self.varname] = self.cluster.permits(self.codename, user)
         return ''
 
 def cluster_perms(parser, token):
@@ -43,7 +43,7 @@ def cluster_perms(parser, token):
     if bits[4] != 'as':
         raise template.TemplateSyntaxError(
             "fourth argument to tag must be 'as'")
-    return ClusterPermsNode(bits[0], bits[1], bits[2], bits[5])
+    return ClusterPermsNode(bits[1], bits[2], bits[3], bits[5])
 
 cluster_perms = register.tag(cluster_perms)
 
