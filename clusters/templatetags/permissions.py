@@ -14,8 +14,8 @@ class ClusterPermsNode(template.Node):
 
     def render(self, context):
         import pdb; pdb.set_trace()
-        user = template.Variable(user)
-        cluster = template.Variable(cluster)        
+        user = template.Variable(self.user)
+        cluster = template.Variable(self.cluster)        
         context[self.varname] = cluster.permits(self.codename, user)
         return ''
 
