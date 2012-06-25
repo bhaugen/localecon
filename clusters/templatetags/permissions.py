@@ -37,7 +37,7 @@ def cluster_perms(parser, token):
     except ValueError:
         raise template.TemplateSyntaxError(
             'tag requires exactly five arguments')
-    if len(bits) != 7:
+    if len(bits) != 6:
         raise template.TemplateSyntaxError(
             'tag requires exactly five arguments')
     if bits[4] != 'as':
