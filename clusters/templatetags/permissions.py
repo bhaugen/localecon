@@ -13,6 +13,7 @@ class ClusterPermsNode(template.Node):
         self.varname = varname
 
     def render(self, context):
+        import pdb; pdb.set_trace()
         user = User.objects.get(pk=self.user_id)
         cluster = Cluster.objects.get(pk=self.cluster_id)        
         context[self.varname] = cluster.permits(self.codename, user)
@@ -35,7 +36,7 @@ def cluster_perms(parser, token):
             have permission for {{ VARNAME }}.{{ CODENAME }}!!
         {% endfor %}
     '''
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     try:
         bits = token.split_contents()
     except ValueError:
