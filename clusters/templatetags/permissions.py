@@ -23,7 +23,7 @@ class ClusterPermsNode(template.Node):
         except template.VariableDoesNotExist:
             return ''
         answer = actual_cluster.permits(self.perm_name, actual_user)
-        print actual_user, self.perm_name, actual_cluster, answer
+        #print actual_user, self.perm_name, actual_cluster, answer
         context[self.varname] = answer
         return ''
 
