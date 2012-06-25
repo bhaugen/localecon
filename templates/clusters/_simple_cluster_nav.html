@@ -5,7 +5,7 @@
 	<a href="{% url reports cluster_id=cluster.id %}">Reports</a>
 	{% if user.is_authenticated %}
 		&nbsp;&nbsp;
-		<form style="display:inline;" action="{% url delete_cluster cluster_id=cluster.id %}" method="POST">
+		<form style="display:inline;" action="{% url delete_cluster_confirmation cluster_id=cluster.id %}" method="POST">
 			{% csrf_token %}
 			<input type="submit" value="Delete" />
 		</form>
