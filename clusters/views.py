@@ -1197,7 +1197,7 @@ def edit_function(request, function_id):
 def delete_cluster(request, cluster_id):
     if request.method == "POST":
         cluster = get_object_or_404(Cluster, pk=cluster_id)
-        #cluster.delete()
+        cluster.delete()
         return HttpResponseRedirect('/%s/'
             % ('clusters'))
     return render_to_response("clusters/clusters.html",{ 
