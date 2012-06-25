@@ -1,5 +1,5 @@
 from django import template
-from clusters.models import Community
+from clusters.models import Cluster
 
 register = template.Library()
 
