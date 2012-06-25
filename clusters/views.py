@@ -1206,7 +1206,7 @@ def delete_cluster(request, cluster_id):
 
 @login_required    
 def delete_cluster_confirmation(request, cluster_id):
-    return HttpResponseForbidden
+    return HttpResponseForbidden("You don't have permission to do that")
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     functions = cluster.functions.all()
     return render_to_response("clusters/delete_cluster_confirmation.html",{ 
