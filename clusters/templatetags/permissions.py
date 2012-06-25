@@ -7,16 +7,23 @@ register = template.Library()
 
 class ClusterPermsNode(template.Node):
     def __init__(self, user, perm_name, cluster, varname):
-        self.user = user
+        self.user = template.Variable(user)
         self.perm_name = perm_name
-        self.cluster = cluster
+        self.cluster = template.Variable(cluster)
         self.varname = varname
 
     def render(self, context):
         import pdb; pdb.set_trace()
-        user = template.Variable(self.user)
-        cluster = template.Variable(self.cluster)        
-        context[self.varname] = cluster.permits(self.codename, user)
+        try:
+            actual_user = self.user.resolve(context)
+        except template.VariableDoesNotExist:
+            return ''
+        try:
+            actual_cluster = self.cluster.resolve(context)
+        except template.VariableDoesNotExist:
+            return ''
+        context[self.varname] = actual_cluster.permits(
+            self.perm_name, actual_user)
         return ''
 
 def cluster_perms(parser, token):
