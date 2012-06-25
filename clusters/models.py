@@ -298,7 +298,7 @@ class Cluster(models.Model):
         return " ".join([self.community.name, self.name])
     
     def permits(self, perm_name, user):
-        if user.is_superuser():
+        if user.is_superuser:
             return True
         else:
             return False
