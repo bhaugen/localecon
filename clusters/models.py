@@ -297,6 +297,9 @@ class Cluster(models.Model):
     def __unicode__(self):
         return " ".join([self.community.name, self.name])
     
+    def permits(self, perm_name, user):
+        return False
+    
     def root(self):
         if self.root_function:
             return self.root_function
