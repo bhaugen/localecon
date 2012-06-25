@@ -301,8 +301,12 @@ class Cluster(models.Model):
         if user.is_superuser:
             return True
         else:
-            return False
-    
+            answer = False
+            if user.is_staff:
+                if perm_name == "delete":
+                    answer = user.has_perm("clusters.delete_cluster")
+            return answer
+
     def root(self):
         if self.root_function:
             return self.root_function
