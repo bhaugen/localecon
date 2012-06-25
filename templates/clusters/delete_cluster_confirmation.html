@@ -29,8 +29,8 @@
 		<h3>Functions:</h3>
 		<ul>
 		{% for function in functions %}
-			<li><h4>Function:</h4></li>
-			<li>{{ function }}</li>	
+			<li><h4>Function: {{ function }}</h4></li>
+	
 			<ul>
 			{% if function.resources.all %}
 				<li><h4>Function Resources:</h4></li>
