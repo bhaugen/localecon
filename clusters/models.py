@@ -850,6 +850,11 @@ class EconomicFunction(models.Model):
     
     def to_nodes(self, cluster):
         return [v.resource_type for v in self.outputs()]
+    
+    def flows(self):
+        flows = list(self.incoming_flows.all())
+        flows.extend(list(self.outgoing_flows.all()))
+        return flows
 
 # based on dfs from threaded_comments
 def nested_objects(node, all_nodes):
@@ -1184,6 +1189,11 @@ class AgentFunction(models.Model):
     
     def inputs(self):
         return self.function_resources.filter(role="consumes")
+    
+    def flows(self):
+        flows = list(self.incoming_flows.all())
+        flows.extend(list(self.outgoing_flows.all()))
+        return flows
 
 class AgentResourceType(models.Model):
     agent = models.ForeignKey(EconomicAgent, related_name='resources')
