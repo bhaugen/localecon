@@ -29,7 +29,7 @@
 		<h3>Functions:</h3>
 		<ul>
 		{% for function in functions %}
-			<li><h4>Function: {{ function }}</h4></li>
+			<li><h4>Function: {{ function.name }}</h4></li>
 	
 			<ul>
 			{% if function.resources.all %}
@@ -46,7 +46,7 @@
 				<li><h4>Function Flows:</h4></li>
 				<ul>
 				{% for item in function.flows %}
-					<li>{{ item.id }} {{ item }}</li>	
+					<li>{{ item }}</li>	
 				{% endfor %}
 				</ul>
 			{% endif %}
@@ -56,13 +56,13 @@
 				<li><h4>Agent Functions:</h4></li>
 				<ul>
 				{% for af in function.agents.all %}
-					<li>{{ af.id }} {{ af }}</li>
+					<li>{{ af }}</li>
 	
 					{% if af.function_resources.all %}
 						<li><h4>Agent Function Resources:</h4></li>
 						<ul>
 						{% for item in af.function_resources.all %}
-							<li>{{ item.id }} {{ item }}</li>	
+							<li>{{ item }}</li>	
 						{% endfor %}
 						</ul>
 					{% endif %}
@@ -71,7 +71,7 @@
 						<li><h4>Agent Function Flows:</h4></li>
 						<ul>
 						{% for item in af.flows %}
-							<li>{{ item.id }} {{ item }}</li>	
+							<li>{{ item }}</li>	
 						{% endfor %}
 						</ul>
 					{% endif %}
