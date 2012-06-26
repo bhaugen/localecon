@@ -32,6 +32,7 @@
 	{% endif %}
 		<ul>
 			{% for community in communities  %}
+				{% if community.is_public %}
 				<li>
 					{{ community }} Community
 					{% if user.is_authenticated %}
@@ -57,6 +58,7 @@
 							{% endif %}
 						{% endfor %}
 					</ul>
+				{% endif %}
 				{% endif %}
 			{% endfor %}
 		</ul>
