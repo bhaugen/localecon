@@ -308,7 +308,7 @@ class Cluster(models.Model):
     when_changed = models.DateTimeField(auto_now=True, blank=True, null=True)
     changed_by = models.ForeignKey(User, verbose_name='changed by',
         related_name='changed_cluster', blank=True, null=True)
-    sharing = models.CharField(max_length=12, choices=settings.SHARING_CHOICES,
+    sharing = models.CharField(max_length=12, choices=SHARING_CHOICES,
         default="private")
     
     def get_absolute_url(self):
