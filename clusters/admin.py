@@ -8,6 +8,7 @@ admin.site.register(Community)
 
 class ClusterAdmin(admin.ModelAdmin):
     list_display = ('name', 'community', 'created_by', 'sharing')
+    list_filter = ['created_by', 'sharing']
     
 admin.site.register(Cluster, ClusterAdmin)
 
@@ -103,6 +104,12 @@ class CommunityAgentAdmin(admin.ModelAdmin):
     search_fields = ['community__name', 'agent__name']
 
 admin.site.register(CommunityAgent, CommunityAgentAdmin)
+
+class CommunityMemberAdmin(admin.ModelAdmin):
+    list_display = ('community', 'member', 'permission_role')
+    list_filter = ['community']
+    
+admin.site.register(CommunityMember, CommunityMemberAdmin)
 
 admin.site.register(SiteSettings)
 admin.site.register(Unit)
