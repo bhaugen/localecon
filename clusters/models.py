@@ -160,6 +160,14 @@ class Community(models.Model):
         
     def __unicode__(self):
         return self.name
+    
+    def is_public(self):
+        answer = False
+        for cluster in self.clusters.all():
+            if cluster.is_public():
+                answer = True
+                break
+        return answer
 
 
 class AggregateFunctionResource(object):
