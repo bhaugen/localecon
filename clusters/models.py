@@ -150,7 +150,7 @@ class Community(models.Model):
     when_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     created_by = models.ForeignKey(User, verbose_name='created by',
         related_name='created_community', blank=True, null=True)
-    when_changed = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    when_changed = models.DateTimeField(auto_now=True, blank=True, null=True)
     changed_by = models.ForeignKey(User, verbose_name='changed by',
         related_name='changed_community', blank=True, null=True)
     
@@ -300,7 +300,7 @@ class Cluster(models.Model):
     when_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     created_by = models.ForeignKey(User, verbose_name='created by',
         related_name='created_cluster', blank=True, null=True)
-    when_changed = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    when_changed = models.DateTimeField(auto_now=True, blank=True, null=True)
     changed_by = models.ForeignKey(User, verbose_name='changed by',
         related_name='changed_cluster', blank=True, null=True)
     
