@@ -171,6 +171,28 @@ class Community(models.Model):
     
     def member_users(self):
         return [m.member for m in self.members.all()]
+    
+    def permits(self, perm_name, user):
+        if user.is_superuser:
+            return True
+        if self.created_by:
+            if user.id == self.created_by.id:
+                return True
+        perm = None
+        mbr = [mbr for mbr in self.members.all() if mbr.member.id == user.id]
+        if mbr:
+            mbr = mbr[0]
+            perm = mbr.permission_role
+        if perm_name == "delete":
+            if perm:
+                if perm == "owner":
+                    return True
+            else:
+                return False
+        else:
+            if perm:
+                return True
+        return False
 
 
 

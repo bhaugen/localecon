@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load permissions %}
 
 {% block title %}
      Clusters
@@ -35,7 +36,8 @@
 				{% if community.is_public %}
 				<li>
 					{{ community }} Community
-					{% if user.is_authenticated %}
+					{% community_perms user edit community as can_edit %}
+					{% if can_edit %}
 					&nbsp;&nbsp;
 					<form style="display:inline;" action="{% url edit_community community_id=community.id %}" method="GET">
 						<input type="submit" value="Edit Community" />

@@ -60,3 +60,58 @@ def cluster_perms(parser, token):
 
 cluster_perms = register.tag(cluster_perms)
 
+class CommunityPermsNode(template.Node):
+    def __init__(self, user, perm_name, community, varname):
+        self.user = template.Variable(user)
+        self.perm_name = perm_name
+        self.community = template.Variable(community)
+        self.varname = varname
+
+    def render(self, context):
+        #import pdb; pdb.set_trace()
+        try:
+            actual_user = self.user.resolve(context)
+        except template.VariableDoesNotExist:
+            return ''
+        try:
+            actual_community = self.community.resolve(context)
+        except template.VariableDoesNotExist:
+            return ''
+        answer = actual_community.permits(self.perm_name, actual_user)
+        #print actual_user, self.perm_name, actual_community, answer
+        context[self.varname] = answer
+        return ''
+
+def community_perms(parser, token):
+    '''
+    Template tag to check for permission against a community.
+
+    Usage:
+        {% load permissions %}
+
+        {% for VARNAME in QUERYRESULT %}
+            {% community_perms USER PERMNAME COMMUNITY VARNAME as BOOLEANVARNAME %}
+            {% if BOOLEANVARNAME %}
+                I DO
+            {% else %}
+                I DON'T
+            {% endif %}
+            have permission for {{ VARNAME }}.{{ CODENAME }}!!
+        {% endfor %}
+    '''
+    #import pdb; pdb.set_trace()
+    try:
+        bits = token.split_contents()
+    except ValueError:
+        raise template.TemplateSyntaxError(
+            'tag requires exactly five arguments')
+    if len(bits) != 6:
+        raise template.TemplateSyntaxError(
+            'tag requires exactly five arguments')
+    if bits[4] != 'as':
+        raise template.TemplateSyntaxError(
+            "fourth argument to tag must be 'as'")
+    return CommunityPermsNode(bits[1], bits[2], bits[3], bits[5])
+
+community_perms = register.tag(community_perms)
+
