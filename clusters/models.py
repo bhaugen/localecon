@@ -313,8 +313,9 @@ class Cluster(models.Model):
     def permits(self, perm_name, user):
         if user.is_superuser:
             return True
-        if user.id == self.created_by.id:
-            return True
+        if self.created_by:
+            if user.id == self.created_by.id:
+                return True
         if perm_name == "delete":
             return False
         return False
