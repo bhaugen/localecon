@@ -146,6 +146,12 @@ class Community(models.Model):
         help_text="Name for aspect fields on Economic Resource Types in this community.  If no name, aspects will not be used.")
     agent_geographic_area_name = models.CharField(max_length=128, blank=True,
         help_text="Name for geographic area fields for Economic Agents in this community.  If no name, areas will not be used.")
+    when_created = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, verbose_name='created by',
+        related_name='created_community', blank=True, null=True)
+    when_changed = models.DateTimeField(auto_now_add=True)
+    changed_by = models.ForeignKey(User, verbose_name='changed by',
+        related_name='changed_community', blank=True, null=True)
     
     class Meta:
         verbose_name_plural = "communities"
@@ -281,7 +287,7 @@ class ResourceAtStage(object):
 class Cluster(models.Model):
     community = models.ForeignKey(Community, related_name='clusters')
     name = models.CharField(max_length=128)
-    description = models.TextField( blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     function_aspect_name = models.CharField(max_length=128, blank=True,
         help_text="Name for aspect fields on Economic Functions in this cluster.  If no name, aspects will not be used.")
     root_function = models.ForeignKey("EconomicFunction", blank=True, null=True,
@@ -289,7 +295,13 @@ class Cluster(models.Model):
         help_text="Graph root is optional - can be either function or resource but not both")
     root_resource = models.ForeignKey("EconomicResourceType", blank=True, null=True,
         related_name="cluster_root", 
-        help_text="Graph root is optional - can be either function or resource but not both")    
+        help_text="Graph root is optional - can be either function or resource but not both")
+    when_created = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, verbose_name='created by',
+        related_name='created_cluster', blank=True, null=True)
+    when_changed = models.DateTimeField(auto_now_add=True)
+    changed_by = models.ForeignKey(User, verbose_name='changed by',
+        related_name='changed_cluster', blank=True, null=True)
     
     def get_absolute_url(self):
         return ('cluster', (), {"cluster_id": self.id})

@@ -1195,6 +1195,8 @@ def edit_function(request, function_id):
     
 @login_required    
 def delete_cluster(request, cluster_id):
+    if not cluster.permits("delete", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     if request.method == "POST":
         cluster = get_object_or_404(Cluster, pk=cluster_id)
         cluster.delete()
@@ -1206,7 +1208,8 @@ def delete_cluster(request, cluster_id):
 
 @login_required    
 def delete_cluster_confirmation(request, cluster_id):
-    return HttpResponseForbidden("You don't have permission to do that")
+    if not cluster.permits("delete", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     functions = cluster.functions.all()
     return render_to_response("clusters/delete_cluster_confirmation.html",{ 
