@@ -48,6 +48,7 @@
 				{% if community.clusters.all %}
 					<ul>
 						{% for cluster in community.clusters.all %}
+							{% if cluster.is_public or user.is_authenticated %}
 							<li>
 								{{ cluster.name }}</a> Cluster:&nbsp;&nbsp;
 								{% include "clusters/_simple_cluster_nav.html" %}
