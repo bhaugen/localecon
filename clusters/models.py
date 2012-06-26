@@ -283,7 +283,12 @@ class ResourceAtStage(object):
     def __init__(self, long_name):
         self.long_name = long_name
         self.name = long_name.split(";")[1]
-      
+
+SHARING_CHOICES = (
+    ('public', 'Public'),
+    ('private', 'Private'),
+)
+
 
 class Cluster(models.Model):
     community = models.ForeignKey(Community, related_name='clusters')
@@ -303,6 +308,8 @@ class Cluster(models.Model):
     when_changed = models.DateTimeField(auto_now=True, blank=True, null=True)
     changed_by = models.ForeignKey(User, verbose_name='changed by',
         related_name='changed_cluster', blank=True, null=True)
+    sharing = models.CharField(max_length=12, choices=settings.SHARING_CHOICES,
+        default="private")
     
     def get_absolute_url(self):
         return ('cluster', (), {"cluster_id": self.id})

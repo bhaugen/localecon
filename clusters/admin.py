@@ -7,7 +7,7 @@ admin.site.add_action(export_as_csv, 'export_selected objects')
 admin.site.register(Community)
 
 class ClusterAdmin(admin.ModelAdmin):
-    list_display = ('name', 'community')
+    list_display = ('name', 'community', 'created_by', 'sharing')
     
 admin.site.register(Cluster, ClusterAdmin)
 
