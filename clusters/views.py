@@ -1405,6 +1405,7 @@ def new_cluster(request, community_id):
         if form.is_valid():
             cluster = form.save(commit=False)
             cluster.community = community
+            cluster.created_by = request.user
             cluster.save()
             return redirect("clusters")
     return render_to_response("clusters/new_cluster.html",{ 
@@ -1422,6 +1423,7 @@ def edit_cluster(request, cluster_id):
         if form.is_valid():
             cluster = form.save(commit=False)
             cluster.community = community
+            cluster.changed_by = request.user
             cluster.save()
             return HttpResponseRedirect('/%s/%s/'
                % ('clusters/cluster', cluster_id))

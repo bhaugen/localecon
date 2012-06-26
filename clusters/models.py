@@ -313,12 +313,11 @@ class Cluster(models.Model):
     def permits(self, perm_name, user):
         if user.is_superuser:
             return True
-        else:
-            answer = False
-            if user.is_staff:
-                if perm_name == "delete":
-                    answer = user.has_perm("clusters.delete_cluster")
-            return answer
+        if user.id == self.created_by.id:
+            return True
+        if perm_name == "delete":
+            return False
+        return False
 
     def root(self):
         if self.root_function:
