@@ -4,6 +4,7 @@ from decimal import *
 from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 
 from clusters.utils import *
 from clusters.tarjan import strongly_connected_components
