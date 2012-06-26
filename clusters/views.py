@@ -255,6 +255,8 @@ def edit_cluster_functions(request, cluster_id):
 @login_required
 def edit_flows(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     
     new_function_form = EconomicFunctionForm(prefix="function")
     new_resource_form = EconomicResourceTypeForm(prefix="resource")
@@ -322,6 +324,8 @@ def edit_flows(request, cluster_id):
 @login_required
 def edit_agent_flows(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     
     new_function_form = InlineAgentFunctionForm(cluster=cluster, prefix="function")
     new_resource_form = EconomicResourceTypeForm(prefix="resource")
@@ -1179,6 +1183,8 @@ def economic_function(request, function_id):
 def edit_function(request, function_id):
     fn = get_object_or_404(EconomicFunction, pk=function_id)
     cluster = fn.cluster
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     function_form = EconomicFunctionForm(data=request.POST or None, instance=fn)
     function_aspect_name = cluster.function_aspect_name
     if request.method == "POST":
@@ -1195,10 +1201,10 @@ def edit_function(request, function_id):
     
 @login_required    
 def delete_cluster(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
     if not cluster.permits("delete", request.user):
         return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     if request.method == "POST":
-        cluster = get_object_or_404(Cluster, pk=cluster_id)
         cluster.delete()
         return HttpResponseRedirect('/%s/'
             % ('clusters'))
@@ -1208,9 +1214,9 @@ def delete_cluster(request, cluster_id):
 
 @login_required    
 def delete_cluster_confirmation(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
     if not cluster.permits("delete", request.user):
         return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
-    cluster = get_object_or_404(Cluster, pk=cluster_id)
     functions = cluster.functions.all()
     return render_to_response("clusters/delete_cluster_confirmation.html",{ 
         "functions": functions,
@@ -1219,9 +1225,11 @@ def delete_cluster_confirmation(request, cluster_id):
 
 @login_required    
 def delete_function(request, function_id):
+    fn = get_object_or_404(EconomicFunction, pk=function_id)
+    cluster = fn.cluster
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     if request.method == "POST":
-        fn = get_object_or_404(EconomicFunction, pk=function_id)
-        cluster = fn.cluster
         fn.delete()
         return HttpResponseRedirect('/%s/%s/'
             % ('clusters/editclusterfunctions', cluster.id))
@@ -1233,6 +1241,9 @@ def delete_function(request, function_id):
 @login_required    
 def delete_function_confirmation(request, function_id):
     fn = get_object_or_404(EconomicFunction, pk=function_id)
+    cluster = fn.cluster
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     consequences = False
     function_resources = fn.resources.all()
     incoming_flows = fn.incoming_flows.all()
@@ -1281,9 +1292,11 @@ def new_function(request, cluster_id):
    
 @login_required 
 def inline_new_function(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     if request.method == "POST":
         next = request.POST.get("next")
-        cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = EconomicFunctionForm(request.POST, prefix="function")
         #import pdb; pdb.set_trace()
         if form.is_valid():
@@ -1294,9 +1307,11 @@ def inline_new_function(request, cluster_id):
 
 @login_required 
 def new_agent_function(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     if request.method == "POST":
         next = request.POST.get("next")
-        cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = InlineAgentFunctionForm(data=request.POST, cluster=cluster, prefix="function")
         #import pdb; pdb.set_trace()
         if form.is_valid():
@@ -1327,8 +1342,10 @@ def new_agent_function(request, cluster_id):
     
 @login_required 
 def inline_new_agent_function(request, cluster_id, agent_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     if request.method == "POST":
-        cluster = get_object_or_404(Cluster, pk=cluster_id)
         agent = get_object_or_404(EconomicAgent, pk=agent_id)
         form = AgentFunctionCreationForm(data=request.POST, prefix="function")
         #import pdb; pdb.set_trace()
@@ -1366,6 +1383,8 @@ def inline_new_agent_function(request, cluster_id, agent_id):
 @login_required    
 def new_resource(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     form = EconomicResourceTypeFormX(data=request.POST or None)
     if request.method == "POST":
         if form.is_valid():
@@ -1416,6 +1435,8 @@ def new_cluster(request, community_id):
 @login_required    
 def edit_cluster(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     community = cluster.community
     form = ClusterForm(instance=cluster, data=request.POST or None)
     if request.method == "POST":
@@ -1455,6 +1476,8 @@ def edit_community(request, community_id):
 @login_required    
 def new_cluster_agent(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     community = cluster.community
     area_name = community.agent_geographic_area_name
     map_center = ",".join([str(community.latitude), str(community.longitude)])
@@ -1545,6 +1568,8 @@ def edit_cluster_agent(request, cluster_id, agent_id):
 def edit_agent_address(request, cluster_id, agent_id):
     agent = get_object_or_404(EconomicAgent, pk=agent_id)
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     community = cluster.community
     ca = CommunityAgent.objects.get(community=community, agent=agent)
     area_name = community.agent_geographic_area_name
@@ -1589,6 +1614,8 @@ def edit_agent_address(request, cluster_id, agent_id):
 def edit_community_agent(request, cluster_id, agent_id):
     agent = get_object_or_404(EconomicAgent, pk=agent_id)
     cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     community = cluster.community
     ca = CommunityAgent.objects.get(community=community, agent=agent)
     area_name = community.agent_geographic_area_name
@@ -1725,6 +1752,8 @@ def delete_function_resource(request, id):
 def delete_agent_function_resource(request, id):
     frt = get_object_or_404(AgentFunctionResourceType, pk=id)
     cluster = frt.agent_function.function.cluster
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     agent = frt.agent_function.agent
     frt.delete()
     return HttpResponseRedirect('/%s/%s/%s/'
@@ -1732,9 +1761,11 @@ def delete_agent_function_resource(request, id):
 
 @login_required    
 def inline_new_resource(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     if request.method == "POST":
         next = request.POST.get("next")
-        cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = EconomicResourceTypeForm(request.POST, prefix="resource")
         if form.is_valid():
             data = form.cleaned_data
@@ -1754,6 +1785,9 @@ def inline_new_resource(request, cluster_id):
 
 @login_required    
 def inline_agent_resource(request, cluster_id, agent_id, parent_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     if request.method == "POST":
         agent = get_object_or_404(EconomicAgent, pk=agent_id)
         parent_id = int(parent_id)
@@ -1761,7 +1795,6 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             parent = get_object_or_404(EconomicResourceType, pk=parent_id)
         else:
             parent = None
-        cluster = get_object_or_404(Cluster, pk=cluster_id)
         form = AgentFunctionResourceForm(function_resource=None, data=request.POST)
         #import pdb; pdb.set_trace()
         if form.is_valid():
@@ -1803,9 +1836,12 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
 
 @login_required    
 def new_function_resource(request, function_id):
+    fun = get_object_or_404(EconomicFunction, pk=function_id)
+    cluster = fun.cluster
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     if request.method == "POST":
-        fun = get_object_or_404(EconomicFunction, pk=function_id)
-        community = fun.cluster.community
+        community = cluster.community
         form = FunctionResourceTypeForm(community=community, data=request.POST)
         if form.is_valid():
             data = form.cleaned_data
