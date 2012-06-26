@@ -170,6 +170,17 @@ class Community(models.Model):
         return answer
 
 
+PERMISSION_ROLE_CHOICES = (
+    ('owner', 'Owner'),
+    ('editor', 'Editor'),
+)
+
+
+class CommunityMember(models.Model):
+    community = models.ForeignKey(Community, related_name='members')
+    member = models.ForeignKey(User, related_name="communities")
+    permission_role = models.CharField(max_length=12, choices=PERMISSION_ROLE_CHOICES)
+
 class AggregateFunctionResource(object):
     def __init__(self, function, resource_type, role, quantity, price, value):
         self.function = function
