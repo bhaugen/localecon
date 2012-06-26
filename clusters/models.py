@@ -147,10 +147,10 @@ class Community(models.Model):
         help_text="Name for aspect fields on Economic Resource Types in this community.  If no name, aspects will not be used.")
     agent_geographic_area_name = models.CharField(max_length=128, blank=True,
         help_text="Name for geographic area fields for Economic Agents in this community.  If no name, areas will not be used.")
-    when_created = models.DateTimeField(auto_now_add=True)
+    when_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     created_by = models.ForeignKey(User, verbose_name='created by',
         related_name='created_community', blank=True, null=True)
-    when_changed = models.DateTimeField(auto_now_add=True)
+    when_changed = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     changed_by = models.ForeignKey(User, verbose_name='changed by',
         related_name='changed_community', blank=True, null=True)
     
@@ -297,10 +297,10 @@ class Cluster(models.Model):
     root_resource = models.ForeignKey("EconomicResourceType", blank=True, null=True,
         related_name="cluster_root", 
         help_text="Graph root is optional - can be either function or resource but not both")
-    when_created = models.DateTimeField(auto_now_add=True)
+    when_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     created_by = models.ForeignKey(User, verbose_name='created by',
         related_name='created_cluster', blank=True, null=True)
-    when_changed = models.DateTimeField(auto_now_add=True)
+    when_changed = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     changed_by = models.ForeignKey(User, verbose_name='changed by',
         related_name='changed_cluster', blank=True, null=True)
     
