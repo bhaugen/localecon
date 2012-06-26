@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load permissions %}
 {% load humanize %}
 
 {% block title %}
@@ -27,23 +27,29 @@ p {font-size:0.7875em}
 
 <h3>Agents performing Functions in Cluster {{ cluster }}</h3>
 
+{% cluster_perms user edit cluster as can_edit %}
+{% if can_edit %}
 <p>
 	<a style="font-size:130%;" href="{% url new_cluster_agent cluster_id=cluster.id %}">Add new Cluster Agent</a>
 	&nbsp;&nbsp;
 	<a style="font-size:130%;"  href="{% url edit_agent_flows cluster_id=cluster.id %}">Edit Agent Flows</a>
 </p>
+{% endif %}
 <table>
 	{% for agent in agents %}
 		<tr>
 			<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}
-				&nbsp;&nbsp;
-				<a href="{% url edit_cluster_agent cluster_id=cluster.id agent_id=agent.id %}">Edit Consumption &amp; Production</a>
+				{% cluster_perms user edit cluster as can_edit %}
+				{% if can_edit %}
+					&nbsp;&nbsp;
+					<a href="{% url edit_cluster_agent cluster_id=cluster.id agent_id=agent.id %}">Edit Consumption &amp; Production</a>
 					{% if agent.address_is_editable %}
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="{% url edit_agent_address cluster_id=cluster.id agent_id=agent.id %}">Edit Agent Details</a>
 					{% else %}
 						<a href="{% url edit_community_agent cluster_id=cluster.id agent_id=agent.id %}">Edit Community Agent Info</a>
 					{% endif %}
+				{% endif %}
 			</th>
 		</tr>
 		{% for fun in agent.cluster_functions %}

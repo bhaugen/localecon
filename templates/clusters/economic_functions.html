@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load permissions %}
 {% load humanize %}
 
 {% block title %}
@@ -36,6 +36,8 @@ td
 
 <h3>Economic Functions for Cluster: {{ cluster }}</h3>
 
+{% cluster_perms user edit cluster as can_edit %}
+{% if can_edit %}
 <div style="float: left; width: 40%; " >
 	<form action="{% url edit_cluster_functions cluster_id=cluster.id %}" method="GET">
     	<input type="submit" value="Edit Function Consumption &amp; Production" />
@@ -49,6 +51,7 @@ td
 	<i>When you <b>do</b> know which functions trade directly with each other. See <a href="/clusterdetails/" target="_blank" >Cluster Details</a>.</i>
 </div>
 <div style="clear: both; "></div>
+{% endif %}
 
 <div style="float:left; margin-top: 2em; " >
 	<table>
