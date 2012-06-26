@@ -326,6 +326,9 @@ class Cluster(models.Model):
         if perm_name == "delete":
             return False
         return False
+    
+    def is_public(self):
+        return self.sharing == "public"
 
     def root(self):
         if self.root_function:
