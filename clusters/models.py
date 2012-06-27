@@ -328,6 +328,9 @@ class ResourceAtStage(object):
     def __init__(self, long_name):
         self.long_name = long_name
         self.name = long_name.split(";")[1]
+        
+    def node_id(self):
+        return self.long_name
 
 SHARING_CHOICES = (
     ('public', 'Public'),
