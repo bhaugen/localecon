@@ -475,28 +475,41 @@ def agent_network_params(cluster, toggle):
                     edges.append(Edge(agt, v.resource_type, v.quantity, qty_string))
     else:
         flows = AgentResourceFlow.objects.filter(
-            from_function__function__cluster=cluster)
-        nodes = []
+            from_function__function__cluster=cluster)       
         edges = []
-        for flow in flows:
-            nodes.extend([flow.from_function, flow.to_function, flow.resource_type])
-            if toggle == "val":
-                value = flow.get_value()
-                total += value
-                val_string = "".join([symbol, split_thousands(value)])
-                edges.append(Edge(flow.from_function, flow.resource_type, value, val_string))
-                edges.append(Edge(flow.resource_type, flow.to_function, value, val_string))
-            elif toggle == "price":
-                total += v.price
-                p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
-                edges.append(Edge(flow.from_function, flow.resource_type, v.price, p_string))
-                edges.append(Edge(flow.resource_type, flow.to_function, v.price, p_string))
-            else:
-                total += flow.quantity
-                qty_string = split_thousands(v.quantity)
-                edges.append(Edge(flow.from_function, flow.resource_type, flow.quantity, qty_string))
-                edges.append(Edge(flow.resource_type, flow.to_function, flow.quantity, qty_string))
-        nodes = list(set(nodes))
+        nodes = []
+        functions = [flow.from_function for flow in flows]
+        functions.extend([flow.to_function for flow in flows])
+        fns = list(set(functions))
+        for fn in fns:
+            if not fn in nodes:
+                nodes.append(fn)
+            for flow in fn.outgoing_flows.all():
+                if toggle == "val":
+                    nbr = flow.get_value()
+                    nbr_string = "".join([symbol, split_thousands(nbr)])
+                elif toggle == "price":
+                    nbr = flow.price
+                    nbr_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
+                else:
+                    nbr = flow.quantity
+                    nbr_string = split_thousands(flow.quantity)
+                total += nbr
+                rtype = ResourceAtStage(";".join([flow.from_function.name,flow.resource_type.name]))
+                if not rtype in nodes:
+                    nodes.append(rtype)
+                edges.append(Edge(
+                    flow.from_function, 
+                    rtype, 
+                    nbr,
+                    nbr_string))
+                if not flow.to_function in nodes:
+                    nodes.append(flow.to_function)
+                edges.append(Edge(
+                    rtype, 
+                    flow.to_function,
+                    nbr,
+                    nbr_string))
             
     for edge in edges:
         width = 1
