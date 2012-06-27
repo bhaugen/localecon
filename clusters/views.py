@@ -577,7 +577,7 @@ def group_network_params(cluster, toggle):
     }
     return template_params
 
-def network_params(cluster, toggle):
+def network_params_old(cluster, toggle):
     template_params = {}
     frts = FunctionResourceType.objects.filter(
         function__cluster=cluster)
@@ -665,6 +665,109 @@ def network_params(cluster, toggle):
     }
     return template_params
     
+    
+def network_params(cluster, toggle):
+    template_params = {}
+    frts = FunctionResourceType.objects.filter(
+        function__cluster=cluster)
+    symbol = "$"
+    if toggle == "val" or toggle == "price":
+        try:
+            symbol = cluster.community.unit_of_value.symbol
+        except:
+            pass
+    edges = []
+    rtypes = []
+    if toggle == "price":
+        total = Decimal("0.00")
+    else:
+        total = 0.0
+    if frts:
+        nodes = list(cluster.functions.all())
+        for fn in nodes:
+            for v in fn.inputs():
+                rtypes.append(v.resource_type)
+                if toggle == "val":
+                    value = v.get_value()
+                    total += value
+                    val_string = "".join([symbol, split_thousands(value)])
+                    edges.append(Edge(v.resource_type, fn, value, val_string))
+                elif toggle == "price":
+                    total += v.price
+                    p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
+                    edges.append(Edge(v.resource_type, fn, v.price, p_string))
+                else:
+                    total += v.quantity
+                    qty_string = split_thousands(v.quantity)
+                    edges.append(Edge(v.resource_type, fn, v.quantity, qty_string))
+            for v in fn.outputs():
+                rtypes.append(v.resource_type)
+                if toggle == "val":
+                    value = v.get_value()
+                    total += value
+                    val_string = "".join([symbol, split_thousands(value)])
+                    edges.append(Edge(fn, v.resource_type, value, val_string))
+                elif toggle == "price":
+                    total += v.price
+                    p_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
+                    edges.append(Edge(v.resource_type, fn, v.price, p_string))
+                else:
+                    total += v.quantity
+                    qty_string = split_thousands(v.quantity)
+                    edges.append(Edge(fn, v.resource_type, v.quantity, qty_string))
+        nodes.extend(list(set(rtypes)))
+    else:
+        #import pdb; pdb.set_trace()
+        edges = []
+        nodes = []
+        flows = cluster.flows()
+        functions = [flow.from_function for flow in flows]
+        functions.extend([flow.to_function for flow in flows])
+        fns = list(set(functions))
+        for fn in fns:
+            if not fn in nodes:
+                nodes.append(fn)
+            for flow in fn.outgoing_flows.all():
+                if toggle == "val":
+                    nbr = flow.get_value()
+                    nbr_string = "".join([symbol, split_thousands(nbr)])
+                elif toggle == "price":
+                    nbr = flow.price
+                    nbr_string = "".join([symbol, str(v.price.quantize(Decimal(".01")))])
+                else:
+                    nbr = flow.quantity
+                    nbr_string = split_thousands(flow.quantity)
+                total += nbr
+                rtype = ResourceAtStage(";".join([flow.from_function.name,flow.resource_type.name]))
+                if not rtype in nodes:
+                    nodes.append(rtype)
+                edges.append(Edge(
+                    flow.from_function, 
+                    rtype, 
+                    nbr,
+                    nbr_string))
+                if not flow.to_function in nodes:
+                    nodes.append(flow.to_function)
+                edges.append(Edge(
+                    rtype, 
+                    flow.to_function,
+                    nbr,
+                    nbr_string))
+                
+    for edge in edges:
+        width = 1
+        if total > 0:
+            width = round((edge.quantity / total), 2) * 50
+            width = int(width)
+        edge.width = width
+        
+    template_params =  {
+        'cluster': cluster,
+        'nodes': nodes,
+        'edges': edges,
+    }
+    return template_params
+
 
 def network(request, cluster_id, toggle="qty", level="fn"):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
