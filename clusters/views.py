@@ -1534,6 +1534,8 @@ def new_community(request):
 @login_required    
 def new_cluster(request, community_id):
     community = get_object_or_404(Community, pk=community_id)
+    if not community.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
     form = ClusterForm(data=request.POST or None)
     if request.method == "POST":
         #import pdb; pdb.set_trace()
