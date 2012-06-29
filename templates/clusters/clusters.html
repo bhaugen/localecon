@@ -59,9 +59,9 @@
 					</form>
 					{% endif %}
 					{% if community.description %}
-					<p class="description">
+					<div class="description">
 						{{ community.description|linebreaks }}
-					</p>
+					</div>
 					{% endif %}
 				</li>
 				{% if community.clusters.all %}
@@ -72,9 +72,9 @@
 								{{ cluster.name }}</a> Cluster:&nbsp;&nbsp;
 								{% include "clusters/_simple_cluster_nav.html" %}
 								{% if cluster.description %}
-									<p class="description">
+									<div class="description">
 										{{ cluster.description|linebreaks }}
-									</p>
+									</div>
 								{% endif %}
 							</li>
 							{% endif %}
