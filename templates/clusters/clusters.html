@@ -51,9 +51,11 @@
 						<input type="submit" value="New Cluster" />
 					</form>
 					{% endif %}
+					{% if community.description %}
 					<p class="description">
 						{{ community.description|linebreaks }}
 					</p>
+					{% endif %}
 				</li>
 				{% if community.clusters.all %}
 					<ul>
@@ -62,7 +64,11 @@
 							<li class="cluster" >
 								{{ cluster.name }}</a> Cluster:&nbsp;&nbsp;
 								{% include "clusters/_simple_cluster_nav.html" %}
-
+								{% if cluster.description %}
+									<p class="description">
+										{{ cluster.description|linebreaks }}
+									</p>
+								{% endif %}
 							</li>
 							{% endif %}
 						{% endfor %}
