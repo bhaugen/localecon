@@ -136,7 +136,7 @@
 					{% endif %}
 					{% if community.description %}
 					<div class="description">
-						{{ community.description|linebreaks|urlize }}
+						{{ community.description|urlize|linebreaks }}
 					</div>
 					{% endif %}
 				</li>
@@ -149,7 +149,7 @@
 								{% include "clusters/_simple_cluster_nav.html" %}
 								{% if cluster.description %}
 									<div class="description">
-										{{ cluster.description|linebreaks|urlize }}
+										{{ cluster.description|urlize|linebreaks }}
 									</div>
 								{% endif %}
 							</li>
