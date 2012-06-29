@@ -12,6 +12,11 @@
 	font-size: 90%;
 }
 	
+.community-name {
+	font-weight: bold;
+}
+	
+	
 /*LF from here*/
 #header {
 	text-align: left;
@@ -117,7 +122,7 @@
 			{% for community in communities  %}
 				{% if community.is_public %}
 				<li class="community" >
-					{{ community }} Community
+					<span class="community-name">{{ community }} Community</span>
 					{% community_perms user edit community as can_edit %}
 					{% if can_edit %}
 					&nbsp;&nbsp;
