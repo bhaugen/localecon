@@ -6,15 +6,85 @@
 {% endblock %}
 
 <style>
-	.description {
-		margin: 0 0 0 1em !important;
-		font-size: 90% !important;
-	}
+.description {
+	margin: 0 0 0 1em !important;
+	font-size: 90% !important;
+}
+	
+/*LF from here*/
+#header {
+	text-align: left;
+	margin: 0;
+	padding: 0;
+}
+#header h2 {
+	font-size: 2.5em;
+	margin: 0;
+	padding: 0;
+}
+#header h3 {
+	font-size: 1.1em;
+	margin: 0;
+	padding: 0;
+}
+.loceconLetters {
+	color: black;
+}
+.otherLetters {
+	color: #858585;
+}
+#firstSubtitle {
+	color: #660099;
+}
+#arrow {
+	color: #660099;
+	font-size: 120%;
+}
+#arrow2 {
+	color: #29A329;
+	font-size: 100%;
+}
+#more {
+	color: #cc0000;
+}
+#secondSubtitle {
+	color: #29A329;
+	margin-bottom: .2em;
+}
+#rightLinks {
+	margin: 2px 2em 0 0;
+	font-size: .8em;
+}
+#rightLinks ul {
+	list-style-type: none;
+	padding:0;
+}
+#rightLinks a:link,a:visited {
+    display:block;
+    font-weight:bold;
+    text-align: left;
+    padding:4px 10px 4px 10px;
+    border-bottom: solid 2px #F5F5F5;
+    text-decoration:none;
+}
+#rightLinks a:hover,a:active {
+    background-color: black;
+    color: white;
+}
+.hiliteLink { 
+    background-color: #ffcc00;
+    color: #a60000;
+}
+.regularLink { 
+    background-color: #858585;
+    color:#FFFFFF;
+}
 </style>
 
 
 {% block content %}
 <div style="float: left; ">
+	<h2><span class="loceconLetters">Loc</span><span class="otherLetters">al </span><span class="loceconLetters">Econ</span><span class="otherLetters">omic Development</span></h2>
 	<h3>Communities and Clusters</h3>
 </div>
 
