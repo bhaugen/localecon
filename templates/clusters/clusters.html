@@ -10,20 +10,25 @@
 <div style="float: left; ">
 	<h3>Communities and Clusters</h3>
 </div>
-<div style="float: right; width: 10%;">
+
+<div id="rightLinks" style="float: right; width: 130px;">
+	<ul>
 	{% if user.is_authenticated %}
-		{{ user }} <a href="{% url acct_logout %}">Logout</a><br />
-		<a href="/help/">Help</a>
+		<li>{{ user }} <a class="regularLink" href="{% url acct_logout %}">Logout</a></li>
+		<li><a class="regularLink" href="/help/">Help</a></li>
 		{% if user.is_staff %}
-			<br /><a href="/admin">Admin</a>
-		{% else %}
-			<br />
+			<li><a class="regularLink" href="/admin">Admin</a></li>
 		{% endif %}
+		<li><a class="regularLink" href="/about/">About</a></li>
+		<li><a class="hiliteLink" href="{% url clusters %}">View All Clusters</a></li>
 	{% else %}
-		<a href="{% url acct_login %}">Log in</a>
-		<br /><br /><br />
+		<li><a class="regularLink" href="{% url acct_login %}">Log in</a></li>
+		<li><a class="regularLink" href="/about/">About</a></li>
+		<li><a class="hiliteLink" href="{% url clusters %}">View All Clusters</a></li>
 	{% endif %}
+	</ul>
 </div>
+
 <div style="clear: both;"></div>
 <div style="float: left; ">
 	{% if user.is_superuser %}
@@ -34,7 +39,7 @@
 		<ul>
 			{% for community in communities  %}
 				{% if community.is_public %}
-				<li>
+				<li class="community" >
 					{{ community }} Community
 					{% community_perms user edit community as can_edit %}
 					{% if can_edit %}
@@ -45,14 +50,16 @@
 					<form style="display:inline;" action="{% url new_cluster community_id=community.id %}" method="GET">
 						<input type="submit" value="New Cluster" />
 					</form>
-
 					{% endif %}
+					<p class="description">
+						{{ community.description|linebreaks }}
+					</p>
 				</li>
 				{% if community.clusters.all %}
 					<ul>
 						{% for cluster in community.clusters.all %}
 							{% if cluster.is_public or user.is_authenticated %}
-							<li>
+							<li class="cluster" >
 								{{ cluster.name }}</a> Cluster:&nbsp;&nbsp;
 								{% include "clusters/_simple_cluster_nav.html" %}
 
