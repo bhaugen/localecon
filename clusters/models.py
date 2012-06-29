@@ -134,6 +134,7 @@ class Unit(models.Model):
 
 class Community(models.Model):
     name = models.CharField(max_length=128)
+    description = models.TextField(blank=True, null=True)
     map_center = models.CharField(max_length=255, blank=True,
         help_text="Map center may be an address, or latitude and longitude.")
     latitude = models.FloatField(default=0.0, blank=True, null=True)
