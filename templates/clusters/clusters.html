@@ -121,7 +121,7 @@
 	{% endif %}
 		<ul>
 			{% for community in communities  %}
-				{% if community.is_public %}
+				{% if community.is_public or user.is_superuser %}
 				<li class="community" >
 					<span class="community-name">{{ community }} Community</span>
 					{% community_perms user edit community as can_edit %}
