@@ -30,6 +30,8 @@ class InlineAgentFunctionForm(forms.ModelForm):
 
 class ClusterForm(forms.ModelForm):
     function_aspect_name = forms.CharField(required=False)
+    description = forms.CharField(required=False,
+        widget=forms.Textarea(attrs={'cols': '80', 'value': ''}))
     
     class Meta:
         model = Cluster
@@ -39,6 +41,8 @@ class ClusterForm(forms.ModelForm):
 
 class CommunityForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'size': '40',}))
+    description = forms.CharField(required=False,
+        widget=forms.Textarea(attrs={'cols': '80', 'value': ''}))
     map_center = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '80',}))
     latitude = forms.FloatField(required=False, widget=forms.HiddenInput)
     longitude = forms.FloatField(required=False, widget=forms.HiddenInput)
