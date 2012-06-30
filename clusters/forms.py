@@ -35,7 +35,7 @@ class ClusterForm(forms.ModelForm):
     
     class Meta:
         model = Cluster
-        fields = ('name', 'description', 'function_aspect_name')
+        fields = ('name', 'description', 'function_aspect_name', 'sharing')
 
 
 
