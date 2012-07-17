@@ -6,114 +6,44 @@
 {% endblock %}
 
 {% block header %}
-<style>
-.description p {
-	margin: 0 0 4px 1em;
-	font-size: 90%;
-	font-style: italic;
-}
-	
-.community-name {
-	font-weight: bold;
-}
-	
-	
-/*LF from here*/
-#header {
-	text-align: left;
-	margin: 0;
-	padding: 0;
-}
-#header h2 {
-	font-size: 2.5em;
-	margin: 0;
-	padding: 0;
-}
-#header h3 {
-	font-size: 1.1em;
-	margin: 0;
-	padding: 0;
-}
-.loceconLetters {
-	color: black;
-}
-.otherLetters {
-	color: #858585;
-}
-#firstSubtitle {
-	color: #660099;
-}
-#arrow {
-	color: #660099;
-	font-size: 120%;
-}
-#arrow2 {
-	color: #29A329;
-	font-size: 100%;
-}
-#more {
-	color: #cc0000;
-}
-#secondSubtitle {
-	color: #29A329;
-	margin-bottom: .2em;
-}
-#rightLinks {
-	margin: 2px 2em 0 0;
-	font-size: .8em;
-}
-#rightLinks ul {
-	list-style-type: none;
-	padding:0;
-}
-#rightLinks a:link,a:visited {
-    display:block;
-    font-weight:bold;
-    text-align: left;
-    padding:4px 10px 4px 10px;
-    border-bottom: solid 2px #F5F5F5;
-    text-decoration:none;
-}
-#rightLinks a:hover,a:active {
-    background-color: black;
-    color: white;
-}
-.hiliteLink { 
-    background-color: #ffcc00;
-    color: #a60000;
-}
-.regularLink { 
-    background-color: #858585;
-    color:#FFFFFF;
-}
-</style>
 
 {% endblock %}
 
 {% block content %}
-<div style="float: left; ">
-	<h2><span class="loceconLetters">Loc</span><span class="otherLetters">al </span><span class="loceconLetters">Econ</span><span class="otherLetters">omic Development</span></h2>
-	<h3>Communities and Clusters</h3>
+
+<div id="top">
+	<div id="header">
+		<img id="mushy" src="mushy40.jpg" />
+		<h2><a href="/"><span class="loceconLetters">loc</span><span class="otherLetters">al </span><span class="loceconLetters">econ</span><span class="otherLetters">omic development</span></a></h2>
+		<h3 id="firstSubtitle">Communities, Clusters, Networks and Resources</h3>
+		<h3 id="secondSubtitle"><img src="arrow_turn_right.png" /> Resource Maps, Network Flows
+			<img src="arrow_right.png" />
+			<span id="more">As-is vs To-be, Gaps, Opportunities</span></h3>
+	</div>
+	<div id="rightLinks">
+		<ul id="topLinks">
+			{% if user.is_authenticated %}
+				<li>{{ user }} <a class="regularLink" href="{% url acct_logout %}">Logout</a></li>
+				<li><a class="regularLink" href="/help/">Help</a></li>
+				{% if user.is_staff %}
+					<li><a class="regularLink" href="/admin/">Admin</a></li>
+				{% endif %}
+			{% else %}
+				<li><a class="regularLink" href="{% url acct_login %}">Log in</a></li>
+				<li><a class="regularLink" href="/contact/">Contact Us</a></li>
+			{% endif %}
+		</ul>
+		<ul id="tabLinks">
+			<li><a class="regularLink" href="/">Home</a></li>
+			<li><a class="regularLink" href="/About/">About</a></li>
+			<li><a class="regularLink" href="/">Features</a></li>
+			<li><a class="regularLink" href="/">Stories</a></li>
+			<li><a class="hiliteLink" href="/clusters/">View Clusters</a></li>
+		</ul>
+	</div>
 </div>
 
-<div id="rightLinks" style="float: right; width: 130px;">
-	<ul>
-	{% if user.is_authenticated %}
-		<li>{{ user }} <a class="regularLink" href="{% url acct_logout %}">Logout</a></li>
-		<li><a class="regularLink" href="/help/">Help</a></li>
-		{% if user.is_staff %}
-			<li><a class="regularLink" href="/admin">Admin</a></li>
-		{% endif %}
-		<li><a class="regularLink" href="/about/">About</a></li>
-	{% else %}
-		<li><a class="regularLink" href="{% url acct_login %}">Log in</a></li>
-		<li><a class="regularLink" href="/about/">About</a></li>
-	{% endif %}
-	</ul>
-</div>
-
-<div style="clear: both;"></div>
-<div style="float: left; ">
+<div id="content">
 	{% if user.is_superuser %}
 	<form action="{% url new_community  %}" method="GET">
     	<input type="submit" value="New Community" />
@@ -145,7 +75,7 @@
 						{% for cluster in community.clusters.all %}
 							{% if cluster.is_public or user.is_authenticated %}
 							<li class="cluster" >
-								{{ cluster.name }}</a> Cluster:&nbsp;&nbsp;
+								<span class="cluster-name">{{ cluster.name }} Cluster:</span>&nbsp;&nbsp;
 								{% include "clusters/_simple_cluster_nav.html" %}
 								{% if cluster.description %}
 									<div class="description">
