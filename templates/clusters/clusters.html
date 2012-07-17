@@ -23,14 +23,14 @@
 	<div id="rightLinks">
 		<ul id="topLinks">
 			{% if user.is_authenticated %}
-				<li>{{ user }} <a class="regularLink" href="{% url acct_logout %}">Logout</a></li>
-				<li><a class="regularLink" href="/help/">Help</a></li>
+				<li>{{ user }} <a href="{% url acct_logout %}">Logout</a></li>
+				<li><a href="/help/">Help</a></li>
 				{% if user.is_staff %}
-					<li><a class="regularLink" href="/admin/">Admin</a></li>
+					<li><a href="/admin/">Admin</a></li>
 				{% endif %}
 			{% else %}
-				<li><a class="regularLink" href="{% url acct_login %}">Log in</a></li>
-				<li><a class="regularLink" href="/contact/">Contact Us</a></li>
+				<li><a href="{% url acct_login %}">Log in</a></li>
+				<li><a href="/contact/">Contact Us</a></li>
 			{% endif %}
 		</ul>
 		<ul id="tabLinks">
