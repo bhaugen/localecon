@@ -100,7 +100,7 @@ body
 }
 #topLinks li {
 	display: inline;
-	padding: 0 0 0 15px;
+	padding: 4px 0 0 15px;
 	color: black;
 	float: right;
 }
