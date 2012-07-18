@@ -2,109 +2,39 @@
     "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 <head>
-<title>{{ flatpage.title }}</title>
-<style type="text/css">	
-body
-{
-	font-family: Myriad,Arial,Helvetica,clean,sans-serif; 
-	font-size: 90%;
-	margin: 0 8em 2em 8em;
-	background-color: #f5f5f5;
-}
-#header {
-	text-align: left;
-	margin: 0;
-	padding: 0;
-	float: left; 
-	margin-bottom: 0;
-}
-#header h2 {
-	font-size: 2.5em;
-	margin: 0;
-	padding: 0;
-}
-#header h3 {
-	font-size: 1.1em;
-	margin: 0;
-	padding: 0;
-}
-#header a {
-	text-decoration: none;
-}
-.loceconLetters {
-	color: black;
-}
-.otherLetters {
-	color: #858585;
-}
-#firstSubtitle {
-	color: #660099;
-}
-#arrow {
-	color: #660099;
-	font-size: 100%;
-}
-#more {
-	color: #cc0000;
-}
-#secondSubtitle {
-	color: #29A329;
-	margin-bottom: .2em;
-}
-#rightLinks {
-	margin: 2px 10px 0 0;
-	font-size: .8em;
-	float: right; 
-	width: 130px;
-}
-#rightLinks ul {
-	list-style-type: none;
-	padding:0;
-}
-#rightLinks a:link,a:visited {
-    display:block;
-    font-weight:bold;
-    text-align: left;
-    padding:4px 10px 4px 10px;
-    border-bottom: solid 2px #F5F5F5;
-    text-decoration:none;
-}
-#rightLinks a:hover,a:active {
-    background-color: black;
-    color: white;
-}
-.hiliteLink { 
-    background-color: #ffcc00;
-    color: #a60000;
-}
-.regularLink { 
-    background-color: #858585;
-    color:#FFFFFF;
-}
-	
-.clear {
-	clear: both;
-}
-</style>
+	<title>{{ flatpage.title }}</title>
+	<link type="text/css" href="/site_media/css/reset.css" rel="stylesheet" />
+	<link type="text/css" href="/site_media/css/base.css" rel="stylesheet" />
+	<link type="text/css" href="/site_media/css/flatpage.css" rel="stylesheet" />
 </head>
 
 <body>
-<div id="rightLinks">
-	<ul>
-		<li><a class="regularLink" href="/">Home</a></li>
-		<li><a class="hiliteLink" href="/clusters/">View All Clusters</a></li>
-	</ul>
+<div id="top">
+	<div id="header">
+		<h2><a href="/"><span class="loceconLetters">loc</span><span class="otherLetters">al </span><span class="loceconLetters">econ</span><span class="otherLetters">omic development</span></a></h2>
+		<a href="/mushy/" target="_blank" >
+            <img id="mushy" src="/site_media/images/mushy40.jpg" alt="Mushy the chanterelle mushroom" title="Mushy the chanterelle mushroom"/>
+        </a>
+		<h3 id="firstSubtitle">Communities, Clusters, Networks and Resources</h3>
+		<h3 id="secondSubtitle"><img src="arrow_turn_right_gr.png" />Resource Maps, Network Flows</h3>
+		<h3 id="thirdSubtitle"><img src="arrow_Turn_right_pu.png" />As-is vs To-be, Gaps, Opportunities</h3>
+	</div>
+	<div id="rightLinks">
+		<ul id="topLinks">
+			<li><a href="">Log in</a></li>
+			<li><a href="">Contact Us</a></li>
+		</ul>
+		<ul id="tabLinks">
+			<li><a class="regularLink" href="/">Home</a></li>
+			<li><a class="regularLink" href="/About/">About</a></li>
+			<li><a class="regularLink" href="/">Features</a></li>
+			<li><a class="regularLink" href="/">Stories</a></li>
+			<li><a class="regularLink" href="/clusters/">View Clusters</a></li>
+		</ul>
+	</div>
 </div>
-<div id="header">
-	<h2><a href="/"><span class="loceconLetters">Loc</span><span class="otherLetters">al </span><span class="loceconLetters">Econ</span><span class="otherLetters">omic Development</span></a></h2>
-	<h3 id="firstSubtitle">Communities, Clusters, Networks and Resources</h3>
-	<h3 id="secondSubtitle"><span id="arrow">&#8627;</span> Resource Maps, Network Flows, 
-		<span id="more">As-is vs 2B, Gaps, Opportunities</span></h3>
-</div>
-<div class="clear"></div>
 
 {{ flatpage.content }}
 
 </body>
 </html>
-

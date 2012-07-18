@@ -1,0 +1,87 @@
+/*This contains styles to be used in addition to styles from the base.css.  Place after base.css. */
+#top {
+        height: 108px; /*override base*/
+}
+#header h3 {
+        font-size: 1.1em;
+        margin: 0;
+}
+#firstSubtitle {
+        color: #29A329;
+        padding: 3px 0 0 0;
+        font-style: italic;
+}
+#thirdSubtitle {
+        color: #e65c00;
+        font-style: italic;
+        padding: 0 0 0 17px;
+}
+#secondSubtitle {
+        color: blueviolet;
+        padding: 0 0 0 0;
+        font-style: italic;
+}
+#tabLinks {
+        top: 86px; /*override base*/
+}
+#feature-content {
+	background-color: ghostwhite;
+	margin: 0;
+	padding: 10px;
+}
+.current-feature {
+	font-size: 120%; 
+	font-weight: bold;
+	color: #e65c00; 
+}
+.link-button {
+	background-color: #cfcfe1; 
+	color: black; 
+	text-decoration: none;
+	padding: 2px 5px 2px 5px;
+	font-size: .8em;
+	font-weight: bold;
+    text-align: center;
+}
+a.link-button:hover {
+    background-color: #e7e7f0;
+}
+#contact-content {
+	padding: 50px;
+	text-align: center;
+}
+#about-content {
+	position: relative;
+	background-color: white;
+	padding: 0; 
+	font-size: 1em;
+	margin: 1em 10px 0 0;
+	color: #191919;
+}
+#left {
+	float: left;
+	width: 45%;
+	margin: 0 0 0 2em;
+}
+#right {
+	float: left;
+	width: 45%;
+	margin: 0 0 0 3em;
+}
+#about-content h3 {
+	text-align: left;
+	font-size: 1.3em;
+	color: #858585;
+	padding: 0;
+	margin: .5em 0 0 0;
+}
+#about-content hr {
+	color: #f7f7f7;
+	margin: 0;
+	padding: 0;
+}
+.definition li {
+	font-weight: bold;
+	color: #cc2900;
+	margin-left: 15px;
+}
