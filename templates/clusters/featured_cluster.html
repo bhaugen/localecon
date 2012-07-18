@@ -7,7 +7,52 @@
 {% block header %}
 
 <style>
+	
+	
+#container {
+    width: 450px;
+    height: 550px;
+    margin:0 auto;
+    position:relative;
+}
 
+#left-container, 
+#right-container, 
+#center-container {
+    height:500px;
+    position:absolute;
+    top:0;
+}
+
+#left-container, #right-container {
+    color:#686c70;
+    text-align: left;
+    overflow: auto;
+    background-color:#fff;
+    background-repeat:no-repeat;
+    border-bottom:1px solid #ddd;
+}
+
+#left-container {
+    width:0px;
+    left:0;
+    border-left:1px solid #ddd;
+    
+}
+
+#right-container {
+    width:0px;
+    right:0;
+    border-right:1px solid #ddd;
+
+}
+
+#center-container {
+    width:450px;
+    left:0px;
+    background-color: #FFFFCC;
+    color: #CC99FF;
+}
 
 #infovis {
     position:relative;
