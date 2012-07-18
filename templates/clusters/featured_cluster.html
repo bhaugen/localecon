@@ -276,28 +276,10 @@ var Log = {
 
 </script>
 
-<div id="rightLinks" style="float: right; width: 130px;">
-	<ul>
-	{% if user.is_authenticated %}
-		<li>{{ user }} <a class="regularLink" href="{% url acct_logout %}">Logout</a></li>
-		<li><a class="regularLink" href="/help/">Help</a></li>
-		{% if user.is_staff %}
-			<li><a class="regularLink" href="/admin">Admin</a></li>
-		{% endif %}
-		<li><a class="regularLink" href="/about/">About</a></li>
-		<li><a class="hiliteLink" href="{% url clusters %}">View All Clusters</a></li>
-	{% else %}
-		<li><a class="regularLink" href="{% url acct_login %}">Log in</a></li>
-		<li><a class="regularLink" href="/about/">About</a></li>
-		<li><a class="hiliteLink" href="{% url clusters %}">View All Clusters</a></li>
-	{% endif %}
-	</ul>
-</div>
-
 <div id="top">
 	<div id="header">
 		<h2><a href="/"><span class="loceconLetters">loc</span><span class="otherLetters">al </span><span class="loceconLetters">econ</span><span class="otherLetters">omic development</span></a></h2>
-		<img id="mushy" src="/site_media/images/mushy40.jpg" />
+		<img id="mushy" src="/site_media/images/mushy40.jpg" alt="Mushy the chanterelle mushroom"/>
 		<h3 id="firstSubtitle">Communities, Clusters, Networks and Resources</h3>
 		<h3 id="secondSubtitle"><img src="/site_media/images/arrow_turn_right_gr.png" />Resource Maps, Network Flows</h3>
 		<h3 id="thirdSubtitle"><img src="/site_media/images/arrow_Turn_right_pu.png" />As-is vs To-be, Gaps, Opportunities</h3>
