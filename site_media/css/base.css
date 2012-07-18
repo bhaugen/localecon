@@ -79,8 +79,8 @@ body
     color: white;
 }
 .hiliteLink { 
-    background-color: #c4c4c4; /*#ffcc00;*/
-    color: black; /*#a60000;*/
+    background-color: #c4c4c4; 
+    color: black; 
 }
 .regularLink { 
     background-color: #858585;

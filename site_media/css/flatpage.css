@@ -85,3 +85,11 @@ a.link-button:hover {
 	color: #cc2900;
 	margin-left: 15px;
 }
+
+div.about li.about,
+div.features li.features,
+div.stories li.stories,
+{ 
+    background-color: #c4c4c4; 
+    color: black; 
+}
