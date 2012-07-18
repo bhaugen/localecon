@@ -13,7 +13,7 @@
 ul#tabnav 
 { /* general settings */
 	text-align: left; /* set to left, right or center */
-	margin: 8px 0 16px 0; /* set margins as desired */
+	margin: 8px 0 16px 0 !important; /* set margins as desired */
 	font: bold 11px verdana, arial, sans-serif; /* set font as desired */
 	border-bottom: 1px solid #006699; /* set border COLOR as desired */
 	list-style-type: none;
@@ -83,7 +83,7 @@ ul#tabnav a:hover
 </style>
 
 
-<div style="float: left; padding-top: 4px;">
+<div style="float: left;">
 	<ul id="tabnav" class="do-not-print" >
 		{% if user.is_authenticated %}
 		<li class="cluster" ><a href="{% url edit_cluster cluster_id=cluster.id %}">Edit Cluster</a></li>

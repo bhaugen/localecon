@@ -25,7 +25,7 @@
 	</p>
 		<p><a href="{% url network cluster_id=cluster.id %}">Network Diagram</a></p>
 		{% if cluster.has_function_resources %}
-			<p></p><a href="{% url radial_graph cluster_id=cluster.id %}">Radial Graph</a></p>
+			<p><a href="{% url radial_graph cluster_id=cluster.id %}">Radial Graph</a></p>
 		{% else %}
 			<h4>This diagrams requires functions with resource consumption and production:</h4>
 			<p>Radial Graph</a></p>
