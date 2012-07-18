@@ -1,11 +1,5 @@
 {% load permissions %}
 
-<span class="cluster-buttons">
-	<a href="{% url cluster cluster_id=cluster.id %}" class="cluster-link" >Cluster Map</a>
-	<a href="{% url economic_functions cluster_id=cluster.id %}" class="cluster-link" >Functions</a>
-	<a href="{% url cluster_agents cluster_id=cluster.id %}" class="cluster-link" >Agents</a>
-	<a href="{% url diagrams cluster_id=cluster.id %}" class="cluster-link" >Diagrams</a>
-	<a href="{% url reports cluster_id=cluster.id %}" class="cluster-link" >Reports</a>
 	{% cluster_perms user delete cluster as can_delete %}
 	{% if can_delete %}
 		<form style="display:inline;" action="{% url delete_cluster_confirmation cluster_id=cluster.id %}" method="POST">
@@ -13,4 +7,10 @@
 			<input type="submit" value="Delete" />
 		</form>
 	{% endif %}
+<span class="cluster-buttons">
+	<a href="{% url cluster cluster_id=cluster.id %}" class="cluster-link" >Cluster Map</a>
+	<a href="{% url economic_functions cluster_id=cluster.id %}" class="cluster-link" >Functions</a>
+	<a href="{% url cluster_agents cluster_id=cluster.id %}" class="cluster-link" >Agents</a>
+	<a href="{% url diagrams cluster_id=cluster.id %}" class="cluster-link" >Diagrams</a>
+	<a href="{% url reports cluster_id=cluster.id %}" class="cluster-link" >Reports</a>
 </span>
