@@ -1,5 +1,6 @@
 {% load permissions %}
 
+<span class="cluster-buttons">
 	<a href="{% url cluster cluster_id=cluster.id %}" class="cluster-link" >Cluster Map</a>
 	<a href="{% url economic_functions cluster_id=cluster.id %}" class="cluster-link" >Functions</a>
 	<a href="{% url cluster_agents cluster_id=cluster.id %}" class="cluster-link" >Agents</a>
@@ -12,3 +13,4 @@
 			<input type="submit" value="Delete" />
 		</form>
 	{% endif %}
+</span>
