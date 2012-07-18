@@ -83,7 +83,7 @@ ul#tabnav a:hover
 </style>
 
 
-<div style="float: left; ">
+<div style="float: left; margin-top: 4px;">
 	<ul id="tabnav" class="do-not-print" >
 		{% if user.is_authenticated %}
 		<li class="cluster" ><a href="{% url edit_cluster cluster_id=cluster.id %}">Edit Cluster</a></li>
