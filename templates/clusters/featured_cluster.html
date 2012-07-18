@@ -136,20 +136,42 @@ a {
 }
 
 /*LF from here*/
+body
+{
+	font-family: Myriad,Arial,Helvetica,clean,sans-serif; 
+	font-size: 90%;
+	margin: 0 8em 2em 8em;
+	background-color: white; /*#f5f5f5;*/
+}
+#top {
+	position: relative;
+	height: 108px;
+	border-bottom: 5px solid #c4c4c4; 
+	margin-bottom: 0;
+}
 #header {
 	text-align: left;
 	margin: 0;
 	padding: 0;
+	float: left; 
+	margin-bottom: 0;
 }
 #header h2 {
 	font-size: 2.5em;
+	font-family: cambria, times new roman, serif;
 	margin: 0;
 	padding: 0;
+	float: left;
+}
+#header img {
+	margin-top: 3px;
 }
 #header h3 {
 	font-size: 1.1em;
 	margin: 0;
-	padding: 0;
+}
+#header a {
+	text-decoration: none;
 }
 .loceconLetters {
 	color: black;
@@ -158,50 +180,77 @@ a {
 	color: #858585;
 }
 #firstSubtitle {
-	color: #660099;
+	color: #29A329; 
+	padding: 3px 0 0 0;
+	font-style: italic;
 }
-#arrow {
-	color: #660099;
-	font-size: 120%;
-}
-#arrow2 {
-	color: #29A329;
-	font-size: 100%;
-}
-#more {
-	color: #cc0000;
+#thirdSubtitle {
+	color: #e65c00;  
+	font-style: italic;
+	padding: 0 0 0 17px;
 }
 #secondSubtitle {
-	color: #29A329;
-	margin-bottom: .2em;
+	color: blueviolet; 
+	padding: 0 0 0 0;
+	font-style: italic;
 }
 #rightLinks {
-	margin: 2px 2em 0 0;
+	margin: 0;
 	font-size: .8em;
+	float: right; 
 }
 #rightLinks ul {
 	list-style-type: none;
 	padding:0;
 }
-#rightLinks a:link,a:visited {
-    display:block;
-    font-weight:bold;
-    text-align: left;
-    padding:4px 10px 4px 10px;
-    border-bottom: solid 2px #F5F5F5;
-    text-decoration:none;
+#topLinks li {
+	display: inline;
+	padding: 0 0 0 15px;
+	color: black;
+	float: right;
 }
-#rightLinks a:hover,a:active {
-    background-color: black;
+#topLinks a:hover {
+    color: slategray;
+}
+#tabLinks {
+	position: absolute;
+	right: 0px;
+	top: 75px;
+}
+#tabLinks li {
+	float: left;
+}
+#tabLinks a:link,a:visited {
+    display:block;
+	width: 80px;
+    font-weight:bold;
+    text-align: center;
+    padding:4px 10px 4px 10px;
+    border-left: solid 2px #F5F5F5;
+    text-decoration: none;
+}
+#tabLinks a:hover {
+    background-color: #9d9d9d;
     color: white;
 }
 .hiliteLink { 
-    background-color: #ffcc00;
-    color: #a60000;
+    background-color: #c4c4c4; /*#ffcc00;*/
+    color: black; /*#a60000;*/
 }
 .regularLink { 
     background-color: #858585;
     color:#FFFFFF;
+}
+.clear {
+	clear: both;
+}
+/*content section*/
+#content {
+	background-color: #f5f5f5;
+	padding: 10px;
+}
+#content h3 {
+	padding: 0;
 }
 	
 </style>
@@ -245,16 +294,45 @@ var Log = {
 	</ul>
 </div>
 
-<div id="header" style: "float: left; margin-bottom: 0;" >
-	<h2><span class="loceconLetters">Loc</span><span class="otherLetters">al </span><span class="loceconLetters">Econ</span><span class="otherLetters">omic Development</span></h2>
-	<h3 id="firstSubtitle">Communities, Clusters, Networks and Resources</h3>
-	<h3 id="secondSubtitle"><span id="arrow">&#8627;</span> Resource Maps, Network Flows, 
-		<span id="more">As-is vs 2B, Gaps, Opportunities</span></h3>
+<div id="top">
+	<div id="header">
+		<h2><a href="/"><span class="loceconLetters">loc</span><span class="otherLetters">al </span><span class="loceconLetters">econ</span><span class="otherLetters">omic development</span></a></h2>
+		<img id="mushy" src="/site_media/images/mushy40.jpg" />
+		<h3 id="firstSubtitle">Communities, Clusters, Networks and Resources</h3>
+		<h3 id="secondSubtitle"><img src="/site_media/images/arrow_turn_right_gr.png" />Resource Maps, Network Flows</h3>
+		<h3 id="thirdSubtitle"><img src="/site_media/images/arrow_Turn_right_pu.png" />As-is vs To-be, Gaps, Opportunities</h3>
+	</div>
+	<div id="rightLinks">
+		<ul id="topLinks">
+			{% if user.is_authenticated %}
+				<li>{{ user }} <a href="{% url acct_logout %}">Logout</a></li>
+				<li><a href="/help/">Help</a></li>
+				{% if user.is_staff %}
+					<li><a href="/admin">Admin</a></li>
+				{% endif %}
+			{% else %}
+				<li><a href="{% url acct_login %}">Log in</a></li>
+				<li><a href="">Contact Us</a></li>
+			{% endif %}
+		</ul>
+		<ul id="tabLinks">
+			<li><a class="hiliteLink" href="/">Home</a></li>
+			<li><a class="regularLink" href="/About/">About</a></li>
+			<li><a class="regularLink" href="/map/">Features</a></li>
+			<li><a class="regularLink" href="/">Stories</a></li>
+			<li><a class="regularLink" href="/clusters/">View Clusters</a></li>
+		</ul>
+	</div>
+</div>
+
+<div style: "float: left; margin-bottom: 0;" >
 	<p style="color: grey; font-size: .9em; margin-top: 1em; text-align: left;">
 	This site is now in collaborative development with invited communities.  
 	If you would like to participate, please <a href="/sendemail/" target="_blank">send us an email</a>.
 	</p>
 </div>
+
+<div id="content">
 	
 <h3 style="font-size: 1em; margin-left: 4em; " >Featured Cluster: {{ cluster }}</h3>
 	
@@ -266,6 +344,7 @@ var Log = {
 {% include "clusters/_cluster.html" %}
 </div>
 <div style="clear: both;" ><p>&nbsp;</p></div>
+</div>
 
 <script>
 	var margin = {top: 0, right: 0, bottom: 6, left: 0},
