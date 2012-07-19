@@ -265,3 +265,20 @@ body
 		font-size: 110%;
 		font-weight:bold;
 	}
+	
+/* test */
+div.about li.about,
+div.features li.features,
+div.stories li.stories
+{ 
+    background-color: #c4c4c4 !important; 
+    color: black !important; 
+}
+
+div.about li.about a,
+div.features li.features a,
+div.stories li.stories a
+{ 
+    background-color: #c4c4c4 !important; 
+    color: black !important; 
+}
