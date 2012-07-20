@@ -80,6 +80,11 @@ a.link-button:hover {
 	margin: 0;
 	padding: 0;
 }
+blockquote
+{
+	margin-left: 1em;
+	font-style:italic;
+}
 .definition li {
 	font-weight: bold;
 	color: #cc2900;
