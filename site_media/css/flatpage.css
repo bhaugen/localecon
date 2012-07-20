@@ -83,6 +83,7 @@ a.link-button:hover {
 blockquote
 {
 	margin-left: 2em;
+	margin-right: 2em;
 	font-style:italic;
 }
 .definition li {
