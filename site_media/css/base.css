@@ -160,6 +160,11 @@ body
     float: right;
 }
 
+#diagram {
+	margin-top: 2em; 
+	margin-left: -4em; 
+	margin-right: -4em;
+}
 
 /* tables */
 		table th
