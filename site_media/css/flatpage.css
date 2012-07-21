@@ -1,28 +1,28 @@
-/*This contains styles to be used in addition to styles from the base.css.  Place after base.css. */
+/*This contains styles to be used in addition to styles from the base.css. Place after base.css. */
 #top {
-        height: 108px; /*override base*/
+    height: 108px; /*override base*/
 }
 #header h3 {
-        font-size: 1.1em;
-        margin: 0;
+    font-size: 1.1em;
+    margin: 0;
 }
 #firstSubtitle {
-        color: #29A329;
-        padding: 3px 0 0 0;
-        font-style: italic;
+    color: #29A329;
+    padding: 3px 0 0 0;
+    font-style: italic;
 }
 #thirdSubtitle {
-        color: #e65c00;
-        font-style: italic;
-        padding: 0 0 0 17px;
+    color: #e65c00;
+    font-style: italic;
+    padding: 0 0 0 17px;
 }
 #secondSubtitle {
-        color: blueviolet;
-        padding: 0 0 0 0;
-        font-style: italic;
+    color: blueviolet;
+    padding: 0 0 0 0;
+    font-style: italic;
 }
 #tabLinks {
-        top: 86px; /*override base*/
+    top: 86px; /*override base*/
 }
 #feature-content {
 	background-color: ghostwhite;
@@ -30,18 +30,19 @@
 	padding: 10px;
 }
 .current-feature {
-	font-size: 120%; 
+	font-size: 120%;
 	font-weight: bold;
-	color: #e65c00; 
+	color: #e65c00;
 }
 .link-button {
-	background-color: #cfcfe1; 
-	color: black; 
+	background-color: #cfcfe1;
+	color: black;
 	text-decoration: none;
-	padding: 2px 5px 2px 5px;
+	padding: 5px 8px 4px 8px;
 	font-size: .8em;
 	font-weight: bold;
     text-align: center;
+	border: 1px solid b2b2b2;
 }
 a.link-button:hover {
     background-color: #e7e7f0;
@@ -53,7 +54,7 @@ a.link-button:hover {
 #about-content {
 	position: relative;
 	background-color: white;
-	padding: 0; 
+	padding: 0;
 	font-size: 1em;
 	margin: 1em 10px 0 0;
 	color: #191919;
@@ -80,12 +81,6 @@ a.link-button:hover {
 	margin: 0;
 	padding: 0;
 }
-blockquote
-{
-	margin-left: 2em;
-	margin-right: 2em;
-	font-style:italic;
-}
 .definition li {
 	font-weight: bold;
 	color: #cc2900;
@@ -95,14 +90,14 @@ blockquote
 div.about li.about,
 div.features li.features,
 div.stories li.stories
-{ 
-    background-color: #c4c4c4 !important; 
+{
+    background-color: #c4c4c4 !important;
 }
 
 div.about li.about a,
 div.features li.features a,
 div.stories li.stories a
-{ 
-    background-color: #c4c4c4 !important; 
-    color: black !important; 
+{
+    background-color: #c4c4c4 !important;
+    color: black !important;
 }
