@@ -165,14 +165,14 @@ body
 	margin-right: -4em;
 }
 
-	#toggleForm ul, #levelForm ul
+	#toggleForm ul, #levelForm ul, #locationForm ul
 	{
 		list-style-type: none;
 		display: inline;
 	    margin: 0;
 		padding: 0;
 	}
-	#toggleForm li, #levelForm li
+	#toggleForm li, #levelForm li, #locationForm li
 	{
 		display: inline;
 	    margin: 0;
