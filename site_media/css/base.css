@@ -165,6 +165,20 @@ body
 	margin-right: -4em;
 }
 
+	#toggleForm ul, #levelForm ul
+	{
+		list-style-type: none;
+		display: inline;
+	    margin: 0;
+		padding: 0;
+	}
+	#toggleForm li, #levelForm li
+	{
+		display: inline;
+	    margin: 0;
+		padding: 0;
+	}
+
 /* tables */
 		table th
 		{
