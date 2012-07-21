@@ -54,9 +54,6 @@ body
 	color: black;
 	float: right;
 }
-#topLinks a:link,a:visited {
-	color: black;	
-}
 
 #topLinks a:hover {
     color: slategray;
