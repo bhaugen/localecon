@@ -6,11 +6,13 @@
 
 {% block extra_head %}
 <style>
+	/*
 	body
 	{
 		margin-left: 0 !important;
 		margin-right: 0 !important;
 	}
+	*/
 	
 	ul
 	{
@@ -25,6 +27,7 @@
 	    margin: 0;
 		padding: 0;
 	}
+
 </style>
 
 {% endblock %}
@@ -35,7 +38,7 @@
 
 {% include "clusters/_cluster_nav.html" %}
 
-<div style="margin-top: 2em;" >
+<div style="margin-top: 2em; mergin-left: -4em; margin-right: -4em; " >
 	<span style="font-size: 130%;">Network Diagram: {{ cluster }}</span>
 	<span style="margin-left: 3em; font-size: 90%; font-strength: bold; ">
 		<button id="redraw" onclick="redraw();">redraw</button>
