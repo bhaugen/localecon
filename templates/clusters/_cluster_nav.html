@@ -106,10 +106,7 @@ ul#tabnav a:hover
 
 <div>
 	<ul id="tabnav" class="do-not-print" >
-		{% community_perms user edit cluster.community as can_edit %}
-		{% if can_edit %}
-		<li class="cluster" ><a href="{% url edit_cluster cluster_id=cluster.id %}">Edit Cluster</a></li>
-		{% endif %}
+		{% community_perms user edit cluster.community as can_edit %}{% if can_edit %}<li class="cluster" ><a href="{% url edit_cluster cluster_id=cluster.id %}">Edit Cluster</a></li>{% endif %}
 		<li class="map" ><a href="{% url cluster cluster_id=cluster.id %}">Map</a></li>
 		<li class="functions" ><a href="{% url economic_functions cluster_id=cluster.id %}">Functions</a></li>
 		<li class="agents" ><a href="{% url cluster_agents cluster_id=cluster.id %}">Agents</a></li>
