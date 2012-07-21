@@ -55,6 +55,12 @@ body
 	float: right;
 }
 
+/*
+#topLinks a:link,a:visited {
+	color: black;	
+}
+*/
+
 #topLinks a:hover {
     color: slategray;
 }
