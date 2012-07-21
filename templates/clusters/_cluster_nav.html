@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load permissions %}
 
 <!-- 
 	CSS Tabs is licensed under Creative Commons Attribution 2.5 - http://creativecommons.org/licenses/by/2.5/ 
@@ -105,7 +106,8 @@ ul#tabnav a:hover
 
 <div>
 	<ul id="tabnav" class="do-not-print" >
-		{% if user.is_authenticated %}
+		{% community_perms user edit cluster.community as can_edit %}
+		{% if can_edit %}
 		<li class="cluster" ><a href="{% url edit_cluster cluster_id=cluster.id %}">Edit Cluster</a></li>
 		{% endif %}
 		<li class="map" ><a href="{% url cluster cluster_id=cluster.id %}">Map</a></li>
@@ -116,20 +118,5 @@ ul#tabnav a:hover
 		<li class="all" ><a href="{% url clusters %}">All Clusters</a></li>
 	</ul>
 </div>
-{% comment %}
-<div style="float: right; width: 10%;">
-	{% if user.is_authenticated %}
-		{{ user }} <a href="{% url acct_logout %}">Logout</a><br />
-		<a href="/help/">Help</a>
-		{% if user.is_staff %}
-			<br /><a href="/admin">Admin</a>
-		{% else %}
-			<br />
-		{% endif %}
-	{% else %}
-		<a href="{% url acct_login %}">Log in</a>
-		<br /><br /><br />
-	{% endif %}
-</div>
-{% endcomment %}
+
 
