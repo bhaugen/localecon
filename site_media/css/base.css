@@ -144,11 +144,12 @@ body
     background-color: #cfcfe1; 
     color: #494949;
     text-decoration: none;
-    padding: 2px 5px 2px 5px;
+    padding: 4px 5px 4px 5px;
     font-size: .8em;
     font-weight: bold;
     text-align: center;
-    border-right: solid 20px white;
+    margin-right: 20px;
+	border: 1px solid #b2b2b2;
 }
 
  a.cluster-link:hover {
