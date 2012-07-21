@@ -81,8 +81,29 @@ ul#tabnav a:hover
 
 </style>
 
+<div id="header">
+        <h2><a href="/"><span class="loceconLetters">loc</span><span class="otherLetters">al </span><span class="loceconLetters">econ</span><span class="otherLetters">omic development</span></a></h2>
+        <img id="mushy" src="/site_media/css/mushy40.jpg" alt="Mushy the chanterelle mushroom" title="Mushy the chanterelle mushroom" />
+</div>
 
-<div style="float: left;">
+<div id="rightLinks">
+		<ul id="topLinks">
+			{% if user.is_authenticated %}
+				<li>{{ user }} <a href="{% url acct_logout %}">Logout</a></li>
+				<li><a href="/help/">Help</a></li>
+				{% if user.is_staff %}
+					<li><a href="/admin/">Admin</a></li>
+				{% endif %}
+			{% else %}
+				<li><a href="{% url acct_login %}">Log in</a></li>
+				<li><a href="/contact/">Contact Us</a></li>
+			{% endif %}
+		</ul>
+</div>
+
+<div class="clear"></div>
+
+<div>
 	<ul id="tabnav" class="do-not-print" >
 		{% if user.is_authenticated %}
 		<li class="cluster" ><a href="{% url edit_cluster cluster_id=cluster.id %}">Edit Cluster</a></li>
@@ -95,6 +116,7 @@ ul#tabnav a:hover
 		<li class="all" ><a href="{% url clusters %}">All Clusters</a></li>
 	</ul>
 </div>
+{% comment %}
 <div style="float: right; width: 10%;">
 	{% if user.is_authenticated %}
 		{{ user }} <a href="{% url acct_logout %}">Logout</a><br />
@@ -109,4 +131,5 @@ ul#tabnav a:hover
 		<br /><br /><br />
 	{% endif %}
 </div>
-<div style="clear: both;"></div>
+{% comment %}
+
