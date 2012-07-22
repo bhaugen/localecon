@@ -101,3 +101,9 @@ div.stories li.stories a
     background-color: #c4c4c4 !important;
     color: black !important;
 }
+
+blockquote
+{
+	margin-left: 4em;
+	margin-right: 2em;
+}
