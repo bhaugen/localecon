@@ -104,6 +104,7 @@ div.stories li.stories a
 
 blockquote
 {
+	font-style: italic;
 	margin-left: 4em;
 	margin-right: 2em;
 }
