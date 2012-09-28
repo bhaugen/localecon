@@ -48,10 +48,10 @@
 	{% endif %}
 		<ul>
 			{% for community in communities  %}
-				{% if community.is_public or user.is_superuser %}
+				{% community_perms user edit community as can_edit %}
+				{% if community.is_public or user.is_superuser or can_edit %}
 				<li class="community" >
 					<span class="community-name">{{ community }} Community</span>
-					{% community_perms user edit community as can_edit %}
 					{% if can_edit %}
 					&nbsp;&nbsp;
 					<form style="display:inline;" action="{% url edit_community community_id=community.id %}" method="GET">
