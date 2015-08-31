@@ -231,6 +231,7 @@ p {font-size:0.7875em}
 		
 	</table>
 	
+	{% comment %}
 	<div id="canvas" style="height: 500px;" ></div>
 	<button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
 	{% include "clusters/_network_diagram.html" %}
@@ -239,19 +240,19 @@ p {font-size:0.7875em}
 			A network diagram will appear here as you add Functions and their Resources.
 		</p>
 	{% endif %}
+	{% endcomment %}
 	
 </div>
 <div style="clear: both;" ></div>
 	
 </div>
 	
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
-  <link rel="stylesheet" href="/site_media/css/jquery.autocomplete.css" type="text/css" />
-  <script type="text/javascript" src="/site_media/scripts/jquery.bgiframe.min.js"></script>
-
-  <script type="text/javascript" src="/site_media/scripts/jquery.autocomplete.js"></script>
-
+    <link rel="stylesheet" href="/site_media/css/jquery.autocomplete.css" type="text/css" />
+    <script type="text/javascript" src="/site_media/scripts/jquery.bgiframe.min.js"></script>
+    <script type="text/javascript" src="/site_media/scripts/jquery.autocomplete.js"></script>
+    
 <script>
 	
 	$(document).ready(function()
