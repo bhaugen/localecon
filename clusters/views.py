@@ -1954,6 +1954,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
 
 @login_required    
 def new_function_resource(request, function_id):
+    #import pdb; pdb.set_trace()
     fun = get_object_or_404(EconomicFunction, pk=function_id)
     cluster = fun.cluster
     if not cluster.permits("edit", request.user):

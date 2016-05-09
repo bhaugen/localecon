@@ -32,7 +32,7 @@ p {font-size:0.7875em}
 
 <h3>Edit Function Inputs and Outputs in Cluster: {{ cluster }}</h3>
 
-<div style="float:left;" >
+<div style="float:left;" width="49%" >
 	<table>
 		<form action="{% url inline_new_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
@@ -171,7 +171,7 @@ p {font-size:0.7875em}
 					<td>
 						{{ fun.form.price }}
 					</td>
-					<td><input type="submit" name="submit" value="Add" /></td>
+					<td><input type="submit" name="submit" title="Add Resource to Function" value="Add" /></td>
 				</tr>
 			</form>
 		{% endfor %}
@@ -231,8 +231,8 @@ p {font-size:0.7875em}
 		
 	</table>
 	
-	{% comment %}
-	<div id="canvas" style="height: 500px;" ></div>
+
+	<div id="canvas" style="margin-left: auto; margin-right: auto; height: 500px;" ></div>
 	<button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
 	{% include "clusters/_network_diagram.html" %}
 	{% if not edges %}
@@ -240,7 +240,7 @@ p {font-size:0.7875em}
 			A network diagram will appear here as you add Functions and their Resources.
 		</p>
 	{% endif %}
-	{% endcomment %}
+
 	
 </div>
 <div style="clear: both;" ></div>

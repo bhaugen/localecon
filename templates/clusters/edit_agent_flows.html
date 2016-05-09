@@ -102,19 +102,20 @@ th {white-space: nowrap;}
 
 <div style="float:left; margin-left: 2em; width: 35%; " >
 
-<div id="canvas"></div>
-<button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
-{% include "clusters/_flow_diagram.html" %}
-	{% if not edges %}
-		<p>
-			A flow diagram will appear here as you add Flows.
-		</p>
-	{% endif %}
+    <div id="canvas" style="margin-left: auto; margin-right: auto; height: 500px;" ></div>
+    <button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
+    {% include "clusters/_flow_diagram.html" %}
+        {% if not edges %}
+            <p>
+                A flow diagram will appear here as you add Flows.
+            </p>
+        {% endif %}
+    </div>
 </div>
 
 <div style="clear: both;" ></div> 
 	
-</div>
+
 	
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 

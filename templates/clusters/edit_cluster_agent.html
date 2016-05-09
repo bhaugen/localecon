@@ -179,9 +179,9 @@ p {font-size:0.7875em}
 
 </table>
 </div>
-{% comment %}
+
 <div style="float:left; margin-left: 2em; width: 40%;" >
-	<div id="canvas" style="height: 500px;" ></div>
+	<div id="canvas" style="margin-left: auto; margin-right: auto; height: 500px;" ></div>
 	<button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
 	{% include "clusters/_network_diagram.html" %}
 	{% if not edges %}
@@ -190,7 +190,7 @@ p {font-size:0.7875em}
 		</p>
 	{% endif %}
 </div>
-{% endcomment %}
+
 <div style="clear:both;"></div>
 	
 </div>
