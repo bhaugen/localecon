@@ -223,6 +223,10 @@ class AggregateFunctionResource(object):
         if self.quantity and self.price:
             return int((self.quantity * self.price).quantize(Decimal('.01'), rounding=ROUND_UP))
         return 0
+        
+    @property
+    def color(self):
+        return "green"
 
    
 class AgentGroupFlow(object):
@@ -240,6 +244,10 @@ class AgentGroupFlow(object):
         if self.quantity and self.price:
             return int((self.quantity * self.price).quantize(Decimal('.01'), rounding=ROUND_UP))
         return 0
+        
+    @property
+    def color(self):
+        return "green"
 
    
 class AgentGroupFunction(object):
@@ -249,6 +257,10 @@ class AgentGroupFunction(object):
         
     def flows(self):
         return self.flow_dict.values()
+        
+    @property
+    def color(self):
+        return "green"
  
 
 class AggregateFunction(object):
@@ -323,6 +335,11 @@ class AgentGroup(object):
         for fn in fns:
             answer.extend(fn.function_outputs())
         return answer
+        
+    @property
+    def color(self):
+        return "firebrick"
+        
         
 
 class ResourceAtStage(object):
@@ -707,6 +724,7 @@ class Cluster(models.Model):
                         {})
                 grp = groups[key]
                 afs = agent.functions.filter(function__cluster=self)
+                #import pdb; pdb.set_trace()
                 for af in afs:
                     if not af.function.id in grp.function_dict:
                         grp.function_dict[af.function.id] = AggregateFunction(
