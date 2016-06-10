@@ -34,7 +34,7 @@ class EconomicFunctionAdmin(admin.ModelAdmin):
     list_display = ('name', 'cluster', 'aspect')
     list_filter = ['cluster',]
     search_fields = ['name', 'cluster__name']
-    list_editable = ['aspect',]
+    list_editable = ['aspect', 'color',]
     inlines = [ 
                FunctionResourceInline,
                IncomingFunctionResourceFlowInline,
