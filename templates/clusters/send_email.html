@@ -4,7 +4,8 @@
     </head>
     <body>
         <h1>Send us an email:</h1>
-		<form action="." method="POST" >{% csrf_token %}
+		<form action="." method="POST" >
+            {% csrf_token %}
 			<table>
 				{{ email_form }}
 			</table>
