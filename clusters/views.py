@@ -155,6 +155,7 @@ def clusters(request):
 def cluster(request, cluster_id, location="agt"):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     community = cluster.community
+    #import pdb; pdb.set_trace()
     location_form = None
     if community.agent_geographic_area_name:
         init = {"location": location,}
@@ -166,7 +167,7 @@ def cluster(request, cluster_id, location="agt"):
         return HttpResponseRedirect('/%s/%s/%s/'
                     % ('clusters/cluster', cluster_id, location))
     if location == "agt":
-        agents = cluster.agents()
+        agents = [agent for agent in cluster.agents() if agent.latitude]
         for agent in agents:
             agent.all_functions = agent.functions.filter(
                 function__cluster=cluster)
@@ -1997,7 +1998,7 @@ def send_email(request):
             from_email = data["email_address"]
             subject = " ".join(["[locecon]", data["subject"]])
             message = data["message"]
-            send_mail(subject, message, from_email, ["bob.haugen@gmail.com",])      
+            send_mail(subject, message, from_email, ["info@mikorizal.org",])      
             return HttpResponseRedirect(reverse("email_sent"))
     else:
         email_form = EmailForm()

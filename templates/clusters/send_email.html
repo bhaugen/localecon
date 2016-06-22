@@ -1,14 +1,21 @@
-<html>
-    <head>
-        <title>Send Email</title>
-    </head>
-    <body>
-        <h1>Send us an email:</h1>
-		<form action="." method="POST" >{% csrf_token %}
-			<table>
-				{{ email_form }}
-			</table>
-			<input type="submit" value="Submit" />
-		</form>
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block title %}
+    Send Email
+{% endblock %}
+
+
+{% block content %}
+    <h1>Send us an email:</h1>
+    <table>
+        <form action="." method="POST" >{% csrf_token %}
+            {{ email_form }}
+            <tr><td>
+            <input type="submit" value="Submit" />
+            </td></tr>
+        </form>
+    </table>
+{% endblock %}
+

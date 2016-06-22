@@ -22,6 +22,8 @@
 	{% endif %}
 	<p><a href="{% url diagnostics cluster_id=cluster.id %}">Economic Gaps</a></p>
 	<p><a href="{% url model_errors cluster_id=cluster.id %}">Model Diagnostics</a></p>
+	<p><a href="{% url agentreport %}">All Agents</a></p>
+	<p><a href="{% url agentfunctionreport cluster_id=cluster.id %}">Agent Functions</a></p>
 	{% if cluster.has_flows %}
 		<p><a href="{% url value_added_report cluster_id=cluster.id %}">Value Added Report</a></p>
 	{% endif %}
