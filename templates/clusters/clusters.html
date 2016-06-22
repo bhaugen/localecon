@@ -43,7 +43,7 @@
 <div id="content">
 	{% if user.is_superuser %}
 	<form action="{% url new_community  %}" method="GET">
-    	<input type="submit" value="New Community" />
+    	<input type="submit" class="button-spaced" value="New Community" />
 	</form>
 	{% endif %}
 		<ul>

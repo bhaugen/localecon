@@ -141,7 +141,7 @@ class FunctionResourceTypeFormX(forms.ModelForm):
         fields = ('resource_type', 'role', 'quantity')
         
 class FunctionResourceTypeForm(forms.ModelForm):
-    quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+    quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '1'}))
     price = forms.DecimalField(max_digits=8, decimal_places=2, required=False, 
             widget=forms.TextInput(attrs={'class': 'new-price', 'size': '6', 'value': '0'}))
     role = forms.ChoiceField(choices=ROLE_CHOICES)
@@ -159,7 +159,7 @@ class FunctionResourceTypeForm(forms.ModelForm):
         
 class FunctionResourceFlowForm(forms.ModelForm):
     quantity = forms.IntegerField(required=False, widget=forms.TextInput(
-            attrs={'class': 'quantity', 'size': '6', 'value': '0'}))
+            attrs={'class': 'quantity', 'size': '6', 'value': '1'}))
     price = forms.DecimalField(max_digits=8, decimal_places=2, required=False, 
             widget=forms.TextInput(attrs={'class': 'new-price', 'size': '6', 'value': '0'}))
 

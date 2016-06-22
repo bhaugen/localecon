@@ -8,19 +8,6 @@
 
 {% block extra_head %}
 
-<style>
-
-	body
-	{
-		margin: 0 0 0 0 !important;
-		font-size:90%;
-	}
-	
-h1 {font-size:2.25em}
-h2 {font-size:1.6875em}
-p {font-size:0.7875em}
-	
-</style>
 
 {% endblock %}
 
@@ -30,11 +17,13 @@ p {font-size:0.7875em}
 
 {% include "clusters/_cluster_nav.html" %}
 
-<h3>Edit Function Inputs and Outputs in Cluster: {{ cluster }}</h3>
+<h3 class="title">Edit Function Inputs and Outputs in Cluster: {{ cluster }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url network cluster_id=cluster.id %}", target="_blank">See diagram</a>
+</h3>
 
-<div style="float:left;" width="49%" >
-	<table>
-		<form action="{% url inline_new_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
+<div style="float:left;" width="48%" class="section-div">
+    <form action="{% url inline_new_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
+        <table>
 			<tr>
 				<th style="text-align: right;" >New Function:</th>
 				<td>{{ new_function_form.name }}</td>
@@ -50,137 +39,20 @@ p {font-size:0.7875em}
 				<tr>
 					<th style="text-align: right;" >{{ function_aspect_name }}:</th>
 					<td>{{ new_function_form.aspect }}</td>
-				<td><input type="submit" name="submit" value="Add Function" /></td>
+
+				</tr>
+				<tr>
+                    <td><input type="submit" name="submit" value="Add Function" /></td>				
 				</tr>
 			{% endif %}
 			<input type="hidden" name="next" value="{% url edit_cluster_functions cluster_id=cluster.id %}" />
-		</form>
-		<br/>
-
-		{% for fun in functions %}
-			<tr>
-				<th style="text-align: left; font-size: 110%; " colspan="2" >
-					{{ fun.name }}
-					<form style="display: inline;" action="{% url edit_function function_id=fun.id %}" method="GET">
-						{% csrf_token %}
-						<input type="submit" value="Edit" />
-					</form>
-					<form style="display: inline;" action="{% url delete_function_confirmation function_id=fun.id %}" method="POST">
-						{% csrf_token %}
-						<input type="submit" value="Del" />
-					</form>
-				</th>
-				<th>Qty</th>
-				<th>Price</th>
-			</tr>
-			{% if fun.inputs %}
-					{% for resource in fun.inputs %}
-						{% if forloop.first %}
-						<tr style="background: #EAF2D3;" >
-							<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumes:</th>
-							<td>
-								{{ resource.resource_type }}
-							</td>
-							<td style="text-align: right; ">
-								<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
-							</td>
-							<td style="text-align: right; ">
-								<input class="price" id="{{ resource.id }}" type="text" size="6" value="{{ resource.price }}" />
-							</td>
-							<td>
-								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
-									{% csrf_token %}
-									<input type="submit" value="Del" />
-								</form>
-							</td>
-						</tr>
-						{% else %}
-							<tr style="background: #EAF2D3;" >
-								<td>&nbsp;</td>
-								<td>
-									{{ resource.resource_type }}
-								</td>
-								<td style="text-align: right; ">
-									<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
-								</td>
-								<td style="text-align: right; ">
-									<input class="price" id="{{ resource.id }}" type="text" size="6" value="{{ resource.price }}" />
-								</td>
-								<td>
-								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
-									{% csrf_token %}
-									<input type="submit" value="Del" />
-								</form>
-							</td>
-							</tr>
-						{% endif %}
-					{% endfor %}
-			{% endif %}
-			{% if fun.outputs %}
-					{% for resource in fun.outputs %}
-						{% if forloop.first %}
-						<tr style="background: #EAF2D3;" >
-							<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produces:</th>
-							<td>
-								{{ resource.resource_type }}
-							</td>
-							<td>
-								<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
-							</td>
-							<td style="text-align: right; ">
-								<input class="price" id="{{ resource.id }}" type="text" size="6" value="{{ resource.price }}" />
-							</td>
-							<td>
-								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
-									{% csrf_token %}
-									<input type="submit" value="Del" />
-								</form>
-							</td>
-						</tr>
-						{% else %}
-							<tr style="background: #EAF2D3;" >
-								<td>&nbsp;</td>
-								<td>
-									{{ resource.resource_type }}
-								</td>
-								<td style="text-align: right; ">
-									<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
-								</td>
-								<td style="text-align: right; ">
-									<input class="price" id="{{ resource.id }}" type="text" size="6" value="{{ resource.price }}" />
-								</td>
-								<td>
-								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
-									{% csrf_token %}
-									<input type="submit" value="Del" />
-								</form>
-							</td>
-							</tr>
-						{% endif %}
-					{% endfor %}
-			{% endif %}
-			<form action="{% url new_function_resource function_id=fun.id %}" method="POST">{% csrf_token %}
-				<tr>
-					<td>{{ fun.form.role }}</td>
-					<td>
-						{{ fun.form.resource_type }}
-					</td>		
-					<td>
-						{{ fun.form.quantity }}
-					</td>
-					<td>
-						{{ fun.form.price }}
-					</td>
-					<td><input type="submit" name="submit" title="Add Resource to Function" value="Add" /></td>
-				</tr>
-			</form>
-		{% endfor %}
-	</table>
+        </table>
+    </form>
 </div>
 
-<div style="float:left; margin-left: 2em; width: 50%;" >
-	<table>
-		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">{% csrf_token %}
+<div class="section-div" style="float:left; margin-left: 2em;" width="48%" >
+    <table>
+        <form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
 				<th style="text-align: right;" >New Resource:</th>
 				<td>{{ new_resource_form.name }}</td>
@@ -195,12 +67,13 @@ p {font-size:0.7875em}
 			<tr>
 				<th style="text-align: right;" >Unit of qty:</th>
 				<td>{{ new_resource_form.unit_of_quantity }}</td>
-				<td><input id="submit-new-resource" type="submit" name="submit" value="Add Resource" /></td>
 			</tr>
+			<tr>
+				<td><input id="submit-new-resource" type="submit" name="submit" value="Add Resource" /></td>
 			<input type="hidden" name="next" value="{% url edit_cluster_functions cluster_id=cluster.id %}" />
+			</tr>
 		</form>
-		<br/>
-		{% comment %}
+{% comment %}
 		<tr>
 			<th style="text-align: center; font-size: 110%; " colspan="3" >Resources used in this Cluster:</th>
 		</tr>
@@ -227,11 +100,139 @@ p {font-size:0.7875em}
 				</tr>
 			{% endif %}
 		{% endfor %}
-		{% endcomment %}
+{% endcomment %}
 		
-	</table>
-	
+	</table> 
+</div>
 
+<div style="clear: both;" ></div>
+
+<div>
+    <table>
+		{% for fun in functions %}
+            <tr><td>&nbsp;</td><tr>
+			<tr class="space-down">
+				<th style="text-align: left; font-size: 110%;" colspan="2" >
+					<span class="emphasis">{{ fun.name }}</span>
+					<form style="display: inline;" action="{% url edit_function function_id=fun.id %}" method="GET">
+						{% csrf_token %}
+						<input type="submit" value="Edit" />
+					</form>
+					<form style="display: inline;" action="{% url delete_function_confirmation function_id=fun.id %}" method="POST">
+						{% csrf_token %}
+						<input type="submit" value="Delete" />
+					</form>
+				</th>
+				<th>Qty</th>
+				<th>Price</th>
+			</tr>
+			{% if fun.inputs %}
+					{% for resource in fun.inputs %}
+						{% if forloop.first %}
+						<tr class="block" >
+							<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Consumes:</th>
+							<td>
+								{{ resource.resource_type }}
+							</td>
+							<td style="text-align: right; ">
+								<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
+							</td>
+							<td style="text-align: right; ">
+								<input class="price" id="{{ resource.id }}" type="text" size="6" value="{{ resource.price }}" />
+							</td>
+							<td>
+								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
+									{% csrf_token %}
+									<input type="submit" value="Delete" />
+								</form>
+							</td>
+						</tr>
+						{% else %}
+							<tr class="block" >
+								<td>&nbsp;</td>
+								<td>
+									{{ resource.resource_type }}
+								</td>
+								<td style="text-align: right; ">
+									<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
+								</td>
+								<td style="text-align: right; ">
+									<input class="price" id="{{ resource.id }}" type="text" size="6" value="{{ resource.price }}" />
+								</td>
+								<td>
+								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
+									{% csrf_token %}
+									<input type="submit" value="Delete" />
+								</form>
+                                </td>
+							</tr>
+						{% endif %}
+					{% endfor %}
+			{% endif %}
+			{% if fun.outputs %}
+					{% for resource in fun.outputs %}
+						{% if forloop.first %}
+						<tr class="block" >
+							<th style="vertical-align: top; text-align: right; padding-left: 1em; " >Produces:</th>
+							<td>
+								{{ resource.resource_type }}
+							</td>
+							<td>
+								<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
+							</td>
+							<td style="text-align: right; ">
+								<input class="price" id="{{ resource.id }}" type="text" size="6" value="{{ resource.price }}" />
+							</td>
+							<td>
+								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
+									{% csrf_token %}
+									<input type="submit" value="Delete" />
+								</form>
+							</td>
+						</tr>
+						{% else %}
+							<tr class="block" >
+								<td>&nbsp;</td>
+								<td>
+									{{ resource.resource_type }}
+								</td>
+								<td style="text-align: right; ">
+									<input class="quantity" id="{{ resource.id }}" type="text" size="6" value="{{ resource.quantity }}" />
+								</td>
+								<td style="text-align: right; ">
+									<input class="price" id="{{ resource.id }}" type="text" size="6" value="{{ resource.price }}" />
+								</td>
+								<td>
+								<form style="display: inline;" action="{% url delete_function_resource id=resource.id %}" method="POST">
+									{% csrf_token %}
+									<input type="submit" value="Delete" />
+								</form>
+                                </td>
+							</tr>
+						{% endif %}
+					{% endfor %}
+			{% endif %}
+			<form action="{% url new_function_resource function_id=fun.id %}" method="POST">{% csrf_token %}
+				<tr>
+					<td>{{ fun.form.role }}</td>
+					<td>
+						{{ fun.form.resource_type }}
+					</td>		
+					<td>
+						{{ fun.form.quantity }}
+					</td>
+					<td>
+						{{ fun.form.price }}
+					</td>
+					<td><input type="submit" name="submit" title="Add Resource to Function" value="Add" /></td>
+				</tr>
+			</form>
+		{% endfor %}
+	</table>
+</div>
+
+	
+{% comment %}
 	<div id="canvas" style="margin-left: auto; margin-right: auto; height: 500px;" ></div>
 	<button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
 	{% include "clusters/_network_diagram.html" %}
@@ -240,18 +241,17 @@ p {font-size:0.7875em}
 			A network diagram will appear here as you add Functions and their Resources.
 		</p>
 	{% endif %}
+    </div>
+{% endcomment %}
+    
+    <div style="clear: both;" ></div>
+       
+	
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
-	
-</div>
-<div style="clear: both;" ></div>
-	
-</div>
-	
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-
-    <link rel="stylesheet" href="/site_media/css/jquery.autocomplete.css" type="text/css" />
-    <script type="text/javascript" src="/site_media/scripts/jquery.bgiframe.min.js"></script>
-    <script type="text/javascript" src="/site_media/scripts/jquery.autocomplete.js"></script>
+<link rel="stylesheet" href="/site_media/css/jquery.autocomplete.css" type="text/css" />
+<script type="text/javascript" src="/site_media/scripts/jquery.bgiframe.min.js"></script>
+<script type="text/javascript" src="/site_media/scripts/jquery.autocomplete.js"></script>
     
 <script>
 	

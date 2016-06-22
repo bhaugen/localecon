@@ -8,20 +8,6 @@
 
 {% block extra_head %}
 
-<style>
-
-	body
-	{
-		margin: 0 0 0 0 !important;
-		font-size:90%;
-	}
-	
-h1 {font-size:2.25em}
-h2 {font-size:1.6875em}
-p {font-size:0.7875em}
-	
-</style>
-
 {% endblock %}
 
 {% block content %}
@@ -30,9 +16,11 @@ p {font-size:0.7875em}
 
 {% include "clusters/_cluster_nav.html" %}
 
-<h3>Edit Flows in Cluster: {{ cluster }}</h3>
+<h3>Edit Flows in Cluster: {{ cluster }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url flows cluster_id=cluster.id %}", target="_blank">See diagram</a>
+</h3>
 
-<div style="float:left;" >
+<div style="float:left;" width="48%" class="section-div">
 	<table>
 		<form action="{% url inline_new_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
@@ -57,7 +45,7 @@ p {font-size:0.7875em}
 		</form>
 	</table>
 </div>
-<div style="float:left;" >	
+<div style="float:left; margin-left: 2em;" width="48%" class="section-div">	
 	<table>
 		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
@@ -74,6 +62,8 @@ p {font-size:0.7875em}
 			<tr>
 				<th style="text-align: right;" >Unit of qty:</th>
 				<td>{{ new_resource_form.unit_of_quantity }}</td>
+			</tr>
+			<tr>
 				<td><input id="submit-new-resource" type="submit" name="submit" value="Add Resource" /></td>
 			</tr>
 			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
@@ -83,10 +73,11 @@ p {font-size:0.7875em}
 <div style="clear:both;"></div>
 	
 <div style="float:left;" >
-	<h3>Add or change flows</h3>
+	<h3 class="emphasis">Add or change flows</h3>
 	
 	<form method="post" action="">{% csrf_token %}
 		<input type="submit" name="submit_flows" value="Save flow changes" />
+		<br /><br />
 		<table>
 			<thead>
 				<th>From Function</th>
@@ -111,10 +102,12 @@ p {font-size:0.7875em}
 				{% endfor %}
 			</tbody>
 		</table>
+		<br />
 		<input type="submit" name="submit_flows" value="Save flow changes" />
 	</form>
 </div>
 
+{% comment %}
 <div style="float:left; margin-left: 2em; width: 50%; " >
 	<table>
 		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">{% csrf_token %}
@@ -147,6 +140,7 @@ p {font-size:0.7875em}
 		</p>
 	{% endif %}
 </div>
+{% endcomment %}
 	
 <div style="clear: both;" ></div> 
 	
