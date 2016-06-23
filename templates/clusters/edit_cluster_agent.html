@@ -32,35 +32,35 @@ p {font-size:0.7875em}
 
 <div style="float:left;">
     <div class="section-div">
+    <table>
         {% comment %}
             <tr>
                 <th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}</th>
             </tr>
         {% endcomment %}
-            <tr>
-                <th>&nbsp;</th>
-				<td class="desc" >
-                    To associate an existing function to this agent, start typing and choose from the list.  
-                    To create a new function and associate it with this agent, type in a new function name.
-                </td>
-            </tr>
             <form action="{% url inline_new_agent_function cluster_id=cluster.id agent_id=agent.id %}" method="POST">{% csrf_token %}
+                <tr>
+                    <th style="text-align: left;" class="desc" colspan="2" >
+                        To associate an existing function to this agent, start typing and choose from the list.  
+                        To create a new function and associate it with this agent, type in a new function name.<br /><br />
+                    </th>
+                </tr>
                 <tr>
                     <th style="text-align: right;" >New Function for this Agent:</th>
                     <td>{{ new_function_form.name }}</td>
                 </tr>
                 {% if not function_aspect_name %}
-                    <tr>
+                <tr>
 
-                        <td><input id="submit-new-function" type="submit" name="submit" value="Add Function" /></td>
-                    
-                    </tr>
+                    <td><input id="submit-new-function" type="submit" name="submit" value="Add Agent Function" /></td>
+                
+                </tr>
                 {% endif %}
                 {% if function_aspect_name %}
                     <tr>
                         <th style="text-align: right;" >{{ function_aspect_name }}:</th>
                         <td>{{ new_function_form.aspect }}</td>
-                        <td><input id="submit-new-function" type="submit" name="submit" value="Add Function" /></td>
+                        <td><input id="submit-new-function" type="submit" name="submit" value="Add Agent Function" /></td>
                     </tr>
                 {% endif %}
                 <tr><td colspan="4"><span id="function-comment" style="color:green;" ></span></td></tr>
