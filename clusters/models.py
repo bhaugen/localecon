@@ -441,10 +441,11 @@ class Cluster(models.Model):
       
     def agents(self):
         answer = []
-        for fun in self.functions.all():
-            for a in fun.agents.all():
-                answer.append(a.agent)
-        answer = list(set(answer))
+        #for fun in self.functions.all():
+        #    for a in fun.agents.all():
+        #        answer.append(a.agent)
+        #answer = list(set(answer))
+        answer = [cla.agent for cla in self.cluster_agents.all()]
         answer.sort(lambda x, y: cmp(x.name, y.name))
         return answer
     
@@ -1254,6 +1255,17 @@ class CommunityAgent(models.Model):
     
     def __unicode__(self):
         return " ".join([self.community.name, self.agent.name])
+        
+
+class ClusterAgent(models.Model):
+    cluster = models.ForeignKey(Cluster, related_name="cluster_agents")
+    agent = models.ForeignKey(EconomicAgent, related_name='clusters')
+
+    class Meta:
+        ordering = ('cluster', 'agent')
+    
+    def __unicode__(self):
+        return " ".join([self.cluster.name, self.agent.name])
 
 
 class AgentFunction(models.Model):
