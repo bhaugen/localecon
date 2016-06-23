@@ -22,15 +22,15 @@
 {% if can_edit %}
 <div class="section-div" style="float: left; width: 40%; " >
 	<form action="{% url edit_cluster_functions cluster_id=cluster.id %}" method="GET">
-    	<input type="submit" value="Edit Potential Consumption &amp; Production" />
+    	<input type="submit" value="Edit Potential Function Consumption &amp; Production" />
 	</form>
-	<p class="desc">When you don't know which functions trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Cluster Details</a>.</p>
+	<p class="desc">When you don't know which functions trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
 </div>
 <div class="section-div" style="float: left; margin-left: 2em; width: 40%; " >
 	<form action="{% url edit_flows cluster_id=cluster.id %}" method="GET">
-    	<input type="submit" value="Edit Actual Resource Flows" />
+    	<input type="submit" value="Edit Actual Function Resource Flows" />
 	</form>
-	<p class="desc">When you <b>do</b> know which functions trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Cluster Details</a>.</p>
+	<p class="desc">When you <b>do</b> know which functions trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
 </div>
 <div style="clear: both; "></div>
 {% endif %}
@@ -40,6 +40,7 @@
 		<tr><th style="text-align: center; font-size: 120%; " colspan="4" >Functions:</th></tr>
 
 		{% for fun in functions %}
+            <tr><td>&nbsp;</td></tr>
 			<tr>
 				<th style="text-align: left; font-size: 110%; " colspan="2" >{{ fun.name }}</th>
 				<th style="text-align: right;" >Qty</th>
@@ -130,6 +131,7 @@
 		<tr><th style="text-align: center; font-size: 120%; " colspan="3" >Resources:</th></tr>
 
 		{% for res in resources %}
+            <tr><td>&nbsp;</td></tr>
 			<tr><th style="text-align: left; font-size: 110%; " colspan="3" >{{ res }}</th></tr>
 			{% if res.my_producers %}
 				<tr>
@@ -158,6 +160,7 @@
 <div style="float:left; margin-left: 2em; margin-top: 2em; " >
 	<table>
 		<tr><th style="text-align: center; font-size: 120%; " colspan="3" >Flows:</th></tr>
+            <tr><td>&nbsp;</td></tr>
 		<tr>
 			<th>From Function</th>
 			<th>To Function</th>
@@ -167,6 +170,7 @@
 			<th style="text-align: right;" >Value</th>
 		</tr>
 		{% for flow in flows %}
+            <tr><td>&nbsp;</td></tr>
 			<tr>
 				<td>{{ flow.from_function.name }}</td>
 				<td>{{ flow.to_function.name }}</td>

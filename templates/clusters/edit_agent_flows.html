@@ -26,21 +26,28 @@ th {white-space: nowrap;}
 
 {% include "clusters/_cluster_nav.html" %}
 
-<h3>Edit Agent Flows in Cluster: {{ cluster }}</h3>
+<h3>Edit Agent Flows in Cluster: {{ cluster }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url flows cluster_id=cluster.id toggle='qty' level='agt' %}" target="_blank">See diagram</a>
+</h3>
 
-<div>
-	
+<div style="float:left;" width="48%" class="section-div">
 	<table>
 		<form action="{% url new_agent_function cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
 				<th style="text-align: right; " >New Function:</th>
 				<td>{{ new_function_form.name }}</td>
+            </tr>
+            <tr>
 				{% if function_aspect_name %}
 					<th style="text-align: right;" >{{ function_aspect_name }}:</th>
 					<td>{{ new_function_form.aspect }}</td>
 				{% endif %}
+            </tr>
+            <tr>
 				<th style="text-align: right;" >Agent:</th>
 				<td>{{ new_function_form.agent }}</td>
+            </tr>
+            <tr>
 				<td><input id="submit-new-function" type="submit" name="submit" value="Add Function" /></td>
 			</tr>
 			<tr><td colspan="4"><span id="function-comment" style="color:green;" ></span></td></tr>
@@ -50,27 +57,38 @@ th {white-space: nowrap;}
 	
 </div>
 
-<div style="float:left; width: 60%;" >	
+<div style="float:left; margin-left: 2em;" width="48%" class="section-div" >	
 	<table>
 		<form action="{% url inline_new_resource cluster_id=cluster.id %}" method="POST">{% csrf_token %}
 			<tr>
 				<th style="text-align: right;" >New Resource:</th>
 				<td>{{ new_resource_form.name }}</td>
-				{% if resource_aspect_name %}
+            </tr>
+            {% if resource_aspect_name %}
+                <tr>
 					<th style="text-align: right;" >{{ resource_aspect_name }}:</th>
 					<td>{{ new_resource_form.aspect }}</td>
-				{% endif %}
+                </tr>
+            {% endif %}
+            <tr>
 				<th style="text-align: right;" >Unit of qty:</th>
 				<td>{{ new_resource_form.unit_of_quantity }}</td>
+            </tr>
+            <tr>
 				<td><input id="submit-new-resource" type="submit" name="submit" value="Add Resource" /></td>
 			</tr>
 			<tr><td colspan="4"><span id="name-comment" style="color:green;" ></span></td></tr>
 			<input type="hidden" name="next" value="{% url edit_agent_flows cluster_id=cluster.id %}" />
 		</form>
 	</table>
+</div>
+	
+<div style="clear: both;" ></div> 
 
-	<h3>Add or change flows</h3>
+<div>	
+	<h3 class="emphasis">Add or change agent flows</h3>
 	<input type="submit" name="submit_flows" value="Save flow changes" />
+	<br /><br />
 	<form method="post" action="">{% csrf_token %}
 		<table>
 			<thead>
@@ -96,10 +114,12 @@ th {white-space: nowrap;}
 				{% endfor %}
 			</tbody>
 		</table>
+		<br />
 		<input type="submit" name="submit_flows" value="Save flow changes" />
 	</form>
 </div>
 
+{% comment %}
 <div style="float:left; margin-left: 2em; width: 35%; " >
 
     <div id="canvas" style="margin-left: auto; margin-right: auto; height: 500px;" ></div>
@@ -112,6 +132,7 @@ th {white-space: nowrap;}
         {% endif %}
     </div>
 </div>
+{% endcomment %}
 
 <div style="clear: both;" ></div> 
 	

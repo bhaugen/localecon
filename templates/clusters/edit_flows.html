@@ -17,7 +17,7 @@
 {% include "clusters/_cluster_nav.html" %}
 
 <h3>Edit Flows in Cluster: {{ cluster }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="{% url flows cluster_id=cluster.id %}", target="_blank">See diagram</a>
+    <a href="{% url flows cluster_id=cluster.id %}" target="_blank">See diagram</a>
 </h3>
 
 <div style="float:left;" width="48%" class="section-div">
@@ -26,19 +26,23 @@
 			<tr>
 				<th style="text-align: right;" >New Function:</th>
 				<td>{{ new_function_form.name }}</td>
+            </tr>
+            <tr>
+                <th style="text-align: right;" >Color:</th>
+                <td>{{ new_function_form.color }}</td>
+            </tr>
+            {% if not function_aspect_name %}
 				<tr>
-					<th style="text-align: right;" >Color:</th>
-					<td>{{ new_function_form.color }}</td>
-				</tr>
-				{% if not function_aspect_name %}
 					<td><input type="submit" name="submit" value="Add Function" /></td>
-				{% endif %}
-			</tr>
+                </tr>
+            {% endif %}
 			{% if function_aspect_name %}
 				<tr>
 					<th style="text-align: right;" >{{ function_aspect_name }}:</th>
 					<td>{{ new_function_form.aspect }}</td>
-				<td><input type="submit" name="submit" value="Add Function" /></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" name="submit" value="Add Function" /></td>
 				</tr>
 			{% endif %}
 			<input type="hidden" name="next" value="{% url edit_flows cluster_id=cluster.id %}" />
@@ -73,7 +77,7 @@
 <div style="clear:both;"></div>
 	
 <div style="float:left;" >
-	<h3 class="emphasis">Add or change flows</h3>
+	<h3 class="emphasis">Add or change function flows</h3>
 	
 	<form method="post" action="">{% csrf_token %}
 		<input type="submit" name="submit_flows" value="Save flow changes" />

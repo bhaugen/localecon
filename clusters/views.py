@@ -215,7 +215,33 @@ def cluster_agents(request, cluster_id):
         "agents": agents,
         }, context_instance=RequestContext(request))
     
+def edit_cluster_agents(request, cluster_id):
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
     
+    #import pdb; pdb.set_trace()
+    
+    agents = cluster.agents()
+    for agent in agents:
+        agent.cluster_functions = agent.functions.filter(function__cluster=cluster)
+        for cf in agent.cluster_functions:
+            cf.rsrcs = cf.function.resources.all()
+            if cf.rsrcs:
+                for res in cf.rsrcs:
+                    res.agent_resource_list = res.function_resources_for_agent(agent)
+            else:
+                cf.agent_resources = cf.function_resources.all()
+            outliers = []
+            candidates = cf.function_resources.all()
+            for c in candidates:
+                if c.is_outlier():
+                    outliers.append(c)
+                    cf.outliers = outliers
+    #import pdb; pdb.set_trace()
+    return render_to_response("clusters/edit_cluster_agents.html", {
+        "cluster": cluster,
+        "agents": agents,
+        }, context_instance=RequestContext(request))
+       
 @login_required
 def edit_cluster_functions(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
