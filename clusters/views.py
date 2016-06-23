@@ -1640,6 +1640,7 @@ def new_cluster_agent(request, cluster_id):
                 agent = EconomicAgent.objects.get(name=name)
             except EconomicAgent.DoesNotExist:
                 agent = form.save()
+            cla, created = ClusterAgent.objects.get_or_create(cluster=cluster, agent=agent)
             ca, created = CommunityAgent.objects.get_or_create(community=cluster.community, agent=agent)
             ca.group = data["group"]
             if area_name:
