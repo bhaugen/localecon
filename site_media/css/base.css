@@ -187,6 +187,10 @@ body
     background-color: aliceblue;
     padding: 4px;
 }
+.block2 {
+    background-color: lavender;
+    padding: 4px;
+}
 #canvas {
 	margin-left: -4em; 
 	margin-right: -4em;

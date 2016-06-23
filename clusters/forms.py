@@ -170,7 +170,7 @@ class FunctionResourceFlowForm(forms.ModelForm):
         
         
 class AgentResourceFlowForm(forms.ModelForm):
-    quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
+    quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '1'}))
     price = forms.DecimalField(max_digits=8, decimal_places=2, required=False, 
             widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
         
@@ -232,7 +232,7 @@ class AgentResourceForm(forms.ModelForm):
 class AgentFunctionResourceForm(forms.ModelForm):
     agent_function_id = forms.IntegerField(widget=forms.HiddenInput)
     name = forms.CharField(widget=forms.TextInput(attrs={'size': '16', 'class': 'resource-name'}))
-    quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '7', 'value': '0'}))
+    quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '7', 'value': '1'}))
     price = forms.DecimalField(max_digits=8, decimal_places=2, required=False, 
             widget=forms.TextInput(attrs={'class': 'new-price', 'size': '7', 'value': '0'}))
     

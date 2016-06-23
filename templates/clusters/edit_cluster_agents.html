@@ -25,32 +25,9 @@ p {font-size:0.7875em}
 
 {% include "clusters/_cluster_nav.html" %}
 
-<h3>Agents performing Functions in Cluster {{ cluster }}</h3>
-
-{% cluster_perms user edit cluster as can_edit %}
-{% if can_edit %}
-<div class="section-div" style="float: left; width: 40%; " >
-	<form action="{% url edit_cluster_agents cluster_id=cluster.id %}" method="GET">
-    	<input type="submit" value="Edit Potential Agent Consumption &amp; Production" />
-	</form>
-	<p class="desc">When you don't know which agents trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
-</div>
-<div class="section-div" style="float: left; margin-left: 2em; width: 40%; " >
-	<form action="{% url edit_agent_flows cluster_id=cluster.id %}" method="GET">
-    	<input type="submit" value="Edit Actual Agent Resource Flows" />
-	</form>
-	<p class="desc">When you <b>do</b> know which agents trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
-</div>
-<div style="clear: both; "></div>
-{% endif %}
-
-{% cluster_perms user edit cluster as can_edit %}
-{% if can_edit %}
-<p>
-	<a style="font-size:130%;" href="{% url new_cluster_agent cluster_id=cluster.id %}">Add new Cluster Agent</a>
-</p>
-{% endif %}
-
+<h3>Agents performing Functions in Cluster {{ cluster }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url network cluster_id=cluster.id toggle='qty' level='agt' %}" target="_blank">See diagram</a>
+</h3>
 
 <table>
 	{% for agent in agents %}
@@ -60,12 +37,14 @@ p {font-size:0.7875em}
 				{% if can_edit %}
 					&nbsp;&nbsp;
 					<a href="{% url edit_cluster_agent cluster_id=cluster.id agent_id=agent.id %}">Edit Consumption &amp; Production</a>
+{% comment %}
 					{% if agent.address_is_editable %}
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="{% url edit_agent_address cluster_id=cluster.id agent_id=agent.id %}">Edit Agent Details</a>
 					{% else %}
 						<a href="{% url edit_community_agent cluster_id=cluster.id agent_id=agent.id %}">Edit Community Agent Info</a>
 					{% endif %}
+{% endcomment %}
 				{% endif %}
 			</th>
 		</tr>
@@ -85,22 +64,22 @@ p {font-size:0.7875em}
 				{% for res in fun.rsrcs %}
 					<tr style="color: grey;" >
 						<td>&nbsp;</td>
-						<td style="background: #EAF2D3;" > {{ res.role }} {{ res.resource_type }}</td>
-						<td style="text-align: right; background: #EAF2D3;" >{{ res.quantity|intcomma }}</td>
-						<td style="text-align: right; background: #EAF2D3;" >{{ res.price }}</td>
-						<td style="text-align: right; background: #EAF2D3;" >{{ res.get_value|intcomma }}</td>
+						<td class="block" > {{ res.role }} {{ res.resource_type }}</td>
+						<td style="text-align: right;" class="block" >{{ res.quantity|intcomma }}</td>
+						<td style="text-align: right;" class="block" >{{ res.price }}</td>
+						<td style="text-align: right;" class="block" >{{ res.get_value|intcomma }}</td>
 					</tr>
 					{% for agent_res in res.agent_resource_list %}
 						<tr>
 							<td style="text-align: right;" >{{ agent }} as {{ fun.function.name }}</td>
-							<td>{{ agent_res.role }} {{ agent_res.resource_type }} </td>
-							<td style="text-align: right;" >
+							<td class="block2">{{ agent_res.role }} {{ agent_res.resource_type }} </td>
+							<td style="text-align: right;"  class="block2">
 								{{ agent_res.quantity|intcomma }}
 							</td>
-							<td style="text-align: right;" >
+							<td style="text-align: right;"  class="block2">
 								{{ agent_res.price }}
 							</td>
-							<td style="text-align: right;" >
+							<td style="text-align: right;"  class="block2">
 								{{ agent_res.get_value|intcomma }}
 							</td>
 						</tr>

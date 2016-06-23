@@ -29,6 +29,13 @@ p {font-size:0.7875em}
 	<form action="." method="POST" >{% csrf_token %}
 		<table style="padding-top: 1em;" >
 			<tr>
+				<td>&nbsp;</td>
+				<th style="text-align: left;" class="desc" >
+                    To associate an existing agent with this cluster, start typing and choose from the list.  To create a new agent and associate it with this
+                    cluster, type in a new agent name.
+				</th>
+			</tr>
+			<tr>
 				<th style="text-align: right; " >Name:</th>
 				<td>{{ form.name }} <span id="name-comment" style="color:green;" ></span></td>
 			</tr>
@@ -52,7 +59,7 @@ p {font-size:0.7875em}
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-				<th style="text-align: left; font-style: italic; " >
+				<th style="text-align: left;" class="desc" >
 					Group is an optional field that can be used to combine Agents on diagrams and reports. 
 					If you use it, Agents without a value in the Group field will not be included when you select groups.
 				</th>

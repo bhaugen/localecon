@@ -26,34 +26,52 @@ p {font-size:0.7875em}
 {% include "clusters/_cluster_nav.html" %}
 
 <h3>
-	Edit Agent {{ agent }} in Cluster {{ cluster }}
+	Edit Agent {{ agent }} in Cluster {{ cluster }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url network cluster_id=cluster.id toggle='qty' level='agt' %}" target="_blank">See diagram</a>
 </h3>
 
-<div style="float:left; width: 50%;">
-<table>
-	<tr>
-		<th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}</th>
-	</tr>
-	<form action="{% url inline_new_agent_function cluster_id=cluster.id agent_id=agent.id %}" method="POST">{% csrf_token %}
-		<tr>
-			<th style="text-align: right;" >New Function:</th>
-			<td>{{ new_function_form.name }}</td>
-			{% if not function_aspect_name %}
-					<td><input id="submit-new-function" type="submit" name="submit" value="Add Function" /></td>
-				{% endif %}
-			</tr>
-			{% if function_aspect_name %}
-				<tr>
-					<th style="text-align: right;" >{{ function_aspect_name }}:</th>
-					<td>{{ new_function_form.aspect }}</td>
-				<td><input id="submit-new-function" type="submit" name="submit" value="Add Function" /></td>
-				</tr>
-			{% endif %}
-			<tr><td colspan="4"><span id="function-comment" style="color:green;" ></span></td></tr>
-			<td>&nbsp;</td>
-		</tr>
-	</form>
-	{% if cluster_funs %}	
+<div style="float:left;">
+    <div class="section-div">
+        {% comment %}
+            <tr>
+                <th style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><b>Agent:</b> {{ agent.name }}</th>
+            </tr>
+        {% endcomment %}
+            <tr>
+                <th>&nbsp;</th>
+				<td class="desc" >
+                    To associate an existing function to this agent, start typing and choose from the list.  
+                    To create a new function and associate it with this agent, type in a new function name.
+                </td>
+            </tr>
+            <form action="{% url inline_new_agent_function cluster_id=cluster.id agent_id=agent.id %}" method="POST">{% csrf_token %}
+                <tr>
+                    <th style="text-align: right;" >New Function for this Agent:</th>
+                    <td>{{ new_function_form.name }}</td>
+                </tr>
+                {% if not function_aspect_name %}
+                    <tr>
+
+                        <td><input id="submit-new-function" type="submit" name="submit" value="Add Function" /></td>
+                    
+                    </tr>
+                {% endif %}
+                {% if function_aspect_name %}
+                    <tr>
+                        <th style="text-align: right;" >{{ function_aspect_name }}:</th>
+                        <td>{{ new_function_form.aspect }}</td>
+                        <td><input id="submit-new-function" type="submit" name="submit" value="Add Function" /></td>
+                    </tr>
+                {% endif %}
+                <tr><td colspan="4"><span id="function-comment" style="color:green;" ></span></td></tr>
+                    <td>&nbsp;</td>
+                </tr>
+            </form>
+        </table>
+    </div>
+    
+    {% if cluster_funs %}	
+    <table>
 		{% for fun in cluster_funs %}
 			<tr>
 				<td style="padding-top: .5em; text-align: left;" colspan="3" > <b>Function:</b> {{ fun.function.name }}</td>
@@ -68,12 +86,12 @@ p {font-size:0.7875em}
 				{% for res in fun.rsrcs %}
 					<tr style="color: grey;" >
 						{% comment %}
-						<td style="text-align: right; background: #EAF2D3;" >{{ fun.function.name }}</td>
+						<td style="text-align: right;" class="block" >{{ fun.function.name }}</td>
 						{% endcomment %}
 						<td>&nbsp;</td>
-						<td style="background: #EAF2D3;" > {{ res.role }} {{ res.resource_type }}</td>
-						<td style="text-align: right; background: #EAF2D3;" >{{ res.quantity|intcomma }}</td>
-						<td style="text-align: right; background: #EAF2D3;" >{{ res.price }}</td>
+						<td  class="block" > {{ res.role }} {{ res.resource_type }}</td>
+						<td style="text-align: right;" class="block">{{ res.quantity|intcomma }}</td>
+						<td style="text-align: right;" class="block" >{{ res.price }}</td>
 					</tr>
 					{% for agent_res in res.agent_resource_list %}
 						<tr>
@@ -180,6 +198,7 @@ p {font-size:0.7875em}
 </table>
 </div>
 
+{% comment %}
 <div style="float:left; margin-left: 2em; width: 40%;" >
 	<div id="canvas" style="margin-left: auto; margin-right: auto; height: 500px;" ></div>
 	<button style="margin-left: 8em;" id="redraw" onclick="redraw();">redraw</button>
@@ -190,6 +209,7 @@ p {font-size:0.7875em}
 		</p>
 	{% endif %}
 </div>
+{% endcomment %}
 
 <div style="clear:both;"></div>
 	
