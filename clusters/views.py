@@ -171,6 +171,8 @@ def cluster(request, cluster_id, location="agt"):
         for agent in agents:
             agent.all_functions = agent.functions.filter(
                 function__cluster=cluster)
+        #import pdb; pdb.set_trace()
+            
     else:
         agents = cluster.regions()
     color_functions = cluster.function_colors()
