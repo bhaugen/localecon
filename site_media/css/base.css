@@ -41,6 +41,9 @@ body
 }
 .desc {
     font-style: italic;
+    color: gray;
+    font-size: 1em;
+    font-weight: normal;
 }
 #rightLinks {
 	margin: 0;
