@@ -1180,6 +1180,11 @@ class EconomicAgent(models.Model):
     address = models.CharField(max_length=255, blank=True)
     latitude = models.FloatField(default=0.0, blank=True, null=True)
     longitude = models.FloatField(default=0.0, blank=True, null=True)
+    text_consumes = models.CharField(max_length=512, blank=True, null=True)
+    text_produces = models.CharField(max_length=512, blank=True, null=True)
+    text_info_provided_by = models.CharField(max_length=128, blank=True, null=True)
+    text_contact = models.CharField(max_length=128, blank=True, null=True)
+    text_degree_of_separation = models.CharField(max_length=128, blank=True, null=True)
     slug = models.SlugField("Page name", editable=False)
     
     class Meta:
