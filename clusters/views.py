@@ -195,20 +195,7 @@ def cluster_agents(request, cluster_id):
     
     agents = cluster.agents()
     for agent in agents:
-        agent.cluster_functions = agent.functions.filter(function__cluster=cluster)
-        for cf in agent.cluster_functions:
-            cf.rsrcs = cf.function.resources.all()
-            if cf.rsrcs:
-                for res in cf.rsrcs:
-                    res.agent_resource_list = res.function_resources_for_agent(agent)
-            else:
-                cf.agent_resources = cf.function_resources.all()
-            outliers = []
-            candidates = cf.function_resources.all()
-            for c in candidates:
-                if c.is_outlier():
-                    outliers.append(c)
-                    cf.outliers = outliers
+        agent.form = AgentTextForm()
     #import pdb; pdb.set_trace()
     return render_to_response("clusters/cluster_agents.html", {
         "cluster": cluster,
@@ -1648,8 +1635,8 @@ def new_cluster_agent(request, cluster_id):
                 ca.region_latitude = data["region_latitude"]
                 ca.region_longitude = data["region_longitude"]
             ca.save()
-            return HttpResponseRedirect('/%s/%s/%s/'
-               % ('clusters/editclusteragent', cluster_id, agent.id))
+            return HttpResponseRedirect('/%s/%s/'
+               % ('clusters/clusteragents', cluster_id))
     return render_to_response("clusters/new_cluster_agent.html",{ 
         "cluster": cluster,
         "map_center": map_center,
