@@ -115,14 +115,14 @@ class EconomicAgentForm(forms.ModelForm):
 
 class AgentTextForm(forms.ModelForm):
     description = forms.CharField(required=False,
-        widget=forms.Textarea(attrs={'cols': '40', 'value': ''}))
+        widget=forms.Textarea(attrs={'cols': '40', 'rows': '4', 'value': ''}))
     text_info_provided_by = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '10',}))
     text_contact = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '10',}))
     text_degree_of_separation = forms.CharField(required=False, widget=forms.TextInput(attrs={'size': '5',}))
     text_consumes = forms.CharField(required=False,
-        widget=forms.Textarea(attrs={'cols': '40', 'value': ''}))
+        widget=forms.Textarea(attrs={'cols': '40', 'rows': '4', 'value': ''}))
     text_produces = forms.CharField(required=False,
-        widget=forms.Textarea(attrs={'cols': '40', 'value': ''}))
+        widget=forms.Textarea(attrs={'cols': '40', 'rows': '4', 'value': ''}))
     
     class Meta:
         model = EconomicAgent

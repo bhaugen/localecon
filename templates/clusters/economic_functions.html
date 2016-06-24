@@ -24,13 +24,13 @@
 	<form action="{% url edit_cluster_functions cluster_id=cluster.id %}" method="GET">
     	<input type="submit" value="Edit Potential Function Consumption &amp; Production" />
 	</form>
-	<p class="desc">When you don't know which functions trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
+	<p class="desc">When you <b>DON'T</b> know which functions trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
 </div>
 <div class="section-div" style="float: left; margin-left: 2em; width: 40%; " >
 	<form action="{% url edit_flows cluster_id=cluster.id %}" method="GET">
     	<input type="submit" value="Edit Actual Function Resource Flows" />
 	</form>
-	<p class="desc">When you <b>do</b> know which functions trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
+	<p class="desc">When you <b>DO</b> know which functions trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
 </div>
 <div style="clear: both; "></div>
 {% endif %}
