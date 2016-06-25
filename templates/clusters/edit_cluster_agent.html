@@ -60,6 +60,8 @@
     </div>
     
     {% if cluster_funs %}	
+    <div>
+    <div style="float:left; width: 50%;">
     <table>
 		{% for fun in cluster_funs %}
 			<tr>
@@ -84,7 +86,7 @@
 					</tr>
 					{% for agent_res in res.agent_resource_list %}
 						<tr>
-							<td style="text-align: right;" >{{ agent.name }} as {{ agent_res.agent_function.function.name }}</td>
+							<td style="text-align: right; font-weight:bold;" >{{ agent.name }} as {{ agent_res.agent_function.function.name }}</td>
 							<td>{{ agent_res.role }} {{ agent_res.resource_type }} </td>
 							<td style="text-align: right; ">
 									<input class="quantity" id="{{ agent_res.id }}" type="text" size="7" value="{{ agent_res.quantity }}" />
@@ -95,18 +97,21 @@
 								<td>
 									<form style="display: inline;" action="{% url delete_agent_function_resource id=agent_res.id %}" method="POST">
 										{% csrf_token %}
-										<input type="submit" value="Del" />
+										<input type="submit" style="color:red;" value="Del" />
 									</form>
 								</td>
 						</tr>
 					{% endfor %}
+					{% if not res.agent_resource_list %}
 					<tr>
 						<td style="text-align: right; font-weight:bold;" >{{ agent.name }} as {{ res.function.name }} </td>
-						<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=res.resource_type.id %}" method="POST">
+						<form id="res{{res.id}}" action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=res.resource_type.id %}" method="POST">
 							{% csrf_token %}
 							{{ res.agent_resource_form.agent_function_id }}
+							{{ res.agent_resource_form.auto_names }}
+							<div style="display:none;">{{ res.agent_resource_form.role }}</div>
 							<td>
-								{{ res.agent_resource_form.role }}&nbsp;
+								{{ res.role }}&nbsp;
 								{{ res.agent_resource_form.name }}
 							</td>					
 							<td>{{ res.agent_resource_form.quantity }}</td>
@@ -114,6 +119,7 @@
 							<td><input type="submit" name="submit" value="Add" /></td>
 						</form>
 					</tr>
+					{% endif %}
 				{% endfor %}
 				{% if fun.outliers %}
 					<tr>
@@ -124,7 +130,7 @@
 					</tr>
 					{% for agent_res in fun.outliers %}
 						 <tr>
-								<td style="text-align: right;" >{{ agent.name }} as {{ agent_res.agent_function.function.name }}</td>
+								<td style="text-align: right; font-weight:bold;" >{{ agent.name }} as {{ agent_res.agent_function.function.name }}</td>
 								<td>{{ agent_res.role }} {{ agent_res.resource_type }} </td>
 								<td style="text-align: right; ">
 									<input class="quantity" id="{{ agent_res.id }}" type="text" size="7" value="{{ agent_res.quantity }}" />
@@ -135,7 +141,7 @@
 								<td>
 									<form style="display: inline;" action="{% url delete_agent_function_resource id=agent_res.id %}" method="POST">
 										{% csrf_token %}
-										<input type="submit" value="Del" />
+										<input type="submit" style="color:red;" value="Del" />
 									</form>
 								</td>
 						</tr>
@@ -144,7 +150,7 @@
 			{% else %}
 				{% for agent_res in fun.agent_resources %}
 					<tr>
-							<td style="text-align: right;" >{{ agent.name }} as {{ agent_res.agent_function.function.name }}</td>
+							<td style="text-align: right; font-weight:bold;" >{{ agent.name }} as {{ agent_res.agent_function.function.name }}</td>
 							<td>{{ agent_res.role }} {{ agent_res.resource_type }} </td>
 							<td style="text-align: right; ">
 									<input class="quantity" id="{{ agent_res.id }}" type="text" size="7" value="{{ agent_res.quantity }}" />
@@ -155,16 +161,17 @@
 							<td>
 								<form style="display: inline;" action="{% url delete_agent_function_resource id=agent_res.id %}" method="POST">
 									{% csrf_token %}
-									<input type="submit" value="Del" />
+									<input type="submit" style="color:red;" value="Del" />
 								</form>
 							</td>
 					</tr>
 				{% endfor %}
 				<tr>
 					<td style="text-align: right; font-weight:bold;" >{{ agent.name }} as {{ fun.function.name }} </td>
-					<form action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=0 %}" method="POST">
+					<form  id="fun{{fun.id}}" action="{% url inline_agent_resource cluster_id=cluster.id agent_id=agent.id parent_id=0 %}" method="POST">
 						{% csrf_token %}
 						{{ fun.agent_resource_form.agent_function_id }}
+						{{ fun.agent_resource_form.auto_names }}
 						<td>
 							{{ fun.agent_resource_form.role }}&nbsp;
 							{{ fun.agent_resource_form.name }}
@@ -186,6 +193,46 @@
 
 </table>
 </div>
+<div style="float:left; margin-left: 2em; width: 40%;" >
+<p>
+Those fields over to the left might be a little confusing, but we will try to explain.
+</p>
+<p>
+If {{ agent }} performs some functions already defined in this cluster, 
+and if those functions consume or produce some resources,
+each of those resources will be listed in light blue.
+</p>
+<p>
+{{ agent }} can consume or produce those same resources, or not.
+If {{ agent }} should do so, you must add that resource in the form provided 
+with an "Add" button.
+</p>
+<p>
+If {{ agent }} already consumes or produces some of those resources,
+those will be listed, too, and you may change their quantity and price,
+or delete them.
+</p>
+<p>
+If the function has no listed resources, you may add a resource for {{ agent }} 
+by starting to type and selecting from the resources that appear, 
+or adding a new one.
+</p>
+<p>
+If you want to get fancy and add a different resource instead of the one provided,
+you may do so. If you click on the field with the resource name, you may see a dropdown list 
+of children of that resource, and you may pick one of those.
+</p>
+<p>
+If you enter a different name that is not on that dropdown list, 
+and a resource with that name does not already exist, then
+that resource will be created as a child of the one provided by the function.
+</p>
+
+</div>
+
+</div>
+
+
 
 {% comment %}
 <div style="float:left; margin-left: 2em; width: 40%;" >
@@ -229,9 +276,27 @@ var functionNames = html_unescape("{{ function_names }}").split("~");
 
 	
 $(document).ready(function(){
-	$(".resource-name").autocomplete(resourceNames, {matchContains: true});
 	$("#id_function-name").autocomplete(functionNames, {matchContains: true});
 	$("#id_function-name").blur(getFunctionDetails);
+	
+	$(".resource-name").each( function(){
+        var resourceNameField = $(this)[0];
+        var itsForm = resourceNameField.form;
+        var autoNamesField = itsForm[3];
+        var fieldName = autoNamesField.name;
+        if (autoNamesField.name == "auto_names")
+        {
+            var autoNamesValue = autoNamesField.value;
+            var autoNames = html_unescape(autoNamesValue).split("~");
+            $(this).autocomplete(autoNames, {matchContains: true});
+        }
+        else
+        {
+            var rnames = resourceNames;
+            $(this).autocomplete(resourceNames, {matchContains: true});
+        }
+
+	});
 	
 function getFunctionDetails(event)
 {

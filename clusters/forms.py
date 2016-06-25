@@ -236,6 +236,7 @@ class AgentResourceForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'size': '16', 'class': 'resource-name'}))
     quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '6', 'value': '0'}))
     
+    
     def __init__(self, function_resource=None, *args, **kwargs):
         super(AgentResourceForm, self).__init__(*args, **kwargs)
         if function_resource:
@@ -248,7 +249,8 @@ class AgentResourceForm(forms.ModelForm):
 
 class AgentFunctionResourceForm(forms.ModelForm):
     agent_function_id = forms.IntegerField(widget=forms.HiddenInput)
-    name = forms.CharField(widget=forms.TextInput(attrs={'size': '16', 'class': 'resource-name'}))
+    auto_names = forms.CharField(required=False, widget=forms.HiddenInput)
+    name = forms.CharField(widget=forms.TextInput(attrs={'size': '24', 'class': 'resource-name'}))
     quantity = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'size': '7', 'value': '1'}))
     price = forms.DecimalField(max_digits=8, decimal_places=2, required=False, 
             widget=forms.TextInput(attrs={'class': 'new-price', 'size': '7', 'value': '0'}))

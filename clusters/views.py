@@ -1665,14 +1665,24 @@ def edit_cluster_agent(request, cluster_id, agent_id):
         cf.rsrcs = cf.function.resources.all()
         if cf.rsrcs:
             for res in cf.rsrcs:
+                rellies = res.resource_type.all_relatives()
+                auto_names = '~'.join([rel.name for rel in rellies])
                 agent_function = agent.functions.get(function=res.function)
-                init = {"agent_function_id": agent_function.id,}
+                init = {
+                    "agent_function_id": agent_function.id,
+                    "name": res.resource_type.name,
+                    "auto_names": auto_names,
+                    }
                 res.agent_resource_form = AgentFunctionResourceForm(res, initial=init)
+                #import pdb; pdb.set_trace()
                 res.agent_resource_list = res.function_resources_for_agent(agent)                
         else:
             cf.agent_resources = cf.function_resources.all()
-            init = {"agent_function_id": cf.id,}
+            init = {
+                "agent_function_id": cf.id,
+                }
             cf.agent_resource_form = AgentFunctionResourceForm(initial=init)
+
         outliers = []
         candidates = cf.function_resources.all()
         for c in candidates:
@@ -1680,7 +1690,7 @@ def edit_cluster_agent(request, cluster_id, agent_id):
                 outliers.append(c)
         cf.outliers = outliers
     new_function_form = AgentFunctionCreationForm(prefix="function")
-    resource_names = '~'.join([res.name for res in EconomicResourceType.objects.all()])
+    resource_names = '~'.join([cr.resource_type.name for cr in community.resources.all()])
     used = [(af.function.id) for af in agent.functions.all()]
     function_names = '~'.join([fn.name for fn in cluster.functions.all().exclude(id__in=used)])
     template_params = agent_network_params(cluster, "qty")
@@ -1931,7 +1941,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
         else:
             parent = None
         form = AgentFunctionResourceForm(function_resource=None, data=request.POST)
-        #import pdb; pdb.set_trace()
+        import pdb; pdb.set_trace()
         if form.is_valid():
             data = form.cleaned_data
             name = data['name']
