@@ -144,7 +144,7 @@
 								<td>
 									<form style="display: inline;" action="{% url delete_agent_function_resource id=agent_res.id %}" method="POST">
 										{% csrf_token %}
-										<input type="submit" style="color:red;" value="Del" />
+										<input type="submit" value="Delete" />
 									</form>
 								</td>
 						</tr>
@@ -164,7 +164,7 @@
 							<td>
 								<form style="display: inline;" action="{% url delete_agent_function_resource id=agent_res.id %}" method="POST">
 									{% csrf_token %}
-									<input type="submit" style="color:red;" value="Del" />
+									<input type="submit" value="Delete" />
 								</form>
 							</td>
 					</tr>
