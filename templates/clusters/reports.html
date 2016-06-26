@@ -18,14 +18,14 @@
 {% include "clusters/_cluster_nav.html" %}
 	
 	{% if cluster.has_function_resources %}
-			<p><a href="{% url fr_table cluster_id=cluster.id %}">Function-Resource Table</a></p>
+			<p class="bigger"><a href="{% url fr_table cluster_id=cluster.id %}">Function-Resource Table</a></p>
 	{% endif %}
-	<p><a href="{% url diagnostics cluster_id=cluster.id %}">Economic Gaps</a></p>
-	<p><a href="{% url model_errors cluster_id=cluster.id %}">Model Diagnostics</a></p>
-	<p><a href="{% url agentreport %}">All Agents</a></p>
-	<p><a href="{% url agentfunctionreport cluster_id=cluster.id %}">Agent Functions</a></p>
+	<p class="bigger"><a href="{% url diagnostics cluster_id=cluster.id %}">Economic Gaps</a></p>
+	<p class="bigger"><a href="{% url model_errors cluster_id=cluster.id %}">Model Diagnostics</a></p>
+	<p class="bigger"><a href="{% url agentreport %}">All Agents</a></p>
+	<p class="bigger"><a href="{% url agentfunctionreport cluster_id=cluster.id %}">Agent Functions</a></p>
 	{% if cluster.has_flows %}
-		<p><a href="{% url value_added_report cluster_id=cluster.id %}">Value Added Report</a></p>
+		<p class="bigger"><a href="{% url value_added_report cluster_id=cluster.id %}">Value Added Report</a></p>
 	{% endif %}
 </div>
 {% endblock %} 

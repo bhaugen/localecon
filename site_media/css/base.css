@@ -209,6 +209,10 @@ body
 .gray {
     color: gray;
 }
+.bigger {
+    font-size: 1.2em;
+    font-weight: bold;
+}
 #canvas {
 	margin-left: -4em; 
 	margin-right: -4em;
