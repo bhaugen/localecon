@@ -22,13 +22,13 @@
 {% if can_edit %}
 <div class="section-div" style="float: left; width: 40%; " >
 	<form action="{% url edit_cluster_functions cluster_id=cluster.id %}" method="GET">
-    	<input type="submit" value="Edit Potential Function Consumption &amp; Production" />
+    	<input type="submit" value="Edit Function Potential Consumption &amp; Production" />
 	</form>
 	<p class="desc">When you <b>DON'T</b> know which functions trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
 </div>
 <div class="section-div" style="float: left; margin-left: 2em; width: 40%; " >
 	<form action="{% url edit_flows cluster_id=cluster.id %}" method="GET">
-    	<input type="submit" value="Edit Actual Function Resource Flows" />
+    	<input type="submit" value="Edit Function Actual Resource Flows" />
 	</form>
 	<p class="desc">When you <b>DO</b> know which functions trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
 </div>

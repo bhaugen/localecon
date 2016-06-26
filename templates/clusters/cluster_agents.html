@@ -31,13 +31,13 @@ p {font-size:0.7875em}
 {% if can_edit %}
 <div class="section-div" style="float: left; width: 40%; " >
 	<form action="{% url edit_cluster_agents cluster_id=cluster.id %}" method="GET">
-    	<input type="submit" value="Edit Potential Agent Consumption &amp; Production" />
+    	<input type="submit" value="Edit Agent Potential Consumption &amp; Production" />
 	</form>
 	<p class="desc">When you <b>DON'T</b> know which agents trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
 </div>
 <div class="section-div" style="float: left; margin-left: 2em; width: 40%; " >
 	<form action="{% url edit_agent_flows cluster_id=cluster.id %}" method="GET">
-    	<input type="submit" value="Edit Actual Agent Resource Flows" />
+    	<input type="submit" value="Edit Agent Actual Resource Flows" />
 	</form>
 	<p class="desc">When you <b>DO</b> know which agents trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
 </div>
