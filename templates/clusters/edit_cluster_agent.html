@@ -109,10 +109,13 @@
 							{% csrf_token %}
 							{{ res.agent_resource_form.agent_function_id }}
 							{{ res.agent_resource_form.auto_names }}
-							<div style="display:none;">{{ res.agent_resource_form.role }}</div>
+							<div style="display:none;">
+                                {{ res.agent_resource_form.role }}
+                                {{ res.agent_resource_form.name }}
+                            </div>
 							<td>
 								{{ res.role }}&nbsp;
-								{{ res.agent_resource_form.name }}
+								{{ res.resource_type.name }}
 							</td>					
 							<td>{{ res.agent_resource_form.quantity }}</td>
 							<td>{{ res.agent_resource_form.price }}</td>
@@ -198,7 +201,17 @@
 Those fields over to the left might be a little confusing, but we will try to explain.
 </p>
 <p>
-If {{ agent }} performs some functions already defined in this cluster, 
+A Cluster has two levels: 
+    <ol>
+        <li>Agents, which are people and groups that consume and produce resources.</li>
+        <li>Functions, which are aggregates of the activities of Agents.</li>
+    </ol>
+</p>
+<p>
+Some functions might already have been defined at the function level, 
+along with the resources they produce and consume.
+<p>
+If {{ agent }} performs some functions that have already been defined, 
 and if those functions consume or produce some resources,
 each of those resources will be listed in light blue.
 </p>
@@ -213,19 +226,14 @@ those will be listed, too, and you may change their quantity and price,
 or delete them.
 </p>
 <p>
+You may also add new functions for {{ agent }} to perform here. 
+Those can be functions that have already been defined in this cluster, 
+or you can add new ones.
+</p>
+<p>
 If the function has no listed resources, you may add a resource for {{ agent }} 
 by starting to type and selecting from the resources that appear, 
 or adding a new one.
-</p>
-<p>
-If you want to get fancy and add a different resource instead of the one provided,
-you may do so. If you click on the field with the resource name, you may see a dropdown list 
-of children of that resource, and you may pick one of those.
-</p>
-<p>
-If you enter a different name that is not on that dropdown list, 
-and a resource with that name does not already exist, then
-that resource will be created as a child of the one provided by the function.
 </p>
 
 </div>
@@ -271,14 +279,15 @@ function html_unescape(text) {
     return text;
 }
 	
-var resourceNames = html_unescape("{{ resource_names }}").split("~");
+//var resourceNames = html_unescape("{{ resource_names }}").split("~");
 var functionNames = html_unescape("{{ function_names }}").split("~");
 
 	
 $(document).ready(function(){
 	$("#id_function-name").autocomplete(functionNames, {matchContains: true});
 	$("#id_function-name").blur(getFunctionDetails);
-	
+
+/*
 	$(".resource-name").each( function(){
         var resourceNameField = $(this)[0];
         var itsForm = resourceNameField.form;
@@ -297,32 +306,34 @@ $(document).ready(function(){
         }
 
 	});
-	
-function getFunctionDetails(event)
-{
-	$("#id_function-aspect").attr("disabled", false);
-	$("#function-comment").html("");
-	$("#submit-new-function").attr("value", "Add Function");
-	
-	var name = event.target.value;
-	for(i=0;i<functionNames.length;i++)
-	{
-		if(functionNames[i]==name)
-		{
-			var jsonUrl = encodeURI("/clusters/jsonfunctionaspect/" + name + "/" + {{ cluster.id }} + "/");
-			$.get(jsonUrl,
-				function(data){
-					var aspect = eval(data)[0].fields.aspect;
-					$("#id_function-aspect").val(aspect);
-					$("#id_function-aspect").attr("disabled", true);
-					$("#function-comment").html("Existing Function which you may re-use");
-					$("#submit-new-function").attr("value", "Re-use for this agent");
-				});
-			break;
-		}
+*/
 
-	}
-}
+
+    function getFunctionDetails(event)
+    {
+        $("#id_function-aspect").attr("disabled", false);
+        $("#function-comment").html("");
+        $("#submit-new-function").attr("value", "Add Function");
+        
+        var name = event.target.value;
+        for(i=0;i<functionNames.length;i++)
+        {
+            if(functionNames[i]==name)
+            {
+                var jsonUrl = encodeURI("/clusters/jsonfunctionaspect/" + name + "/" + {{ cluster.id }} + "/");
+                $.get(jsonUrl,
+                    function(data){
+                        var aspect = eval(data)[0].fields.aspect;
+                        $("#id_function-aspect").val(aspect);
+                        $("#id_function-aspect").attr("disabled", true);
+                        $("#function-comment").html("Existing Function which you may re-use");
+                        $("#submit-new-function").attr("value", "Re-use for this agent");
+                    });
+                break;
+            }
+
+        }
+    }
 	
 	$(".quantity").blur(function() 
 		{

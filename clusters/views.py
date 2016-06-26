@@ -1963,7 +1963,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
         else:
             parent = None
         form = AgentFunctionResourceForm(function_resource=None, data=request.POST)
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         if form.is_valid():
             data = form.cleaned_data
             name = data['name']
@@ -1974,7 +1974,9 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
             new_resource = True
             
             #import pdb; pdb.set_trace()
-            
+            #This parent-child code has been disabled on the UI
+            #but might come back if we need it some time.
+            #I don't think it will hurt anything.
             try:
                 resource = EconomicResourceType.objects.get(name=name)
                 new_resource = False
