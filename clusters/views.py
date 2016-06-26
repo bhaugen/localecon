@@ -1754,6 +1754,28 @@ def edit_agent_address(request, cluster_id, agent_id):
         "area_name": area_name,
     }, context_instance=RequestContext(request))
     
+@login_required    
+def edit_agent_text(request, cluster_id, agent_id):
+    agent = get_object_or_404(EconomicAgent, pk=agent_id)
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
+    community = cluster.community
+    agent_form = AgentTextForm(instance=agent, data=request.POST or None)
+    
+    if request.method == "POST":
+        if agent_form.is_valid():
+            data = agent_form.cleaned_data
+            agent_form.save()
+            return HttpResponseRedirect('/%s/%s/'
+               % ('clusters/clusteragents', cluster_id))
+        
+    return render_to_response("clusters/edit_agent_text.html",{ 
+        "cluster": cluster,
+        "agent": agent,
+        "agent_form": agent_form,
+    }, context_instance=RequestContext(request))
+    
     
 @login_required    
 def edit_community_agent(request, cluster_id, agent_id):

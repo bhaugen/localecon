@@ -194,6 +194,21 @@ body
     background-color: lavender;
     padding: 4px;
 }
+.block3 {
+    background-color: aliceblue;
+    padding: 4px 8px 4px 8px;
+    width: 20em;
+}
+.space {
+    padding: 5px;
+}
+.prompt {
+    text-align: right;
+    vertical-align: top;
+}
+.gray {
+    color: gray;
+}
 #canvas {
 	margin-left: -4em; 
 	margin-right: -4em;

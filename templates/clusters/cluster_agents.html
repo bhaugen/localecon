@@ -33,13 +33,13 @@ p {font-size:0.7875em}
 	<form action="{% url edit_cluster_agents cluster_id=cluster.id %}" method="GET">
     	<input type="submit" value="Edit Potential Agent Consumption &amp; Production" />
 	</form>
-	<p class="desc">When you don't know which agents trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
+	<p class="desc">When you <b>DON'T</b> know which agents trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
 </div>
 <div class="section-div" style="float: left; margin-left: 2em; width: 40%; " >
 	<form action="{% url edit_agent_flows cluster_id=cluster.id %}" method="GET">
     	<input type="submit" value="Edit Actual Agent Resource Flows" />
 	</form>
-	<p class="desc">When you <b>do</b> know which agents trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
+	<p class="desc">When you <b>DO</b> know which agents trade directly with each other.<br /> See <a href="/clusterdetails/" target="_blank" >Help for Types of Cluster Models</a>.</p>
 </div>
 <div style="clear: both; "></div>
 {% endif %}
@@ -47,35 +47,50 @@ p {font-size:0.7875em}
 {% cluster_perms user edit cluster as can_edit %}
 {% if can_edit %}
 <div style="margin-top:10px; margin-bottom:10px;">
-	<a style="font-size:110%; font-weight:bold;" href="{% url new_cluster_agent cluster_id=cluster.id %}">Add New Cluster Agent</a>
+	<a style="font-size:110%; font-weight:bold;" href="{% url new_cluster_agent cluster_id=cluster.id %}">Add New Cluster Agent</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<span class="desc" style="font-size:100%">You can create a new agent for this cluster or add an existing agent to this cluster.</span>
 </div>
 {% endif %}
+
+<p class="desc">
+    The following links are for entering mapping and raw textual information about the agents you will be mapping and analyzing.  This is like entering information into a spreadsheet but it will be saved with the agent here.
+</p>
 
 {% for agent in agents %}
     <table>
 		<tr>
-			<td style="text-align: left; font-size: 110%; padding-top: 1em; " colspan="3" ><span class="emphasis">{{ agent.name }}</span>
+			<td style="text-align: left; font-size: 110%; padding: 1em 5px 5px 5px; font-weight: bold;" colspan="3" ><span class="emphasis">{{ agent.name }}</span>
                 {% cluster_perms user edit cluster as can_edit %}
                 {% if can_edit %}
                     {% if agent.address_is_editable %}
                         &nbsp;&nbsp;&nbsp;
-                        <a href="{% url edit_agent_address cluster_id=cluster.id agent_id=agent.id %}">Edit Agent Addresss</a>
+                        <a href="{% url edit_agent_address cluster_id=cluster.id agent_id=agent.id %}">Put Agent on the Map</a>
                     {% else %}
                         <a href="{% url edit_community_agent cluster_id=cluster.id agent_id=agent.id %}">Edit Community Agent Info</a>
                     {% endif %}
+                    &nbsp;&nbsp;&nbsp;
+                    <a href="{% url edit_agent_text cluster_id=cluster.id agent_id=agent.id %}">Edit Initial Textual Info</a>
                 {% endif %}&nbsp;&nbsp;&nbsp;
-                Info from: 
-                {{ agent.form.text_info_provided_by }}&nbsp;&nbsp;&nbsp;
-                Contact: 
-                {{ agent.form.text_contact }}&nbsp;&nbsp;&nbsp;
-                Closeness: 
-                {{ agent.form.text_degree_of_separation  }}
             </td>
         </tr>
         <tr>
-            <td>Description<br />{{ agent.form.description }}</td>
-            <td>Consumes<br />{{ agent.form.text_consumes }}</td>
-            <td>Produces<br />{{ agent.form.text_produces }}</td>
+            <td class="space">
+                <span class="gray">Info from: </span>
+                {% if agent.text_info_provided_by %}<span class="block">{{ agent.text_info_provided_by }}</span>{% endif %}
+            </td>
+            <td class="space">
+                <span class="gray">Contact: </span>
+                {% if agent.text_contact %}<span class="block">{{ agent.text_contact }}</span>{% endif %}
+            </td>
+            <td class="space">
+                <span class="gray">Closeness: </span>
+                {% if agent.text_degree_of_separation %}<span class="block">{{ agent.text_degree_of_separation }}</span>{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="space"><span class="gray">Description:</span>{% if agent.description %}<div class="block3">{{ agent.description }}</div>{% endif %}</td>
+            <td class="space"><span class="gray">Consumes:</span>{% if agent.text_consumes %}<div class="block3">{{ agent.text_consumes }}</div>{% endif %}</td>
+            <td class="space"><span class="gray">Produces:</span>{% if agent.text_produces %}<div class="block3">{{ agent.text_produces }}</div>{% endif %}</td>
         </tr>
     </table>
 {% endfor %}
