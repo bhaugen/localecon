@@ -1941,7 +1941,7 @@ def inline_agent_resource(request, cluster_id, agent_id, parent_id):
         else:
             parent = None
         form = AgentFunctionResourceForm(function_resource=None, data=request.POST)
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         if form.is_valid():
             data = form.cleaned_data
             name = data['name']
