@@ -115,6 +115,10 @@ body
 	margin: 0;
 	padding: 0;
 }
+.help li {
+    list-style-type: normal;
+    margin-left: 3em;
+}
 .title {
     margin-left: 0;
 }

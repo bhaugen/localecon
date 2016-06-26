@@ -97,7 +97,7 @@
 								<td>
 									<form style="display: inline;" action="{% url delete_agent_function_resource id=agent_res.id %}" method="POST">
 										{% csrf_token %}
-										<input type="submit" style="color:red;" value="Del" />
+										<input type="submit" value="Delete" />
 									</form>
 								</td>
 						</tr>
@@ -196,13 +196,13 @@
 
 </table>
 </div>
-<div style="float:left; margin-left: 2em; width: 40%;" >
+<div style="float:left; margin-left: 2em; width: 40%;" class="desc">
 <p>
 Those fields over to the left might be a little confusing, but we will try to explain.
 </p>
 <p>
 A Cluster has two levels: 
-    <ol>
+    <ol class="help">
         <li>Agents, which are people and groups that consume and produce resources.</li>
         <li>Functions, which are aggregates of the activities of Agents.</li>
     </ol>
