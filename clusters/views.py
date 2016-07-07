@@ -145,7 +145,10 @@ def flow_radial_graph_params(cluster):
 
     
 def clusters(request):
-    communities = Community.objects.all()
+    user = request.user
+    communities = [cm.community for cm in user.communities.all()]
+    cids = [c.id for c in communities]
+    communities.extend(list(Community.objects.exclude(id__in=cids)))
     
     return render_to_response("clusters/clusters.html", {
         "communities": communities,
