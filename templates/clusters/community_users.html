@@ -45,7 +45,7 @@
 
 <div class="section-div">
     <h4>Add new member</h4>
-    <table>
+    <table class="tbl-form">
         <form id="userAgentForm" action="{% url new_community_member community_id=community.id %}" method="POST">{% csrf_token %}
         
             {{ new_member_form.as_table }}
@@ -59,13 +59,13 @@
 </div>
     
 <div>
-    <h3 class="emphasis">Community Members</h3>
+    <br />
+    <h3 class="emphasis">Existing Community Members</h3>
     
     <form method="post" action="">{% csrf_token %}
         {% comment %}
         <input type="submit" name="submit_changes" value="Save Member changes" />
         {% endcomment %}
-        <br /><br />
         <table>
             <thead>
                 <th>Member</th>
