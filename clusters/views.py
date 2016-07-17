@@ -147,9 +147,12 @@ def flow_radial_graph_params(cluster):
     
 def clusters(request):
     user = request.user
-    communities = [cm.community for cm in user.communities.all()]
-    cids = [c.id for c in communities]
-    communities.extend(list(Community.objects.exclude(id__in=cids)))
+    if user.is_active:
+        communities = [cm.community for cm in user.communities.all()]
+        cids = [c.id for c in communities]
+        communities.extend(list(Community.objects.exclude(id__in=cids)))
+    else:
+        communities = Community.objects.all()
     
     return render_to_response("clusters/clusters.html", {
         "communities": communities,
@@ -2152,7 +2155,7 @@ def community_member_template_params(community, data=None):
     members = community.members.all()
     template_params["members"] = members
     unames = [u.username for u in User.objects.all()]
-    user_names = ";".join(unames)
+    user_names = "~".join(unames)
     template_params["user_names"] = user_names
     template_params["community"] = community
     

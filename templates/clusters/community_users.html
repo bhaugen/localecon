@@ -107,7 +107,8 @@
     $(document).ready(function()
     {   
         
-        var userNames = "{{ user_names }}".split(";");
+        var userNames = "{{ user_names }}".split("~");
+        
         
         jQuery.validator.setDefaults({ 
             success: function(label) {
