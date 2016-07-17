@@ -45,41 +45,12 @@
 
 <div class="section-div">
     <h4>Add new member</h4>
-    <table >
+    <table>
         <form id="userAgentForm" action="{% url new_community_member community_id=community.id %}" method="POST">{% csrf_token %}
+        
             {{ new_member_form.as_table }}
             {{ new_user_form.as_table }}
             
-            {% comment %}
-            <tr>
-                <th style="text-align: right;" >First name:</th>
-                <td>{{ new_member_form.first_name }}</td>
-            </tr>
-            <tr>
-                <th style="text-align: right;" >Last name:</th>
-                <td>{{ new_member_form.last_name }}</td>
-            </tr>
-            <tr>
-                <th style="text-align: right;" >Username:</th>
-                <td>{{ new_user_form.username }}</td>
-            </tr>
-            <tr>
-                <th style="text-align: right;" >Email address:</th>
-                <td>{{ new_member_form.email }}</td>
-            </tr>
-            <tr>
-                <th style="text-align: right;" >Password:</th>
-                <td>{{ new_user_form.password1 }}</td>
-            </tr>
-            <tr>
-                <th style="text-align: right;" >Confirm password:</th>
-                <td>{{ new_user_form.password2 }}</td>
-            </tr>
-            <tr>
-                <th style="text-align: right;" >Role:</th>
-                <td>{{ new_member_form.permission_role }}</td>
-            </tr>
-            {% endcomment %}
             <tr>
                 <td><input type="submit" name="submit_member" value="Add Member" /></td>
             </tr>
@@ -135,7 +106,8 @@
     $(document).ready(function()
     {   
         
-        var userNames = "{{ user_names }}".split(";");
+        var userNames = "{{ user_names }}".split("~");
+        
         
         jQuery.validator.setDefaults({ 
             success: function(label) {
@@ -169,44 +141,6 @@
             highlight: function(label) {
                 $(label).closest('.control-group').addClass('error');   
             },
-        });
-
-        
-        $(document).ajaxSend(function(event, xhr, settings) {
-            function getCookie(name) {
-                var cookieValue = null;
-                if (document.cookie && document.cookie != '') {
-                    var cookies = document.cookie.split(';');
-                    for (var i = 0; i < cookies.length; i++) {
-                        var cookie = jQuery.trim(cookies[i]);
-                        // Does this cookie string begin with the name we want?
-                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                            break;
-                        }
-                    }
-                }
-                return cookieValue;
-            }
-            function sameOrigin(url) {
-                // url could be relative or scheme relative or absolute
-                var host = document.location.host; // host + port
-                var protocol = document.location.protocol;
-                var sr_origin = '//' + host;
-                var origin = protocol + sr_origin;
-                // Allow absolute or scheme relative URLs to same origin
-                return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-                    (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-                    // or any other URL that isn't scheme relative or absolute i.e relative.
-                    !(/^(\/\/|http:|https:).*/.test(url));
-            }
-            function safeMethod(method) {
-                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-            }
-
-            if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
-                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-            }
         });
 
     
