@@ -12,12 +12,40 @@
 
 <div class="users">
 
+<div id="top">
+	<div id="header">
+		
+		<h2><a href="/"><span class="loceconLetters">loc</span><span class="otherLetters">al </span><span class="loceconLetters">econ</span><span class="otherLetters">omic development</span></a></h2>
+		<img id="mushy" src="/site_media/images/mushy40.jpg" alt="Mushy the chanterelle mushroom" title="Mushy the chanterelle mushroom" />
+	</div>
+	<div id="rightLinks">
+		<ul id="topLinks">
+			{% if user.is_authenticated %}
+				<li>{{ user }} <a href="{% url acct_logout %}">Logout</a></li>
+				<li><a href="/help/">Help</a></li>
+				{% if user.is_staff %}
+					<li><a href="/admin/">Admin</a></li>
+				{% endif %}
+			{% else %}
+				<li><a href="{% url acct_login %}">Log in</a></li>
+				<li><a href="/contact/">Contact Us</a></li>
+			{% endif %}
+		</ul>
+		<ul id="tabLinks">
+			<li><a class="regularLink" href="/">Home</a></li>
+			<li><a class="regularLink" href="/about/">About</a></li>
+			<li><a class="regularLink" href="/maps/">Features</a></li>
+			<li><a class="regularLink" href="/nova-story/">Stories</a></li>
+			<li><a class="hiliteLink" href="/clusters/">View Clusters</a></li>
+		</ul>
+	</div>
+</div>
 
-<h3>Manage Members in Community: {{ community }}</h3>
+<h2>Manage Members in Community: {{ community }}</h2>
 
-<div width="48%" class="section-div">
+<div class="section-div">
     <h4>Add new member</h4>
-    <table cell_padding="1px" >
+    <table >
         <form id="userAgentForm" action="{% url new_community_member community_id=community.id %}" method="POST">{% csrf_token %}
             {{ new_member_form.as_table }}
             {{ new_user_form.as_table }}
