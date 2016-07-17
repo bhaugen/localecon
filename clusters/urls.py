@@ -8,6 +8,8 @@ urlpatterns = patterns('',
     #communities
     url(r'^newcommunity/$', 'clusters.views.new_community', name="new_community"),
     url(r'^editcommunity/(?P<community_id>\d+)/$', 'clusters.views.edit_community', name="edit_community"),
+    url(r'^communitymembers/(?P<community_id>\d+)/$', 'clusters.views.community_members', name="community_members"),
+    url(r'^newmember/(?P<community_id>\d+)/$', 'clusters.views.new_community_member', name="new_community_member"),
     
     # clusters
     url(r'^$', 'clusters.views.clusters', name="clusters"),

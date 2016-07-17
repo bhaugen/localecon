@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block title %}
+     Manage Members in Community: {{ community }}
+{% endblock %}
+
+{% block extra_head %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="users">
+
+
+<h3>Manage Members in Community: {{ community }}</h3>
+
+<div width="48%" class="section-div">
+    <h4>Add new member</h4>
+    <table cell_padding="1px" >
+        <form id="userAgentForm" action="{% url new_community_member community_id=community.id %}" method="POST">{% csrf_token %}
+            {{ new_member_form.as_table }}
+            {{ new_user_form.as_table }}
+            
+            {% comment %}
+            <tr>
+                <th style="text-align: right;" >First name:</th>
+                <td>{{ new_member_form.first_name }}</td>
+            </tr>
+            <tr>
+                <th style="text-align: right;" >Last name:</th>
+                <td>{{ new_member_form.last_name }}</td>
+            </tr>
+            <tr>
+                <th style="text-align: right;" >Username:</th>
+                <td>{{ new_user_form.username }}</td>
+            </tr>
+            <tr>
+                <th style="text-align: right;" >Email address:</th>
+                <td>{{ new_member_form.email }}</td>
+            </tr>
+            <tr>
+                <th style="text-align: right;" >Password:</th>
+                <td>{{ new_user_form.password1 }}</td>
+            </tr>
+            <tr>
+                <th style="text-align: right;" >Confirm password:</th>
+                <td>{{ new_user_form.password2 }}</td>
+            </tr>
+            <tr>
+                <th style="text-align: right;" >Role:</th>
+                <td>{{ new_member_form.permission_role }}</td>
+            </tr>
+            {% endcomment %}
+            <tr>
+                <td><input type="submit" name="submit_member" value="Add Member" /></td>
+            </tr>
+        </form>
+    </table>
+</div>
+    
+<div>
+    <h3 class="emphasis">Community Members</h3>
+    
+    <form method="post" action="">{% csrf_token %}
+        {% comment %}
+        <input type="submit" name="submit_changes" value="Save Member changes" />
+        {% endcomment %}
+        <br /><br />
+        <table>
+            <thead>
+                <th>Member</th>
+                <th>Role</th>
+                <th>Del</th>
+            </thead>
+            <tbody>
+                {{ formset.management_form }}
+                {% for form in formset %}
+                    {{ form.id }}
+                    <tr>
+                        {{ form.community }}
+                        {{ form.member }}
+                        <td>{{ form.username }} </td>
+                        <td>{{ form.permission_role }}</td>
+                        <td>{{ form.DELETE }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <br />
+        <input type="submit" name="submit_changes" value="Save Member changes" />
+    </form>
+</div>
+ 
+    
+</div>
+    
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
+
+
+<script>
+    $(document).ready(function()
+    {   
+        
+        var userNames = "{{ user_names }}".split(";");
+        
+        jQuery.validator.setDefaults({ 
+            success: function(label) {
+                label
+                    .text('').addClass('valid')
+                    .closest('.control-group').addClass('success');
+            }
+        });
+
+
+        $( "#userAgentForm" ).validate({
+            rules: {
+                'first_name': {
+                    required: true
+                },
+                username: {
+                    required: true
+                },
+                password1: {
+                    required: true
+                },
+                password2: {
+                    required: true,
+                    equalTo: "#id_password1"
+                },               
+                email: {
+                    required: true,
+                    email: true
+                }
+            },
+            highlight: function(label) {
+                $(label).closest('.control-group').addClass('error');   
+            },
+        });
+
+        
+        $(document).ajaxSend(function(event, xhr, settings) {
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie != '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            function sameOrigin(url) {
+                // url could be relative or scheme relative or absolute
+                var host = document.location.host; // host + port
+                var protocol = document.location.protocol;
+                var sr_origin = '//' + host;
+                var origin = protocol + sr_origin;
+                // Allow absolute or scheme relative URLs to same origin
+                return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+                    (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+                    // or any other URL that isn't scheme relative or absolute i.e relative.
+                    !(/^(\/\/|http:|https:).*/.test(url));
+            }
+            function safeMethod(method) {
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+
+            if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        });
+
+    
+    });
+</script>
+
+
+
+{% endblock %}

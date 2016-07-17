@@ -184,7 +184,7 @@ class Community(models.Model):
         if mbr:
             mbr = mbr[0]
             perm = mbr.permission_role
-        if perm_name == "delete":
+        if perm_name == "delete" or perm_name == "users":
             if perm:
                 if perm == "owner":
                     return True
@@ -207,6 +207,10 @@ class CommunityMember(models.Model):
     community = models.ForeignKey(Community, related_name='members')
     member = models.ForeignKey(User, related_name="communities")
     permission_role = models.CharField(max_length=12, choices=PERMISSION_ROLE_CHOICES)
+    
+    @property
+    def username(self):
+        return self.member.username
 
 class AggregateFunctionResource(object):
     def __init__(self, function, resource_type, role, quantity, price, value):

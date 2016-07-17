@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.conf import settings
 from django.db.models import Q
 from django.forms.formsets import formset_factory
@@ -2145,3 +2146,96 @@ def value_added_report(request, cluster_id):
         "resource_aspect_name": resource_aspect_name,
         "rows": rows,
     }, context_instance=RequestContext(request))
+    
+def community_member_template_params(community, data=None):
+    template_params = {}
+    members = community.members.all()
+    template_params["members"] = members
+    unames = [u.username for u in User.objects.all()]
+    user_names = ";".join(unames)
+    template_params["user_names"] = user_names
+    template_params["community"] = community
+    
+    init = {"community": community,}
+    new_member_form = CommunityMemberCreationForm(initial=init, data=data)
+    new_user_form = UserCreationForm(data=data)
+    template_params["new_member_form"] = new_member_form
+    template_params["new_user_form"] = new_user_form
+
+    MemberFormSet = modelformset_factory(
+        CommunityMember,
+        form=CommunityMemberForm,
+        can_delete=True,
+        extra=0,
+        )
+    formset = MemberFormSet(
+        queryset=members,
+        data=data,
+        )
+        
+    template_params["formset"] = formset
+    
+    #import pdb; pdb.set_trace()
+    idx = 0
+    for member in members:
+        formset[idx].username = member.username
+        idx += 1
+        
+    return template_params
+    
+@login_required
+def community_members(request, community_id):
+    community = get_object_or_404(Community, pk=community_id)
+    if not community.permits("users", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
+        
+    template_params = community_member_template_params(community, data=request.POST or None)
+    formset = template_params["formset"]
+
+    if request.method == "POST":
+        for form in formset.forms:
+            if form.is_valid():
+                delete = form.cleaned_data["DELETE"]
+                if delete:
+                    #todo: this delete code is odd.
+                    #First, I expected formsets to delete automatically id DELETE is True.
+                    #Second, returning an object when requesting id is nice
+                    #but smells like it might break in the future.
+                    #import pdb; pdb.set_trace()
+                    deleted = form.cleaned_data["id"]
+                    deleted.delete()
+                else:
+                    form.save()
+        return HttpResponseRedirect('/%s/%s/'
+               % ('clusters/communitymembers', community.id))
+    
+    return render_to_response("clusters/community_users.html",
+        template_params,
+        context_instance=RequestContext(request))
+
+@login_required    
+def new_community_member(request, community_id):
+    community = get_object_or_404(Community, pk=community_id)
+    if not community.permits("users", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
+        
+    new_member_form = CommunityMemberCreationForm(data=request.POST)
+    new_user_form = UserCreationForm(data=request.POST)
+    #import pdb; pdb.set_trace()
+    if new_user_form.is_valid():
+        user_data = new_user_form.cleaned_data
+        if new_member_form.is_valid():
+            member_data = new_member_form.cleaned_data
+            user = new_user_form.save(commit=False)
+            user.first_name = member_data["first_name"]
+            user.last_name = member_data["last_name"]
+            user.email = member_data["email"]
+            user.save()
+            member = new_member_form.save(commit=False)
+            member.community = community
+            member.member = user
+            member.save()
+
+    return HttpResponseRedirect('/%s/%s/'
+        % ('clusters/communitymembers', community.id))
+        

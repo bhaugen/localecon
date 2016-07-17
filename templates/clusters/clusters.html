@@ -53,13 +53,14 @@
 				<li class="community" >
 					<span class="community-name">{{ community }} Community</span>
 					{% if can_edit %}
-					&nbsp;&nbsp;
-					<form style="display:inline;" action="{% url edit_community community_id=community.id %}" method="GET">
-						<input type="submit" value="Edit Community" />
-					</form>
-					<form style="display:inline;" action="{% url new_cluster community_id=community.id %}" method="GET">
-						<input type="submit" value="New Cluster" />
-					</form>
+                        &nbsp;&nbsp;
+                        <form style="display:inline;" action="{% url edit_community community_id=community.id %}" method="GET">
+                            <input type="submit" value="Edit Community" />
+                        </form>
+                        <form style="display:inline;" action="{% url new_cluster community_id=community.id %}" method="GET">
+                            <input type="submit" value="New Cluster" />
+                        </form>
+                        <a href="{% url community_members community_id=community.id %}">Community Members</a>
 					{% endif %}
 					{% if community.description %}
 					<div class="description">

@@ -1,3 +1,8 @@
+try:
+    from collections import OrderedDict
+except ImportError:
+    OrderedDict = None
+
 from django import forms
 from django.conf import settings
 
@@ -336,3 +341,34 @@ class ValueAddedSelectionForm(forms.Form):
                 self.fields["resource_aspect"].choices = [('', '----------')] + [
                     (aspect, aspect) for aspect in aspects]
 
+
+class CommunityMemberForm(forms.ModelForm):
+    #id = forms.CharField(widget=forms.HiddenInput)
+    community = forms.ModelChoiceField(
+        queryset=Community.objects.all(),
+        widget=forms.HiddenInput)
+    member = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        widget=forms.HiddenInput)
+    
+    class Meta:
+        model = CommunityMember
+
+        
+class CommunityMemberCreationForm(forms.ModelForm):
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'input-xlarge',}))
+    last_name = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'input-xlarge',}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'input-xxlarge',}))
+    permission_role = forms.ChoiceField(label="Role", choices=PERMISSION_ROLE_CHOICES,)
+
+    class Meta:
+        model = CommunityMember
+        exclude = ("community", "member")
+        
+    def __init__(self, *args, **kwargs):
+        super(CommunityMemberCreationForm, self).__init__(*args, **kwargs)    
+        field_order = ["first_name", "last_name", "email", "permission_role"]
+        if not OrderedDict or hasattr(self.fields, "keyOrder"):
+            self.fields.keyOrder = field_order
+        else:
+            self.fields = OrderedDict((k, self.fields[k]) for k in field_order)
