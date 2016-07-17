@@ -237,69 +237,76 @@ body
 	}
 
 /* tables */
-		table th
-		{
-			font-weight: bold;
-			color: gray;
-		}
+table th
+{
+    font-weight: bold;
+    color: gray;
+}
 
-		th, td
-		{
-			padding-left:5px;
-		}
-		th
-		{
-			font-weight:bold;
-		}
+th, td
+{
+    padding-left:5px;
+}
+th
+{
+    font-weight:bold;
+}
 
-		.ga-event-table
-		{
-			font-size: 100%; 
-			border-collapse: collapse; 
-			border-style: solid; 
-			border-width: 1px; 
-			border-color: lightgrey;	
-		}
+.ga-event-table
+{
+    font-size: 100%; 
+    border-collapse: collapse; 
+    border-style: solid; 
+    border-width: 1px; 
+    border-color: lightgrey;	
+}
 
-		.ga-event-table th
-		{
-			border-style: solid; 
-			border-width: 1px; 
-			border-color: gray;
-			background-color: #EAF2D3;
-			padding-left: 4px;
-			padding-right: 4px;
-			font-weight: bold;
-		}
+.ga-event-table th
+{
+    border-style: solid; 
+    border-width: 1px; 
+    border-color: gray;
+    background-color: #EAF2D3;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-weight: bold;
+}
 
-		.ga-event-table td
-		{
-			border-style: solid; 
-			border-width: 1px; 
-			border-color: lightgrey;
-			padding-left: 4px;
-			padding-right: 4px;
-		}
+.ga-event-table td
+{
+    border-style: solid; 
+    border-width: 1px; 
+    border-color: lightgrey;
+    padding-left: 4px;
+    padding-right: 4px;
+}
 
-		.read-only-td
-		{
-			background-color: #E9E9E9; !important;
-		}
+.read-only-td
+{
+    background-color: #E9E9E9; !important;
+}
 
-		.read-only-input
-		{
-			background-color: #E9E9E9; !important;
-			border-style: solid; 
-			border-width: 1px; 
-			border-color: #E9E9E9; 
-		}
+.read-only-input
+{
+    background-color: #E9E9E9; !important;
+    border-style: solid; 
+    border-width: 1px; 
+    border-color: #E9E9E9; 
+}
 
-	tr.even td 
-	{
-		color:#000000;
-		background-color:#EAF2D3;
-	}
+tr.even td 
+{
+    color:#000000;
+    background-color:#EAF2D3;
+}
 	
+.tbl-form input, select {
+    margin-top: 5px;
+}
+.tbl-form th {
+    float: right;
+} 
+
 /* misc */
 	
 	.errorlist
