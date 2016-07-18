@@ -45,8 +45,9 @@
 
 <div class="section-div">
     <h4>Add new member</h4>
+    <p>Note: the validations and error messages are not yet working on this form. Be careful!</p>
     <table class="tbl-form">
-        <form id="userAgentForm" action="{% url new_community_member community_id=community.id %}" method="POST">{% csrf_token %}
+        <form id="newMemberForm" action="{% url new_community_member community_id=community.id %}" method="POST">{% csrf_token %}
         
             {{ new_member_form.as_table }}
             {{ new_user_form.as_table }}
@@ -62,7 +63,7 @@
     <br />
     <h3 class="emphasis">Existing Community Members</h3>
     
-    <form method="post" action="">{% csrf_token %}
+    <form id="changeMembersForm" method="post" action="">{% csrf_token %}
         {% comment %}
         <input type="submit" name="submit_changes" value="Save Member changes" />
         {% endcomment %}
@@ -70,7 +71,7 @@
             <thead>
                 <th>Member</th>
                 <th>Role</th>
-                <th>Del</th>
+                <th>Delete</th>
             </thead>
             <tbody>
                 {{ formset.management_form }}
@@ -100,25 +101,16 @@
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.js"></script>
 
 
 <script>
     $(document).ready(function()
     {   
         
-        var userNames = "{{ user_names }}".split("~");
-        
-        
-        jQuery.validator.setDefaults({ 
-            success: function(label) {
-                label
-                    .text('').addClass('valid')
-                    .closest('.control-group').addClass('success');
-            }
-        });
+        //var userNames = "{{ user_names }}".split("~");
 
-
-        $( "#userAgentForm" ).validate({
+        $( "#newMemberForm" ).validate({
             rules: {
                 'first_name': {
                     required: true
@@ -137,10 +129,8 @@
                     required: true,
                     email: true
                 }
-            },
-            highlight: function(label) {
-                $(label).closest('.control-group').addClass('error');   
-            },
+            }    
+            
         });
 
     
