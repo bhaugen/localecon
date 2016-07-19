@@ -317,6 +317,9 @@ tr.even td
 	{
 		list-style-type:none;
 	}
+	.error {
+        color: red;
+    }
 	
 	
 	@media print
