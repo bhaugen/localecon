@@ -104,8 +104,23 @@
 <script>
     $(document).ready(function()
     {   
+                
+        function html_unescape(text) {
+            // Unescape a string that was escaped using django.utils.html.escape.
+            text = text.replace(/&lt;/g, '<');
+            text = text.replace(/&gt;/g, '>');
+            text = text.replace(/&quot;/g, '"');
+            text = text.replace(/&#39;/g, "'");
+            text = text.replace(/&amp;/g, '&');
+            return text;
+        }
         
-        //var userNames = "{{ user_names }}".split("~");
+        var nameArray = html_unescape("{{ user_names }}").split("~");
+        
+        jQuery.validator.addMethod("unique", function(value, element, param) {
+            return this.optional(element) || $.inArray(value, param) < 0; // <-- Check if the value is not in the array.
+        }, "A user with that name already exists.");
+
 
         $( "#newMemberForm" ).validate({
             rules: {
@@ -113,7 +128,8 @@
                     required: true
                 },
                 username: {
-                    required: true
+                    required: true,
+                    unique: nameArray
                 },
                 password1: {
                     required: true
