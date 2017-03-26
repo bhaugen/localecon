@@ -139,6 +139,7 @@ var area_marker = new google.maps.Marker({});
   }
 
   function codeAddress() {
+    $("#submit").attr("disabled", true);
     var address = document.getElementById("id_address").value;
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
@@ -152,13 +153,16 @@ var area_marker = new google.maps.Marker({});
             map: map,
             position: loc
         });
+        $("#submit").attr("disabled", false);
       } else {
         alert("Geocode was not successful for the following reason: " + status);
+        $("#submit").attr("disabled", false);
       }
     });
   }
 
   function codeArea() {
+    $("#submit").attr("disabled", true);
     var address = document.getElementById("id_geographic_area").value;
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
@@ -172,8 +176,10 @@ var area_marker = new google.maps.Marker({});
             map: area_map,
             position: loc
         });
+        $("#submit").attr("disabled", false);
       } else {
         alert("Geocode was not successful for the following reason: " + status);
+        $("#submit").attr("disabled", false);
       }
     });
   }	
@@ -181,6 +187,7 @@ var area_marker = new google.maps.Marker({});
 $(document).ready(function(){
 	initialize();
 	$("#id_name").blur(getAddress);
+
 	$("#id_address").blur(codeAddress);
 	$("#id_name").autocomplete(agentNames, {matchContains: true});
 	{% if area_name %}
