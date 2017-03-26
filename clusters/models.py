@@ -1226,8 +1226,6 @@ class EconomicAgent(models.Model):
         #import pdb; pdb.set_trace()
         if self.communities.all().count()>1 or self.clusters.all().count()>1:
             return False
-        elif self.functions.all().count()>0 or self.resources.all().count()>0:
-            return False
         return True
         
     def is_removable(self, cluster):
