@@ -70,6 +70,18 @@ p {font-size:0.7875em}
                     {% endif %}
                     &nbsp;&nbsp;&nbsp;
                     <a href="{% url edit_agent_text cluster_id=cluster.id agent_id=agent.id %}">Edit Initial Textual Info</a>
+                    &nbsp;&nbsp;&nbsp;
+                    {% if agent.is_deletable %}
+                        <form style="display: inline;" action="{% url delete_agent cluster_id=cluster.id agent_id=agent.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Delete" />
+                        </form>
+                    {% else %}
+                        <form style="display: inline;" action="{% url remove_cluster_agent cluster_id=cluster.id agent_id=agent.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Remove from Cluster" />
+                        </form>
+                    {% endif %}
                 {% endif %}&nbsp;&nbsp;&nbsp;
             </td>
         </tr>

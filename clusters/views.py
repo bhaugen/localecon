@@ -1352,6 +1352,59 @@ def delete_cluster(request, cluster_id):
 
 
 @login_required    
+def delete_agent(request, cluster_id, agent_id):
+    #import pdb; pdb.set_trace()
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
+    if request.method == "POST":
+        agent = get_object_or_404(EconomicAgent, pk=agent_id)
+        agent.delete()
+        return HttpResponseRedirect('/%s/%s/'
+            % ('clusters/clusteragents', cluster.id))
+    return render_to_response("clusters/cluster_agents.html",{ 
+        "cluster": cluster,
+    }, context_instance=RequestContext(request))
+    
+@login_required    
+def delete_agent_function(request, function_id):
+    #import pdb; pdb.set_trace()
+    function = get_object_or_404(AgentFunction, pk=function_id)
+    agent = function.agent
+    cluster = function.function.cluster
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
+    if request.method == "POST":
+        function.delete()
+    return HttpResponseRedirect('/%s/%s/%s/'
+        % ('clusters/editclusteragent', cluster.id, agent.id))
+    
+    
+@login_required    
+def remove_cluster_agent(request, cluster_id, agent_id):
+    #import pdb; pdb.set_trace()
+    cluster = get_object_or_404(Cluster, pk=cluster_id)
+    if not cluster.permits("edit", request.user):
+        return HttpResponseForbidden("Uh-uh, you don't have permission to do that")
+    if request.method == "POST":
+        agent = get_object_or_404(EconomicAgent, pk=agent_id)
+        cluster_agents = ClusterAgent.objects.filter(agent=agent, cluster=cluster)
+        #in case somehow more than one exist
+        afs = agent.functions.all()
+        for af in afs:
+            if af.function.cluster == cluster:
+                af.delete()
+        for ca in cluster_agents:
+            ca.delete()
+        return HttpResponseRedirect('/%s/%s/'
+            % ('clusters/clusteragents', cluster.id))
+    return render_to_response("clusters/cluster_agents.html",{ 
+        "cluster": cluster,
+    }, context_instance=RequestContext(request))
+
+
+
+@login_required    
 def delete_cluster_confirmation(request, cluster_id):
     cluster = get_object_or_404(Cluster, pk=cluster_id)
     if not cluster.permits("delete", request.user):

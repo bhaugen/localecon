@@ -52,7 +52,8 @@ urlpatterns = patterns('',
     url(r'^inlinenewagentfunction/(?P<cluster_id>\d+)/(?P<agent_id>\d+)/$', 'clusters.views.inline_new_agent_function', name="inline_new_agent_function"),
     url(r'^jsonagentaddress/(?P<agent_name>.+)/$', 'clusters.views.json_agent_address', name="json_agent_address"),
     url(r'^newagentfunction/(?P<cluster_id>\d+)/$', 'clusters.views.new_agent_function', name="new_agent_function"),
-    
+    url(r'^deleteagent/(?P<cluster_id>\d+)/(?P<agent_id>\d+)/$', 'clusters.views.delete_agent', name="delete_agent"),
+    url(r'^removeagent/(?P<cluster_id>\d+)/(?P<agent_id>\d+)/$', 'clusters.views.remove_cluster_agent', name="remove_cluster_agent"),
     
     # functions
     url(r'^functions/(?P<cluster_id>\d+)/$', 'clusters.views.economic_functions', name="economic_functions"),
@@ -66,6 +67,7 @@ urlpatterns = patterns('',
     url(r'^editclusterfunctions/(?P<cluster_id>\d+)/$', 'clusters.views.edit_cluster_functions', name="edit_cluster_functions"),
     url(r'^editflows/(?P<cluster_id>\d+)/$', 'clusters.views.edit_flows', name="edit_flows"),
     url(r'^jsonfunctionaspect/(?P<function_name>.+)/(?P<cluster_id>\d+)/$', 'clusters.views.json_function_aspect', name="json_function_aspect"),
+    url(r'^deleteagentfunction/(?P<function_id>\d+)/$', 'clusters.views.delete_agent_function', name="delete_agent_function"),
     
     # resources
     url(r'^inlinenewresource/(?P<cluster_id>\d+)/$', 'clusters.views.inline_new_resource', name="inline_new_resource"),

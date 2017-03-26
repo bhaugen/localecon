@@ -65,7 +65,13 @@
     <table>
 		{% for fun in cluster_funs %}
 			<tr>
-				<td style="padding-top: .5em; text-align: left;" colspan="3" > <b>Function:</b> {{ fun.function.name }}</td>
+				<td style="padding-top: .5em; padding-bottom: .5em; text-align: left;" > <b>Function:</b> {{ fun.function.name }}</td>
+				<td colspan="2" >
+                    <form style="display: inline;" action="{% url delete_agent_function function_id=fun.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete Function" />
+                    </form>
+                </td>
 			</tr>
 			<tr>
 				<th>Function Resources:</th>
